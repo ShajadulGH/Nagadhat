@@ -36,11 +36,15 @@ const SaleOnNagadhatDetailPay = ({ saleOnNagadhatData }) => {
                                                     {item?.date_time || "N/A"}
                                                 </td>
                                                 <td>
-                                                    {item?.transaction_amount ||
-                                                        "N/A"}
+                                                    {item?.transaction_amount
+                                                        ? item.transaction_amount.toFixed(
+                                                              2
+                                                          )
+                                                        : "N/A"}
                                                 </td>
                                                 <td>
-                                                    {item?.payable || "N/A"}
+                                                    {item?.payable.toFixed(2) ||
+                                                        "N/A"}
                                                 </td>
                                                 <td> {item?.payment_status}</td>
                                             </tr>
