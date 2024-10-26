@@ -276,7 +276,7 @@ const Registration = () => {
                                         Phone Number <span>*</span>
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="phone"
                                         className="form-control"
                                         id="number"
@@ -293,7 +293,7 @@ const Registration = () => {
                                         Email (Optional)
                                     </label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         name="email"
                                         className="form-control"
                                         id="email"
