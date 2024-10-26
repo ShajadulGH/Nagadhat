@@ -185,13 +185,13 @@ const PayWithAgentModal = ({
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button
+                            {/* <button
                                 type="button"
                                 className="btn btn-danger"
                                 onClick={() => setShowAgentModal(false)}
                             >
                                 Close
-                            </button>
+                            </button> */}
                             <button
                                 type="submit"
                                 onClick={handleSubmitAgentPayment}

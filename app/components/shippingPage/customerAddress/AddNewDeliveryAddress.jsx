@@ -43,7 +43,7 @@ const AddNewDeliveryAddress = ({
                     Mobile Number <span className="text-danger fw-bold">*</span>
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="phone"
                     className="form-control"
                     id="mobile"
