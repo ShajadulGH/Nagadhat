@@ -12,14 +12,11 @@ const PayWithBkashModal = ({
     const [paytype, setPayType] = useState(1);
     const [amount, setAmount] = useState(orderSummary?.grand_total - orderSummary?.total_paid);
 
-    console.log(orderSummary);
-    
-
     const handleAmountChange = (e) => {
         const inputAmount = parseInt(e.target.value);
         // If the input amount exceeds the maximum, reset to max value
         if (inputAmount > orderSummary?.grand_total) {
-            setAmount(orderSummary?.grand_total);
+            setAmount(orderSummary?.grand_total - orderSummary?.total_paid);
         } else {
             setAmount(inputAmount);
         }

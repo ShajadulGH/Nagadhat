@@ -44,13 +44,19 @@ const PayNowSummary = ({ setOrderSummary, orderSummary, startTransition }) => {
         }
     }, [session?.accessToken, orderId, orderProductType]);
 
+    // Calculate total quantity of all products
+    const totalQuantity = orderProduct.reduce(
+        (acc, product) => acc + (product.quantity || 0),
+        0
+    );
+
     return (
         <div className="col-lg-4">
             <div className="pay-now-payment-option-bg bg-white">
                 <div className="pay-now-summary-title d-flex align-items-center justify-content-between">
                     <h2 className="text-capitalize fw-medium">Summary</h2>
-                    <span className="px-2 py-1 rounded-1 bg-praymary-color fs-6 text-white">
-                        {orderProduct?.length} Items
+                    <span className="px-2 py-1 rounded-1 bg-primary-color fs-6 text-white">
+                        {totalQuantity} Items
                     </span>
                 </div>
                 <div className="pay-now-summary-body">

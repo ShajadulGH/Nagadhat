@@ -38,7 +38,7 @@ const ResaleBuyNowBtn = ({ product }) => {
             product_variation_id: "",
             product_shipping_charge: "",
             product_discount_type: "",
-            product_discount_amount: 0,
+            product_discount_amount: (product.resell_mrp_price) - (product.resell_purchases_price),
             vendor_id: "",
             thumbnail: product.product_thumbnail || ""
         }];
