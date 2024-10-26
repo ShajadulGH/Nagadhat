@@ -77,7 +77,7 @@ const Login = () => {
                                         Phone Number <span>*</span>
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         className="form-control"
                                         id="number"
                                         name="username"
