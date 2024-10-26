@@ -18,9 +18,6 @@ const ContainerOrderDetails = ({
     session,
     getTotalQuantity,
 }) => {
-
-    console.log(selectedProducts);
-    
     const [outletId, setOutletId] = useState(0);
     const [districtId, setDistrictId] = useState(null);
     const [loading, setLoading] = useState(false);
