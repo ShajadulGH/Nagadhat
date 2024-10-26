@@ -18,6 +18,9 @@ const ContainerOrderDetails = ({
     session,
     getTotalQuantity,
 }) => {
+
+    console.log(selectedProducts);
+    
     const [outletId, setOutletId] = useState(0);
     const [districtId, setDistrictId] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -142,7 +145,7 @@ const ContainerOrderDetails = ({
                     product_discount_amount: product?.pivot?.profit || 0,
                     product_unit_price: product?.pivot?.trade_price,
                     vendor_id: product.vendor_id || "",
-                    thumbnail: "",
+                    thumbnail: product?.product_thumbnail,
                 })),
             };
 
