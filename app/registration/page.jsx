@@ -166,6 +166,7 @@ const Registration = () => {
                 }
 
                 localStorage.removeItem("referrerID");
+                localStorage.setItem("userEmail", formData.email);
                 router.push(`/otp?phone=${formData.phone}`);
             } catch (error) {
                 alert("Something went wrong. Please try after sometime");
