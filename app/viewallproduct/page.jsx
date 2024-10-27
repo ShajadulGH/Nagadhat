@@ -38,7 +38,7 @@ const ViewAllProductPage = () => {
             setCurrentPages(parseInt(page));
         }
     }, [searchParams, currentPages]);
-    const limit = 12; //Per Page Category
+    const limit = 24; //Per Page Category
 
     useEffect(() => {
         const initialOutletId = localStorage.getItem("outletId");
