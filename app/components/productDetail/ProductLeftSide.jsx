@@ -1,9 +1,10 @@
+"use client";
 import ProductImage from "./ProductImage";
 import ProductInformetion from "./ProductInformetion";
 import ProductLongDescription from "./ProductLongDescription";
 import { useState } from "react";
 
-const ProductLeftSide = ({ productInfo, path_name }) => {
+const ProductLeftSide = ({ productInfo }) => {
     const [productGallery, setProductGallery] = useState([]);
 
     return (
@@ -12,7 +13,7 @@ const ProductLeftSide = ({ productInfo, path_name }) => {
                 <div className="row">
                     <ProductImage
                         productInfo={productInfo}
-                        path_name={path_name}
+                        // path_name={path_name}
                         productGallery={productGallery}
                     />
                     <ProductInformetion

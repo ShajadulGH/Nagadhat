@@ -3,12 +3,9 @@ import React from "react";
 import Head from "next/head";
 import { getProductDetails } from "@/app/services/getProductDetails";
 import ProductSinglePage from "@/app/components/ProductDetails";
-export async function generateMetadata(path) {
+export async function generateMetadata( productDetails) {
+    
     try {
-        const productData = await getProductDetails(
-            ` outlet_id=${path?.searchParams?.outlet_id}&product_id=${path?.searchParams?.product_id}`
-        ); // Wait until data is fetched successfully
-        const productDetails = productData?.results;
 
         if (!productDetails) {
             throw new Error("No product details found");
@@ -62,8 +59,13 @@ export async function generateMetadata(path) {
     }
 }
 
-const ProductDetailsShows = ({ searchParams }) => {
+const ProductDetailsShows = async ({ searchParams }) => {
     const { outlet_id, product_id } = searchParams;
+    
+    const productData = await getProductDetails(
+        ` outlet_id=${outlet_id}&product_id=${product_id}`
+    ); // Wait until data is fetched successfully
+    let productDetails = productData?.results;
     return (
         <>
             <div>
@@ -71,11 +73,11 @@ const ProductDetailsShows = ({ searchParams }) => {
                     {outlet_id &&
                         product_id &&
                         generateMetadata(
-                            `outlet_id=${outlet_id}&product_id=${product_id}`
+                            productDetails
                         )}
                 </Head>
                 <ProductSinglePage
-                    params={`outlet_id=${outlet_id}&product_id=${product_id}`}
+                    productInfo={productDetails}
                 ></ProductSinglePage>
             </div>
         </>
