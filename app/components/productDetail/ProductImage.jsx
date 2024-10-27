@@ -1,7 +1,7 @@
 import SocialLink from "../SocialLink";
 import ProductSlider from "./ProductSlider";
 
-const ProductImage = ({ productInfo, path_name, productGallery }) => {
+const ProductImage = ({ productInfo, productGallery }) => {
     const socialLinkItem = [
         { image: "/images/facbook.svg", alt: "facbook", path: "#" },
         { image: "/images/twitter.svg", alt: "twitter", path: "#" },
