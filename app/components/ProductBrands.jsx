@@ -3,13 +3,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductCategoryItem from "./ProductCategoryItem";
+import ProductBrandsItem from "./ProductBrandsItem";
 
-const ProductCategories = ({
+const ProductBrands = ({
     categoryBrandData,
-    categoryProductData,
+
     isHome = true,
 }) => {
-    const isMoreThanEight = categoryProductData?.length > 8;
+    const isMoreThanEight = categoryBrandData?.length > 8;
 
     const settings = {
         dots: false,
@@ -52,8 +53,8 @@ const ProductCategories = ({
             <div className="col-md-12">
                 <div className="nh-categories-holder-s">
                     <Slider {...settings}>
-                        {categoryProductData?.map((itme) => (
-                            <ProductCategoryItem
+                        {categoryBrandData?.map((itme) => (
+                            <ProductBrandsItem
                                 key={itme.id}
                                 categoryItem={itme}
                             />
@@ -65,4 +66,4 @@ const ProductCategories = ({
     );
 };
 
-export default ProductCategories;
+export default ProductBrands;

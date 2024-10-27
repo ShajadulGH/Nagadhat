@@ -4,6 +4,7 @@ import SectionTitle from "./SectionTitle";
 import ProductCategories from "./ProductCategories";
 import JustForYou from "./JustForYou";
 import { getHomePageBodyBrand } from "../services/getHomePageBodyBrand";
+import ProductBrands from "./ProductBrands";
 
 async function Category({ flashSaleEndTime, showOnHome }) {
     const serviceItems = [
@@ -34,10 +35,11 @@ async function Category({ flashSaleEndTime, showOnHome }) {
     ];
 
     const categoryData = await getHomeCategoryList();
-    const brandData = await getHomePageBodyBrand();
     const categoryProductData = categoryData;
+
+    const brandData = await getHomePageBodyBrand();
     const categoryBrandData = brandData?.results?.brands;
-    
+
     return (
         <section className="container">
             <div className="nh-categories-area">
@@ -45,8 +47,8 @@ async function Category({ flashSaleEndTime, showOnHome }) {
                 <ProductCategories categoryProductData={categoryProductData} />
             </div>
             <div className="nh-brands-area pt-0">
-                    <SectionTitle title="Brands" target="brand" />
-                    <ProductCategories categoryProductData={categoryBrandData}/>
+                <SectionTitle title="Brands" target="brand" />
+                <ProductBrands categoryBrandData={categoryBrandData} />
             </div>
         </section>
     );
