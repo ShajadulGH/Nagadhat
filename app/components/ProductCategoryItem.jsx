@@ -4,7 +4,7 @@ import Link from "next/link";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
 
 const ProductCategoryItem = ({ categoryItem }) => {
-    let imageurl = `${NagadhatPublicUrl}/${categoryItem.logo}`;
+    let imageurl = `${NagadhatPublicUrl}/storage/${categoryItem.logo}`;
     const altText = categoryItem?.title ? categoryItem?.title : "";
     const { slug, title } = categoryItem;
     let path = slug;
