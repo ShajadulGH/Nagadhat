@@ -4,7 +4,7 @@ import CategorySubMenu from "./CategorySubMenu";
 import { NagadhatPublicUrl } from "../utils";
 
 const CategoryMainMenuList = ({ menuList }) => {
-    const catImage = `${NagadhatPublicUrl}/storage/${menuList.logo}`;
+    const catImage = `${NagadhatPublicUrl}/${menuList.logo}`;
     const categorySubMenuItem = menuList && menuList?.child_categories;
 
     return (
