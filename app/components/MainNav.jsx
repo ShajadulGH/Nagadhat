@@ -52,12 +52,21 @@ function MainNav({
                 setSearchProduct(searchResults);
             }
         };
-        fetchSearchProduct();
+
+        const Debouncing = setTimeout(() => {
+            fetchSearchProduct();
+        }, 600);
+
+        return () => {
+            clearTimeout(Debouncing);
+        };
     }, [search, districtId]);
 
     const isSearchProductAvailable = () => {
         return searchProduct.length !== 0;
     };
+
+    console.log("searchProduct====>", searchProduct);
 
     useEffect(() => {
         const location = localStorage.getItem("location");
