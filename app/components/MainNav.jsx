@@ -66,8 +66,6 @@ function MainNav({
         return searchProduct.length !== 0;
     };
 
-    console.log("searchProduct====>", searchProduct);
-
     useEffect(() => {
         const location = localStorage.getItem("location");
         setLoction(location ? location : "Dhaka, Dhaka");
