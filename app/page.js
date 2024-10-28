@@ -4,20 +4,19 @@ import Category from "./components/Category";
 import Sales from "./components/Sales";
 import JustForYou from "./components/JustForYou";
 import Service from "./components/Service";
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+import { ToastContainer } from "react-toastify";
 export default async function Home() {
     return (
         <>
+            <ToastContainer />
             <HeroSlider />
             <Partner />
             <Sales isHome={true} />
             <Category showOnHome={true} />
             <JustForYou />
             <div className="pb-5">
-               <Service /> 
+                <Service />
             </div>
-            
         </>
     );
 }

@@ -5,16 +5,10 @@ import Link from "next/link";
 // import StarRating from "./StarRating";
 import AddToCartButton from "../AddToCartButton";
 import { NagadhatPublicUrl } from "../../utils";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { getHomeSearchProduct } from "@/app/services/getHomeSearchProduct";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 const CategoryProductArchiveItems = ({ productItem }) => {
-    const searchParams = useSearchParams();
-    const initialDistrictId = searchParams.get("districtId") || 47;
-    const [districtId, setDistrictId] = useState(initialDistrictId);
-    const [searchDistrictId, setSearchDistrictId] = useState(null);
     let imageUrl = null;
     const { product_name: title, id } = productItem;
 
@@ -24,18 +18,12 @@ const CategoryProductArchiveItems = ({ productItem }) => {
         imageUrl = `${NagadhatPublicUrl}/${productItem?.product_thumbnail}`;
     }
 
-    useEffect(() => {
-        const fetchSearchDistrictId = async () => {
-            const productData = await getHomeSearchProduct(districtId);
-            const searchResults = productData?.results;
-            if (searchResults) {
-                setSearchDistrictId(searchResults);
-            }
-        };
-        fetchSearchDistrictId();
-    }, [districtId]);
-
-    const outletId = searchDistrictId?.outlet_id;
+    const [outletId, setOutletId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+        return 3;
+    });
 
     const defaultVariant = productItem?.variations?.find(
         (variant) => variant.variations_default === 1
@@ -59,19 +47,24 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                 ? defaultVariant?.price?.discounted_price
                 : defaultVariant?.price?.regular_price;
 
-        productPrice.discountPrice =defaultVariant?.price?.regular_price - defaultVariant?.price?.discounted_price;
+        productPrice.discountPrice =
+            defaultVariant?.price?.regular_price -
+            defaultVariant?.price?.discounted_price;
         productStoke =
             defaultVariant?.variation_max_quantity === null
                 ? 0
                 : defaultVariant?.variation_max_quantity;
     } else {
         productPrice.prices =
-        productItem?.price?.discounted_price > 0
+            productItem?.price?.discounted_price > 0
                 ? productItem?.price?.discounted_price
                 : productItem?.mrp_price;
         // (productPrice.discountPrice = productItem?.discount_price > 0 && productItem?.mrp_price);
-        (productPrice.discountPrice = productItem?.price?.regular_price - productItem?.price?.discounted_price);
-        productStoke = productItem?.max_quantity === null ? 0 : productItem?.max_quantity;
+        productPrice.discountPrice =
+            productItem?.price?.regular_price -
+            productItem?.price?.discounted_price;
+        productStoke =
+            productItem?.max_quantity === null ? 0 : productItem?.max_quantity;
     }
 
     const selectedVariants = [];
@@ -95,7 +88,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
 
     return (
         <div className="flash-sale-content-item">
-            <ToastContainer/>
+            <ToastContainer />
             <Link
                 href={`/products/get-product-details?outlet_id=${outletId}&product_id=${id}`}
             >

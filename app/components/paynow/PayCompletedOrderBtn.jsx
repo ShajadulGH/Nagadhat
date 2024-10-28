@@ -1,9 +1,7 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { postOderPayment } from "@/app/services/postOderPayment";
-import { getBkashToken } from "@/app/services/placeorder/getBkashToken";
 import { toast } from "react-toastify";
-import { postPaymentWithBkash } from "@/app/services/placeorder/postPaymentWithBkash";
 
 const PayCompletedOrderBtn = ({
     session,
@@ -16,10 +14,6 @@ const PayCompletedOrderBtn = ({
     orderSummary,
 }) => {
     const router = useRouter();
-
-    console.log(orderSummary);
-    console.log(session);
-
 
     // function for handleSubmit
     const handleSubmit = async () => {
@@ -76,8 +70,8 @@ const PayCompletedOrderBtn = ({
                 {orderSummary?.order_product_type === "1"
                     ? selectedOption
                     : selectedOption === "Cash On Delivery"
-                        ? "Later"
-                        : selectedOption}
+                    ? "Later"
+                    : selectedOption}
             </button>
         </>
     );

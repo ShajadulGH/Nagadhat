@@ -31,7 +31,7 @@ const DynamicCategoryPage = ({ params }) => {
     }, [searchParams]);
 
     const page = parseInt(option.page) || 1;
-    const limit = 12; // Items per page
+    const limit = 8; // Items per page
 
     useEffect(() => {
         if (outletId && slug) {
@@ -81,7 +81,7 @@ const DynamicCategoryPage = ({ params }) => {
                     style={{ minHeight: "60vh" }}
                 >
                     <div className="col-md-12">
-                        <ToastContainer/>
+                        <ToastContainer />
                         <div className="product-category-details">
                             <CategoryLeftSide
                                 categoryByBrand={categoryByBrand}

@@ -21,45 +21,50 @@ function MainNav({
     const [search, setSearch] = useState("");
     const [location, setLoction] = useState("Dhaka, Dhaka");
     const [searchProduct, setSearchProduct] = useState([]);
-    const searchParams = useSearchParams();
-    let divisionId = searchParams.get("divisionId");
-    let districtId = searchParams.get("districtId");
+    // const searchParams = useSearchParams();
+    // let divisionId = searchParams.get("divisionId");
+    // let districtId = searchParams.get("districtId");
     const searchResultRef = useRef(null);
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
     );
+
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
     };
 
     useEffect(() => {
-        const fetchSearchProduct = async () => {
-            if (!search || search.length < 3) {
-                setSearchProduct([]);
-                return;
-            }
+        if (search?.length >= 3) {
+            setSearchProduct([]);
 
-            if (!districtId) {
-                districtId = 47;
-            }
+            const fetchSearchProduct = async () => {
+                const productData = await getHomeSearchProduct(
+                    districtId,
+                    search
+                );
 
-            const productData = await getHomeSearchProduct(districtId, search);
+                const searchResults = productData?.results?.just_for_you;
 
-            const searchResults = productData?.results?.just_for_you;
+                if (searchResults) {
+                    setSearchProduct(searchResults);
+                }
+            };
 
-            if (searchResults) {
-                setSearchProduct(searchResults);
-            }
-        };
+            const Debouncing = setTimeout(() => {
+                fetchSearchProduct();
+            }, 600);
 
-        const Debouncing = setTimeout(() => {
-            fetchSearchProduct();
-        }, 600);
-
-        return () => {
-            clearTimeout(Debouncing);
-        };
+            return () => {
+                clearTimeout(Debouncing);
+            };
+        }
     }, [search, districtId]);
 
     const isSearchProductAvailable = () => {
