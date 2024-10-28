@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { NagadhatPublicUrl } from "../utils";
 
 const ProductSearchResultMobile = ({ searchProduct, clearSearch }) => {
     return (
@@ -24,7 +25,7 @@ const ProductSearchResultMobile = ({ searchProduct, clearSearch }) => {
                                             <div className="search-modal-info-img">
                                                 <Image
                                                     fill={true}
-                                                    src={`${process.env.NEXT_PUBLIC_ROOT_URL}/${product?.product_thumbnail}`}
+                                                    src={`${NagadhatPublicUrl}/${product?.product_thumbnail}`}
                                                     alt={product?.product_name}
                                                 />
                                             </div>

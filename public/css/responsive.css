@@ -530,7 +530,7 @@
 @media (max-width: 576px) {
     .slick-prev {
         left: 0 !important;
-        z-index: 1010;
+        z-index: 10;
     }
 
     .hero-slider-holder .slick-dots {
@@ -543,7 +543,7 @@
 
     .slick-next {
         right: 0 !important;
-        z-index: 1010;
+        z-index: 10;
     }
 
     .add-to-cart-link {
