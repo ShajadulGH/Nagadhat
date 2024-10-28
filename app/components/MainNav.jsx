@@ -3,12 +3,12 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SignoutBtn from "./SignoutBtn";
+// import SignoutBtn from "./SignoutBtn";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 import ProductSearchResultMobile from "./ProductSearchResultMobile";
-import { getDivision } from "../services/getDivision";
-import { getDistrictByDivisionId } from "../services/getDistrict";
+// import { getDivision } from "../services/getDivision";
+// import { getDistrictByDivisionId } from "../services/getDistrict";
 import { useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
 
