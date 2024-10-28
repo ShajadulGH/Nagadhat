@@ -19,14 +19,19 @@ const PriceRange = ({
     const handleInputChange = (value) => {
         setValue(value);
         const [min, max] = value;
-        const url = new URL(window.location.href);
-        const params = new URLSearchParams(url.search);
+        const bouncing = setTimeout(() => {
+            const url = new URL(window.location.href);
+            const params = new URLSearchParams(url.search);
 
-        params.set("min_price", min);
-        params.set("max_price", max);
-        params.set("page","1");
-        url.search = params.toString();
-        router.push(url.toString(), undefined, { shallow: true });
+            params.set("min_price", min);
+            params.set("max_price", max);
+            params.set("page", "1");
+            url.search = params.toString();
+            router.push(url.toString(), undefined, { shallow: true });
+        }, 600);
+        return () => {
+            clearTimeout(bouncing);
+        };
     };
     return (
         <>

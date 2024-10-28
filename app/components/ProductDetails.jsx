@@ -22,8 +22,6 @@ const ProductSinglePage = ({ productInfo }) => {
     // const pathName = searchParams.toString();
     // const [successCode, setSuccessCode] = useState(null);
 
-    console.log({productInfo});
-    // console.log({params});
     
 
     // useEffect(() => {

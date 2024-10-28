@@ -21,68 +21,72 @@ const MobileNav = () => {
     const { data: session } = useSession();
     const router = useRouter();
 
-    const searchParams = useSearchParams();
-    let districtId = searchParams.get("districtId");
+    // const searchParams = useSearchParams();
+    // let districtId = searchParams.get("districtId");
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                (searchAreaRef.current &&
-                    !searchAreaRef.current.contains(event.target)) ||
-                (searchResultRef.current &&
-                    !searchResultRef.current.contains(event.target))
-            ) {
-                setPopupSearch(false);
-                setSearchProduct([]);
-            }
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (
+    //             (searchAreaRef.current &&
+    //                 !searchAreaRef.current.contains(event.target)) ||
+    //             (searchResultRef.current &&
+    //                 !searchResultRef.current.contains(event.target))
+    //         ) {
+    //             setPopupSearch(false);
+    //             setSearchProduct([]);
+    //         }
 
-            if (
-                sidebarRef.current &&
-                !sidebarRef.current.contains(event.target)
-            ) {
-                setIsSidebarOpen(false); // Close sidebar when clicking outside
-            }
-        };
+    //         if (
+    //             sidebarRef.current &&
+    //             !sidebarRef.current.contains(event.target)
+    //         ) {
+    //             setIsSidebarOpen(false); // Close sidebar when clicking outside
+    //         }
+    //     };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
     };
 
     useEffect(() => {
-        const fetchSearchProduct = async () => {
-            if (!search || search.length < 3) {
-                setSearchProduct([]);
-                return;
-            }
+        if (search?.length >= 3) {
+            setSearchProduct([]);
 
-            if (!districtId) {
-                districtId = 47;
-            }
+            const fetchSearchProduct = async () => {
+                const productData = await getHomeSearchProduct(
+                    districtId,
+                    search
+                );
+                const searchResults = productData?.results?.just_for_you;
 
-            const productData = await getHomeSearchProduct(districtId, search);
-            const searchResults = productData?.results?.just_for_you;
+                if (searchResults) {
+                    setSearchProduct(searchResults);
+                }
+            };
+            const Debouncing = setTimeout(() => {
+                fetchSearchProduct();
+            }, 600);
 
-            if (searchResults) {
-                setSearchProduct(searchResults);
-            }
-        };
-        const Debouncing = setTimeout(() => {
-            fetchSearchProduct();
-        }, 600);
-
-        return () => {
-            clearTimeout(Debouncing);
-        };
+            return () => {
+                clearTimeout(Debouncing);
+            };
+        }
     }, [search, districtId]);
 
     const isSearchProductAvailable = () => {
@@ -193,7 +197,7 @@ const MobileNav = () => {
                         </form>
                     </div>
                     {search && isSearchProductAvailable() && (
-                        <div ref={searchResultRef}>
+                        <div>
                             <ProductSearchResult
                                 searchProduct={searchProduct}
                                 clearSearch={clearSearch}
