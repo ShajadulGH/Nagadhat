@@ -17,7 +17,7 @@ const MobileNav = () => {
 
     const searchAreaRef = useRef(null);
     const searchResultRef = useRef(null);
-    const sidebarRef = useRef(null);  // Create ref for the sidebar
+    const sidebarRef = useRef(null); // Create ref for the sidebar
     const { data: session } = useSession();
     const router = useRouter();
 
@@ -77,7 +77,13 @@ const MobileNav = () => {
                 setSearchProduct(searchResults);
             }
         };
-        fetchSearchProduct();
+        const Debouncing = setTimeout(() => {
+            fetchSearchProduct();
+        }, 600);
+
+        return () => {
+            clearTimeout(Debouncing);
+        };
     }, [search, districtId]);
 
     const isSearchProductAvailable = () => {
@@ -207,7 +213,10 @@ const MobileNav = () => {
                         >
                             <FaXmark />
                         </div>
-                        <CustomerLeftSideNavbar authSessionData={session} toggleSidebar ={toggleSidebar} />
+                        <CustomerLeftSideNavbar
+                            authSessionData={session}
+                            toggleSidebar={toggleSidebar}
+                        />
                     </aside>
                 </div>
             </div>
