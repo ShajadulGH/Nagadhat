@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { NagadhatPublicUrl } from "../utils";
+import { NagadhatPublicUrl } from "@/app/utils";
 
 const ProductSearchResult = ({ searchProduct, clearSearch }) => {
     return (

@@ -70,8 +70,7 @@ const MobileNav = () => {
             }
 
             const productData = await getHomeSearchProduct(districtId, search);
-            const searchResults =
-                productData?.results?.search_result?.original?.results;
+            const searchResults = productData?.results?.just_for_you;
 
             if (searchResults) {
                 setSearchProduct(searchResults);
