@@ -1,7 +1,7 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
-const MultipleProductSlider = ({ multipleImage }) => {
-    const { path, altText } = multipleImage;
+const MultipleProductSlider = ({ multipleImage, thum }) => {
+    const path = multipleImage?.path || thum;
     return (
         <>
             <div className="product-multiple-photo-item">
