@@ -64,7 +64,7 @@ const AffiliateTeamWrapp = () => {
             };
             fetchTeamData();
         }
-    }, [status, session, searchQuery, currentPage]);
+    }, [session?.accessToken, searchQuery, currentPage]);
 
     const handleSearch = (query) => {
         setSearchQuery(query);
