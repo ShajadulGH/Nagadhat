@@ -28,7 +28,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                         <th scope="col">Resell</th>
                         <th scope="col">Retail</th>
                         <th scope="col">Total Refer</th>
-                        <th scope="col">Members {">"}</th>
+                        <th scope="col">Members</th>
                         <th scope="col">User Type</th>
                         <th scope="col">KYC</th>
                     </tr>
