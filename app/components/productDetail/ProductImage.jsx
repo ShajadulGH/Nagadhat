@@ -29,6 +29,7 @@ const ProductImage = ({ productInfo, productGallery }) => {
                 <ProductSlider
                     sliderItems={productSliderData}
                     productGallery={productGallery}
+                    productInfo={productInfo}
                 />
             </div>
             <div className="product-details-social-link d-flex align-items-center justify-content-center pb-3">
