@@ -1,48 +1,66 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 import SectionTitle from "./SectionTitle";
-import LoadMore from "./LoadMore";
 import ProductCard from "./ProductCard";
 import { getHomeJustForYouProduct } from "../services/getHomeJustForYouProduct";
+import LoadMore from "./LoadMore";
 
 function JustForYou() {
     const [jfyProducts, setJfyProducts] = useState([]);
-    const [offset, setOffset] = useState(12);
-    const [showLoadMore, setShowLoadMore] = useState(true);
     const [districtId, setDistrictId] = useState(null);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    const observerRef = useRef(null);
+
     useEffect(() => {
         const initialDistrictId = localStorage.getItem("districtId");
         setDistrictId(initialDistrictId ? parseInt(initialDistrictId) : 47);
     }, []);
+
     useEffect(() => {
         const fetchProducts = async () => {
+            setLoading(true);
             try {
-                const justForYoutList = await getHomeJustForYouProduct(
-                    districtId
+                const justForYouList = await getHomeJustForYouProduct(
+                    districtId,
+                    page,
+                    24
                 );
-                let justForYouListProduct =
-                    justForYoutList?.results?.just_for_you?.data;
-                const justForYouProductList = justForYouListProduct || [];
-                const initialProducts = justForYouProductList.slice(0, offset);
-
-                setJfyProducts(initialProducts);
-                if (initialProducts.length > justForYouProductList.length) {
-                    setShowLoadMore(false);
-                }
+                const newProducts = justForYouList?.results?.just_for_you?.data || [];
+                
+                setJfyProducts((prevProducts) => [...prevProducts, ...newProducts]);
             } catch (error) {
                 console.error("Error fetching 'Just For You' products:", error);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchProducts();
-    }, [offset, districtId]);
+        if (districtId) {
+            fetchProducts();
+        }
+    }, [districtId, page]);
 
-    const handleLoadMore = (e) => {
-        e.preventDefault();
-        setOffset((prev) => prev + 12);
-        setShowLoadMore(false);
-    };
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && !loading) {
+                    setPage((prevPage) => prevPage + 1);
+                }
+            },
+            { threshold: 1 }
+        );
+
+        if (observerRef.current) {
+            observer.observe(observerRef.current);
+        }
+
+        return () => {
+            if (observerRef.current) {
+                observer.unobserve(observerRef.current);
+            }
+        };
+    }, [loading]);
 
     return (
         <div className="container">
@@ -65,8 +83,8 @@ function JustForYou() {
                         </div>
                     </div>
                 </div>
-
-                {showLoadMore && <LoadMore onLoadMore={handleLoadMore} />}
+                {loading && <LoadMore title={"Loading more products..."}/> }
+                <div ref={observerRef}/>
             </div>
         </div>
     );
