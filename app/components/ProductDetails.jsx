@@ -23,8 +23,6 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
     // const pathName = searchParams.toString();
     // const [successCode, setSuccessCode] = useState(null);
 
-    
-
     // useEffect(() => {
     //     async function fetchData() {
     //         setLoading(true);
@@ -83,7 +81,7 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                     {/* Breadcrumb always visible */}
                     <Breadcrumb category={productInfo?.category} />
 
-                    {Object.keys(productInfo).length > 0 ? (
+                    {Object?.keys(productInfo)?.length > 0 ? (
                         <>
                             <div className="row product-details-info">
                                 <ProductLeftSide
@@ -98,7 +96,7 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                             <Service />
                         </>
                     ) : (
-                         <NoDataFound />
+                        <NoDataFound />
                     )}
 
                     {/* Show outlet info if available */}

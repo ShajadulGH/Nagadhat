@@ -16,8 +16,6 @@ function ProductCard({ item }) {
         discount_amount,
     } = item;
 
-    // console.log("item=======>>>>.", item);
-
     const defaultVariant = item?.variations?.find(
         (variant) => variant.variations_default === 1
     );
@@ -40,8 +38,7 @@ function ProductCard({ item }) {
                 ? defaultVariant?.price?.discounted_price
                 : defaultVariant?.mrp_price;
 
-        productPrice.discountPrice =
-            defaultVariant?.discount_amount;
+        productPrice.discountPrice = defaultVariant?.discount_amount;
         productStoke =
             defaultVariant?.variation_max_quantity === null
                 ? 0
@@ -51,7 +48,7 @@ function ProductCard({ item }) {
             item?.price?.discounted_price > 0
                 ? item?.price?.discounted_price
                 : item?.price?.regular_price),
-            productPrice.discountPrice = item?.price?.discount_amount;
+            (productPrice.discountPrice = item?.price?.discount_amount);
         productStoke = item?.max_quantity === null ? 0 : item?.max_quantity;
     }
 
@@ -76,9 +73,7 @@ function ProductCard({ item }) {
 
     return (
         <div className="flash-sale-content-item mx-1 ">
-            <Link
-                href={`/products/get-product-details?outlet_id=${outlet_id}&product_id=${product_id}`}
-            >
+            <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">
                         <Image src={image} alt={title} fill={true} />
