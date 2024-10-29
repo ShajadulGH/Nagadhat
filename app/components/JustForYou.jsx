@@ -27,7 +27,7 @@ function JustForYou() {
                     24
                 );
                 const newProducts = justForYouList?.results?.just_for_you?.data || [];
-                
+
                 setJfyProducts((prevProducts) => [...prevProducts, ...newProducts]);
             } catch (error) {
                 console.error("Error fetching 'Just For You' products:", error);
@@ -83,8 +83,14 @@ function JustForYou() {
                         </div>
                     </div>
                 </div>
-                {loading && <LoadMore title={"Loading more products..."}/> }
-                <div ref={observerRef}/>
+                {
+                    jfyProducts.length >= 24  &&
+                    (
+                        <>
+                            {loading && <LoadMore title={"Loading more products..."} />}
+                            <div ref={observerRef} />
+                        </>
+                    )}
             </div>
         </div>
     );
