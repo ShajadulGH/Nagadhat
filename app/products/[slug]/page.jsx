@@ -1,8 +1,9 @@
 import React from "react";
 // import ProductSinglePage from "../../components/ProductDetails";
-import Head from "next/head";
+// import Head from "next/head";
 import { getProductDetails } from "@/app/services/getProductDetails";
 import ProductSinglePage from "@/app/components/ProductDetails";
+import { storeProductId } from "@/app/utils";
 // export async function generateMetadata( productDetails) {
 
 //     try {
@@ -61,28 +62,42 @@ import ProductSinglePage from "@/app/components/ProductDetails";
 
 const ProductDetailsShows = async ({ searchParams }) => {
     const { outlet_id, product_id } = searchParams;
+    let outletInfo = null
+    let productDetails = null
 
-    const productData = await getProductDetails(
+    const productInfo = await getProductDetails(
         ` outlet_id=${outlet_id}&product_id=${product_id}`
     );
-    let productDetails = productData?.results;
 
-    return (
-        <>
-            <div>
-                {/* <Head>
+    productDetails = productInfo.results;
+
+    if (productInfo?.message === "Product Found Other Outlet") {
+        outletInfo = (productInfo?.results?.outlets);
+    }
+    if (
+        productInfo?.results &&
+        productInfo.message != "Product Found Other Outlet"
+    ) {
+        productDetails = productInfo.results;
+    }
+
+        return (
+            <>
+                <div>
+                    {/* <Head>
                     {outlet_id &&
                         product_id &&
                         generateMetadata(
                             productDetails
                         )}
                 </Head> */}
-                <ProductSinglePage
-                    productInfo={productDetails}
-                ></ProductSinglePage>
-            </div>
-        </>
-    );
-};
+                    <ProductSinglePage
+                        productInfo={productDetails}
+                        outletInfo={outletInfo}
+                    />
+                </div>
+            </>
+        );
+    };
 
-export default ProductDetailsShows;
+    export default ProductDetailsShows;

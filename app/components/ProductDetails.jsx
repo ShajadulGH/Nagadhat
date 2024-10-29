@@ -12,8 +12,9 @@ import ProductRightSide from "@/app/components/productDetail/ProductRightSide";
 import NoDataFound from "@/app/components/NoDataFound";
 import RecentViewProduc from "@/app/components/RecentViewProduc";
 import Service from "@/app/components/Service";
+import { ToastContainer } from "react-toastify";
 
-const ProductSinglePage = ({ productInfo }) => {
+const ProductSinglePage = ({ productInfo, outletInfo }) => {
     // const { status, data: session } = useSession();
     // const [productInfo, setProductInfo] = useState({});
     // const [outletInfo, setOutletInfo] = useState([]);
@@ -76,6 +77,7 @@ const ProductSinglePage = ({ productInfo }) => {
 
     return (
         <>
+        <ToastContainer/>
             <section className="product-details-section">
                 <div className="container">
                     {/* Breadcrumb always visible */}
@@ -100,7 +102,7 @@ const ProductSinglePage = ({ productInfo }) => {
                     )}
 
                     {/* Show outlet info if available */}
-                    {/* {outletInfo.length > 0 && (
+                    {outletInfo?.length > 0 && (
                         <div>
                             <h5>
                                 This product is not available in your location
@@ -112,7 +114,7 @@ const ProductSinglePage = ({ productInfo }) => {
                                 ))}
                             </ul>
                         </div>
-                    )} */}
+                    )}
                 </div>
             </section>
         </>
