@@ -13,6 +13,8 @@ const AffiliateRetailsProductInfo = ({
     referralLink,
     copied,
 }) => {
+    console.log("retailProduct", retailProduct);
+
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     return (
@@ -21,9 +23,14 @@ const AffiliateRetailsProductInfo = ({
                 retailProduct?.map((product) => {
                     const imageUrl = `${NagadhatPublicUrl}/${product?.product_thumbnail}`;
                     return (
-                        <div key={product.id} className="flash-sale-content-item col">
+                        <div
+                            key={product.id}
+                            className="flash-sale-content-item col"
+                        >
                             <div className="flash-sale-content-bg nh-hover-box-shadow">
-                                <Link href={`/products/get-product-details?outlet_id=${outletId}&product_id=${product?.id}&tab=${tab}`}>
+                                <Link
+                                    href={`/products/${product?.slug}?outlet_id=${outletId}&tab=${tab}`}
+                                >
                                     <div className="flash-sale-content-img image-hover-effect">
                                         <div
                                             style={{
@@ -54,11 +61,14 @@ const AffiliateRetailsProductInfo = ({
                                     </div>
                                     <div className="flash-sale-content-info text-hover-effect">
                                         <h4 title={product.product_name}>
-                                            {truncateTitle(product.product_name, 36)}
+                                            {truncateTitle(
+                                                product.product_name,
+                                                36
+                                            )}
                                         </h4>
                                         <div className=" d-flex align-items-center justify-content-between ">
                                             {product?.after_discount_mrp_price ==
-                                                product?.mrp_price ? (
+                                            product?.mrp_price ? (
                                                 <strong>
                                                     {`৳ ${product?.mrp_price}`}
                                                 </strong>
@@ -66,7 +76,11 @@ const AffiliateRetailsProductInfo = ({
                                                 <>
                                                     <strong>{`৳ ${product?.after_discount_mrp_price}`}</strong>
                                                     <strong>
-                                                        <del style={{ color: "#ACACAC", }}>
+                                                        <del
+                                                            style={{
+                                                                color: "#ACACAC",
+                                                            }}
+                                                        >
                                                             {`৳ ${product?.mrp_price}`}
                                                         </del>
                                                     </strong>
@@ -75,9 +89,16 @@ const AffiliateRetailsProductInfo = ({
                                         </div>
                                         <p className="affiliate-commission">
                                             Commission:{" "}
-                                            {`৳ ${product?.calculated_commission || "0"}`}{""}
+                                            {`৳ ${
+                                                product?.calculated_commission ||
+                                                "0"
+                                            }`}
+                                            {""}
                                             <span className="ms-1">
-                                                ({product?.level_commission || "0"}%)
+                                                (
+                                                {product?.level_commission ||
+                                                    "0"}
+                                                %)
                                             </span>
                                         </p>
                                     </div>
@@ -88,7 +109,8 @@ const AffiliateRetailsProductInfo = ({
                                 >
                                     <button
                                         onClick={(e) => e.stopPropagation()}
-                                        className="copy-link-btn">
+                                        className="copy-link-btn"
+                                    >
                                         {copied ? "Link Copied" : "Copy Link"}
                                     </button>
                                 </CopyToClipboard>

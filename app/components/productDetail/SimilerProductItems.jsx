@@ -44,7 +44,7 @@ const SimilerProductItems = ({ item }) => {
                 <div className="similer-product-info">
                     <h4>
                         <Link
-                            href={`/products/get-product-details?outlet_id=${item?.outlet_id}&product_id=${item?.id}`}
+                            href={`/products/${item?.slug}?outlet_id=${item?.outlet_id}&product_id=${item?.id}`}
                         >
                             {shortenString(`${item?.product_name}`, 36)}
                         </Link>{" "}

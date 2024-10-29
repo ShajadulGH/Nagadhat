@@ -21,6 +21,9 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
 
     }, [cartProduct, setTotalPrice, setSubTotal]);
 
+    console.log(cartProduct);
+    
+
     return (
         <div className="row new-nh-shipping-product-row">
             {cartProduct?.length > 0 && (
@@ -44,7 +47,7 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
                                             <div>
                                                 <p className="product-cart-text">
                                                     <Link
-                                                        href={`/products/get-product-details?outlet_id=${item.outlet_id}&product_id=${item.product_id}`}
+                                                        href={`/products/${item?.slug}?outlet_id=${item.outlet_id}`}
                                                     >
                                                         {item.product_name}
                                                     </Link>

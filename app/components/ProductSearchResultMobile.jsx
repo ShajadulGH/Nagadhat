@@ -18,7 +18,7 @@ const ProductSearchResultMobile = ({ searchProduct, clearSearch }) => {
                                     key={`${product?.product_name}-${product?.slug}-${index}`}
                                 >
                                     <Link
-                                        href={`/products/get-product-details?outlet_id=${product?.outlet_id}&product_id=${product?.product_id}`}
+                                        href={`/products/${product?.slug}?outlet_id=${product?.outlet_id}`}
                                         onClick={clearSearch}
                                     >
                                         <div className="search-modal-info-inner d-flex align-content-center gap-4">

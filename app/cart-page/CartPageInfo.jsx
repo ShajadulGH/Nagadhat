@@ -621,6 +621,7 @@ const CartPage = () => {
             showToast("Something went wrong, please try again later.", "error");
         }
     };
+console.log("checkedProductCard",checkedProductCard);
 
     return (
         <section className="cart-section-area">
@@ -688,6 +689,8 @@ const CartPage = () => {
                                                         const regularPrice =
                                                             item.regular_price *
                                                             item.quantity;
+                                                            console.log("cart page",item);
+                                                            
 
                                                         return (
                                                             <div
@@ -725,7 +728,7 @@ const CartPage = () => {
                                                                     <div>
                                                                         <h2 className="product-cart-text">
                                                                             <Link
-                                                                                href={`/products/get-product-details?outlet_id=${item?.outlet_id}&product_id=${item?.product_id}`}
+                                                                                href={`/products/${item?.slug}?outlet_id=${item?.outlet_id}`}
                                                                             >
                                                                                 {
                                                                                     item.product_name

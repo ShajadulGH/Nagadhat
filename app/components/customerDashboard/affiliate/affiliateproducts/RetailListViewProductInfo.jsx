@@ -31,7 +31,7 @@ const RetailListViewProductInfo = ({
                             >
                                 <div className="flash-sale-content-info text-hover-effect d-flex gap-3 justify-content-between align-items-center">
                                     <Link
-                                        href={`/products/get-product-details?outlet_id=${outletId}&product_id=${product?.id}&tab=${tab}`}
+                                        href={`/products/${product?.slug}?outlet_id=${outletId}&tab=${tab}`}
                                         className="d-flex gap-3 flex-1 flex-shrink-0 flex-grow-1"
                                     >
                                         <div
@@ -74,7 +74,7 @@ const RetailListViewProductInfo = ({
                                         </h4>
                                     </Link>
                                     <Link
-                                        href={`/products/get-product-details?outlet_id=${outletId}&product_id=${product?.id}&tab=${tab}`}
+                                        href={`/products/${product?.slug}?outlet_id=${outletId}&tab=${tab}`}
                                     >
                                         <div className="flex-shrink-0 ">
                                             <div className="d-flex flex-column justify-content-center">

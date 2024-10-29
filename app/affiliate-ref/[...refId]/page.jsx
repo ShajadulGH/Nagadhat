@@ -1,11 +1,13 @@
-"use client"
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import DefaultLoader from '@/app/components/defaultloader/DefaultLoader';
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const RefProduct = ({ params }) => {
     const { refId } = params;
-    const [userId, productId] = refId;
+    console.log("params", { params });
+
+    const [userId, slug] = refId;
     const router = useRouter();
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -16,15 +18,13 @@ const RefProduct = ({ params }) => {
 
     useEffect(() => {
         // Set userId in localStorage
-        localStorage.setItem('referrerID', userId);
+        localStorage.setItem("referrerID", userId);
 
         // Redirect to the specified route
-        router.push(`/products/get-product-details?outlet_id=${outletId}&product_id=${productId}`);
-    }, [userId, productId, router]);
+        router.push(`/products/${slug}?outlet_id=${outletId}`);
+    }, [userId, slug, router]);
 
-    return (
-        <DefaultLoader/>
-    );
+    return <DefaultLoader />;
 };
 
 export default RefProduct;
