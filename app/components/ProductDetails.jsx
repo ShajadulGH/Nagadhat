@@ -107,8 +107,8 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                             </h5>
                             <h6>Available locations:</h6>
                             <ul>
-                                {outletInfo.map((item, index) => (
-                                    <li key={index}>{item.name}</li>
+                                {outletInfo.map((item) => (
+                                    <li key={item.id}>{item.name}</li>
                                 ))}
                             </ul>
                         </div>

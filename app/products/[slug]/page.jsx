@@ -74,12 +74,12 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
     );
 
  
-    if (productInfo?.message === "Product Found Other Outlet") {
-        outletInfo = productInfo?.results?.outlets;
+    if (productInfo?.message === "Product found in other outlets.") {
+        outletInfo = productInfo?.available_outlets;
     }
     if (
         productInfo?.results &&
-        productInfo.message != "Product Found Other Outlet"
+        productInfo.message != "Product found in other outlets."
     ) {
         productDetails = productInfo.results;
     }
