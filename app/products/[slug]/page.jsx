@@ -73,8 +73,7 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
         `slug=${slug}&outlet_id=${outlet_id}`
     );
 
-    productDetails = productInfo.results;
-
+ 
     if (productInfo?.message === "Product Found Other Outlet") {
         outletInfo = productInfo?.results?.outlets;
     }
