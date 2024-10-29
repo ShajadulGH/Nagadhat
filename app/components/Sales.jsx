@@ -33,19 +33,16 @@ function Sales() {
     }, [districtId]);
 
     useEffect(() => {
-        if (flashSaleEndsTime) {
-            async function fetchSettingData() {
-                try {
-                    const settingData = await getFlashSlaeShowOnHomePage();
-                    const settingAllData = settingData?.results;
-                    const flashSaleEndTime = settingAllData?.end_time;
-                    setFlashSaleEndsTime(flashSaleEndTime);
-                } catch (error) {
-                    console.error("Failed to fetch setting data", error);
-                }
+        async function fetchSettingData() {
+            try {
+                const settingData = await getFlashSlaeShowOnHomePage();
+                const settingAllData = settingData?.results?.end_time;
+                setFlashSaleEndsTime(settingAllData);
+            } catch (error) {
+                console.error("Failed to fetch setting data", error);
             }
-            fetchSettingData();
         }
+        fetchSettingData();
     }, []);
 
     const settings = {
