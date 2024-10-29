@@ -11,9 +11,6 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
     const sliderRef1 = useRef(null);
     const sliderRef2 = useRef(null);
 
-    console.log(productInfo);
-    
-
     useEffect(() => {
         setNav1(sliderRef1.current);
         setNav2(sliderRef2.current);
@@ -27,8 +24,7 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                 ref={sliderRef1}
                 infinite={productGallery?.length > 4 ? true : false}
             >
-                {
-                    productGallery?.length > 0 ?
+                {productGallery?.length > 0 ? (
                     productGallery?.map((sliderItem) => (
                         <div
                             className="product-details-info-photo"
@@ -43,18 +39,19 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                                 />
                             </div>
                         </div>
-                    )):(
-                        <div className="product-details-info-photo">
-                            <div className="product-details-info-img">
-                                <Image
-                                    src={`${NagadhatPublicUrl}/${productInfo?.product_thumbnail}`}
-                                    layout="fill"
-                                    alt="product gallery banner image"
-                                    className="img-fluid object-fit-cover"
-                                />
-                            </div>
+                    ))
+                ) : (
+                    <div className="product-details-info-photo">
+                        <div className="product-details-info-img">
+                            <Image
+                                src={`${NagadhatPublicUrl}/${productInfo?.product_thumbnail}`}
+                                layout="fill"
+                                alt="product gallery banner image"
+                                className="img-fluid object-fit-cover"
+                            />
                         </div>
-                    )}
+                    </div>
+                )}
             </Slider>
             <div className="product-details-info-multiple-photo">
                 <Slider
@@ -74,15 +71,15 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                             },
                         },
                     ]}
-                >   
-                {
-                    productGallery?.length > 0 ?
-                    productGallery?.map((mImageItem) => (
-                        <MultipleProductSlider
-                            key={mImageItem.id}
-                            multipleImage={mImageItem}
-                        />
-                    )):(
+                >
+                    {productGallery?.length > 0 ? (
+                        productGallery?.map((mImageItem) => (
+                            <MultipleProductSlider
+                                key={mImageItem.id}
+                                multipleImage={mImageItem}
+                            />
+                        ))
+                    ) : (
                         <MultipleProductSlider
                             thum={productInfo?.product_thumbnail}
                         />

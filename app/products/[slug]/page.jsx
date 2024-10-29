@@ -3,7 +3,9 @@ import React from "react";
 // import Head from "next/head";
 import { getProductDetails } from "@/app/services/getProductDetails";
 import ProductSinglePage from "@/app/components/ProductDetails";
-import { storeProductId } from "@/app/utils";
+
+import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
+import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
 // export async function generateMetadata( productDetails) {
 
 //     try {
@@ -60,19 +62,21 @@ import { storeProductId } from "@/app/utils";
 //     }
 // }
 
-const ProductDetailsShows = async ({ searchParams }) => {
-    const { outlet_id, product_id } = searchParams;
-    let outletInfo = null
-    let productDetails = null
+const ProductDetailsShows = async ({ searchParams, params }) => {
+    const { outlet_id } = searchParams;
+    let outletInfo = null;
+    let productDetails = null;
+
+    const { slug } = params;
 
     const productInfo = await getProductDetails(
-        ` outlet_id=${outlet_id}&product_id=${product_id}`
+        `slug=${slug}&outlet_id=${outlet_id}`
     );
 
     productDetails = productInfo.results;
 
     if (productInfo?.message === "Product Found Other Outlet") {
-        outletInfo = (productInfo?.results?.outlets);
+        outletInfo = productInfo?.results?.outlets;
     }
     if (
         productInfo?.results &&
@@ -81,23 +85,49 @@ const ProductDetailsShows = async ({ searchParams }) => {
         productDetails = productInfo.results;
     }
 
-        return (
-            <>
-                <div>
-                    {/* <Head>
+    return (
+        <>
+            <div>
+                {/* <Head>
                     {outlet_id &&
                         product_id &&
                         generateMetadata(
                             productDetails
                         )}
                 </Head> */}
-                    <ProductSinglePage
-                        productInfo={productDetails}
-                        outletInfo={outletInfo}
-                    />
-                </div>
-            </>
-        );
-    };
+                <ProductSinglePage
+                    productInfo={productDetails}
+                    outletInfo={outletInfo}
+                />
+            </div>
+        </>
+    );
+};
 
-    export default ProductDetailsShows;
+export async function generateStaticParams() {
+    const districtId = 47; // Replace with actual district ID
+
+    try {
+        // Fetch Just For You Products
+        const justForYouData = await getHomeJustForYouProduct(districtId);
+        const justForYouProducts =
+            justForYouData?.results?.just_for_you?.data || [];
+
+        // Fetch Flash Sales Products
+        const flashSalesData = await getHomeFlashSalesProduct(districtId);
+        const flashSalesProducts =
+            flashSalesData?.results?.flash_sales_product?.data || [];
+
+        // Combine product slugs from both datasets
+        const allProducts = [...justForYouProducts, ...flashSalesProducts];
+
+        return allProducts.map((product) => ({
+            slug: product.slug,
+        }));
+    } catch (error) {
+        console.error("Error fetching product parameters:", error);
+        return [];
+    }
+}
+
+export default ProductDetailsShows;

@@ -1,4 +1,3 @@
-import { api_base_url } from "../config";
 import { apiBaseUrl } from "../utils";
 
 export const getProductDetails = async (pathName) => {

@@ -1,6 +1,10 @@
 import { apiBaseUrl } from "../utils";
 
-export const getHomeJustForYouProduct = async (districtId, page = 1, limit=0) => {
+export const getHomeJustForYouProduct = async (
+    districtId,
+    page = 1,
+    limit = 24
+) => {
     if (districtId) {
         try {
             const response = await fetch(
