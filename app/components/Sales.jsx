@@ -36,7 +36,7 @@ function Sales() {
         async function fetchSettingData() {
             try {
                 const settingData = await getFlashSlaeShowOnHomePage();
-                const settingAllData = settingData?.results?.end_time;
+                const settingAllData = settingData?.results;
                 setFlashSaleEndsTime(settingAllData);
             } catch (error) {
                 console.error("Failed to fetch setting data", error);
@@ -88,41 +88,46 @@ function Sales() {
 
     return (
         <>
-            {flashSaleProductList?.length > 0 && flashSaleEndsTime && (
-                <section className={`flash-sale-area `}>
-                    <div className="container">
-                        <SectionTitle
-                            isSale={true}
-                            title={`Flash Sale`}
-                            target={"flashSale"}
-                            path="/viewallproduct"
-                        >
-                            {flashSaleEndsTime && (
-                                <FlipClock endsAt={flashSaleEndsTime} />
-                            )}
-                        </SectionTitle>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div
-                                    className={`${"flash-sale-content-area-grid "}`}
-                                >
-                                    <Slider {...settings}>
-                                        {flashSaleProductList?.length > 0 &&
-                                            flashSaleProductList?.map(
-                                                (product) => (
-                                                    <ProductCard
-                                                        key={product.id}
-                                                        item={product}
-                                                    />
-                                                )
-                                            )}
-                                    </Slider>
+            {flashSaleProductList?.length > 0 &&
+                flashSaleEndsTime?.end_time &&
+                flashSaleEndsTime?.status &&
+                flashSaleEndsTime?.show_on_home && (
+                    <section className={`flash-sale-area `}>
+                        <div className="container">
+                            <SectionTitle
+                                isSale={true}
+                                title={`Flash Sale`}
+                                target={"flashSale"}
+                                path="/viewallproduct"
+                            >
+                                {flashSaleEndsTime?.end_time && (
+                                    <FlipClock
+                                        endsAt={flashSaleEndsTime?.end_time}
+                                    />
+                                )}
+                            </SectionTitle>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div
+                                        className={`${"flash-sale-content-area-grid "}`}
+                                    >
+                                        <Slider {...settings}>
+                                            {flashSaleProductList?.length > 0 &&
+                                                flashSaleProductList?.map(
+                                                    (product) => (
+                                                        <ProductCard
+                                                            key={product.id}
+                                                            item={product}
+                                                        />
+                                                    )
+                                                )}
+                                        </Slider>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-            )}
+                    </section>
+                )}
         </>
     );
 }

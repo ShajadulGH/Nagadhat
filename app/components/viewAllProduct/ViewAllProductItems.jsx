@@ -8,7 +8,7 @@ const ViewAllProductitemss = ({ items }) => {
     const {
         product_name: title,
         mrp_price: price,
-        slug: path,
+        slug,
         id,
         outlet_id,
     } = items;
@@ -79,7 +79,7 @@ const ViewAllProductitemss = ({ items }) => {
         <div className="flash-sale-content-items">
             <div className="flash-sale-content-bg nh-hover-box-shadow ">
                 <Link
-                    href={`/products/get-product-details?outlet_id=${outlet_id}&product_id=${id}`}
+                    href={`/products/${slug}?outlet_id=${outlet_id}`}
                     className="d-flex flex-column justify-content-between h-100"
                 >
                     <div className="flash-sale-content-img image-hover-effect">

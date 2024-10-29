@@ -7,17 +7,17 @@ const SocialLink = ({ path_name, product_name, product_thumbnail }) => {
         {
             image: "/images/facbook.svg",
             alt: "Facebook",
-            path: `https://www.facebook.com/sharer/sharer.php?u=https://nagadhat-dev.vercel.app/products/get-product-details?${path_name}`,
+            path: `https://www.facebook.com/sharer/sharer.php?u=https://nagadhat-dev.vercel.app/products/${path_name}`,
         },
         {
             image: "/images/twitter.svg",
             alt: "Twitter",
-            path: `https://twitter.com/intent/tweet?url=https://nagadhat-dev.vercel.app/products/get-product-details?${path_name}`,
+            path: `https://twitter.com/intent/tweet?url=https://nagadhat-dev.vercel.app/products/${path_name}`,
         },
         {
             image: "/images/linkedin.svg",
             alt: "LinkedIn",
-            path: `https://www.linkedin.com/shareArticle?mini=true&url=https://nagadhat-dev.vercel.app/products/get-product-details?${path_name}`,
+            path: `https://www.linkedin.com/shareArticle?mini=true&url=https://nagadhat-dev.vercel.app/products/${path_name}`,
         },
         {
             image: "/images/youtube.svg",

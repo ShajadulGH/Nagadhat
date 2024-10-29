@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 
 const CategoryProductArchiveItems = ({ productItem }) => {
     let imageUrl = null;
-    const { product_name: title, id } = productItem;
+    const { product_name: title, id, slug } = productItem;
 
     const slicedTitle =
         title?.length > 43 ? `${title.slice(0, 43)} ...` : title;
@@ -90,7 +90,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
         <div className="flash-sale-content-item">
             <ToastContainer />
             <Link
-                href={`/products/get-product-details?outlet_id=${outletId}&product_id=${id}`}
+                href={`/products/${slug}?outlet_id=${outletId}`}
             >
                 <div className="flash-sale-content-bg nh-hover-box-shadow">
                     <div className="product-category-image">
