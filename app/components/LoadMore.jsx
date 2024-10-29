@@ -1,18 +1,14 @@
-import Link from "next/link";
-import React from "react";
-
-function LoadMore({ onLoadMore }) {
+function LoadMore({ title }) {
     return (
         <div className="row load-more-btn-row">
             <div className="col-md-12">
-                <div className="load-more-btn-area text-center text-uppercase">
-                    <Link
+                <div className="load-more-btn-area text-center text-uppercase mx-auto">
+                    <p
                         href="#"
-                        className="load-more-btn"
-                        onClick={(e) => onLoadMore(e)}
+                        className="load-more-btn mx-auto"
                     >
-                        Load more
-                    </Link>
+                        {title}
+                    </p>
                 </div>
             </div>
         </div>

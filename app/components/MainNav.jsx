@@ -271,9 +271,8 @@ function MainNav({
                                         setCategoryHoverMenu(true)
                                     }
                                 >
-                                    <Link
-                                        href="#"
-                                        className="d-flex align-items-center text-white text-capitalize"
+                                    <div
+                                        className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold"
                                     >
                                         <span>Categories</span>
                                         <Image
@@ -283,7 +282,7 @@ function MainNav({
                                             width={10}
                                             height={7}
                                         />
-                                    </Link>
+                                    </div>
                                 </div>
                                 <div className="header-search-holder d-flex align-items-center">
                                     <div className="header-search-location">
