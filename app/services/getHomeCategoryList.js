@@ -1,8 +1,11 @@
-import {filterByStatus, apiBaseUrl} from '../utils';
+import { filterByStatus, apiBaseUrl } from '../utils';
 
 export const getHomeCategoryList = async () => {
     try {
-        const response = await fetch(`${apiBaseUrl}/all-category-top-menu`, { next: { revalidate: 10 } });
+        const response = await fetch(`${apiBaseUrl}/all-category-top-menu`,
+            ['posts'],
+            { revalidate: 36000, tags: ['posts'] }
+        );
         const data = await response.json();
         return filterByStatus(data.results.category);
     } catch (error) {

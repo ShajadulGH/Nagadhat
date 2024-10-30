@@ -9,7 +9,9 @@ function SectionTitle({
     isSale = false,
     showViewAll = true,
     target = "",
+    districtId = 47
 }) {
+    
     const { width } = useScreenSize();
     const MAX_SCREEN_SIZE = 490;
     return (
@@ -31,7 +33,7 @@ function SectionTitle({
                                 <Link
                                     href={{
                                         pathname: path,
-                                        query: { type: target },
+                                        query: { districtId }
                                     }}
 
                                 >

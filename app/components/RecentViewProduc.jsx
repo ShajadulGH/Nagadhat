@@ -9,7 +9,6 @@ import { getRecentViewProductsById } from '../services/getRecentViewProductsById
 
 const RecentViewProduc = () => {
     const [recentViewProductList, setRecentViewProductList] = useState([]);
-    const { status, data: session } = useSession();
     const [outletId, setOutletId] = useState(null);
 
     // Fetch outlet ID from localStorage
@@ -41,7 +40,7 @@ const RecentViewProduc = () => {
         };
 
         recentViewConfigure();
-    }, [session, outletId]);
+    }, [outletId]);
 
     const settings = {
         dots: false,
@@ -88,8 +87,7 @@ const RecentViewProduc = () => {
                     <div className="container">
                         <SectionTitle
                             title="Recent View"
-                            target="recentview"
-                            path="/viewallproduct"
+                            path="/all-recent-view-product"
                         />
                         <div className="row">
                             <div className="col-md-12">

@@ -97,8 +97,9 @@ function Sales() {
                             <SectionTitle
                                 isSale={true}
                                 title={`Flash Sale`}
-                                target={"flashSale"}
-                                path="/viewallproduct"
+                                target={`flashSale`}
+                                districtId={districtId}
+                                path={`/all-flashsales-product`}
                             >
                                 {flashSaleEndsTime?.end_time && (
                                     <FlipClock

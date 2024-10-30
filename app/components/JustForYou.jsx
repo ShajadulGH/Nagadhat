@@ -67,8 +67,9 @@ function JustForYou() {
             <div className="nh-just-for-you">
                 <SectionTitle
                     title="Just For You"
-                    target="justForYou"
-                    path="/viewallproduct"
+                    target={`justForYou`}
+                    districtId={districtId}
+                    path={`/all-just-for-you-product`}
                 />
 
                 <div className="row just-for-random-product">

@@ -12,7 +12,7 @@ export default async function Home() {
             <HeroSlider />
             <Partner />
             <Sales isHome={true} />
-            <Category showOnHome={true} />
+            <Category />
             <JustForYou />
             <div className="pb-5">
                 <Service />
