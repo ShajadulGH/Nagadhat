@@ -6,6 +6,7 @@ import ProductSinglePage from "@/app/components/ProductDetails";
 
 import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
 import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
+import { getHomeCategory } from "@/app/services/getHomeCategory";
 // export async function generateMetadata( productDetails) {
 
 //     try {
@@ -73,7 +74,6 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
         `slug=${slug}&outlet_id=${outlet_id}`
     );
 
- 
     if (productInfo?.message === "Product found in other outlets.") {
         outletInfo = productInfo?.available_outlets;
     }
@@ -117,8 +117,16 @@ export async function generateStaticParams() {
         const flashSalesProducts =
             flashSalesData?.results?.flash_sales_product?.data || [];
 
+        // Fetch Flash Sales Products
+        const categoryList = await getHomeCategory();
+        const categoryInfo = categoryList?.results?.category?.data || [];
+
         // Combine product slugs from both datasets
-        const allProducts = [...justForYouProducts, ...flashSalesProducts];
+        const allProducts = [
+            ...justForYouProducts,
+            ...flashSalesProducts,
+            ...categoryInfo,
+        ];
 
         return allProducts.map((product) => ({
             slug: product.slug,
