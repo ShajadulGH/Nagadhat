@@ -9,7 +9,8 @@ export const getHomeJustForYouProduct = async (
         try {
             const response = await fetch(
                 `${apiBaseUrl}/get-outlet-product-by-district-id-v2-just-for-you/${districtId}?page=${page}&limit=${limit}`,
-                { next: { revalidate: 100 } }
+                ['posts'],
+                { revalidate: 36000, tags: ['posts'] }
             );
             return await response.json();
         } catch (error) {

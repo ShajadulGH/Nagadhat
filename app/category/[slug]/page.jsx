@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 const DynamicCategoryPage = ({ params }) => {
-    console.log("params", { params });
 
     const searchParams = useSearchParams();
     const [categoryBySlugData, setCategoryBySlugData] = useState(null);

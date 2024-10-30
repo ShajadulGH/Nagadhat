@@ -6,34 +6,7 @@ import JustForYou from "./JustForYou";
 import { getHomePageBodyBrand } from "../services/getHomePageBodyBrand";
 import ProductBrands from "./ProductBrands";
 
-async function Category({ flashSaleEndTime, showOnHome }) {
-    const serviceItems = [
-        {
-            imageurl: "/images/pickup.svg",
-            altText: "pickup image",
-            title: " Fast Delivery",
-            subTitle: "Free For All Type Order",
-        },
-        {
-            imageurl: "/images/gift-cart.svg",
-            altText: "gift cart",
-            title: " Best Quality",
-            subTitle: "Best Product Peices",
-        },
-        {
-            imageurl: "/images/gift-box.svg",
-            altText: "gift box",
-            title: " Exchange Offer",
-            subTitle: "One Day To Changes",
-        },
-        {
-            imageurl: "/images/headphone.svg",
-            altText: "headphone",
-            title: "  Help Center",
-            subTitle: "Support System 24/7",
-        },
-    ];
-
+async function Category() {
     const categoryData = await getHomeCategoryList();
     const categoryProductData = categoryData;
 
@@ -43,11 +16,11 @@ async function Category({ flashSaleEndTime, showOnHome }) {
     return (
         <section className="container">
             <div className="nh-categories-area">
-                <SectionTitle title="Categories" target="category" />
+                <SectionTitle title="Categories" path="all-category" target="category" />
                 <ProductCategories categoryProductData={categoryProductData} />
             </div>
             <div className="nh-brands-area pt-0">
-                <SectionTitle title="Brands" target="brand" />
+                <SectionTitle title="Brands" path="all-brand" target="brand" />
                 <ProductBrands categoryBrandData={categoryBrandData} />
             </div>
         </section>
