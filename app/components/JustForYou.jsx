@@ -10,6 +10,7 @@ function JustForYou() {
     const [districtId, setDistrictId] = useState(null);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true); // Track if there are more products
     const observerRef = useRef(null);
 
     useEffect(() => {
@@ -29,6 +30,7 @@ function JustForYou() {
                 const newProducts = justForYouList?.results?.just_for_you?.data || [];
 
                 setJfyProducts((prevProducts) => [...prevProducts, ...newProducts]);
+                setHasMore(newProducts.length > 0); // Update if there are more products
             } catch (error) {
                 console.error("Error fetching 'Just For You' products:", error);
             } finally {
@@ -44,7 +46,7 @@ function JustForYou() {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                if (entries[0].isIntersecting && !loading) {
+                if (entries[0].isIntersecting && !loading && hasMore) {
                     setPage((prevPage) => prevPage + 1);
                 }
             },
@@ -60,7 +62,7 @@ function JustForYou() {
                 observer.unobserve(observerRef.current);
             }
         };
-    }, [loading]);
+    }, [loading, hasMore]);
 
     return (
         <div className="container">
@@ -84,14 +86,12 @@ function JustForYou() {
                         </div>
                     </div>
                 </div>
-                {
-                    jfyProducts.length >= 24  &&
-                    (
-                        <>
-                            {loading && <LoadMore title={"Loading more products..."} />}
-                            <div ref={observerRef} />
-                        </>
-                    )}
+                {jfyProducts.length >= 24 && (
+                    <>
+                        {loading && <LoadMore title={"Loading more products..."} />}
+                        <div ref={observerRef} />
+                    </>
+                )}
             </div>
         </div>
     );
