@@ -15,7 +15,7 @@ const PrivilegeCardProductTable = ({ productsData = [] }) => {
     const [showingProModal, setShowingProModal] = useState(false);
     const [quantities, setQuantities] = useState(
         productsData.reduce((acc, item) => {
-            acc[item.id] = item.purchase_quantity || DEFAULT_QUANTITY; // Use item.id
+            acc[item.id] = item.purchase_quantity || DEFAULT_QUANTITY;
             return acc;
         }, {})
     );
