@@ -14,7 +14,10 @@ const PrivilegeCardDashboardTop = async () => {
     return (
         <>
             <div className="customer-dashboard-order-history-area">
-                <PrivilegeMainCard privilegeCardInfo={privilegeCardInfo} />
+                <PrivilegeMainCard
+                    privilegeCardInfo={privilegeCardInfo}
+                    session={session}
+                />
                 <PrivilegeCardProduct />
             </div>
 
