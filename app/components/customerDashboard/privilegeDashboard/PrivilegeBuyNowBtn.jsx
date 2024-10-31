@@ -1,12 +1,13 @@
 "use client";
 
 import { placeOrder } from "@/app/services/postPlaceOrder";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import { RotatingLines } from "react-loader-spinner";
 
 const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
-    console.log("privilegeCardInfo=>", { privilegeCardInfo });
+    const [isPending, startTransition] = useTransition();
     const router = useRouter();
 
     const [outletId, setOutletId] = useState(() => {
@@ -54,18 +55,25 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
             ],
         };
         try {
-            const response = await placeOrder(cartItems, session?.accessToken);
-            if (!response?.error) {
-                toast.success("Order placed successfully!");
-                const orderID = response?.order_id;
-                if (orderID) {
-                    router.push(`/paynow?orderId=${orderID}`);
+            startTransition(async () => {
+                const response = await placeOrder(
+                    cartItems,
+                    session?.accessToken
+                );
+                if (!response?.error) {
+                    toast.success("Order placed successfully!");
+                    const orderID = response?.results?.order_id;
+                    if (orderID) {
+                        router.push(`/paynow?orderId=${orderID}`);
+                    } else {
+                        toast.error(
+                            "Order ID not found. Please contact support."
+                        );
+                    }
                 } else {
-                    toast.error("Order ID not found. Please contact support.");
+                    toast.error("Failed to place order");
                 }
-            } else {
-                toast.error("Failed to place order");
-            }
+            });
         } catch (error) {
             console.error("Error placing order:", error);
             toast.error("Failed to place order. Please try again.");
@@ -74,11 +82,32 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
 
     return (
         <>
+            <ToastContainer />
             <button
                 onClick={handlePrivilegeBuyNow}
                 className="add-to-cart-link border-0 rounded-3 text-capitalize"
             >
-                Buy
+                isPending ? (
+                <div
+                    style={{
+                        height: "21px",
+                        width: "96px",
+                        textAlign: "center",
+                    }}
+                >
+                    <RotatingLines
+                        visible={true}
+                        height="18"
+                        width="20"
+                        color="#ffffff"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        ariaLabel="rotating-lines-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="w-25"
+                    />
+                </div>
+                ) : ( "Buy Now" )
             </button>
         </>
     );
