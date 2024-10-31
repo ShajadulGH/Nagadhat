@@ -15,8 +15,6 @@ export const fetchCartProducts = async (accessToken, outletId, districtId) => {
                     },
                 }
             );
-            console.log(response);
-
             if (response.status === 401) {
                 // Handle unauthorized access
                 signOut();

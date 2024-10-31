@@ -97,7 +97,6 @@ function Sales() {
                             <SectionTitle
                                 isSale={true}
                                 title={`Flash Sale`}
-                                target={`flashSale`}
                                 districtId={districtId}
                                 path={`/all-flashsales-product`}
                             >

@@ -69,7 +69,6 @@ function JustForYou() {
             <div className="nh-just-for-you">
                 <SectionTitle
                     title="Just For You"
-                    target={`justForYou`}
                     districtId={districtId}
                     path={`/all-just-for-you-product`}
                 />

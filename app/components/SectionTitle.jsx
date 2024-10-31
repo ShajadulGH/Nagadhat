@@ -8,8 +8,7 @@ function SectionTitle({
     children,
     isSale = false,
     showViewAll = true,
-    target = "",
-    districtId = 47
+    districtId
 }) {
     
     const { width } = useScreenSize();
@@ -29,7 +28,7 @@ function SectionTitle({
                     {children}
                     {showViewAll && (
                         <div className="nh-common-item">
-                            {target ? (
+                            {districtId ? (
                                 <Link
                                     href={{
                                         pathname: path,
