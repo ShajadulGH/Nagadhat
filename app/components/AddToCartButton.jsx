@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAddToCart } from "../store/cartSlice";
 import { fetchCartProducts } from "../services/getShowAddToCartProduct";
 import { useRouter } from "next/navigation";
-import { Bounce, toast } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import { showToast } from "./Toast";
 import { RotatingLines, ThreeDots } from "react-loader-spinner";
 //  function to check if all three properties (variation_size, variation_color, variation_weight) are present and not null in the decorateVariation object. If they are, the function will only check the first two properties (variation_size and variation_color) against selectedVariantKey.
@@ -354,6 +354,7 @@ function AddToCartButton({
 
     return (
         <div className="add-to-cart-btn">
+            <ToastContainer/>
             <button
                 className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
                 onClick={(e) =>
