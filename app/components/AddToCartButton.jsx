@@ -352,8 +352,6 @@ function AddToCartButton({
         }
     };
 
-    console.log("productInfo", productInfo.slug);
-
     return (
         <div className="add-to-cart-btn">
             <button
