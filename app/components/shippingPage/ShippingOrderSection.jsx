@@ -26,7 +26,7 @@ const ShippingOrderSection= ({
                             </div>
                             <div className="d-flex gap-3 justify-content-between shopping-price-area custom-shopping-price">
                                 <p>Discount</p>
-                                <strong>৳ {subTotal - totalPrice}</strong>
+                                <strong>৳ { (subTotal - totalPrice).toFixed(2)}</strong>
                             </div>
                             <div className="d-flex gap-2 flex-column border-top pt-3">
                                 <div className="d-flex gap-3 justify-content-between align-items-center shopping-price-area custom-shopping-price">

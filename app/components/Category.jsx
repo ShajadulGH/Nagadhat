@@ -16,11 +16,11 @@ async function Category() {
     return (
         <section className="container">
             <div className="nh-categories-area">
-                <SectionTitle title="Categories" path="all-category" target="category" />
+                <SectionTitle title="Categories" path="all-category" />
                 <ProductCategories categoryProductData={categoryProductData} />
             </div>
             <div className="nh-brands-area pt-0">
-                <SectionTitle title="Brands" path="all-brand" target="brand" />
+                <SectionTitle title="Brands" path="all-brand" />
                 <ProductBrands categoryBrandData={categoryBrandData} />
             </div>
         </section>

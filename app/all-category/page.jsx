@@ -4,7 +4,6 @@ import ViewAllBanner from "../components/viewAllProduct/ViewAllBanner";
 import ViewAllCategoryTitle from "../components/viewAllProduct/ViewAllCategoryTitle";
 import ViewAllCategories from "../components/viewAllProduct/ViewAllCategories";
 import { getHomeCategory } from "../services/getHomeCategory";
-import { getHomeBrand } from "../services/getHomeBrand";
 import { NagadhatPublicUrl } from "../utils";
 import Pagination from "../components/productCategory/Pagination";
 import RecentViewProduc from "../components/RecentViewProduc";
