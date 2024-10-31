@@ -1,7 +1,8 @@
+import { signOut } from "next-auth/react";
 import { apiBaseUrl } from "../utils";
 
 export const fetchCartProducts = async (accessToken, outletId, districtId) => {
-    if (accessToken && outletId && districtId){
+    if (accessToken && outletId && districtId) {
         try {
             // console.log("get cart product ================", accessToken);
             const response = await fetch(
@@ -14,7 +15,15 @@ export const fetchCartProducts = async (accessToken, outletId, districtId) => {
                     },
                 }
             );
-    
+            console.log(response);
+
+            if (response.status === 401) {
+                // Handle unauthorized access
+                signOut();
+                // router.push("/");
+                // window.location.href = '/login'; // Redirect to the login page
+            }
+
             if (!response.ok) {
                 throw new Error("Failed to fetch cart products");
             }
@@ -23,5 +32,5 @@ export const fetchCartProducts = async (accessToken, outletId, districtId) => {
             console.error(error);
         }
     }
-    
+
 };
