@@ -621,7 +621,6 @@ const CartPage = () => {
             showToast("Something went wrong, please try again later.", "error");
         }
     };
-console.log("checkedProductCard",checkedProductCard);
 
     return (
         <section className="cart-section-area">
