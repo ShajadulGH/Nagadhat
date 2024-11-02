@@ -158,9 +158,15 @@ const Registration = () => {
                     //     router.push(`/otp?phone=${formData.phone}`);
                     //     return;
                     // }
+                    
                     if (res.message == "Referrer User Not Found! Please try another Referrer.") {
-                        localStorage.removeItem("referrerID")
-                    }
+                        localStorage.removeItem("referrerID");
+                        formData.referrer_id = "";
+                    } 
+                    // else if (res.message == "Validation Error.") {
+                    //     setErrorMessage(res.data.phone[0]);
+                    //     return;
+                    // }
                     alert(res.message);
                     return;
                 }
