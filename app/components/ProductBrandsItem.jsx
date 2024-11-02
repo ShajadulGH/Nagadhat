@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
+import img from "@/public/images/placeholder--image.jpg"
 
 const ProductBrandsItem = ({ categoryItem }) => {
     let imageurl = `${NagadhatPublicUrl}/${categoryItem.logo}`;
@@ -19,10 +20,11 @@ const ProductBrandsItem = ({ categoryItem }) => {
                 <Link href={`category/${path}`}>
                     <div className="nh-categories-img image-hover-effect">
                         <Image
-                            src={imageurl}
+                            width={150} height={150}
+                            src={imageurl?imageurl:img}
                             className="img-fluid"
                             alt={altText}
-                            fill={true}
+                            // fill={true}
                         />
                     </div>
                     <div className="nh-categories-info text-hover-effect text-capitalize text-center">

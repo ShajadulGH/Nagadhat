@@ -7,6 +7,7 @@ import AddToCartButton from "../AddToCartButton";
 import { NagadhatPublicUrl } from "../../utils";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import img from "@/public/images/placeholder--image.jpg"
 
 const CategoryProductArchiveItems = ({ productItem }) => {
     let imageUrl = null;
@@ -94,18 +95,14 @@ const CategoryProductArchiveItems = ({ productItem }) => {
             >
                 <div className="flash-sale-content-bg nh-hover-box-shadow">
                     <div className="product-category-image">
-                        {imageUrl ? (
-                            <div className="flash-sale-content-img image-hover-effect">
-                                <Image
-                                    fill={true}
-                                    src={imageUrl ? imageUrl : null}
-                                    className="img-fluid"
-                                    alt={title}
-                                />
-                            </div>
-                        ) : (
-                            "Image Not Found"
-                        )}
+                        <div className="flash-sale-content-img image-hover-effect">
+                            <Image
+                                fill={true}
+                                src={imageUrl ? imageUrl : img}
+                                className="img-fluid"
+                                alt={title}
+                            />
+                        </div>
                     </div>
                     <div className="flash-sale-content-info text-hover-effect">
                         <h4>{slicedTitle}</h4>
@@ -148,7 +145,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                                     ) : null
                                 )
                             ) : productItem?.product_type === "single" &&
-                              productItem?.price?.discounted_price > 0 ? (
+                                productItem?.price?.discounted_price > 0 ? (
                                 <div className="d-flex align-items-center justify-content-between">
                                     <strong>
                                         ট {""}

@@ -4,6 +4,7 @@ import React from "react";
 import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
+import img from "@/public/images/placeholder--image.jpg"
 
 function ProductCard({ item }) {
     const image = `${NagadhatPublicUrl}/${item.product_thumbnail}`;
@@ -76,7 +77,7 @@ function ProductCard({ item }) {
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">
-                        <Image src={image} alt={title} fill={true} />
+                        <Image src={image || img} alt={title} fill={true} />
                     </div>
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
