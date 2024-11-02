@@ -88,7 +88,8 @@ const AddToCartProductShippingPage = () => {
                         outletId,
                         districtId
                     );
-
+                    console.log(cartProduct?.data);
+                    
                     setCartProduct(cartProduct?.data);
                     setShippingPrice(cartProduct?.shipping_charge);
                     const pickUpPoint = await pickUpPontes(outletId);
@@ -146,7 +147,7 @@ const AddToCartProductShippingPage = () => {
         );
         const quantityTotal = getTotalQuantity(cartProductsItem?.data);
         
-        setCartProduct(cartProductsItem?.data);
+        // setCartProduct(cartProductsItem?.data);
 
         if (order.code == 200) {
             setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);

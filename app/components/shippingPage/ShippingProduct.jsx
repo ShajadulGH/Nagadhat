@@ -21,8 +21,6 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
 
     }, [cartProduct, setTotalPrice, setSubTotal]);
 
-    
-
     return (
         <div className="row new-nh-shipping-product-row">
             {cartProduct?.length > 0 && (

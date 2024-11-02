@@ -28,11 +28,10 @@ const DynamicCategoryPage = ({ params }) => {
         for (const key of searchParams.keys()) {
             newOption[key] = searchParams.get(key);
         }
-        setOption(newOption);
+        setOption({ ...newOption, limit: 24 });
     }, [searchParams]);
 
     const page = parseInt(option.page) || 1;
-    const limit = 8; // Items per page
 
     useEffect(() => {
         if (outletId && slug) {
@@ -71,7 +70,7 @@ const DynamicCategoryPage = ({ params }) => {
     const categoryTotalMinPrice = categoryByResult?.category_min_price;
     const categoryTotalMaxPrice = categoryByResult?.category_max_price;
     const totalProduct = categoryByResult?.total_product;
-    const lastPage = categoryByResult?.products?.last_page;
+    const lastPage = categoryByResult?.last_page;
 
     return (
         <section className="product-category-wrapper">
@@ -104,7 +103,6 @@ const DynamicCategoryPage = ({ params }) => {
                                 totalProduct={totalProduct}
                                 lastPage={lastPage}
                                 currentPage={page}
-                                itemsPerPage={limit}
                                 loading={loading}
                             />
                         </div>
