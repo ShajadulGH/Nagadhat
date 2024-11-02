@@ -100,7 +100,6 @@ const ContainerBookingProduct = ({
                                         style={{
                                             objectFit: "cover",
                                         }}
-                                        sizes="100vw"
                                     />
                                 </div>
                                 <div className="flash-sale-content-info text-hover-effect">
