@@ -87,27 +87,29 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
                 onClick={handlePrivilegeBuyNow}
                 className="add-to-cart-link border-0 rounded-3 text-capitalize"
             >
-                isPending ? (
-                <div
-                    style={{
-                        height: "21px",
-                        width: "96px",
-                        textAlign: "center",
-                    }}
-                >
-                    <RotatingLines
-                        visible={true}
-                        height="18"
-                        width="20"
-                        color="#ffffff"
-                        strokeWidth="5"
-                        animationDuration="0.75"
-                        ariaLabel="rotating-lines-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="w-25"
-                    />
-                </div>
-                ) : ( "Buy Now" )
+                {isPending ? (
+                    <div
+                        style={{
+                            height: "21px",
+                            width: "70px",
+                            textAlign: "center",
+                        }}
+                    >
+                        <RotatingLines
+                            visible={true}
+                            height="18"
+                            width="20"
+                            color="#ffffff"
+                            strokeWidth="5"
+                            animationDuration="0.75"
+                            ariaLabel="rotating-lines-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="w-25"
+                        />
+                    </div>
+                ) : (
+                    "Buy Now"
+                )}
             </button>
         </>
     );
