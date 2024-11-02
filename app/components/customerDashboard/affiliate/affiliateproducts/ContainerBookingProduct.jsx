@@ -13,7 +13,7 @@ const ContainerBookingProduct = ({
     containerId,
     progressBarValue,
     getTotalQuantity,
-    availableQuantity
+    availableQuantity,
 }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
@@ -36,7 +36,7 @@ const ContainerBookingProduct = ({
             ]);
         }
     };
-    
+
     // Handle Link click event
     const handleLinkClick = (event) => {
         event.stopPropagation();
@@ -67,17 +67,18 @@ const ContainerBookingProduct = ({
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 p-4 row-cols-xxl-4 g-3">
                     {containerProduct.map((product) => (
                         <div
-                            key={product.id}
+                            key={product?.id}
                             className="flash-sale-content-item col"
                             onClick={() => handleSelectProduct(product)}
                         >
                             <div
-                                className={`flash-sale-content-bg nh-hover-box-shadow ${selectedProducts.some(
-                                    (p) => p.id === product.id
-                                )
+                                className={`flash-sale-content-bg nh-hover-box-shadow ${
+                                    selectedProducts.some(
+                                        (p) => p.id === product.id
+                                    )
                                         ? "selected-container-item"
                                         : ""
-                                    }`}
+                                }`}
                             >
                                 <div
                                     className="image-hover-effect mx-auto mb-2"
@@ -89,9 +90,13 @@ const ContainerBookingProduct = ({
                                 >
                                     <Image
                                         fill
-                                        src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
+                                        src={
+                                            product?.product_thumbnail
+                                                ? `${NagadhatPublicUrl}/${product?.product_thumbnail}`
+                                                : `/images/placeholder--image.jpg`
+                                        }
                                         className="img-fluid mx-auto"
-                                        alt={product.product_name}
+                                        alt={product?.product_name}
                                         style={{
                                             objectFit: "cover",
                                         }}

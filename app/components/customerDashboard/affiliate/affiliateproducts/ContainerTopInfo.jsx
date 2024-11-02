@@ -38,8 +38,18 @@ const ContainerTopInfo = ({ containerData }) => {
                                 <td className="px-5">:</td>
                                 {item_categories?.map((items, index) => {
                                     return (
-                                        <td key={index} className="text-end">
-                                            {items ? items : "...."}
+                                        <td
+                                            key={index}
+                                            className="text-end d-flex gap-2 flex-wrap "
+                                        >
+                                            <span
+                                                className="px-2 w-100 text-white"
+                                                style={{
+                                                    background: "#44bc9d",
+                                                }}
+                                            >
+                                                {items ? items : "...."}
+                                            </span>
                                         </td>
                                     );
                                 })}
