@@ -22,6 +22,7 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
     }, [cartProduct, setTotalPrice, setSubTotal]);
 
     console.log(cartProduct);
+
     
 
     return (
