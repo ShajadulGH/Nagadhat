@@ -28,7 +28,7 @@ const PriceRange = ({
             params.set("page", "1");
             url.search = params.toString();
             router.push(url.toString(), undefined, { shallow: true });
-        }, 600);
+        }, 100);
         return () => {
             clearTimeout(bouncing);
         };
