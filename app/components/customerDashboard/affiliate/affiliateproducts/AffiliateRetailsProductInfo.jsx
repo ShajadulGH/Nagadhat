@@ -13,8 +13,6 @@ const AffiliateRetailsProductInfo = ({
     referralLink,
     copied,
 }) => {
-    console.log("retailProduct", retailProduct);
-
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     return (

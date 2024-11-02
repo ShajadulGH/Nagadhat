@@ -53,7 +53,7 @@ const AffiliateTeamWrapp = () => {
                         setTeamGrandTotal(grandTotal);
                         setTotalMember(allMemberCount);
                         setTeamData(affiliateTeamData);
-                        setLastPage(affiliateTeamData.last_page || 1);
+                        setLastPage(affiliateTeamData?.last_page || 1);
                     });
                 } catch (error) {
                     console.error(
