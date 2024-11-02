@@ -21,9 +21,6 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
 
     }, [cartProduct, setTotalPrice, setSubTotal]);
 
-    console.log(cartProduct);
-
-    
 
     return (
         <div className="row new-nh-shipping-product-row">
