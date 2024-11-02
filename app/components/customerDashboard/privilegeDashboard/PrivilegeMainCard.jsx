@@ -6,7 +6,7 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.front_image}`
         : "/path-to-default-front-image.jpg";
-        
+
     const backImageUrl = privilegeCardInfo?.privilege_card?.back_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.back_image}`
         : "/path-to-default-back-image.jpg";
