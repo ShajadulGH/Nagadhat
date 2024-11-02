@@ -25,6 +25,7 @@ const ProductBrandsItem = ({ categoryItem }) => {
                             className="img-fluid"
                             alt={altText}
                             // fill={true}
+                            unoptimized
                         />
                     </div>
                     <div className="nh-categories-info text-hover-effect text-capitalize text-center">
