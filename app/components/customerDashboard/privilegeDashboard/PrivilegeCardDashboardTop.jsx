@@ -7,7 +7,6 @@ import { getPrivilegeCardDetails } from "@/app/services/privilegeCard/getPrivile
 
 const PrivilegeCardDashboardTop = async () => {
     const session = await getServerSession(authOptions);
-
     const privilegeCard = await getPrivilegeCardDetails(session?.accessToken);
     const privilegeCardInfo = privilegeCard?.results || {};
 

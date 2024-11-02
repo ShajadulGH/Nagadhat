@@ -83,9 +83,11 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
     return (
         <>
             <ToastContainer />
+
             <button
                 onClick={handlePrivilegeBuyNow}
                 className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                disabled={isPending || privilegeCardInfo?.status === 2}
             >
                 {isPending ? (
                     <div
@@ -107,8 +109,10 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
                             wrapperClass="w-25"
                         />
                     </div>
+                ) : privilegeCardInfo?.status === 2 ? (
+                    <span>Active</span>
                 ) : (
-                    "Buy Now"
+                    <span>Buy Now</span>
                 )}
             </button>
         </>
