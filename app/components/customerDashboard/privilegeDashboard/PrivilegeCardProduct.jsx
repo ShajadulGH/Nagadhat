@@ -11,6 +11,16 @@ const PrivilegeCardProduct = () => {
     const [searchTerms, setSearchTerms] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
     const [productsData, setProductsData] = useState([]);
+    const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
+
+    const [showPriceAddCart, setshowPriceAddCart] = useState({});
+    // Handler to set price visibility for a specific product
+    const handleSetShowPrice = (productId) => {
+        setshowPriceAddCart((prev) => ({
+            ...prev,
+            [productId]: true,
+        }));
+    };
 
     const { data: session, status } = useSession();
 
@@ -38,7 +48,7 @@ const PrivilegeCardProduct = () => {
             };
             fetchPrivilegeProduct();
         }
-    }, [session?.accessToken, searchTerms, categoryFilter]);
+    }, [session?.accessToken, searchTerms, categoryFilter, rendaringCartPrice]);
 
     return (
         <>
@@ -51,7 +61,13 @@ const PrivilegeCardProduct = () => {
             {isPending ? (
                 <DefaultLoader />
             ) : (
-                <PrivilegeCardProductTable productsData={productsData} />
+                <PrivilegeCardProductTable
+                    productsData={productsData}
+                    showPriceAddCart={showPriceAddCart}
+                    handleSetShowPrice={handleSetShowPrice}
+                    rendaringCartPrice={rendaringCartPrice}
+                    setRendaringCartPrice={setRendaringCartPrice}
+                />
             )}
         </>
     );
