@@ -91,7 +91,7 @@ const ResaleProductLongDescription = ({ productInfo }) => {
                             >
                                 <div
                                     dangerouslySetInnerHTML={{
-                                        __html: productInfo?.specifications,
+                                        __html: productInfo?.specification,
                                     }}
                                 />
                             </div>

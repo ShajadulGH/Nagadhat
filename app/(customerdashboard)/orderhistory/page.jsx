@@ -2,11 +2,12 @@
 
 import { getOrdersByUserId } from "@/app/services/getOrdersByUserId";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import CustomerRightsids from "@/app/components/customerDashboard/orderhistory/CustomerRightsids";
 import { useSearchParams } from "next/navigation";
 
 const CustomerDashboardPage = () => {
+    const [isPending, startTransition] = useTransition();
     const [customerOrders, setCustomerOrders] = useState([]);
     const { data: session, status } = useSession();
     const [lastPage, setLastPage] = useState(1);
@@ -27,26 +28,24 @@ const CustomerDashboardPage = () => {
     useEffect(() => {
         if (status === "authenticated") {
             const getOrderDataFetch = async () => {
-                const orderData = await getOrdersByUserId(
-                    session?.accessToken,
-                    currentPage,
-                    limit
-                );
-                const orderResult = orderData?.results?.data;
-                setCustomerOrders(orderResult);
-                setLastPage(orderData?.results?.last_page);
+                try {
+                    startTransition(async () => {
+                        const orderData = await getOrdersByUserId(
+                            session?.accessToken,
+                            currentPage,
+                            limit
+                        );
+                        const orderResult = orderData?.results?.data;
+                        setCustomerOrders(orderResult);
+                        setLastPage(orderData?.results?.last_page);
+                    });
+                } catch (error) {
+                    console.error("Error fetching order data:", error);
+                }
             };
             getOrderDataFetch();
         }
-    }, [status, session, currentPage, orderCancel]);
-
-    if (status === "loading") {
-        return (
-            <div className=" d-flex align-items-center justify-content-center vh-100">
-                <h1 className="text-center">Loading... </h1>;
-            </div>
-        );
-    }
+    }, [status, session?.accessToken, currentPage, orderCancel]);
 
     return (
         <>
@@ -57,6 +56,7 @@ const CustomerDashboardPage = () => {
                 session={session}
                 setOrderCancel={setOrderCancel}
                 orderCancel={orderCancel}
+                isPending={isPending}
             />
         </>
     );

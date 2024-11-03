@@ -76,13 +76,6 @@ const ManageNomineeInfo = () => {
             );
         }
     };
-    if (status === "loading") {
-        return (
-            <div className=" d-flex align-items-center justify-content-center vh-100">
-                <h1 className="text-center">Loading... </h1>;
-            </div>
-        );
-    }
 
     return (
         <div className="accordion-item border-0 mb-4 rounded">
@@ -107,7 +100,10 @@ const ManageNomineeInfo = () => {
                     <div className="customer-manage-profile-from-area">
                         <form className="row" onSubmit={handleSubmit}>
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="name" className="form-label">
+                                <label
+                                    htmlFor="nominee_name"
+                                    className="form-label"
+                                >
                                     Full Name
                                     {/* <span className="text-danger fw-bold">
                                         *
@@ -123,7 +119,10 @@ const ManageNomineeInfo = () => {
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="mobile" className="form-label">
+                                <label
+                                    htmlFor="nominee_mobile_number"
+                                    className="form-label"
+                                >
                                     Mobile Number
                                     {/* <span className="text-danger fw-bold">
                                         *
@@ -139,21 +138,24 @@ const ManageNomineeInfo = () => {
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="nid-no" className="form-label">
+                                <label
+                                    htmlFor="nominee_nid"
+                                    className="form-label"
+                                >
                                     NID No
                                 </label>
                                 <input
                                     type="number"
-                                    name="nid-no"
+                                    name="nominee_nid"
                                     className="form-control"
-                                    id="nid-no"
+                                    id="nominee_nid"
                                     value={nomineInfo.nominee_nid}
                                     onChange={handleChange}
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
                                 <label
-                                    htmlFor="relation"
+                                    htmlFor="nominee_relation"
                                     className="form-label"
                                 >
                                     Relation

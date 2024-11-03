@@ -2,6 +2,7 @@
 
 import AffiliateProductDetailsImg from "@/app/components/customerDashboard/affiliate/affiliateproducts/AffiliateProductDetailsImg";
 import ResaleProductDetailsContent from "@/app/components/customerDashboard/affiliate/affiliateproducts/ResaleProductDetailsContent";
+import PrivateRoute from "@/app/components/PrivateRoute/PrivateRoute";
 import ResaleProductLongDescription from "@/app/components/productDetail/ResaleProductLongDescription";
 import { getAffiliateResaleProductDetail } from "@/app/services/affiliate/affiliateproducts/getAffiliateResaleProductDetail";
 import { useSession } from "next-auth/react";
@@ -46,34 +47,38 @@ const ResaleProductDetailsPage = ({ params }) => {
     }, [status, session?.accessToken, productId, outletId]);
 
     return (
-        <div className="container py-5">
-            <Suspense
-                fallback={
-                    <div className=" d-flex align-items-center justify-content-center vh-100">
-                        <h1 className="text-center">Loading... </h1>;
-                    </div>
-                }
-            >
-                <div className="row g-5">
-                    <div className="col-lg-6 px-5">
-                        <AffiliateProductDetailsImg
-                            productGallery={productGallery}
-                            productDetails={productDetails}
-                        />
-                    </div>
-                    <div className="col-lg-6">
-                        <ResaleProductDetailsContent
-                            productDetails={productDetails}
-                        />
-                    </div>
+        <>
+            <PrivateRoute>
+                <div className="container py-5">
+                    <Suspense
+                        fallback={
+                            <div className=" d-flex align-items-center justify-content-center vh-100">
+                                <h1 className="text-center">Loading... </h1>;
+                            </div>
+                        }
+                    >
+                        <div className="row g-5">
+                            <div className="col-lg-6 px-5">
+                                <AffiliateProductDetailsImg
+                                    productGallery={productGallery}
+                                    productDetails={productDetails}
+                                />
+                            </div>
+                            <div className="col-lg-6">
+                                <ResaleProductDetailsContent
+                                    productDetails={productDetails}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <ResaleProductLongDescription
+                                productInfo={productDetails}
+                            />
+                        </div>
+                    </Suspense>
                 </div>
-                <div>
-                    <ResaleProductLongDescription
-                        productInfo={productDetails}
-                    />
-                </div>
-            </Suspense>
-        </div>
+            </PrivateRoute >
+        </>
     );
 };
 

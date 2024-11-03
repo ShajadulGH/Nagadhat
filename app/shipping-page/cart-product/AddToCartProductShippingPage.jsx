@@ -35,8 +35,7 @@ const AddToCartProductShippingPage = () => {
     const [pickUpIdForOrder, setPickUpIdForOrder] = useState(null);
     const [shippingPrice, setShippingPrice] = useState(0);
     const [districtsData, setDistrictsData] = useState([]);
-    const [selectedDefaultAddressId, setSelectedDefaultAddressId] =
-        useState(null);
+    const [selectedDefaultAddressId, setSelectedDefaultAddressId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("#");
     const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -57,9 +56,17 @@ const AddToCartProductShippingPage = () => {
         return 47;
     });
     const router = useRouter();
-    let price;
-    let discountPrice;
-    let totalDiscountPrice = 0;
+
+    useEffect(() => {
+        // Set default address ID when customerAddress changes
+        const defaultAddress = customerAddress.find(address => address.set_default === 1);
+        if (defaultAddress) {
+            setSelectedDefaultAddressId(defaultAddress.id);
+        }
+        if (pickUpIdForOrder) {
+            setSelectedDefaultAddressId(null);
+        }
+    }, [customerAddress, pickUpIdForOrder]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -70,14 +77,19 @@ const AddToCartProductShippingPage = () => {
                         session?.accessToken
                     );
                     setCustomerAddress(data.results);
-                    const defaultAddressInfo = findObjectWithKey(data.results, "set_default", 1);
+                    const defaultAddressInfo = findObjectWithKey(
+                        data.results,
+                        "set_default",
+                        1
+                    );
                     setSelectedDefaultAddressId(defaultAddressInfo?.id);
                     const cartProduct = await fetchCartProducts(
                         session?.accessToken,
                         outletId,
                         districtId
                     );
-
+                    console.log(cartProduct?.data);
+                    
                     setCartProduct(cartProduct?.data);
                     setShippingPrice(cartProduct?.shipping_charge);
                     const pickUpPoint = await pickUpPontes(outletId);
@@ -92,7 +104,7 @@ const AddToCartProductShippingPage = () => {
             }
         };
         fetchData();
-    }, [session]);
+    }, [session?.accessToken]);
 
     const handlePlaceOrder = async () => {
         if (!isTermsChecked) {
@@ -106,17 +118,17 @@ const AddToCartProductShippingPage = () => {
             product_variation_id: item.product_variation_id,
             product_shipping_charge: "", // Replace with actual shipping charge if applicable
             product_discount_type: item.discount_type,
-            product_discount_amount: item?.regular_price,
+            product_discount_amount: item?.discountPrice,
             vendor_id: "", // Replace with actual vendor ID if applicable
             thumbnail: item?.product_thumbnail,
-            product_regular_price: item.discountPrice,
+            product_regular_price: item.regular_price ,
         }));
         const payload = {
             outlet_id: outletId,
             location_id: districtId,
             shipping_address_id: selectedDefaultAddressId, // Replace with actual shipping address ID if applicable
             delivery_note: deliveryNote,
-            total_delivery_charge: shippingPrice,
+            total_delivery_charge: shippingPrice || 0,
             total_products_price: totalPrice,
             payment_type: "cash_on_delivery",
             shipping_email: userEmail,
@@ -134,13 +146,13 @@ const AddToCartProductShippingPage = () => {
             districtId
         );
         const quantityTotal = getTotalQuantity(cartProductsItem?.data);
-
-        setCartProduct(cartProductsItem?.data);
+        
+        // setCartProduct(cartProductsItem?.data);
 
         if (order.code == 200) {
-            setRedirectPath(`/paynow?orderId=${order?.results}`);
+            setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
 
-            router.push(`/paynow?orderId=${order?.results}`);
+            router.push(`/paynow?orderId=${order?.results?.order_id}`);
             dispatch(
                 setAddToCart({
                     hasSession: true,
@@ -166,72 +178,73 @@ const AddToCartProductShippingPage = () => {
 
     return (
         <>
-            <PrivateRoute>
-                {loading ? (
-                    <div
-                        style={{
-                            textAlign: "center",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            color: "#fff",
-                            height: "100vh",
-                            width: "100%",
-                        }}
-                    >
-                        <RotatingLines
-                            visible={true}
-                            height="80"
-                            width="80"
-                            color="white"
-                            strokeColor="#44bc9d"
-                            strokeWidth="5"
-                            animationDuration="0.75"
-                            ariaLabel="rotating-lines-loading"
-                            wrapperStyle={{}}
-                            wrapperClass=""
-                        />
-                    </div>
-                ) : (
-                    <>
-                        <section className="shipping-section-area nh-new-shipping-wrapper">
-                            <div className="container">
-                                <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
-                                    <div className="col-lg-8">
+            {loading ? (
+                <div
+                    style={{
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#fff",
+                        height: "100vh",
+                        width: "100%",
+                    }}
+                >
+                    <RotatingLines
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="white"
+                        strokeColor="#44bc9d"
+                        strokeWidth="5"
+                        animationDuration="0.75"
+                        ariaLabel="rotating-lines-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                </div>
+            ) : (
+                <>
+                    <section className="shipping-section-area nh-new-shipping-wrapper">
+                        <div className="container">
+                            <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
+                                <div className="col-lg-8">
+                                    <CustomerAddress
+                                        setPickUpIdForOrder={
+                                            setPickUpIdForOrder
+                                        }
+                                        setShippingPrice={setShippingPrice}
+                                        setDeliveryNote={setDeliveryNote}
+                                        customerAddress={customerAddress}
+                                        setCustomerAddress={setCustomerAddress}
+                                        selectedDefaultAddressId={selectedDefaultAddressId} setSelectedDefaultAddressId={setSelectedDefaultAddressId}
+                                        cartProduct={cartProduct}
+                                    />
 
-                                        <CustomerAddress
-                                            setPickUpIdForOrder={setPickUpIdForOrder}
-                                            setShippingPrice={setShippingPrice}
-                                            setDeliveryNote={setDeliveryNote}
-                                            customerAddress={customerAddress} setCustomerAddress={setCustomerAddress}
-                                        />
-
-                                        {/* shows add to card product */}
-                                        <ShippingProduct
-                                            cartProduct={cartProduct}
-                                            setTotalPrice={setTotalPrice}
-                                            setSubTotal={setSubTotal}
-                                        />
-
-                                    </div>
-                                    <div className="col-lg-4">
-                                        <ShippingOrderSection
-                                            subTotal={subTotal}
-                                            totalPrice={totalPrice}
-                                            shippingPrice={shippingPrice}
-                                            handlePlaceOrder={handlePlaceOrder}
-                                            isTermsChecked={isTermsChecked}
-                                            setIsTermsChecked={setIsTermsChecked}
-                                            customerAddress={customerAddress}
-                                            cartProduct={cartProduct}
-                                        />
-                                    </div>
+                                    {/* shows add to card product */}
+                                    <ShippingProduct
+                                        cartProduct={cartProduct}
+                                        setTotalPrice={setTotalPrice}
+                                        setSubTotal={setSubTotal}
+                                    />
+                                </div>
+                                <div className="col-lg-4">
+                                    <ShippingOrderSection
+                                        subTotal={subTotal}
+                                        totalPrice={totalPrice}
+                                        shippingPrice={shippingPrice}
+                                        handlePlaceOrder={handlePlaceOrder}
+                                        isTermsChecked={isTermsChecked}
+                                        setIsTermsChecked={setIsTermsChecked}
+                                        customerAddress={customerAddress}
+                                        cartProduct={cartProduct}
+                                    />
                                 </div>
                             </div>
-                        </section>
-                    </>
-                )}
-            </PrivateRoute>
+                        </div>
+                    </section>
+                </>
+            )}
         </>
     );
 };

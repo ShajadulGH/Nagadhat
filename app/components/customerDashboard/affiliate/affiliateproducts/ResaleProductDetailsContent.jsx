@@ -1,6 +1,50 @@
+"use client";
+import { useState, useEffect } from "react";
 import { FaCheck, FaRegEye, FaRegStar, FaStar } from "react-icons/fa6";
+import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
+import ResaleAddToCartBtn from "./ResaleAddToCartBtn";
 
 const ResaleProductDetailsContent = ({ productDetails }) => {
+    // Ensure the prices are numbers
+    const productPrice = parseFloat(productDetails?.resell_purchases_price) || 0;
+    const productMRP = parseFloat(productDetails?.resell_mrp_price) || 0;
+
+    // State to manage quantity, total price, and total MRP price
+    const [quantity, setQuantity] = useState(1);  // Initial quantity set to 1 or fallback
+    const [totalPrice, setTotalPrice] = useState(0); 
+    const [totalMRPPrice, setTotalMRPPrice] = useState(0); 
+
+    // Function to update prices based on quantity
+    const updatePrices = (newQuantity) => {
+        setTotalPrice(productPrice * newQuantity);
+        setTotalMRPPrice(productMRP * newQuantity);
+    };
+
+    // Function to handle quantity increment
+    const handleIncrease = () => {
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        updatePrices(newQuantity);
+    };
+
+    // Function to handle quantity decrement
+    const handleDecrease = () => {
+        if (quantity > productDetails?.min_quantity) {
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            updatePrices(newQuantity);
+        }
+    };
+
+    // Update prices when the product price, MRP, or quantity changes
+    useEffect(() => {
+        if (productDetails) {
+            const initialQuantity = productDetails?.min_quantity || 1;
+            setQuantity(initialQuantity);
+            updatePrices(initialQuantity);
+        }
+    }, [productDetails, productPrice, productMRP]);
+
     return (
         <>
             <div className="product-details-content">
@@ -48,45 +92,13 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
                 <div className="product-details-price-area align-items-center d-flex">
                     <strong>
                         <span>৳ </span>
-                        {productDetails?.after_discount_mrp_price}
+                        {totalPrice.toFixed(2)}
                     </strong>
-                    <del>৳ {productDetails?.mrp_price}</del>
+                    <del>৳ {totalMRPPrice.toFixed(2)}</del>
                 </div>
 
                 <div className="product-info-rtk-content pt-4">
                     <form>
-                        <div className="product-details-variant-area">
-                            <div className="d-flex align-items-center">
-                                <div>
-                                    <div className="product-details-variant-holder d-flex align-items-center mb-4">
-                                        <p className="variantName">Color</p>
-                                        <div
-                                            className="product-details-inner-color product-details-variant-item"
-                                            style={{ backgroundColor: "red" }}
-                                        ></div>
-                                        <div
-                                            className="product-details-inner-color product-details-variant-item"
-                                            style={{ backgroundColor: "green" }}
-                                        ></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="product-details-variant-area">
-                            <div className="product-details-variant d-flex align-items-center">
-                                <div>
-                                    <div className="product-details-variant-holder d-flex align-items-center mb-4">
-                                        <p>Size:</p>
-                                        <div className="product-details-variant-item variantAttributeUnitive">
-                                            <label>M</label>
-                                        </div>
-                                        <div className="product-details-variant-item variantAttributeUnitive">
-                                            <label>L</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div></div>
                         <div className="product-details-quantity-area d-flex align-items-center justify-content-start">
                             <div className="product-details-quantity d-flex align-items-center">
@@ -94,36 +106,39 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
                                     <p>Quantity:</p>
                                 </div>
                                 <div className="product-details-inner-quantity product-details-inner-qty d-flex align-items-center">
-                                    <button type="button" disabled="">
+                                    <button type="button" onClick={handleDecrease} disabled={quantity <= productDetails?.min_quantity}>
                                         -
                                     </button>
                                     <input
-                                        readOnly=""
+                                        readOnly
                                         type="text"
-                                        defaultValue="1"
+                                        value={quantity}
                                     />
-                                    <button type="button">+</button>
+                                    <button type="button" onClick={handleIncrease}>
+                                        +
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div className="product-details-add-cart-area d-flex align-items-center">
                             <div className="product-details-add-cart">
                                 <div className="add-to-cart-btn">
-                                    <button className="add-to-cart-link border-0 product-details-action-btn undefined">
-                                        BUY NOW
-                                    </button>
+                                    <ResaleBuyNowBtn
+                                        product={{ ...productDetails, updateQuantity: quantity }}
+                                    />
                                 </div>
                             </div>
                             <div className="product-details-add-cart">
                                 <div className="add-to-cart-btn">
-                                    <button className="add-to-cart-link border-0 product-details-action-btn undefined">
-                                        ADD TO CART
-                                    </button>
+                                    <ResaleAddToCartBtn
+                                        product={{ ...productDetails, updateQuantity: quantity }}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div className="pt-4">{productDetails?.short_description}</div>
             </div>
         </>
     );

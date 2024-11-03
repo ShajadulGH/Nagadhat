@@ -1,14 +1,7 @@
+import AffiliateWrapper from "../components/affiliatePage/AffiliateWrapper";
 
 const affiliatePage = () => {
-    return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-12 py-5">
-                    <h1>Affiliate Page</h1>
-                </div>
-            </div>
-        </div>
-    )
-}
+    return <AffiliateWrapper />;
+};
 
-export default affiliatePage
+export default affiliatePage;

@@ -1,23 +1,32 @@
+import { Suspense } from "react";
+import NoDataFound from "../NoDataFound";
 import ViewAllProductItems from "./ViewAllProductItems";
+import DefaultLoader from "../defaultloader/DefaultLoader";
+import { ToastContainer } from "react-toastify";
 
-const ViewAllProduct = ({ viewProductData }) => {
+const ViewAllProduct = ({ viewProductData, loading }) => {
     return (
-        <div className="row just-for-random-product view-all-product-area">
-            <div className="col-md-12">
-                <div className="flash-sale-content-area">
+        <Suspense fallback={<DefaultLoader />}>
+            <ToastContainer/>
+            <div className="row just-for-random-product view-all-product-area">
+                <div className="col-md-12">
                     {viewProductData?.length > 0 ? (
-                        viewProductData?.map((viewProductItem) => (
-                            <ViewAllProductItems
-                                key={viewProductItem.id}
-                                items={viewProductItem}
-                            />
-                        ))
+                        <div className="flash-sale-content-area">
+                            {
+                                viewProductData?.map((viewProductItem) => (
+                                    <ViewAllProductItems
+                                        key={viewProductItem.id}
+                                        items={viewProductItem}
+                                    />
+                                ))
+                            }
+                        </div>
                     ) : (
-                        <p>No Data found</p>
+                        !loading && <NoDataFound />
                     )}
                 </div>
             </div>
-        </div>
+        </Suspense>
     );
 };
 

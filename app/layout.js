@@ -6,8 +6,6 @@ import "./globals.css";
 import DistrictModal from "./components/DistrictModal";
 import AuthProvider from "./auth/Provider";
 import { Suspense } from "react";
-// import { CategoryDetailProvider } from "./context/CategoryDetailContext";
-// import { CategoryDetailProductProvider } from "./context/CategoryDetailProductContext";
 import { ReduxProvider } from "./ReduxProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -101,6 +99,7 @@ export default function RootLayout({ children, slug, option }) {
             />
             <link rel="stylesheet" href="/css/home.css" precedence="default" />
             <link rel="stylesheet" href="/css/login.css" precedence="default" />
+
             <link
                 rel="stylesheet"
                 href="/css/product-details.css"
@@ -218,6 +217,16 @@ export default function RootLayout({ children, slug, option }) {
                 precedence="default"
             />
             <link rel="stylesheet" href="/css/otp.css" precedence="default" />
+            <link
+                rel="stylesheet"
+                href="/css/withdraw.css"
+                precedence="default"
+            />
+            <link
+                rel="stylesheet"
+                href="/css/sale-on-nagadhat.css"
+                precedence="default"
+            />
             {/* <Script strategy="afterInteractive" src="/js/jquery.min.js" /> */}
             <Script
                 strategy="afterInteractive"
@@ -231,20 +240,13 @@ export default function RootLayout({ children, slug, option }) {
                     <AuthProvider>
                         <ReduxProvider>
                             <ErrorBoundary>
-                                {/* <CategoryDetailProductProvider
-                                slug={slug}
-                                option={option}
-                            > */}
-                                {/* <CategoryDetailProvider> */}
+                                <ToastContainer />
                                 <Header />
                                 <DistrictModal />
                                 <main className="main-body-pading">
                                     {children}
                                 </main>
                                 <Footer />
-                                <ToastContainer />
-                                {/* </CategoryDetailProvider> */}
-                                {/* </CategoryDetailProductProvider> */}
                             </ErrorBoundary>
                         </ReduxProvider>
                     </AuthProvider>

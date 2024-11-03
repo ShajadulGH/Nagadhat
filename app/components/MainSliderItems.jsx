@@ -4,7 +4,7 @@ import ShopNowButton from "./ShopNowButton";
 import { NagadhatPublicUrl } from "../utils";
 
 const MainSliderItems = ({ sliderItem }) => {
-    let imageurl = `${NagadhatPublicUrl}/${sliderItem.banner_image}`;
+    let imageurl = `${NagadhatPublicUrl}/${sliderItem?.banner_image}`;
     const {
         title: altText,
         title: title,

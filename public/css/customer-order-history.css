@@ -43,6 +43,8 @@
     align-items: center;
 }
 .customer-dashboard-order-history-pay,
+.customer-dashboard-order-history-actions p,
+.customer-dashboard-order-history-actions a,
 .customer-dashboard-order-history-actions button{
  background: var(--color-44BC9D);
  cursor: pointer;
@@ -50,6 +52,9 @@
  color: var(--color-white);
  border: none;
 }
+
+.customer-dashboard-order-history-actions p,
+.customer-dashboard-order-history-actions a,
 .customer-dashboard-order-history-actions button{
     display: flex;
     align-items: center;

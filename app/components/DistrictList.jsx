@@ -5,13 +5,13 @@ import { getDeliveryLocations } from "../services/getDeliveryLocations";
 
 const DistrictList = ({ onDistrictChange, divisionId }) => {
     const [districts, setDistricts] = useState([]);
-    const [selectedDistrictId, setSelectedDistrictId] = useState('');
-
+    const [divisionName, setDivisionName] = useState('');
     useEffect(() => {
         async function fetchDistrictData() {
             try {
                 const districtData = await getDistrictByDivisionId(divisionId);
-                setDistricts(districtData);
+                setDistricts(districtData?.districts);
+                setDivisionName(districtData?.division_name);
             } catch (error) {
                 console.error("Cannot fetch division data.");
                 console.info(error);
@@ -26,15 +26,10 @@ const DistrictList = ({ onDistrictChange, divisionId }) => {
         const selectedDistrict = districts.find(
             (district) => district.id == selectedDistrictId
         );
-        const outletId = selectedDistrict?.outlet_id || 3;
         if (selectedDistrict) {
-            localStorage.setItem("outletId", outletId);
+            localStorage.setItem("outletId", selectedDistrict?.outlet_id || 3);
             localStorage.setItem("districtId", selectedDistrict.id || 47);
-            setSelectedDistrictId(selectedDistrict.id);
-            const location = await getDeliveryLocations(selectedDistrictId);
-            localStorage.setItem(
-                "location", `${location?.division}, ${location?.district}`
-            );
+            localStorage.setItem("location", `${divisionName}, ${selectedDistrict.name}`);
         }
         onDistrictChange(event);
     };

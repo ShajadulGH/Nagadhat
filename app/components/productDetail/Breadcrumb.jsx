@@ -24,7 +24,7 @@ const Breadcrumb = ({ category }) => {
 
     // Check if category is undefined or null
     if (!category) {
-        return null; // or handle the case where category is not available
+        return null;
     }
 
     return (

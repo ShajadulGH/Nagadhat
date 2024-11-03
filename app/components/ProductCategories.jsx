@@ -4,7 +4,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductCategoryItem from "./ProductCategoryItem";
 
-const ProductCategories = ({ categoryProductData, isHome = true }) => {
+const ProductCategories = ({
+    categoryBrandData,
+    categoryProductData,
+    isHome = true,
+}) => {
     const isMoreThanEight = categoryProductData?.length > 8;
 
     const settings = {

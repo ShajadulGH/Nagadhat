@@ -3,19 +3,23 @@ import Link from "next/link";
 import SigninBtn from "../components/SigninBtn";
 import React, { useEffect, useState } from "react";
 import { getProviders, signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { getRequestPath } from "../utils";
 
 const Login = () => {
     const router = useRouter();
     const { status, data: session } = useSession();
+    const searchParams = useSearchParams();
+    const fromPath = searchParams.get("from");
 
     useEffect(() => {
         async function fetchData() {
-            if (session != undefined) {
-                // console.log("=>>> redirect to dashboard");
-                router.push(getRequestPath());
+            if (
+                session != undefined &&
+                fromPath &&
+                typeof fromPath === "string"
+            ) {
+                router?.push(fromPath);
             }
         }
         fetchData();
@@ -73,7 +77,7 @@ const Login = () => {
                                         Phone Number <span>*</span>
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         className="form-control"
                                         id="number"
                                         name="username"

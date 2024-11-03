@@ -23,18 +23,19 @@ function Partner() {
             imageUrl: "/images/promise.svg",
             altText: "promise image",
         },
-    ]
+    ];
     return (
         <section className="nagadhat-partner-area">
             <div className="container">
-                <div className="row">
-                    {
-                        partnerStore.map((item) => {
-                            return (
-                                <PartnerItems key={item.altText} optionData={item} />
-                            )
-                        })
-                    }
+                <div className="row g-2 g-lg-3">
+                    {partnerStore.map((item) => {
+                        return (
+                            <PartnerItems
+                                key={item.altText}
+                                optionData={item}
+                            />
+                        );
+                    })}
                 </div>
             </div>
         </section>

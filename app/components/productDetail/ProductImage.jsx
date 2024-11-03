@@ -1,7 +1,7 @@
 import SocialLink from "../SocialLink";
 import ProductSlider from "./ProductSlider";
 
-const ProductImage = ({ productInfo, path_name, productGallery }) => {
+const ProductImage = ({ productInfo, productGallery }) => {
     const socialLinkItem = [
         { image: "/images/facbook.svg", alt: "facbook", path: "#" },
         { image: "/images/twitter.svg", alt: "twitter", path: "#" },
@@ -29,13 +29,14 @@ const ProductImage = ({ productInfo, path_name, productGallery }) => {
                 <ProductSlider
                     sliderItems={productSliderData}
                     productGallery={productGallery}
+                    productInfo={productInfo}
                 />
             </div>
             <div className="product-details-social-link d-flex align-items-center justify-content-center pb-3">
                 <p>Share:</p>
                 <SocialLink
                     socialLinkItem={socialLinkItem}
-                    path_name={`outlet_id=${productInfo?.outlet_id}&product_id=${productInfo?.id}`}
+                    path_name={`${productInfo?.slug}?outlet_id=${productInfo?.outlet_id}`}
                     product_name={productInfo?.product_name}
                     product_thumbnail={productInfo?.product_thumbnail}
                 />

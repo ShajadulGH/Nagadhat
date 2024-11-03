@@ -1,0 +1,62 @@
+
+
+@media print {
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    @page {
+        margin: 0 !important; 
+        padding: 0 !important;
+        width: 100% !important;
+        background: red !important; 
+    }
+     .sale-on-agreement-print {
+        display: none !important;
+    }
+     .customer-dashboard-order-history-title {
+        padding: 0 15px !important;
+    }
+    .customer-dashboard-order-history-area {
+        width: 100% !important;
+    }
+    .customer-dashboard-order-history-title .position-relative {
+        height: 60px !important;
+    }
+    .resale-invoice-areass,
+    .resal-top-areass {
+        padding: 10px !important;
+        padding-bottom: 0 !important;
+    }
+    .resal-top-areass .text-center.mb-4 {
+        padding: 0 !important;
+        margin-bottom: 5px;
+    }
+    .resal-top-areass .text-center .mb-4 {
+        margin-bottom: 5px !important;
+    }
+    .resal-top-areass .pb-4 {
+        padding-bottom: 6px !important;
+    }
+    .saleon-nagadhat-detail-pay {
+        padding: 15px !important;
+    }
+    .resale-bottom-areass.px-4 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    .resale-bottom-areass .pb-4 {
+        padding-bottom: 6px !important;
+    }
+    .saleon-nagadhat-detail-bottom {
+        padding: 15px !important;
+    }
+    
+}
+
+

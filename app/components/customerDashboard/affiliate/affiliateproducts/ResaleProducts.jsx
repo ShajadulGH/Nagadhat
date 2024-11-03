@@ -9,6 +9,7 @@ import Pagination from "@/app/components/productCategory/Pagination";
 import { useSearchParams } from "next/navigation";
 import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 import NoDataFound from "@/app/components/NoDataFound";
+import LodingFixed from "@/app/components/LodingFixed";
 
 const ResaleProducts = ({ isActive }) => {
     const [isGridView, setIsGridView] = useState(true);
@@ -16,6 +17,7 @@ const ResaleProducts = ({ isActive }) => {
     const [outletId, setOutletId] = useState(0);
     const [sortDuration, setSortDuration] = useState("");
     const [sortPrice, setSortPrice] = useState("");
+    const [loading, setLoading] = useState(false);
     const { data: session, status } = useSession();
     const [lastPage, setLastPage] = useState(1); // New state for last page
     const [currentPage, setCurrentPage] = useState(1); // New state for current page
@@ -51,6 +53,7 @@ const ResaleProducts = ({ isActive }) => {
         if (status === "authenticated" && session?.accessToken && outletId) {
             const fetchRetailProducts = async () => {
                 try {
+                    setLoading(true);
                     let params = {
                         orderByPrice: sortPrice,
                         orderByDuration: sortDuration,
@@ -69,18 +72,20 @@ const ResaleProducts = ({ isActive }) => {
                     setLastPage(resaleProductData.last_page || 1);
                 } catch (error) {
                     console.error("Failed to fetch retail products:", error);
+                } finally {
+                    setLoading(false);
                 }
             };
             fetchRetailProducts();
         }
-    }, [session, outletId, sortDuration, sortPrice]);
+    }, [session.accessToken, outletId, sortDuration, sortPrice]);
 
     return (
         <>
+            {loading && <LodingFixed />}
             <div
-                className={`tab-pane fade ${
-                    isActive ? "show active" : ""
-                } container-booking-body-tab`}
+                className={`tab-pane fade ${isActive ? "show active" : ""
+                    } container-booking-body-tab`}
                 id="resale"
                 role="tabpanel"
             >
@@ -128,23 +133,24 @@ const ResaleProducts = ({ isActive }) => {
                 </div>
                 <Suspense fallback={<DefaultLoader />}>
                     {
-                        // resaleProduct.length > 0
-                        //     ?
-                        <>
-                            {isGridView ? (
-                                <ResaleProductsInfo
-                                    resaleProduct={resaleProduct}
-                                    outletId={outletId}
-                                />
-                            ) : (
-                                <ResaleListViewProductInfo
-                                    resaleProduct={resaleProduct}
-                                    outletId={outletId}
-                                />
-                            )}
-                        </>
-                        // :
-                        // <NoDataFound />
+                        resaleProduct.length > 0
+                            ?
+                            <>
+                                {isGridView ? (
+                                    <ResaleProductsInfo
+                                        resaleProduct={resaleProduct}
+                                        outletId={outletId}
+                                    />
+                                ) : (
+                                    <ResaleListViewProductInfo
+                                        resaleProduct={resaleProduct}
+                                        outletId={outletId}
+                                    />
+                                )}
+                            </>
+                            :
+                            !loading && <NoDataFound />
+
                     }
 
                     <Pagination currentPage={currentPage} lastPage={lastPage} />

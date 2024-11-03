@@ -17,7 +17,7 @@ const OrderViewSummary = ({ orderSummary }) => {
                             <div className="col-lg-3 col-md-6 col-sm-6 col-6">
                                 <div className="order-view-summary-info">
                                     <p>
-                                        <strong> Order Code:</strong>
+                                        <strong> Invoice:</strong>
                                     </p>
                                     <p>
                                         <strong> Customer:</strong>
@@ -33,8 +33,8 @@ const OrderViewSummary = ({ orderSummary }) => {
                             <div className="col-lg-3 col-md-6 col-sm-6 col-6">
                                 <div className="order-view-summary-info">
                                     <p>
-                                        {orderSummary?.order_code
-                                            ? orderSummary?.order_code
+                                        {orderSummary?.invoice
+                                            ? orderSummary?.invoice
                                             : null}
                                     </p>
                                     <p>

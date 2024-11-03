@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ShippingOrderSection = ({
+const ShippingOrderSection= ({
     subTotal,
     totalPrice,
     handlePlaceOrder,
@@ -22,11 +22,11 @@ const ShippingOrderSection = ({
                         <div className="d-flex gap-2 flex-column border-bottom pb-3">
                             <div className="d-flex gap-3 justify-content-between shopping-price-area custom-shopping-price">
                                 <p>Subtotal</p>
-                                <strong>৳{subTotal}</strong>
+                                <strong>৳ {subTotal}</strong>
                             </div>
                             <div className="d-flex gap-3 justify-content-between shopping-price-area custom-shopping-price">
                                 <p>Discount</p>
-                                <strong>৳{subTotal - totalPrice}</strong>
+                                <strong>৳ { (subTotal - totalPrice).toFixed(2)}</strong>
                             </div>
                             <div className="d-flex gap-2 flex-column border-top pt-3">
                                 <div className="d-flex gap-3 justify-content-between align-items-center shopping-price-area custom-shopping-price">
@@ -37,7 +37,7 @@ const ShippingOrderSection = ({
                             <div className="d-flex gap-3 justify-content-between shopping-price-area custom-shopping-price">
                                 <p>Shipping</p>
                                 <div className="d-flex gap-2 align-items-center">
-                                    <strong>৳{shippingPrice}</strong>
+                                    <strong>৳ {shippingPrice || 0}</strong>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +45,23 @@ const ShippingOrderSection = ({
                         <div className="d-flex gap-2 flex-column border-bottom pb-3">
                             <div className="d-flex gap-3 justify-content-between align-items-center shopping-price-area custom-shopping-price">
                                 <strong>Grand Total</strong>
-                                <p className="total-order-price">৳ {totalPrice + parseInt(shippingPrice)}</p>
+                                <p className="total-order-price">৳ {totalPrice + parseInt(shippingPrice || 0)}</p>
                             </div>
+                        </div>
+
+                        <div className="form-check cart-product-terms-condition">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="terms-condition"
+                                onChange={() => setIsTermsChecked(!isTermsChecked)}
+                            />
+                            <label
+                                className="form-check-label"
+                                htmlFor="terms-condition"
+                            >
+                                I agree to the terms and conditions.
+                            </label>
                         </div>
 
                         <div className="place-order-btn">
@@ -73,23 +88,8 @@ const ShippingOrderSection = ({
                                             : 0.5,
                                 }}
                             >
-                                PLACE ORDER
+                                Place Order
                             </button>
-                        </div>
-
-                        <div className="form-check cart-product-terms-condition">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                id="terms-condition"
-                                onChange={() => setIsTermsChecked(!isTermsChecked)}
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor="terms-condition"
-                            >
-                                I agree to the terms and conditions.
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -98,4 +98,4 @@ const ShippingOrderSection = ({
     )
 }
 
-export default ShippingOrderSection
+export default ShippingOrderSection;

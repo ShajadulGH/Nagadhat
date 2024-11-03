@@ -4,6 +4,7 @@ import React from "react";
 import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
+import img from "@/public/images/placeholder--image.jpg"
 
 function ProductCard({ item }) {
     const image = `${NagadhatPublicUrl}/${item.product_thumbnail}`;
@@ -16,8 +17,6 @@ function ProductCard({ item }) {
         discount_amount,
     } = item;
 
-    // console.log("item=======>>>>.", item);
-
     const defaultVariant = item?.variations?.find(
         (variant) => variant.variations_default === 1
     );
@@ -29,33 +28,28 @@ function ProductCard({ item }) {
     };
 
     const productPrice = {
-        prices: "",
-        discountPrice: "",
+        prices: 0,
+        discountPrice: 0,
     };
     let productStoke;
 
     if (item?.variations?.length > 0) {
         productPrice.prices =
-            defaultVariant?.discount_amount > 0
-                ? defaultVariant?.mrp_price - defaultVariant?.discount_amount
+            defaultVariant?.price?.discounted_price > 0
+                ? defaultVariant?.price?.discounted_price
                 : defaultVariant?.mrp_price;
 
-        productPrice.discountPrice =
-            defaultVariant?.discount_amount > 0
-                ? defaultVariant?.mrp_price
-                : "";
+        productPrice.discountPrice = defaultVariant?.discount_amount;
         productStoke =
             defaultVariant?.variation_max_quantity === null
                 ? 0
                 : defaultVariant?.variation_max_quantity;
     } else {
         (productPrice.prices =
-            item?.price?.discounted_price !== 0
+            item?.price?.discounted_price > 0
                 ? item?.price?.discounted_price
                 : item?.price?.regular_price),
-            (productPrice.discountPrice =
-                item?.price?.discounted_price > 0 &&
-                item?.price?.regular_price);
+            (productPrice.discountPrice = item?.price?.discount_amount);
         productStoke = item?.max_quantity === null ? 0 : item?.max_quantity;
     }
 
@@ -80,13 +74,10 @@ function ProductCard({ item }) {
 
     return (
         <div className="flash-sale-content-item mx-1 ">
-            <Link
-                href={`/products/get-product-details?outlet_id=${outlet_id}&product_id=${product_id}`}
-                target="_blank"
-            >
+            <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">
-                        <Image src={image} alt={title} fill={true} />
+                        <Image src={image || img} alt={title} fill={true} />
                     </div>
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
@@ -101,16 +92,16 @@ function ProductCard({ item }) {
                                                     ?.discount_amount > 0 ? (
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <strong>
-                                                            ট {""}
+                                                            ট{" "}
                                                             {
                                                                 variant_item
                                                                     ?.price
                                                                     ?.discounted_price
                                                             }
                                                         </strong>
-                                                        <strong>
+                                                        <strong className="text-secondary">
                                                             <del>
-                                                                ট {""}
+                                                                ট{" "}
                                                                 {
                                                                     variant_item
                                                                         ?.price
@@ -121,7 +112,7 @@ function ProductCard({ item }) {
                                                     </div>
                                                 ) : (
                                                     <strong>
-                                                        ট {""}
+                                                        ট{" "}
                                                         {
                                                             variant_item?.price
                                                                 ?.regular_price
@@ -137,7 +128,7 @@ function ProductCard({ item }) {
                                         <strong>
                                             ট {item?.price?.discounted_price}
                                         </strong>
-                                        <strong>
+                                        <strong className="text-secondary">
                                             <del>
                                                 ট {item?.price?.regular_price}
                                             </del>

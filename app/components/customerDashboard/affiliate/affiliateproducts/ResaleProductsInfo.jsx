@@ -3,47 +3,43 @@ import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 
 const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     return (
-        <div className="row row-cols-auto row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
             {resaleProduct?.map((product) => (
                 <div key={product.id} className="flash-sale-content-item col">
-                    <div className="flash-sale-content-bg nh-hover-box-shadow">
+                    <Link
+                        href={`/resale-product-details/${product.id}/${tab}`}
+                        className="flash-sale-content-bg nh-hover-box-shadow"
+                        >
                         <div className="flash-sale-content-img image-hover-effect">
-                            <Link
-                                href={`/resale-product-details/${product.id}/${tab}`}
-                            >
-                                <Image
-                                    height={200}
-                                    width={200}
-                                    src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
-                                    className="img-fluid h-100 w-100"
-                                    alt={product.product_name}
-                                />
-                            </Link>
+                            <Image
+                                height={200}
+                                width={200}
+                                src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
+                                className="img-fluid h-100 w-100"
+                                alt={product.product_name}
+                            />
                         </div>
                         <div className="flash-sale-content-info text-hover-effect">
                             <h4 title={product.product_name}>
-                                <Link
-                                    href={`/resale-product-details/${product.id}/${tab}`}
-                                >
-                                    {truncateTitle(product.product_name, 50)}
-                                </Link>
+                                {truncateTitle(product.product_name, 50)}
                             </h4>
                             <div className="category-product-price d-flex flex-column justify-content-between">
                                 <p className="fpnh-resale-pricess">
                                     Price (MRP):{" "}
                                     <del className="fw-bold">
-                                        ৳ {product.mrp_price}
+                                        ৳ {product.resell_mrp_price * (product.min_quantity || 1)}
                                     </del>
                                 </p>
                                 <p className="fpnh-resale-pricess">
                                     Price (Offer):{" "}
                                     <span className="fw-bold">
-                                        ৳ {product.after_discount_mrp_price}
+                                        ৳ {product.resell_purchases_price * (product.min_quantity || 1)}
                                     </span>
                                 </p>
                                 <p className="fpnh-resale-pricess">
@@ -61,20 +57,13 @@ const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
                             </div>
                             <div className="add-to-cart-holder">
                                 <div className="add-to-cart-btn">
-                                    <a
-                                        className="add-to-cart-link undefined category-product-add-btn"
-                                        href="#"
-                                        style={{
-                                            pointerEvents: "auto",
-                                            opacity: 1,
-                                        }}
-                                    >
-                                        Buy Now
-                                    </a>
+                                    <ResaleBuyNowBtn
+                                        product={product}
+                                    />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             ))}
         </div>

@@ -1,15 +1,12 @@
-"use client";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import CustomerLeftSideNavbar from "../components/customerDashboard/CustomerLeftSideNavbar";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
-export default function DashboardLayout({ children }) {
-    const { data: session, status } = useSession();
-    if (status === "loading") {
-        return(<div className=" d-flex align-items-center justify-content-center vh-100">
-            <h1 className="text-center">Loading... </h1>;
-        </div>) 
-    }
+export default async function DashboardLayout({ children }) {
+    const session = await getServerSession(authOptions);
+    
     return (
         <PrivateRoute>
             <section className="customer-dashboard-section-area">

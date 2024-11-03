@@ -145,14 +145,14 @@
     position: relative;
 }
 
-.hero-slider-photo img {
-    object-fit: fill;
-}
-
 .hero-slider-photo {
     height: 500px;
-    width: 100%;
+    width: 1010px;
+    max-width:100%;
     position: relative;
+}
+.hero-slider-photo img {
+    object-fit: cover;
 }
 
 .hero-slider-content h1 {

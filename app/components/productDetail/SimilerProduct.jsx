@@ -2,7 +2,6 @@ import SectionTitle from "../SectionTitle";
 import SimilerProductItems from "./SimilerProductItems";
 
 const SimilerProduct = ({ productData }) => {
-    console.log("productData", productData);
     return (
         <div className="similer-product-area">
             <SectionTitle title={`Similer Product`} showViewAll={false} />

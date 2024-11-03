@@ -10,15 +10,16 @@ const PrivateRoute = ({ children }) => {
     const { status, data: session } = useSession();
     const router = useRouter();
     const pathname = usePathname();
+
     useEffect(() => {
         if (status === "unauthenticated") {
             requestPage(pathname);
-            router.push("/login");
+            router.push(`/login?from=${encodeURIComponent(pathname || "/")}`);
         }
     }, [status, router]);
 
     if (status === "loading") {
-        return DefaultLoader;
+        return <DefaultLoader />; // Correctly render the DefaultLoader component
     }
 
     if (status === "authenticated") {

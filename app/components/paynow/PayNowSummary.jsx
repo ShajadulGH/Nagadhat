@@ -1,49 +1,72 @@
 "use client";
+import { getContainerOrderSummery } from "@/app/services/affiliate/getContainerOrderSummery";
 import { getProductOrderSummery } from "@/app/services/getProductOrderSummery";
+import { truncateTitle } from "@/app/utils";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
-const PayNowSummary = () => {
-    const [orderSummary, setOrderSummary] = useState({});
+const PayNowSummary = ({ setOrderSummary, orderSummary, startTransition }) => {
     const [orderProduct, setOrderProduct] = useState([]);
+
     const { data: session, status } = useSession();
     const searchParams = useSearchParams();
-    const orderId = searchParams.get('orderId');
+    const orderId = searchParams.get("orderId");
+    const orderProductType = searchParams.get("order_product_type");
 
     useEffect(() => {
         if (status === "authenticated" && orderId) {
             const fetchOrderSummary = async () => {
                 try {
-                    const orderData = await getProductOrderSummery(orderId, session?.accessToken);
-                    if (orderData && orderData.results) {
-                        setOrderSummary(orderData.results);
-                        setOrderProduct(orderData.results.products || []);
-                    } else {
-                        console.error("Invalid response format:", orderData);
-                    }
+                    startTransition(async () => {
+                        let orderData;
+
+                        orderData = await getProductOrderSummery(
+                            orderId,
+                            session?.accessToken
+                        );
+
+                        if (orderData && orderData?.results) {
+                            setOrderSummary(orderData?.results);
+                            setOrderProduct(orderData?.results?.products || []);
+                        } else {
+                            console.error(
+                                "Invalid response format:",
+                                orderData
+                            );
+                        }
+                    });
                 } catch (error) {
                     console.error("Failed to fetch order summary:", error);
                 }
             };
             fetchOrderSummary();
         }
-    }, [session, status, orderId]);
+    }, [session?.accessToken, orderId, orderProductType]);
+
+    // Calculate total quantity of all products
+    const totalQuantity = orderProduct.reduce(
+        (acc, product) => acc + (product.quantity || 0),
+        0
+    );
 
     return (
-        <div className="col-lg-4 col-md-12">
+        <div className="col-lg-4">
             <div className="pay-now-payment-option-bg bg-white">
                 <div className="pay-now-summary-title d-flex align-items-center justify-content-between">
                     <h2 className="text-capitalize fw-medium">Summary</h2>
-                    <span className="px-2 py-1 rounded-1 bg-praymary-color fs-6 text-white">
-                        {orderProduct?.length} Items
+                    <span className="px-2 py-1 rounded-1 bg-primary-color fs-6 text-white">
+                        {totalQuantity} Items
                     </span>
                 </div>
                 <div className="pay-now-summary-body">
                     <div className="pay-now-summary-cash-on-bg">
-                        <p className="rounded-1">
-                            Only cash on delivery is available for these products
-                        </p>
+                        {setOrderSummary?.order_product_type === "1" && (
+                            <p className="rounded-1">
+                                Only cash on delivery is available for these
+                                products
+                            </p>
+                        )}
                     </div>
                     <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
                         <strong>Product</strong>
@@ -54,8 +77,14 @@ const PayNowSummary = () => {
                             key={index}
                             className="pay-now-summary-info d-flex align-items-center justify-content-between"
                         >
-                            <p>{productItem?.product_name}</p>
-                            <p>৳ {productItem?.unit_price}</p>
+                            <p>
+                                {truncateTitle(productItem?.product_name, 24)}
+                            </p>
+                            <p>
+                                ৳{" "}
+                                {(productItem?.regular_price || 0) *
+                                    (productItem?.quantity || 1)}
+                            </p>
                         </div>
                     ))}
                     <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
@@ -81,21 +110,30 @@ const PayNowSummary = () => {
                             {/* <button className="btn btn-dark">Apply</button> */}
                         </div>
                     </div>
-                    <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
-                        <strong>Total Shipping <br /> (*Applicable)</strong>
-                        <p>৳ {orderSummary?.total_delivery_charge}</p>
-                    </div>
+                    {orderSummary?.order_product_type === "1" && (
+                        <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
+                            <strong>
+                                Total Shipping <br /> (*Applicable)
+                            </strong>
+                            <p>৳ {orderSummary?.total_delivery_charge}</p>
+                        </div>
+                    )}
+
                     <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
                         <strong>Total</strong>
                         <strong>৳ {orderSummary?.grand_total}</strong>
                     </div>
                     <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
                         <strong>Paid</strong>
-                        <p>৳ 00</p>
+                        <p>৳ {orderSummary?.total_paid}</p>
                     </div>
                     <div className="pay-now-summary-info d-flex align-items-center justify-content-between">
                         <strong>Due</strong>
-                        <strong>৳ {orderSummary?.grand_total}</strong>
+                        <strong>
+                            ৳{" "}
+                            {orderSummary?.grand_total -
+                                orderSummary?.total_paid}{" "}
+                        </strong>
                     </div>
                 </div>
             </div>

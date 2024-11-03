@@ -3,6 +3,7 @@ import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 
 const ResaleListViewProductInfo = ({ resaleProduct }) => {
     const searchParams = useSearchParams();
@@ -15,8 +16,9 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                     style={{ minWidth: "640px" }}
                 >
                     {resaleProduct?.map((product) => (
-                        <div
+                        <Link
                             key={product.id}
+                            href={`/resale-product-details/${product.id}/${tab}`}
                             className="flash-sale-content-item flash-sale-content-bg affiliate-product-list-item"
                         >
                             <div className="flash-sale-content-info text-hover-effect d-flex gap-3 justify-content-between align-items-center">
@@ -31,17 +33,17 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                     <div
                                         className="mb-0"
                                         style={{
-                                            height: "80px",
+                                            height: "100px",
                                             width: "80px",
                                         }}
                                     >
-                                        <Image
-                                            height={80}
-                                            width={80}
-                                            src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
-                                            className="img-fluid"
-                                            alt={product.product_name}
-                                        />
+                                            <Image
+                                                height={100}
+                                                width={80}
+                                                src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
+                                                className="img-fluid"
+                                                alt={product.product_name}
+                                            />
                                     </div>
                                     <h4
                                         title={product.product_name}
@@ -49,28 +51,23 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                             minWidth: "120px",
                                             maxWidth: "280px",
                                             flex: "1",
+                                            marginBottom:"0"
                                         }}
                                     >
-                                        <Link
-                                            href={`/resale-product-details/${product.id}/${tab}`}
-                                        ></Link>
-                                        {truncateTitle(
-                                            product.product_name,
-                                            80
-                                        )}
+                                        {truncateTitle(product.product_name, 80)}
                                     </h4>
                                 </div>
                                 <div className="category-product-price">
                                     <p className="fpnh-resale-pricess">
                                         Price (MRP):{" "}
                                         <del className="fw-bold">
-                                            ৳ {product.mrp_price}
+                                            ৳ {product.resell_mrp_price * (product.min_quantity || 1)}
                                         </del>
                                     </p>
                                     <p className="fpnh-resale-pricess">
                                         Price (Offer):{" "}
                                         <span className="fw-bold">
-                                            ৳ {product.after_discount_mrp_price}
+                                            ৳ {product.resell_purchases_price * (product.min_quantity || 1)}
                                         </span>
                                     </p>
                                     <p className="fpnh-resale-pricess">
@@ -88,20 +85,13 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                 </div>
                                 <div className="add-to-cart-holder">
                                     <div className="add-to-cart-btn">
-                                        <a
-                                            className="add-to-cart-link undefined category-product-add-btn"
-                                            href="#"
-                                            style={{
-                                                pointerEvents: "auto",
-                                                opacity: 1,
-                                            }}
-                                        >
-                                            Buy Now
-                                        </a>
+                                        <ResaleBuyNowBtn
+                                            product={product}
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

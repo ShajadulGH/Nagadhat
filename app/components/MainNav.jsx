@@ -3,12 +3,12 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SignoutBtn from "./SignoutBtn";
+// import SignoutBtn from "./SignoutBtn";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 import ProductSearchResultMobile from "./ProductSearchResultMobile";
-import { getDivision } from "../services/getDivision";
-import { getDistrictByDivisionId } from "../services/getDistrict";
+// import { getDivision } from "../services/getDivision";
+// import { getDistrictByDivisionId } from "../services/getDistrict";
 import { useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
 
@@ -19,40 +19,52 @@ function MainNav({
     authStatus,
 }) {
     const [search, setSearch] = useState("");
-    const [location, setLoction] = useState("Dhaka City, Dhaka");
+    const [location, setLoction] = useState("Dhaka, Dhaka");
     const [searchProduct, setSearchProduct] = useState([]);
-    const searchParams = useSearchParams();
-    let divisionId = searchParams.get("divisionId");
-    let districtId = searchParams.get("districtId");
+    // const searchParams = useSearchParams();
+    // let divisionId = searchParams.get("divisionId");
+    // let districtId = searchParams.get("districtId");
     const searchResultRef = useRef(null);
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
     );
+
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
     };
 
     useEffect(() => {
-        const fetchSearchProduct = async () => {
-            if (!search || search.length < 3) {
-                setSearchProduct([]);
-                return;
-            }
+        if (search?.length >= 3) {
+            setSearchProduct([]);
 
-            if (!districtId) {
-                districtId = 47;
-            }
+            const fetchSearchProduct = async () => {
+                const productData = await getHomeSearchProduct(
+                    districtId,
+                    search
+                );
 
-            const productData = await getHomeSearchProduct(districtId, search);
-            const searchResults =
-                productData?.results?.search_result?.original?.results;
+                const searchResults = productData?.results?.just_for_you;
 
-            if (searchResults) {
-                setSearchProduct(searchResults);
-            }
-        };
-        fetchSearchProduct();
+                if (searchResults) {
+                    setSearchProduct(searchResults);
+                }
+            };
+
+            const Debouncing = setTimeout(() => {
+                fetchSearchProduct();
+            }, 600);
+
+            return () => {
+                clearTimeout(Debouncing);
+            };
+        }
     }, [search, districtId]);
 
     const isSearchProductAvailable = () => {
@@ -259,9 +271,8 @@ function MainNav({
                                         setCategoryHoverMenu(true)
                                     }
                                 >
-                                    <Link
-                                        href="#"
-                                        className="d-flex align-items-center text-white text-capitalize"
+                                    <div
+                                        className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold"
                                     >
                                         <span>Categories</span>
                                         <Image
@@ -271,7 +282,7 @@ function MainNav({
                                             width={10}
                                             height={7}
                                         />
-                                    </Link>
+                                    </div>
                                 </div>
                                 <div className="header-search-holder d-flex align-items-center">
                                     <div className="header-search-location">

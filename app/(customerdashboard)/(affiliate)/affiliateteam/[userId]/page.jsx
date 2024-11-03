@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import SearchMyTeam from "@/app/components/customerDashboard/affiliate/affiliatemyteam/SearchMyTeam";
 import MyTeamList from "@/app/components/customerDashboard/affiliate/affiliatemyteam/MyTeamList";
@@ -9,9 +9,11 @@ import { useSearchParams } from "next/navigation";
 import Pagination from "@/app/components/productCategory/Pagination";
 import Link from "next/link";
 import NoDataFound from "@/app/components/NoDataFound";
+import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const Page = ({ params }) => {
     const { userId } = params;
+    const [isPending, startTransition] = useTransition();
     const [teamData, setTeamData] = useState([]);
     const [totalMember, settotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
@@ -41,18 +43,21 @@ const Page = ({ params }) => {
                     }
                     searchParam.page = currentPage;
                     searchParam.limit = limit;
-                    const teamMember = await getAffiliateMembersTeam(
-                        session?.accessToken,
-                        userId,
-                        searchParam
-                    );
-                    const teamMemberData = teamMember?.results?.myTeam;
-                    const allMemberCount = teamMember?.results?.total_members;
-                    const grandTotal = teamMember?.results;
-                    setTeamGrandTotal(grandTotal);
-                    settotalMember(allMemberCount);
-                    setTeamData(teamMemberData || []);
-                    setLastPage(teamMemberData?.last_page); // Set the last page
+                    startTransition(async () => {
+                        const teamMember = await getAffiliateMembersTeam(
+                            session?.accessToken,
+                            userId,
+                            searchParam
+                        );
+                        const teamMemberData = teamMember?.results?.myTeam;
+                        const allMemberCount =
+                            teamMember?.results?.total_members;
+                        const grandTotal = teamMember?.results;
+                        setTeamGrandTotal(grandTotal);
+                        settotalMember(allMemberCount);
+                        setTeamData(teamMemberData || []);
+                        setLastPage(teamMemberData?.last_page);
+                    });
                 } catch (error) {
                     console.error(
                         "Failed to fetch affiliate team member data:",
@@ -63,7 +68,7 @@ const Page = ({ params }) => {
         };
 
         fetchTeamData();
-    }, [status, session, searchQuery, currentPage, userId]);
+    }, [session?.accessToken, searchQuery, currentPage, userId]);
 
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -101,7 +106,9 @@ const Page = ({ params }) => {
                 )}
 
                 <div className="customer-dashboard-order-history table-responsive">
-                    {teamListInfo.length > 0 ? (
+                    {isPending ? (
+                        <DefaultLoader />
+                    ) : teamListInfo.length > 0 ? (
                         <MyTeamList
                             teamListInfo={teamListInfo}
                             teamGrandTotal={teamGrandTotal}
@@ -109,10 +116,7 @@ const Page = ({ params }) => {
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
                     )}
-                    <Pagination
-                        currentPage={currentPage}
-                        lastPage={lastPage}
-                    />
+                    <Pagination currentPage={currentPage} lastPage={lastPage} />
                 </div>
             </div>
         </>

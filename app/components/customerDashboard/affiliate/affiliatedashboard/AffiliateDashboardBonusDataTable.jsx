@@ -1,53 +1,41 @@
-import React from 'react'
+// import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
+import NoDataFound from "@/app/components/NoDataFound";
+import React from "react";
 
-const AffiliateDashboardBonusDataTable = () => {
+const AffiliateDashboardBonusDataTable = ({ incomeHistoryInfo }) => {
     return (
         <div className="border rounded table-responsive">
-            <h3 className="px-2 pt-3 fs-6 fw-bold">Affiliate Bonus</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">From us</th>
-                        <th scope="col">Purpose</th>
-                        <th scope="col">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>50 ৳</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>60 ৳</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry the Bird</td>
-                        <td>Thornton</td>
-                        <td>50 ৳</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>60 ৳</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Larry the Bird</td>
-                        <td>Thornton</td>
-                        <td>50 ৳</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h3 className="px-2 pt-3 fs-6 fw-bold">Last Income History</h3>
+            {incomeHistoryInfo.length > 0 ? (
+                <div className="table-responsive ">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sl</th>
+                                <th scope="col">From user</th>
+                                <th scope="col">Purpose</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {incomeHistoryInfo.map((item, index) => (
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>
+                                        {item?.user?.name || "no data found"}
+                                    </td>
+                                    <td>{item?.purpose || "no data found"}</td>
+                                    <td>৳ {item?.balance || "0"}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <NoDataFound />
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default AffiliateDashboardBonusDataTable
+export default AffiliateDashboardBonusDataTable;

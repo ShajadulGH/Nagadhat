@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import MyTeamList from "./MyTeamList";
 import SearchMyTeam from "./SearchMyTeam";
 import TeamListNotFound from "./TeamListNotFound";
@@ -8,8 +8,10 @@ import { getAffiliateTeam } from "@/app/services/affiliate/getAffiliateTeam";
 import { useSearchParams } from "next/navigation";
 import Pagination from "@/app/components/productCategory/Pagination";
 import NoDataFound from "@/app/components/NoDataFound";
+import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const AffiliateTeamWrapp = () => {
+    const [isPending, startTransition] = useTransition();
     const [teamData, setTeamData] = useState([]);
     const [totalMember, setTotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
@@ -38,19 +40,21 @@ const AffiliateTeamWrapp = () => {
                     }
                     searchParams.page = currentPage;
                     searchParams.limit = limit;
-
-                    const affiliateTeam = await getAffiliateTeam(
-                        session?.accessToken,
-                        searchParams
-                    );
-                    const affiliateTeamData = affiliateTeam?.results?.myTeam;
-                    const allMemberCount =
-                        affiliateTeam?.results?.total_members;
-                    const grandTotal = affiliateTeam?.results;
-                    setTeamGrandTotal(grandTotal);
-                    setTotalMember(allMemberCount);
-                    setTeamData(affiliateTeamData);
-                    setLastPage(affiliateTeamData.last_page || 1);
+                    startTransition(async () => {
+                        const affiliateTeam = await getAffiliateTeam(
+                            session?.accessToken,
+                            searchParams
+                        );
+                        const affiliateTeamData =
+                            affiliateTeam?.results?.myTeam;
+                        const allMemberCount =
+                            affiliateTeam?.results?.total_members;
+                        const grandTotal = affiliateTeam?.results;
+                        setTeamGrandTotal(grandTotal);
+                        setTotalMember(allMemberCount);
+                        setTeamData(affiliateTeamData);
+                        setLastPage(affiliateTeamData?.last_page || 1);
+                    });
                 } catch (error) {
                     console.error(
                         "Failed to fetch affiliate team data:",
@@ -60,7 +64,7 @@ const AffiliateTeamWrapp = () => {
             };
             fetchTeamData();
         }
-    }, [status, session, searchQuery, currentPage]);
+    }, [session?.accessToken, searchQuery, currentPage]);
 
     const handleSearch = (query) => {
         setSearchQuery(query);
@@ -86,7 +90,9 @@ const AffiliateTeamWrapp = () => {
                 )}
 
                 <div className="customer-dashboard-order-history table-responsive">
-                    {teamListInfo?.length > 0 ? (
+                    {isPending ? (
+                        <DefaultLoader />
+                    ) : teamListInfo && teamListInfo.length > 0 ? (
                         <MyTeamList
                             teamListInfo={teamListInfo}
                             teamGrandTotal={teamGrandTotal}
@@ -94,10 +100,8 @@ const AffiliateTeamWrapp = () => {
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
                     )}
-                    <Pagination
-                        currentPage={currentPage}
-                        lastPage={lastPage}
-                    />
+
+                    <Pagination currentPage={currentPage} lastPage={lastPage} />
                 </div>
             </div>
         </>

@@ -1,11 +1,16 @@
 import { apiBaseUrl } from "../utils";
 
-export const getHomeFlashSalesProduct = async (districtId, page = 1, limit=0) => {
+export const getHomeFlashSalesProduct = async (
+    districtId,
+    page = 1,
+    limit = 24
+) => {
     if (districtId) {
         try {
             const response = await fetch(
                 `${apiBaseUrl}/get-outlet-product-by-district-id-v2-flash-sale/${districtId}?page=${page}&limit=${limit}`,
-                { next: { revalidate: 10 } }
+                ['posts'],
+                { revalidate: 36000, tags: ['posts'] }
             );
             return await response.json();
         } catch (error) {

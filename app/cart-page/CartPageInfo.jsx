@@ -6,6 +6,7 @@ import {
     NagadhatPublicUrl,
     addToCartProductList,
     apiBaseUrl,
+    deleteBuyNowProductData,
     getSelectedCardIds,
     getTotalQuantity,
     requestPage,
@@ -25,20 +26,24 @@ import {
     FaTrash,
     FaTrashCan,
 } from "react-icons/fa6";
-import { RotatingLines } from "react-loader-spinner";
-import NoProductShows from "../components/NoProductShows";
 import Swal from "sweetalert2";
 import { showToast } from "../components/Toast";
 import { useRouter } from "next/navigation";
 import { addToCartSelectedProduct } from "../services/postCartSelectedProducts";
+import { toast } from "react-toastify";
+import NoDataFound from "../components/NoDataFound";
+import { placeOrder } from "../services/postPlaceOrder";
+import LodingFixed from "../components/LodingFixed";
+import { fetchCartProducts } from "../services/getShowAddToCartProduct";
 const CartPage = () => {
     const [checkedProductCard, setCheckedProductCard] = useState([]);
+    const [checkingProductFilter, setCheckingProductFilter] = useState([]);
     const [selected, setSelected] = useState([]);
     const { status, data: session } = useSession();
     const [isRemoveOpen, setIsRemoveOpen] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-    let price;
-    let discountPrice;
+    const [subTotalPrice, setSubTotalPrice] = useState(0);
+    const [totalDiscount, setTotalDiscount] = useState(0);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -56,6 +61,34 @@ const CartPage = () => {
         }
         return 47;
     });
+
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [selectedProductType, setSelectedProductType] = useState(null);
+
+    useEffect(() => {
+        // Check if any product has isChecked true and different cart_product_type
+        const checkedProducts = checkedProductCard.filter(
+            (product) => product.isChecked
+        );
+
+        if (checkedProducts.length > 0) {
+            const firstProductType = checkedProducts[0].cart_product_type;
+            setSelectedProductType(firstProductType);
+            const hasDifferentType = checkedProducts.some(
+                (product) => product.cart_product_type !== firstProductType
+            );
+
+            if (hasDifferentType) {
+                toast.error("Different product types selected!");
+                setIsButtonDisabled(true);
+            } else {
+                setIsButtonDisabled(false);
+            }
+        } else {
+            setSelectedProductType(null);
+            setIsButtonDisabled(false);
+        }
+    }, [checkedProductCard]);
 
     const updateLocalStorage = (items) => {
         localStorage.setItem("addToCart", JSON.stringify(items));
@@ -77,13 +110,6 @@ const CartPage = () => {
         return updateProduct;
     }
 
-    /**
-     * Handles the deletion of a cart item.
-     * If a session exists, it deletes the item from the server and updates the state accordingly.
-     * If no session exists, it removes the item from the local state and updates local storage.
-     *
-     * @param {number} cart_id - The ID of the cart item to be deleted.
-     */
     const handleDelete = async (cart_id) => {
         const wantToDelete = await Swal.fire({
             title: "Are you sure?",
@@ -112,6 +138,7 @@ const CartPage = () => {
                         session?.accessToken
                     );
                     const updatedCartProducts = await fetchCartProducts(
+                        session?.accessToken,
                         outletId,
                         districtId
                     );
@@ -156,15 +183,11 @@ const CartPage = () => {
                 setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             console.log(error);
         }
     };
 
-    /**
-     * Handles the deletion of selected cart items.
-     * If a session exists, it deletes the selected items from the server and updates the state accordingly.
-     * If no session exists, it removes the selected items from the local state and updates local storage.
-     */
     const handleSelectedItemDelete = async () => {
         const wantToDelete = await Swal.fire({
             title: "Are you sure?",
@@ -197,6 +220,7 @@ const CartPage = () => {
                         session?.accessToken
                     );
                     const updatedCartProducts = await fetchCartProducts(
+                        session?.accessToken,
                         outletId,
                         districtId
                     );
@@ -239,17 +263,12 @@ const CartPage = () => {
                 setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             console.log(error);
         }
+
     };
 
-    /**
-     * Handles changes to the selection state of cart items.
-     * If the "allSelect" checkbox is changed, it updates the selection state of all items.
-     * If an individual item checkbox is changed, it updates the selection state of that specific item.
-     *
-     * @param {Event} e - The change event triggered by the checkbox.
-     */
     const handleChange = (e) => {
         const { name, checked } = e.target;
         if (name === "allSelect") {
@@ -270,13 +289,13 @@ const CartPage = () => {
         }
     };
 
-    /**
-     * Handles decrementing the quantity of a cart item.
-     * If a session exists, it updates the quantity on the server and refreshes the cart state.
-     * If no session exists, it updates the quantity locally and updates local storage.
-     *
-     * @param {number} indexId - The ID of the cart item to decrement.
-     */
+    //Start selected checked product item
+    const selectedCount = checkedProductCard.reduce(
+        (total, card) => (card.isChecked ? total + card.quantity : total),
+        0
+    );
+    //End selected checked product item
+
     const handleDecrement = async (indexId) => {
         try {
             setQuantityUpdateLoader(true);
@@ -298,6 +317,7 @@ const CartPage = () => {
                 );
 
                 const updatedCartProducts = await fetchCartProducts(
+                    session?.accessToken,
                     outletId,
                     districtId
                 );
@@ -345,20 +365,12 @@ const CartPage = () => {
             setQuantityUpdateLoader(false);
         } catch (error) {
             console.log(error);
+            setQuantityUpdateLoader(false);
         }
     };
 
-    /**
-     * Handles incrementing the quantity of a cart item.
-     * If a session exists, it updates the quantity on the server and refreshes the cart state.
-     * If no session exists, it updates the quantity locally and updates local storage.
-     *
-     * @param {number} indexId - The ID of the cart item to increment.
-     */
-
-    const handleIncrement = async (indexId) => {
+    const handleIncrement = async (indexId, type) => {
         try {
-            setQuantityUpdateLoader(true);
             if (session) {
                 const checkingProductFilter = isAnyChecked(checkedProductCard);
                 const cartIds = checkingProductFilter.map((item) => ({
@@ -369,14 +381,25 @@ const CartPage = () => {
                     cart_id: indexId,
                     outlet_id: outletId,
                     quantity: "increment",
-                };
 
-                const incrementApi = await addToCartQuantityUpdate(
-                    quantityUpdateInfo,
-                    session?.accessToken
-                );
+                };
+                try {
+                    setQuantityUpdateLoader(true)
+                    const incrementApi = await addToCartQuantityUpdate(
+                        quantityUpdateInfo,
+                        session?.accessToken
+                    );
+                    if (incrementApi.code != 200) {
+                        toast.error(incrementApi.message)
+                    }
+                } catch (error) {
+                    console.error('Error updating cart quantity:', error);
+                } finally {
+                    setQuantityUpdateLoader(false);
+                }
 
                 const updatedCartProducts = await fetchCartProducts(
+                    session?.accessToken,
                     outletId,
                     districtId
                 );
@@ -422,7 +445,6 @@ const CartPage = () => {
                 setCheckedProductCard(updatedUsers);
                 updateLocalStorage(updatedUsers);
             }
-            setQuantityUpdateLoader(false);
         } catch (error) {
             console.log(error);
         }
@@ -434,69 +456,29 @@ const CartPage = () => {
             setCheckedProductCard(cartProduct);
         }
     }, []);
-    /**
-     * Fetches the products in the cart by making a GET request to the API.
-     *
-     * @returns {Promise<Object>} - The response from the API containing the cart products.
-     */
-
-    const fetchCartProducts = async (outletId, districtId) => {
-        try {
-            const response = await fetch(
-                `${apiBaseUrl}/get-cart-products?outlet_id=${outletId}&location_id=${districtId}`,
-                {
-                    method: "GET",
-                    headers: {
-                        accept: "application/json",
-                        Authorization: `Bearer ${session?.accessToken}`,
-                    },
-                }
-            );
-
-            // console.log("s", response);
-
-            return response.json();
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    /**
-     * Handles the checkout process for the user.
-     *
-     * If the user is logged in (session exists), it performs the following steps:
-     * 1. Retrieves the list of products to be added to the cart.
-     * 2. Adds the products to the cart.
-     * 3. Fetches the updated cart products after adding the new items.
-     * 4. Updates the state with the new cart products.
-     * 5. Removes the 'addToCart' item from local storage.
-     * 6. Dispatches an action to update the cart state in the Redux store.
-     *
-     * If any error occurs during the process, it logs the error to the console.
-     */
-
-    const handleCheckout = async () => {
-        try {
-            setLoading(true);
-            if (session) {
-                const updatedCartProducts = await fetchCartProducts(
-                    outletId,
-                    districtId
-                );
-                // console.log("sjfhdufh", updatedCartProducts);
-                if (updatedCartProducts?.success) {
-                    setCheckedProductCard(updatedCartProducts?.data);
-                }
-            }
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     useEffect(() => {
+        const handleCheckout = async () => {
+            try {
+                if (session?.accessToken) {
+                    setLoading(true)
+                    const updatedCartProducts = await fetchCartProducts(
+                        session?.accessToken,
+                        outletId,
+                        districtId
+                    );
+                    if (updatedCartProducts?.success) {
+                        setCheckedProductCard(updatedCartProducts?.data);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoading(false)
+            }
+        };
         handleCheckout();
-    }, [session]);
+    }, [session?.accessToken]);
 
     function isAnyChecked(products) {
         const isCheckedProduct = [];
@@ -509,15 +491,44 @@ const CartPage = () => {
     }
 
     useEffect(() => {
-        const checkingProductFilter = isAnyChecked(checkedProductCard);
+        const checkingProductFilter = isAnyChecked(checkedProductCard);;
+        setCheckingProductFilter(checkingProductFilter)
+
         const checkedProductTotalPrice = checkingProductFilter.reduce(
             (sum, product) => {
-                // console.log(product);
                 return sum + parseFloat(product.price) * product.quantity;
             },
             0
         );
+        const checkedProductSubTotalPrice = checkingProductFilter.reduce(
+            (sum, product) => {
+                return (
+                    sum +
+                    parseFloat(product.regular_price || product.price) *
+                    product.quantity
+                );
+            },
+            0
+        );
+        const checkedProductTotalDiscount = checkingProductFilter.reduce(
+            (sum, product) => {
+                return (
+                    sum +
+                    parseFloat(
+                        (product.regular_price
+                            ? product.regular_price
+                            : product.price) - product.price
+                    ) *
+                    product.quantity
+                );
+            },
+            0
+        );
+
         setTotalPrice(checkedProductTotalPrice);
+        setSubTotalPrice(checkedProductSubTotalPrice);
+        setTotalDiscount(checkedProductTotalDiscount);
+
         setIsRemoveOpen(checkingProductFilter.length > 0 ? true : false);
     }, [checkedProductCard]);
 
@@ -538,7 +549,7 @@ const CartPage = () => {
                 router.push(`/shipping-page/cart-product`);
             } else {
                 requestPage("cart-page");
-                router.push("/login");
+                router.push("/login?from=cart-page");
                 showToast("Log in to access shipping", "error");
             }
         } else {
@@ -546,9 +557,75 @@ const CartPage = () => {
         }
     };
 
+    const handlePlaceOrder = async () => {
+        const cartItems = checkingProductFilter.map((product) => ({
+            product_id: product.product_id,
+            product_quantity: product.quantity,
+            product_regular_price: product.regular_price,
+            product_unit_price: product.price,
+            product_variation_id: product.product_variation_id || "",
+            product_shipping_charge: "", // You can add this if available
+            product_discount_type: product.discount_type || "",
+            product_discount_amount: product.discountPrice || "",
+            vendor_id: "",
+            thumbnail: product.product_thumbnail || "",
+        }));
+
+        const data = {
+            outlet_id: outletId,
+            location_id: districtId,
+            sub_total: subTotalPrice,
+            discount_amount: totalDiscount,
+            total_products_price: totalPrice,
+            total_delivery_charge: 0,
+            grand_total: totalPrice,
+            delivery_note: "",
+            shipping_email: "",
+            outlet_pickup_point_id: null,
+            order_product_type: selectedProductType,
+            place_order_with: "add to cart",
+            shipping_address_id: null,
+            payment_type: "",
+            cart_items: cartItems,
+        };
+
+        // Calculate the total quantity of the selected products
+        const quantityTotal = getTotalQuantity(checkingProductFilter);
+        const quantityTotalAll = getTotalQuantity(checkedProductCard);
+
+        try {
+            if (session) {
+                setLoading(true);
+                const order = await placeOrder(data, session?.accessToken);
+                if (order.code == 200) {
+                    deleteBuyNowProductData();
+                    router.push(`/paynow?orderId=${order?.results?.order_id}`);
+                    dispatch(
+                        setAddToCart({
+                            hasSession: true,
+                            length: quantityTotalAll - quantityTotal,
+                        })
+                    );
+                } else {
+                    showToast(order.message, "error");
+                }
+                setLoading(false);
+            } else {
+                requestPage("cart-page");
+                router.push("/login?from=cart-page");
+                showToast("Log in to access shipping", "error");
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error("An error occurred while placing the order:", error);
+            showToast("Something went wrong, please try again later.", "error");
+        }
+    };
+
     return (
         <section className="cart-section-area">
             <div className="container">
+                {(loading || quanticUpdateLoader) && <LodingFixed />}
                 <div className="row gx-4 gy-5">
                     <div className="col-lg-9">
                         <div className="row cart-top-area">
@@ -596,18 +673,23 @@ const CartPage = () => {
 
                         <div className="row product-cart-details-area">
                             <div className="col-12">
-                                <div className="product-cart-details-continer overflow-x-auto">
-                                    <div className="table align-middle">
-                                        <div className="d-flex flex-column gap-2">
+                                <div className="product-cart-details-continer overflow-x-auto w-100">
+                                    <div
+                                        className="table align-middle "
+                                        style={{ minWidth: "684px" }}
+                                    >
+                                        <div className="d-flex flex-column-reverse gap-2">
                                             {checkedProductCard.length > 0 ? (
-                                                checkedProductCard?.map(
+                                                checkedProductCard.map(
                                                     (item, index) => {
-                                                        price =
+                                                        const price =
                                                             item.price *
                                                             item.quantity;
-                                                        discountPrice =
-                                                            item.discountPrice *
+                                                        const regularPrice =
+                                                            item.regular_price *
                                                             item.quantity;
+                                                            console.log("cart page",item);
+                                                            
 
                                                         return (
                                                             <div
@@ -633,16 +715,19 @@ const CartPage = () => {
                                                                     <div>
                                                                         <div className="product-cart-product-img">
                                                                             <Image
-                                                                                fill={true}
+                                                                                fill={
+                                                                                    true
+                                                                                }
                                                                                 src={`${NagadhatPublicUrl}/${item?.product_thumbnail}`}
                                                                                 alt="black-friday"
                                                                             />
                                                                         </div>
                                                                     </div>
+
                                                                     <div>
                                                                         <h2 className="product-cart-text">
                                                                             <Link
-                                                                                href={`/products/get-product-details?outlet_id=${item?.outlet_id}&product_id=${item?.product_id}`}
+                                                                                href={`/products/${item?.slug}?outlet_id=${item?.outlet_id}`}
                                                                             >
                                                                                 {
                                                                                     item.product_name
@@ -650,51 +735,97 @@ const CartPage = () => {
                                                                             </Link>
                                                                         </h2>
                                                                         <div className="cart-prodect-variants">
-                                                                            {Array.isArray(item?.selectedVariants) &&
-                                                                                item.selectedVariants.slice(0, 2).map((variant, inx) => {
-                                                                                    if (variant && typeof variant === "object" && Object.entries(variant).length > 0) {
-                                                                                        const [key, value] = Object.entries(variant)[0];
-                                                                                        const keyDisplay = key.split("_")[1];
+                                                                            {Array.isArray(
+                                                                                item?.selectedVariants
+                                                                            ) &&
+                                                                                item.selectedVariants
+                                                                                    .slice(
+                                                                                        0,
+                                                                                        2
+                                                                                    )
+                                                                                    .map(
+                                                                                        (
+                                                                                            variant,
+                                                                                            inx
+                                                                                        ) => {
+                                                                                            if (
+                                                                                                variant &&
+                                                                                                typeof variant ===
+                                                                                                "object" &&
+                                                                                                Object.entries(
+                                                                                                    variant
+                                                                                                )
+                                                                                                    .length >
+                                                                                                0
+                                                                                            ) {
+                                                                                                const [
+                                                                                                    key,
+                                                                                                    value,
+                                                                                                ] =
+                                                                                                    Object.entries(
+                                                                                                        variant
+                                                                                                    )[0];
+                                                                                                const keyDisplay =
+                                                                                                    key.split(
+                                                                                                        "_"
+                                                                                                    )[1];
 
-                                                                                        return (
-                                                                                            <React.Fragment key={inx}>
-                                                                                                <p>
-                                                                                                    <span>{keyDisplay}: </span>
-                                                                                                    <span className="cart-prodect-variants-item">
-                                                                                                        <label>{value}</label>
-                                                                                                    </span>
-                                                                                                </p>
-                                                                                            </React.Fragment>
-                                                                                        );
-                                                                                    }
-                                                                                    return null;
-                                                                                })}
+                                                                                                return (
+                                                                                                    <React.Fragment
+                                                                                                        key={
+                                                                                                            inx
+                                                                                                        }
+                                                                                                    >
+                                                                                                        <p>
+                                                                                                            <span>
+                                                                                                                {
+                                                                                                                    keyDisplay
+                                                                                                                }
+
+                                                                                                                :{" "}
+                                                                                                            </span>
+                                                                                                            <span className="cart-prodect-variants-item">
+                                                                                                                <label>
+                                                                                                                    {
+                                                                                                                        value
+                                                                                                                    }
+                                                                                                                </label>
+                                                                                                            </span>
+                                                                                                        </p>
+                                                                                                    </React.Fragment>
+                                                                                                );
+                                                                                            }
+                                                                                            return null;
+                                                                                        }
+                                                                                    )}
                                                                         </div>
-
+                                                                        <div className="cart-prodect-variants">
+                                                                            Product
+                                                                            Type
+                                                                            :
+                                                                            <span className="cart-prodect-variants-item">
+                                                                                {item.cart_product_type ==
+                                                                                    2
+                                                                                    ? "Resale"
+                                                                                    : "Retail"}
+                                                                            </span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+
                                                                 <div>
-                                                                    <div>
-                                                                        <p>
-                                                                            <strong className="product-cart-price">
-                                                                                ৳
-                                                                                {
-                                                                                    price
-                                                                                }
-                                                                            </strong>
-                                                                        </p>
+                                                                    <p>
+                                                                        <strong className="product-cart-price">
+                                                                            ৳{" "} {price}
+                                                                        </strong>
+                                                                    </p>
+                                                                    {price !== regularPrice && (
                                                                         <p>
                                                                             <del className="product-cart-discount-price">
-                                                                                ৳
-                                                                                {
-                                                                                    discountPrice
-                                                                                }
+                                                                                ৳{" "} {regularPrice}
                                                                             </del>
                                                                         </p>
-                                                                        {/*  <p>
-                                                                                -10%
-                                                                            </p> */}
-                                                                    </div>
+                                                                    )}
                                                                     <div className="d-flex gap-2">
                                                                         <button
                                                                             className="product-cart-remov-btn"
@@ -713,7 +844,8 @@ const CartPage = () => {
                                                                         </button>
                                                                     </div>
                                                                 </div>
-                                                                <div>
+
+                                                                <div className="my-auto">
                                                                     <div
                                                                         className="btn-group quantity-area"
                                                                         role="group"
@@ -722,13 +854,12 @@ const CartPage = () => {
                                                                         <button
                                                                             type="button"
                                                                             className="quantity-increase"
-                                                                            onClick={() => {
+                                                                            onClick={() =>
                                                                                 handleDecrement(
-                                                                                    session
-                                                                                        ? item?.cart_id
-                                                                                        : index
-                                                                                );
-                                                                            }}
+                                                                                    session ? item?.cart_id : index,
+                                                                                    item.cart_product_type
+                                                                                )
+                                                                            }
                                                                             disabled={
                                                                                 quanticUpdateLoader
                                                                             }
@@ -742,7 +873,6 @@ const CartPage = () => {
                                                                             step="1"
                                                                             autoComplete="off"
                                                                             type="text"
-                                                                            height="100%"
                                                                             value={
                                                                                 item?.quantity
                                                                             }
@@ -751,16 +881,13 @@ const CartPage = () => {
                                                                         <button
                                                                             className="quantity-decrease"
                                                                             type="button"
-                                                                            onClick={() => {
+                                                                            onClick={() =>
                                                                                 handleIncrement(
-                                                                                    session
-                                                                                        ? item?.cart_id
-                                                                                        : index
-                                                                                );
-                                                                            }}
-                                                                            disabled={
-                                                                                quanticUpdateLoader
+                                                                                    session ? item?.cart_id : index,
+                                                                                    item.cart_product_type
+                                                                                )
                                                                             }
+                                                                            disabled={quanticUpdateLoader}
                                                                         >
                                                                             <FaPlus />
                                                                         </button>
@@ -771,11 +898,13 @@ const CartPage = () => {
                                                     }
                                                 )
                                             ) : (
-                                                <NoProductShows
-                                                    text={
+                                                !loading &&
+                                                <NoDataFound
+                                                    title={"No Cart Items"}
+                                                    description={
                                                         "There are no items in this cart"
                                                     }
-                                                ></NoProductShows>
+                                                />
                                             )}
                                         </div>
                                     </div>
@@ -783,6 +912,7 @@ const CartPage = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-lg-3">
                         <div className="row promo-code-section">
                             <div className="col-12">
@@ -819,30 +949,83 @@ const CartPage = () => {
                                         Shopping Summary
                                     </h3>
                                     <div className="d-flex gap-3 align-items-center justify-content-between shopping-price-area py-1">
-                                        <p className="">Total</p>
-                                        <strong className="">
-                                            ৳{totalPrice}
+                                        <p
+                                            className="fw-normal"
+                                            style={{
+                                                fontSize: "14px",
+                                            }}
+                                        >
+                                            SubTotal{" "}
+                                            {checkedProductCard.length > 0 &&
+                                                totalPrice > 0 && (
+                                                    <span
+                                                        style={{
+                                                            color: "#414241",
+                                                            fontSize: "14px",
+                                                            fontWeight: "400",
+                                                        }}
+                                                    >
+                                                        ( Item {selectedCount} )
+                                                    </span>
+                                                )}
+                                        </p>
+                                        <strong
+                                            style={{
+                                                fontSize: "16px",
+                                            }}
+                                        >
+                                            ৳ {totalPrice}
                                         </strong>
                                     </div>
-                                    <button
-                                        onClick={(e) => {
-                                            handleCheckoutNavigation();
-                                        }}
-                                        className="add-to-cart-link border border-0 w-100"
-                                        disabled={!totalPrice}
-                                        style={{
-                                            pointerEvents:
-                                                totalPrice
-                                                    ? "auto"
-                                                    : "none",
-                                            opacity:
-                                                totalPrice
-                                                    ? 1
-                                                    : 0.5,
-                                        }}
-                                    >
-                                        {totalPrice ? "CHECKOUT" : "Select First"}
-                                    </button>
+                                    {selectedProductType == 2 ? (
+                                        <button
+                                            onClick={(e) => {
+                                                handlePlaceOrder();
+                                            }}
+                                            className="add-to-cart-link border border-0 w-100"
+                                            disabled={!totalPrice}
+                                            style={{
+                                                pointerEvents:
+                                                    totalPrice &&
+                                                        !isButtonDisabled
+                                                        ? "auto"
+                                                        : "none",
+                                                opacity:
+                                                    totalPrice &&
+                                                        !isButtonDisabled
+                                                        ? 1
+                                                        : 0.5,
+                                            }}
+                                        >
+                                            {totalPrice
+                                                ? "place order"
+                                                : "Select First"}
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={(e) => {
+                                                handleCheckoutNavigation();
+                                            }}
+                                            className="add-to-cart-link border border-0 w-100"
+                                            disabled={!totalPrice}
+                                            style={{
+                                                pointerEvents:
+                                                    totalPrice &&
+                                                        !isButtonDisabled
+                                                        ? "auto"
+                                                        : "none",
+                                                opacity:
+                                                    totalPrice &&
+                                                        !isButtonDisabled
+                                                        ? 1
+                                                        : 0.5,
+                                            }}
+                                        >
+                                            {totalPrice
+                                                ? "CHECKOUT"
+                                                : "Select First"}
+                                        </button>
+                                    )}
                                     <Link
                                         href="/"
                                         className="shopping-back-btn"
@@ -855,7 +1038,7 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 

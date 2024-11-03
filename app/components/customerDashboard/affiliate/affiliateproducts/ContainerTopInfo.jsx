@@ -1,23 +1,18 @@
-import moment from 'moment';
+import moment from "moment";
 
 const ContainerTopInfo = ({ containerData }) => {
     const {
         id,
-        container_name,
         container_value,
         quantity,
         opening_time,
         closing_time,
-        status,
-        live_status,
-        container_status,
-        booked_value,
-        booked_quantity
+        item_categories,
     } = containerData;
 
     // Format the opening and closing time
-    const formattedOpeningTime = moment(opening_time).format('DD MMMM YYYY');
-    const formattedClosingTime = moment(closing_time).format('DD MMMM YYYY');
+    const formattedOpeningTime = moment(opening_time).format("DD MMMM YYYY");
+    const formattedClosingTime = moment(closing_time).format("DD MMMM YYYY");
 
     return (
         <>
@@ -41,12 +36,28 @@ const ContainerTopInfo = ({ containerData }) => {
                             <tr>
                                 <td>Item</td>
                                 <td className="px-5">:</td>
-                                <td className="text-end">....</td>
+                                {item_categories?.map((items, index) => {
+                                    return (
+                                        <td
+                                            key={index}
+                                            className="text-end d-flex gap-2 flex-wrap "
+                                        >
+                                            <span
+                                                className="px-2 w-100 text-white"
+                                                style={{
+                                                    background: "#44bc9d",
+                                                }}
+                                            >
+                                                {items ? items : "...."}
+                                            </span>
+                                        </td>
+                                    );
+                                })}
                             </tr>
                             <tr>
                                 <td>Quantity</td>
                                 <td className="px-5">:</td>
-                                <td className="text-end">{quantity}৳</td>
+                                <td className="text-end">{quantity}</td>
                             </tr>
                         </tbody>
                     </table>

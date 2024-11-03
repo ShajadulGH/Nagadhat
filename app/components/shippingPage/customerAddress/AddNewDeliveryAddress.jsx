@@ -21,7 +21,10 @@ const AddNewDeliveryAddress = ({
             <form>
               <div className="row">
                 <div className="col-md-6 pb-3">
-                  <label htmlFor="full-name" className="form-label">Full Name</label>
+                  <label htmlFor="full-name" className="form-label">
+                    Full Name
+                    <span className="text-danger fw-bold">*</span>
+                    </label>
                   <input
                     type="text"
                     name="fullName"
@@ -40,7 +43,7 @@ const AddNewDeliveryAddress = ({
                     Mobile Number <span className="text-danger fw-bold">*</span>
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="phone"
                     className="form-control"
                     id="mobile"
@@ -76,7 +79,10 @@ const AddNewDeliveryAddress = ({
                 </div>
 
                 <div className="col-md-6 pb-3">
-                  <label htmlFor="city" className="form-label">City</label>
+                  <label htmlFor="city" className="form-label">
+                    City
+                    <span className="text-danger fw-bold">*</span>
+                    </label>
                   <input
                     type="text"
                     className="form-control"
@@ -91,7 +97,10 @@ const AddNewDeliveryAddress = ({
                 </div>
 
                 <div className="col-md-12 pb-3">
-                  <label htmlFor="address" className="form-label">Address</label>
+                  <label htmlFor="address" className="form-label">
+                    Address
+                    <span className="text-danger fw-bold">*</span>
+                  </label>
                   <textarea
                     name="address"
                     id="address"

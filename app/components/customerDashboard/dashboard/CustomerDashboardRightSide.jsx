@@ -1,6 +1,6 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { FaPlus } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { ToastContainer, toast } from "react-toastify";
@@ -20,8 +20,59 @@ const CustomerDashboardRightSide = () => {
     const [currentAddress, setCurrentAddress] = useState(null);
     const [userDashboard, setUserDashboard] = useState({});
     const [liveUpdate, setLiveUpdate] = useState(true);
+    const [isPending, startTransition] = useTransition();
 
     const { data: session, status } = useSession();
+
+    useEffect(() => {
+        const handleClick = (event) => {
+            handleClickOutside(event);
+        };
+        document.addEventListener("mousedown", handleClick);
+        return () => {
+            document.removeEventListener("mousedown", handleClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleGetShippingAddress = async () => {
+            try {
+                const data = await getCustomerAllShippingAddress(
+                    session?.accessToken
+                );
+                setCustomerAddress(data.results);
+                const defaultAddr = data.results.find(
+                    (address) => address.set_default === 1
+                );
+                setDefaultAddress(defaultAddr);
+            } catch (error) {
+                console.error("Failed to fetch shipping addresses:", error);
+            }
+        };
+        if (session) handleGetShippingAddress();
+    }, [session?.accessToken, liveUpdate]);
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            const fetchUserDashboardInfo = async () => {
+                try {
+                    startTransition(async () => {
+                        const userDashboardInfo = await getUserDashboard(
+                            session?.accessToken
+                        );
+                        const userDashboardResult = userDashboardInfo?.results;
+                        setUserDashboard(userDashboardResult);
+                    });
+                } catch (error) {
+                    console.error(
+                        "Failed to fetch user dashboard info:",
+                        error
+                    );
+                }
+            };
+            fetchUserDashboardInfo();
+        }
+    }, [status, session?.accessToken]);
 
     if (status === "loading") {
         return (
@@ -62,35 +113,6 @@ const CustomerDashboardRightSide = () => {
         }
     };
 
-    useEffect(() => {
-        const handleClick = (event) => {
-            handleClickOutside(event);
-        };
-
-        document.addEventListener("mousedown", handleClick);
-        return () => {
-            document.removeEventListener("mousedown", handleClick);
-        };
-    }, []);
-
-    useEffect(() => {
-        const handleGetShippingAddress = async () => {
-            try {
-                const data = await getCustomerAllShippingAddress(
-                    session?.accessToken
-                );
-                setCustomerAddress(data.results);
-                const defaultAddr = data.results.find(
-                    (address) => address.set_default === 1
-                );
-                setDefaultAddress(defaultAddr);
-            } catch (error) {
-                console.error("Failed to fetch shipping addresses:", error);
-            }
-        };
-        if (session) handleGetShippingAddress();
-    }, [session, liveUpdate]);
-
     const handleSetDefaultAddress = async (id) => {
         const addAddressInfo = {
             address_id: id,
@@ -109,26 +131,6 @@ const CustomerDashboardRightSide = () => {
             toast(error.message);
         }
     };
-
-    useEffect(() => {
-        if (status === "authenticated") {
-            const fetchUserDashboardInfo = async () => {
-                try {
-                    const userDashboardInfo = await getUserDashboard(
-                        session?.accessToken
-                    );
-                    const userDashboardResult = userDashboardInfo?.results;
-                    setUserDashboard(userDashboardResult);
-                } catch (error) {
-                    console.error(
-                        "Failed to fetch user dashboard info:",
-                        error
-                    );
-                }
-            };
-            fetchUserDashboardInfo();
-        }
-    }, [status, session]);
 
     const handleDeleteAddress = async (addressID) => {
         try {
@@ -162,7 +164,7 @@ const CustomerDashboardRightSide = () => {
                                 Default Shipping Address
                             </h2>
                         </div>
-                        {customerAddress.length ? (
+                        {customerAddress?.length ? (
                             <div className="p-4 d-flex flex-column gap-3 customer-dashboard-address">
                                 {customerAddress?.map((allAddress, index) => (
                                     <div key={index}>
@@ -272,7 +274,10 @@ const CustomerDashboardRightSide = () => {
                             session={session}
                         />
                     </div>
-                    <AffiliatePartnerStatus userDashboard={userDashboard} />
+                    <AffiliatePartnerStatus
+                        userDashboard={userDashboard}
+                        isPending={isPending}
+                    />
                 </div>
             </div>
         </>

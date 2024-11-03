@@ -2,9 +2,9 @@
 
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
-// import dynamic from "next/dynamic";
+
 import { getAffiliateRetailProduct } from "@/app/services/affiliate/affiliateproducts/getAffiliateRetailProduct";
 import { getHomeCategory } from "@/app/services/getHomeCategory";
 import AffiliateRetailsProductInfo from "./AffiliateRetailsProductInfo";
@@ -13,16 +13,10 @@ import AffiliateToggleButton from "./AffiliateToggleButton";
 import Swal from "sweetalert2";
 import Pagination from "@/app/components/productCategory/Pagination";
 import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
-
-// const AffiliateToggleButton = dynamic(() => import("./AffiliateToggleButton"));
-// const AffiliateRetailsProductInfo = dynamic(() =>
-//     import("./AffiliateRetailsProductInfo")
-// );
-// const RetailListViewProductInfo = dynamic(() =>
-//     import("./RetailListViewProductInfo")
-// );
+import NoDataFound from "@/app/components/NoDataFound";
 
 const AffiliateRetailsProduct = ({ isActive }) => {
+    const [isPending, startTransition] = useTransition();
     const [isGridView, setIsGridView] = useState(true);
     const [retailProduct, setRetailProduct] = useState([]);
     const [outletId, setOutletId] = useState(0);
@@ -107,7 +101,7 @@ const AffiliateRetailsProduct = ({ isActive }) => {
     }, [selectedCategory, searchProduct]);
 
     useEffect(() => {
-        if (status === "authenticated" && session?.accessToken && outletId) {
+        if (session?.accessToken && outletId) {
             const fetchRetailProducts = async () => {
                 try {
                     let params = {
@@ -115,17 +109,20 @@ const AffiliateRetailsProduct = ({ isActive }) => {
                     };
                     if (selectedCategory) params.categoryId = selectedCategory;
                     if (searchProduct) params.search = searchProduct;
-                    const retailProductInfo = await getAffiliateRetailProduct(
-                        session.accessToken,
-                        outletId,
-                        params,
-                        limit
-                    );
-                    const retailProductData =
-                        retailProductInfo?.results?.affiliate_retail_products;
-                    setRetailProduct(retailProductData?.data);
-                    setLastPage(retailProductData?.last_page || 1);
-                    // console.log({ retailProductData });
+                    startTransition(async () => {
+                        const retailProductInfo =
+                            await getAffiliateRetailProduct(
+                                session?.accessToken,
+                                outletId,
+                                params,
+                                limit
+                            );
+                        const retailProductData =
+                            retailProductInfo?.results
+                                ?.affiliate_retail_products;
+                        setRetailProduct(retailProductData?.data);
+                        setLastPage(retailProductData?.last_page || 1);
+                    });
                 } catch (error) {
                     console.error("Failed to fetch retail products:", error);
                 }
@@ -133,8 +130,7 @@ const AffiliateRetailsProduct = ({ isActive }) => {
             fetchRetailProducts();
         }
     }, [
-        status,
-        session,
+        session?.accessToken,
         outletId,
         selectedCategory,
         searchProduct,
@@ -242,8 +238,11 @@ const AffiliateRetailsProduct = ({ isActive }) => {
                         isGridView={isGridView}
                     />
                 </div>
-                <Suspense fallback={<DefaultLoader />}>
-                    {isGridView ? (
+
+                {isPending ? (
+                    <DefaultLoader />
+                ) : retailProduct?.length > 0 ? (
+                    isGridView ? (
                         <AffiliateRetailsProductInfo
                             retailProduct={retailProduct}
                             outletId={outletId}
@@ -259,8 +258,11 @@ const AffiliateRetailsProduct = ({ isActive }) => {
                             referralLink={referralLink}
                             copied={copied}
                         />
-                    )}
-                </Suspense>
+                    )
+                ) : (
+                    <NoDataFound />
+                )}
+
                 <div className=" pt-3">
                     <Pagination currentPage={currentPage} lastPage={lastPage} />
                 </div>

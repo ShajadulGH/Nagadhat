@@ -6,8 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import LodingFixed from "../../LodingFixed";
 
-const AffiliatePartnerStatus = ({ userDashboard }) => {
+const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
     const [affiliateStatus, setAffiliateStatus] = useState(null);
     const { data: session, status } = useSession();
 
@@ -48,7 +49,7 @@ const AffiliatePartnerStatus = ({ userDashboard }) => {
     const handleJoinClick = () => {
         Swal.fire({
             title: "Are you sure?",
-            text: "You want to apply for affiliate programe!",
+            text: "You want to apply for affiliate program!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -85,7 +86,9 @@ const AffiliatePartnerStatus = ({ userDashboard }) => {
                     />
                 </Link>
 
-                {affiliateStatus !== 1 ? (
+                {isPending ? (
+                    <h3>Loading...</h3>
+                ) : affiliateStatus !== 1 ? (
                     <div className="affiliate-status-title">
                         <h4 className="mb-4">
                             Status: <span>Not Active</span>

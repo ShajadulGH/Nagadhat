@@ -1,11 +1,14 @@
 import React from "react";
 import BuyNowShippingProductPage from "./BuyNowShippingProductPage";
+import PrivateRoute from "@/app/components/PrivateRoute/PrivateRoute";
 
 const BuyNow = () => {
     return (
-        <div>
-            <BuyNowShippingProductPage></BuyNowShippingProductPage>
-        </div>
+        <PrivateRoute>
+            <div>
+                <BuyNowShippingProductPage></BuyNowShippingProductPage>
+            </div>
+        </PrivateRoute>
     );
 };
 

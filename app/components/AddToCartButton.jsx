@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAddToCart } from "../store/cartSlice";
 import { fetchCartProducts } from "../services/getShowAddToCartProduct";
 import { useRouter } from "next/navigation";
-import { Bounce, toast } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import { showToast } from "./Toast";
 import { RotatingLines, ThreeDots } from "react-loader-spinner";
 //  function to check if all three properties (variation_size, variation_color, variation_weight) are present and not null in the decorateVariation object. If they are, the function will only check the first two properties (variation_size and variation_color) against selectedVariantKey.
@@ -91,6 +91,7 @@ function AddToCartButton({
     });
     const dispatch = useDispatch();
     const router = useRouter();
+
     // Function to handle the "Add To Cart" button click event
     const handleAddToCard = async (e, title) => {
         e.preventDefault();
@@ -119,13 +120,15 @@ function AddToCartButton({
                         }
 
                         const addToCartInfo = {
+                            cart_product_type: 1,
                             product_id: productInfo?.id,
                             product_name: productInfo?.product_name,
                             price: productPrice?.prices,
-                            discountPrice: productPrice?.discountPrice,
-                            outlet_id: productInfo?.outlet_id,
+                            regular_price: productInfo?.mrp_price,
+                            outlet_id: outletId,
                             product_thumbnail: productInfo?.product_thumbnail,
                             quantity: quantity,
+                            slug: productInfo?.slug,
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
@@ -133,7 +136,7 @@ function AddToCartButton({
                                 selectedVariantProductInfo?.product_variation_id,
                             discount_type:
                                 selectedVariantProductInfo?.discount_type,
-                            regular_price:
+                            discountPrice:
                                 selectedVariantProductInfo?.discount_amount ==
                                 null
                                     ? 0
@@ -194,19 +197,20 @@ function AddToCartButton({
                     }
                 } else {
                     const addToCartInfo = {
+                        cart_product_type: 1,
                         product_id: productInfo?.id,
                         product_name: productInfo?.product_name,
                         price: productPrice?.prices,
-                        discountPrice: productPrice?.discountPrice,
-                        outlet_id: productInfo?.outlet_id,
+                        regular_price: productInfo?.mrp_price,
+                        outlet_id: outletId,
                         product_thumbnail: productInfo?.product_thumbnail,
                         quantity: quantity,
+                        slug: productInfo?.slug,
                         location_id: districtId,
-                        outlet_id: productInfo?.outlet_id,
                         order_type: "Regular",
                         product_variation_id: null,
                         discount_type: productInfo?.discount_type,
-                        regular_price:
+                        discountPrice:
                             productInfo?.discount_amount == null
                                 ? 0
                                 : productInfo?.discount_amount,
@@ -266,6 +270,7 @@ function AddToCartButton({
             }
         }
     };
+
     // Function to handle the "Buy Now" button click event
     const handleBuyNow = async (e, title) => {
         e.preventDefault();
@@ -293,13 +298,15 @@ function AddToCartButton({
                     } else {
                         setProductVariationError(" ");
                         const addToCartInfo = {
+                            cart_product_type: 1,
                             product_id: productInfo?.id,
                             product_name: productInfo?.product_name,
                             price: productPrice?.prices,
-                            discountPrice: productPrice?.discountPrice,
-                            outlet_id: productInfo?.outlet_id,
+                            regular_price: productInfo?.mrp_price,
+                            outlet_id: outletId,
                             product_thumbnail: productInfo?.product_thumbnail,
                             quantity: quantity,
+                            slug: productInfo.slug,
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
@@ -307,7 +314,7 @@ function AddToCartButton({
                                 selectedVariantProductInfo?.product_variation_id,
                             discount_type:
                                 selectedVariantProductInfo?.discount_type,
-                            regular_price:
+                            discountPrice:
                                 selectedVariantProductInfo?.discount_amount ==
                                 null
                                     ? 0
@@ -319,18 +326,20 @@ function AddToCartButton({
                     }
                 } else {
                     const addToCartInfo = {
+                        cart_product_type: 1,
                         product_id: productInfo?.id,
                         product_name: productInfo?.product_name,
                         price: productPrice?.prices,
-                        discountPrice: productPrice?.discountPrice,
-                        outlet_id: productInfo?.outlet_id,
+                        regular_price: productInfo?.mrp_price,
+                        outlet_id: outletId,
+                        slug: productInfo.slug,
                         product_thumbnail: productInfo?.product_thumbnail,
                         quantity: quantity,
                         location_id: districtId,
                         order_type: "Regular",
                         product_variation_id: null,
                         discount_type: productInfo?.discount_type,
-                        regular_price:
+                        discountPrice:
                             productInfo?.discount_amount == null
                                 ? 0
                                 : productInfo?.discount_amount,
@@ -345,6 +354,7 @@ function AddToCartButton({
 
     return (
         <div className="add-to-cart-btn">
+            <ToastContainer/>
             <button
                 className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
                 onClick={(e) =>
@@ -363,15 +373,15 @@ function AddToCartButton({
                         loading ? (
                             <div
                                 style={{
-                                    height: "28px",
-                                    width: "100px",
+                                    height: "21px",
+                                    width: "96px",
                                     textAlign: "center",
                                 }}
                             >
                                 <RotatingLines
                                     visible={true}
-                                    height="10"
-                                    width="30"
+                                    height="18"
+                                    width="20"
                                     color="#ffffff"
                                     strokeWidth="5"
                                     animationDuration="0.75"

@@ -13,12 +13,14 @@ const Registration = () => {
     const [toggleSponsored, setToggleSponsored] = useState("self");
     const [affiliateSignup, setAffiliateSignup] = useState([]);
     const [selectedChildName, setSelectedChildName] = useState("");
+    const [selectedPlacementChildId, setSelectedPlacementChildId] = useState(0);
     const [selectedPlacementId, setSelectedPlacementId] = useState(0);
     const router = useRouter();
     const searchParams = useSearchParams();
     const referralId = searchParams.get("id");
     const referral = searchParams.get("referral");
     const refName = searchParams.get("ref_name");
+    const fromPath = searchParams.get("from");
     const { status, data: session } = useSession();
 
     const [referrerID, setReferrerID] = useState(() => {
@@ -30,8 +32,8 @@ const Registration = () => {
 
     useEffect(() => {
         async function fetchData() {
-            if (session != undefined && !referralId && !referral) {
-                router.push(getRequestPath());
+            if (session != undefined && !referralId && !referral && fromPath) {
+                router.push(fromPath);
             }
         }
         fetchData();
@@ -53,10 +55,11 @@ const Registration = () => {
         setFormData((prevFormData) => ({
             ...prevFormData,
             referrer_id:
-                parseInt(referral) || parseInt(referralId) || referrerID || "",
-            placement_user_id: parseInt(selectedPlacementId) || "",
+                parseInt(referral) || parseInt(referralId) || referrerID || 0,
+            placement_user_id: parseInt(selectedPlacementChildId) || 0,
+            dropdown_child_user_id : parseInt(selectedPlacementId) || 0,
         }));
-    }, [selectedPlacementId, referralId, referral, referrerID]);
+    }, [selectedPlacementChildId, referralId, referral, referrerID, selectedPlacementId]);
 
     useEffect(() => {
         // console.log("formData========>", { formData });
@@ -78,13 +81,13 @@ const Registration = () => {
         }
     };
     useEffect(() => {
-        if (affiliateSignup && selectedPlacementId) {
+        if (affiliateSignup && selectedPlacementChildId) {
             let selectedUser = affiliateSignup.find(
-                (user) => user.child.id === parseInt(selectedPlacementId)
+                (user) => user.child.id === parseInt(selectedPlacementChildId)
             );
             setSelectedChildName(selectedUser?.child);
         }
-    }, [selectedPlacementId]);
+    }, [selectedPlacementChildId]);
 
     const fetchAffiliateNewSignup = async () => {
         if (status === "authenticated") {
@@ -100,7 +103,7 @@ const Registration = () => {
         }
     };
     useEffect(() => {
-        if (toggleSponsored) {
+        if (toggleSponsored == "self") {
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 referrer_id:
@@ -109,10 +112,19 @@ const Registration = () => {
                     referrerID ||
                     "",
                 placement_user_id: "",
+                dropdown_child_user_id: "",
             }));
             fetchAffiliateNewSignup();
+        }else{
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                referrer_id:
+                    parseInt(referral) || parseInt(referralId) || referrerID || 0,
+                placement_user_id: parseInt(selectedPlacementChildId) || 0,
+                dropdown_child_user_id : parseInt(selectedPlacementId) || 0,
+            }));
         }
-    }, [toggleSponsored, status, session]);
+    }, [toggleSponsored]);
 
     const valideateInput = (formValue) => {
         for (const input in formValue) {
@@ -142,12 +154,25 @@ const Registration = () => {
                 const res = await registerUser(formData);
 
                 if (res?.success != true) {
+                    // if (res.message == "Phone Already Exists! You do not verify your OTP OT Delete Customer API Call!") {
+                    //     router.push(`/otp?phone=${formData.phone}`);
+                    //     return;
+                    // }
+                    
+                    if (res.message == "Referrer User Not Found! Please try another Referrer.") {
+                        localStorage.removeItem("referrerID");
+                        formData.referrer_id = "";
+                    } 
+                    // else if (res.message == "Validation Error.") {
+                    //     setErrorMessage(res.data.phone[0]);
+                    //     return;
+                    // }
                     alert(res.message);
                     return;
                 }
 
                 localStorage.removeItem("referrerID");
-
+                localStorage.setItem("userEmail", formData.email);
                 router.push(`/otp?phone=${formData.phone}`);
             } catch (error) {
                 alert("Something went wrong. Please try after sometime");
@@ -192,6 +217,16 @@ const Registration = () => {
         };
         checkPhoneNumberValidity();
     }, [formData.phone]);
+
+    const handleSetPlacemnt = (e) => {
+        const selectedUserId = e.target.value;
+        const selectedUser = affiliateSignup.find(
+            (user) => user.child?.id == selectedUserId
+        );
+
+        setSelectedPlacementChildId(selectedUser?.child?.id);
+        setSelectedPlacementId(selectedUser?.id)
+    }
 
     return (
         <div className="container">
@@ -248,7 +283,7 @@ const Registration = () => {
                                         Phone Number <span>*</span>
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="phone"
                                         className="form-control"
                                         id="number"
@@ -265,7 +300,7 @@ const Registration = () => {
                                         Email (Optional)
                                     </label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         name="email"
                                         className="form-control"
                                         id="email"
@@ -378,11 +413,7 @@ const Registration = () => {
                                             className="form-select"
                                             aria-label="Default select example"
                                             id="placement"
-                                            onChange={(e) =>
-                                                setSelectedPlacementId(
-                                                    e.target.value
-                                                )
-                                            }
+                                            onChange={(e) => handleSetPlacemnt(e)}
                                         >
                                             <option>Select</option>
 

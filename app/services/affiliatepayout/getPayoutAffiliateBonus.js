@@ -1,0 +1,27 @@
+import { apiBaseUrl } from "@/app/utils";
+
+export const getPayoutAffiliateBonus = async (token, params = {}) => {
+    if (!token) {
+        console.error("Token is missing. Cannot fetch affiliate-bonus data.");
+        return null;
+    }
+
+    const urlParams = new URLSearchParams(params).toString();
+    const url = `${apiBaseUrl}/affiliate-bonus${urlParams ? `?${urlParams}` : ""}`;
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            next: { revalidate: 10 },
+        });
+
+        return await response.json();
+    } catch (error) {
+        console.error("Something went wrong fetching affiliate bonus Data");
+        console.info(error);
+        return null;
+    }
+};

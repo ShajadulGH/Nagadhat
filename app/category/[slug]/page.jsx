@@ -1,20 +1,21 @@
 "use client";
+import LodingFixed from "@/app/components/LodingFixed";
 import Service from "@/app/components/Service";
-import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 import CategoryLeftSide from "@/app/components/productCategory/CategoryLeftSide";
 import CategoryRightSide from "@/app/components/productCategory/CategoryRightSide";
 import Breadcrumb from "@/app/components/productDetail/Breadcrumb";
 import { getCategorydetailBySlug } from "@/app/services/getCategorydetailBySlug";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Audio } from "react-loader-spinner";
+import { ToastContainer } from "react-toastify";
 
 const DynamicCategoryPage = ({ params }) => {
+
     const searchParams = useSearchParams();
     const [categoryBySlugData, setCategoryBySlugData] = useState(null);
     const { slug } = params;
     const [option, setOption] = useState({});
-    const [outletId, setOutletId] = useState(0); // default outlet
+    const [outletId, setOutletId] = useState(0);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -27,14 +28,13 @@ const DynamicCategoryPage = ({ params }) => {
         for (const key of searchParams.keys()) {
             newOption[key] = searchParams.get(key);
         }
-        setOption(newOption);
+        setOption({ ...newOption, limit: 24 });
     }, [searchParams]);
 
     const page = parseInt(option.page) || 1;
-    const limit = 12; // Items per page
 
     useEffect(() => {
-        if (outletId) {
+        if (outletId && slug) {
             const fetchProducts = async () => {
                 try {
                     setLoading(true);
@@ -44,18 +44,18 @@ const DynamicCategoryPage = ({ params }) => {
                         option
                     );
                     setCategoryBySlugData(data);
-                    setLoading(false);
                 } catch (error) {
-                    setLoading(false);
                     console.error(
                         "Error fetching 'Just For You' products:",
                         error
                     );
+                } finally {
+                    setLoading(false);
                 }
             };
             fetchProducts();
         }
-    }, [slug, option]);
+    }, [slug, option, outletId]);
 
     const categoryByResult = categoryBySlugData?.results;
     const categoryTitle = categoryByResult?.category;
@@ -70,45 +70,18 @@ const DynamicCategoryPage = ({ params }) => {
     const categoryTotalMinPrice = categoryByResult?.category_min_price;
     const categoryTotalMaxPrice = categoryByResult?.category_max_price;
     const totalProduct = categoryByResult?.total_product;
-    const lastPage = categoryByResult?.products?.last_page;
-
-    const serviceItems = [
-        {
-            imageurl: "/images/pickup.svg",
-            altText: "pickup image",
-            title: " Fast Delivery",
-            subTitle: "Free For All Type Order",
-        },
-        {
-            imageurl: "/images/gift-cart.svg",
-            altText: "gift cart",
-            title: " Best Quality",
-            subTitle: "Best Product Pieces",
-        },
-        {
-            imageurl: "/images/gift-box.svg",
-            altText: "gift box",
-            title: " Exchange Offer",
-            subTitle: "One Day To Changes",
-        },
-        {
-            imageurl: "/images/headphone.svg",
-            altText: "headphone",
-            title: " Help Center",
-            subTitle: "Support System 24/7",
-        },
-    ];
-
-    // if (loading) {
-    //     return <DefaultLoader />
-    // }
+    const lastPage = categoryByResult?.last_page;
 
     return (
         <section className="product-category-wrapper">
             <div className="container">
                 <Breadcrumb />
-                <div className="row product-category-details-row">
+                <div
+                    className="row product-category-details-row"
+                    style={{ minHeight: "60vh" }}
+                >
                     <div className="col-md-12">
+                        <ToastContainer />
                         <div className="product-category-details">
                             <CategoryLeftSide
                                 categoryByBrand={categoryByBrand}
@@ -130,12 +103,13 @@ const DynamicCategoryPage = ({ params }) => {
                                 totalProduct={totalProduct}
                                 lastPage={lastPage}
                                 currentPage={page}
-                                itemsPerPage={limit}
+                                loading={loading}
                             />
                         </div>
                     </div>
                 </div>
-                <Service serviceItems={serviceItems} />
+                {loading && <LodingFixed />}
+                <Service />
             </div>
         </section>
     );

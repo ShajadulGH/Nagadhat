@@ -1,33 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { getAffiliateReferralCode } from "@/app/services/affiliate/getAffiliateReferralCode";
 
 const ReferralPage = ({ params }) => {
+    const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const referralCode = params.id;
 
     const [userInfo, setUserInfo] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [userInfoData, setUserInfoData] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                setLoading(true);
                 setError(null);
-                const data = await getAffiliateReferralCode(referralCode);
-                setLoading(false);
-
-                if (data?.results) {
-                    setUserInfo(data.results);
-                } else {
-                    setError("Invalid referral code");
-                    router.push("/");
-                }
+                startTransition(async () => {
+                    const data = await getAffiliateReferralCode(referralCode);
+                    setUserInfoData(data);
+                    if (data?.results) {
+                        setUserInfo(data.results);
+                    } else {
+                        setError("Invalid referral code");
+                        router.push("/");
+                    }
+                });
             } catch (error) {
-                setLoading(false);
                 setError("Failed to fetch referral information");
                 console.error("Fetch error:", error);
                 router.push("/");
@@ -36,8 +36,6 @@ const ReferralPage = ({ params }) => {
 
         if (referralCode) {
             fetchUserInfo();
-        } else {
-            setLoading(false);
         }
     }, [referralCode]);
 
@@ -53,7 +51,7 @@ const ReferralPage = ({ params }) => {
         <div className="container">
             <div className="d-flex align-items-center justify-content-center vh-100  ">
                 <div className="d-flex align-items-center justify-content-center">
-                    {loading && (
+                    {isPending && (
                         <div className=" d-flex align-items-center justify-content-center vh-100">
                             <h1 className="text-center">Loading... </h1>;
                         </div>
@@ -61,8 +59,8 @@ const ReferralPage = ({ params }) => {
                     {error && (
                         <p className="text-center text-danger">{error}</p>
                     )}
-                    {!loading && !error && !userInfo && (
-                        <p>Invalid referral code. Redirecting...</p>
+                    {!isPending && !error && !userInfo && (
+                        <p>{userInfoData?.message}</p>
                     )}
                 </div>
             </div>

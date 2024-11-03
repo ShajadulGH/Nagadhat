@@ -37,18 +37,10 @@ function MiniNav() {
                             </li>
                             <li>
                                 <Link
-                                    href="/discount"
+                                    href="/discount-partner"
                                     className=" text-white text-capitalize"
                                 >
-                                    Discount
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/partner"
-                                    className=" text-white text-capitalize"
-                                >
-                                    Partner
+                                    Discount Partner
                                 </Link>
                             </li>
                         </ul>

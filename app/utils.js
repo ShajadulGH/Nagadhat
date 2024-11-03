@@ -122,40 +122,36 @@ export function shortenString(str, length) {
     return str.slice(0, length) + "...";
 }
 
-// This function set recent view product
+// This function set recent view product id
 
-export function storeProduct(product) {
+export function storeProductId(productId) {
+    console.log(productId);
     if (typeof localStorage === "undefined") {
-        return; // Local storage not available
+        return;
     }
 
-    let storedProducts =
-        JSON.parse(localStorage.getItem("recentlyViewProducts")) || [];
-    // Check if product already exists (by id)
-    const existingProductIndex = storedProducts.findIndex(
-        (p) => p.id === product.id && p.outlet_id === product.outlet_id
-    );
+    let storedProductIds = JSON.parse(localStorage.getItem("recentlyViewProductIds")) || [];
+    
+    const existingProductIndex = storedProductIds.indexOf(productId);
 
     if (existingProductIndex === -1) {
-        // If product is unique, add it to the end of the array
-        storedProducts = [product, ...storedProducts];
-        // Limit array size to 10
-        if (storedProducts.length > 10) {
-            storedProducts.pop(); // Remove the last element (oldest)
+        storedProductIds = [productId, ...storedProductIds];
+        if (storedProductIds.length > 12) {
+            storedProductIds.pop(); // Remove the last element (oldest)
         }
     } else {
-        // If product exists, remove it from the array
-        storedProducts.splice(existingProductIndex, 1);
-        // Add the updated product to the beginning of the array
-        storedProducts = [product, ...storedProducts];
+        storedProductIds.splice(existingProductIndex, 1);
+        storedProductIds = [productId, ...storedProductIds];
     }
 
     // Update localStorage with the modified array
     localStorage.setItem(
-        "recentlyViewProducts",
-        JSON.stringify(storedProducts)
+        "recentlyViewProductIds",
+        JSON.stringify(storedProductIds)
     );
 }
+
+
 // recent view product List
 export function recentViewProductList() {
     if (typeof localStorage === "undefined") {
@@ -325,4 +321,15 @@ export function removeRequestPath() {
         return requestRoute;
     }
     return null;
+}
+
+// get oulate localstorage
+
+export function getOutletInfo() {
+    if (typeof window !== "undefined") {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+    }
+    return 3;
 }

@@ -28,14 +28,10 @@ const ProductOrderPriceSummary = ({ orderSummary }) => {
                 </div>
                 <div className="d-flex gap-3 justify-content-between pt-3">
                     <p>Total</p>
-                    {orderSummary?.total_products_price && (
-                        <strong>
-                            ৳{" "}
-                            {orderSummary?.total_products_price
-                                ? orderSummary?.total_products_price
-                                : null}
-                        </strong>
-                    )}
+                    <strong>
+                        ৳{" "}
+                        {orderSummary?.sub_total - orderSummary?.discount_amount}
+                    </strong>
                 </div>
                 <div className="d-flex gap-3 justify-content-between">
                     <p>Shipping Charge</p>

@@ -1,60 +1,56 @@
-"use client";
-
 import { getAffiliateHomeDashboard } from "@/app/services/affiliate/getAffiliateHomeDashboard";
 import AffiliateDashboardInfo from "./AffiliateDashboardInfo";
 import AffiliateDashboardRank from "./AffiliateDashboardRank";
 import AffiliateReferFriend from "./AffiliateReferFriend";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import AffiliateDashboardChartAndData from "./AffiliateDashboardChartAndData";
+import { getAffiliateIncomeHistory } from "@/app/services/affiliate/getAffiliateIncomeHistory";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
 
-const AffiliateDashboardWrapp = () => {
-    const [affiliateData, setAffiliateData] = useState({});
-    const { data: session, status } = useSession();
-    useEffect(() => {
-        if (status === "authenticated") {
-            const affiliateDashboard = async () => {
-                try {
-                    const affiliateInfo = await getAffiliateHomeDashboard(
-                        session?.accessToken
-                    );
-                    const affiliateResult = affiliateInfo?.results || {};
-                    setAffiliateData(affiliateResult);
-                } catch (error) {
-                    console.error(
-                        "Failed to fetch affiliate dashboard data:",
-                        error
-                    );
-                }
-            };
-            affiliateDashboard();
-        }
-    }, [status, session]);
+const AffiliateDashboardWrapp = async () => {
+    const session = await getServerSession(authOptions);
 
+    if (!session?.accessToken) {
+        return <div>Please log in to view your dashboard.</div>;
+    }
 
-    return (
-        <>
-            <div className="customer-dashboard-section">
-                <div className="customer-dashboard-card h-100">
-                    <div className="customer-dashboard-title-bar">
-                        <div>
-                            <h1 className="customer-dashboard-title">
-                                Affiliate Program
-                            </h1>
+    try {
+        // Fetch affiliate dashboard data
+        const affiliateInfo = await getAffiliateHomeDashboard(session.accessToken);
+        const affiliateData = affiliateInfo?.results || {};
+
+        // Fetch income history data
+        const incomeHistory = await getAffiliateIncomeHistory(session.accessToken);
+        const incomeHistoryInfo = incomeHistory?.results?.data || [];
+
+        return (
+            <>
+                <div className="customer-dashboard-section">
+                    <div className="customer-dashboard-card h-100">
+                        <div className="customer-dashboard-title-bar">
+                            <div>
+                                <h1 className="customer-dashboard-title">
+                                    Affiliate Program
+                                </h1>
+                            </div>
+                            <div className="fs-4">
+                                <i className="fa-solid fa-bell"></i>
+                            </div>
                         </div>
-                        <div className="fs-4">
-                            <i className="fa-solid fa-bell"></i>
-                        </div>
+                        <AffiliateDashboardRank affiliateData={affiliateData} />
+                        <AffiliateReferFriend affiliateData={affiliateData} />
+                        <AffiliateDashboardInfo affiliateData={affiliateData} />
+                        <AffiliateDashboardChartAndData
+                            incomeHistoryInfo={incomeHistoryInfo}
+                        />
                     </div>
-                    <AffiliateDashboardRank affiliateData={affiliateData} />
-                    <AffiliateReferFriend affiliateData={affiliateData} />
-                    <AffiliateDashboardInfo affiliateData={affiliateData} />
-                    <AffiliateDashboardChartAndData />
-                    
                 </div>
-            </div>
-        </>
-    );
+            </>
+        );
+    } catch (error) {
+        console.error("Failed to fetch dashboard or income history data:", error);
+        return <div>Error loading dashboard data. Please try again later.</div>;
+    }
 };
 
 export default AffiliateDashboardWrapp;

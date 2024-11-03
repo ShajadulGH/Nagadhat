@@ -13,8 +13,9 @@ const OrderProductItems = ({ orderProduct }) => {
                                 const {
                                     product_name,
                                     quantity,
-                                    unit_price,
+                                    regular_price,
                                     product_thumbnail,
+                                    unit_price,
                                 } = productItem;
                                 const imageUrl = `${NagadhatPublicUrl}/${product_thumbnail}`;
                                 return (
@@ -52,8 +53,8 @@ const OrderProductItems = ({ orderProduct }) => {
                                                 </p>
                                             )}
                                         </td>
-                                        <td>
-                                            {unit_price && (
+                                        <td className="text-end">
+                                            {regular_price && (
                                                 <strong>৳ {unit_price}</strong>
                                             )}
                                         </td>

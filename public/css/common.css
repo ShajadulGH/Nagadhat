@@ -331,3 +331,51 @@ body {
 .category-product-price .fpnh-resale-pricess span {
     color: var(--color-44BC9D);
 }
+.disabled-button {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important; /* Optional, for a visual cue */
+}
+
+.merchant-top-space .nh-service-area {
+    padding-top: 0;
+}
+.affiliate-page-substr {
+    width: 55%;
+    margin: 0 auto;
+}
+.affiliate-direct-top-space .nh-service-area {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+
+.partner_Images_slider .slick-dots li,
+.affiliate-dummy-info .slick-dots li {
+    margin: 0 2px;
+}
+.partner_Images_slider .slick-dots li button,
+.affiliate-dummy-info .slick-dots li button {
+    background: #6c757d;
+    border-radius: 50%;
+    width: 10px !important;
+    height: 10px !important;
+    transition: all .1s linear;
+}
+.partner_Images_slider .slick-dots li.slick-active button,
+.affiliate-dummy-info .slick-dots li.slick-active button {
+    background: green;
+    width: 14px !important;
+    height: 14px !important;
+}
+.partner_Images_slider .slick-dots li button:before,
+.affiliate-dummy-info .slick-dots li button:before {
+    color: transparent;
+}
+
+.affiliate-Learn-More.add-to-cart-link {
+    background: #414042;
+}
+.circle-new-updated {
+    display: flex;
+    align-items: center;
+}

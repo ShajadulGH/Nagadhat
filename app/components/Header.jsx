@@ -43,11 +43,11 @@ function Header() {
 
     useEffect(() => {
         const handleScrollPosition = () => {
-            let scrollPosition = 0;
-            let scrollPositionWidth = 0;
+            let scrollPosition = 5;
+            let scrollPositionWidth = 5;
             if (typeof window !== "undefined") {
-                scrollPosition = window.scrollY;
-                scrollPositionWidth = window.innerWidth;
+                scrollPosition = window.scrollY ||5;
+                scrollPositionWidth = window.innerWidth ||5;
             }
             scrollPosition >= 0 ? setSticky(true) : setSticky(false);
             scrollPositionWidth < 1200
@@ -60,7 +60,7 @@ function Header() {
                 setCategoryHoverMenu(false);
             }
         };
-
+        handleScrollPosition()
         if (typeof window !== "undefined") {
             window.addEventListener("scroll", handleScrollPosition);
             window.addEventListener("resize", handleScrollPosition);
