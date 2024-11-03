@@ -12,6 +12,8 @@ async function Category() {
 
     const brandData = await getHomePageBodyBrand();
     const categoryBrandData = brandData?.results?.brands;
+    console.log({categoryProductData, categoryBrandData});
+    
 
     return (
         <section className="container">
