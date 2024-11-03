@@ -12,6 +12,7 @@ async function Category() {
 
     const brandData = await getHomePageBodyBrand();
     const categoryBrandData = brandData?.results?.brands;
+    
 
     return (
         <section className="container">
