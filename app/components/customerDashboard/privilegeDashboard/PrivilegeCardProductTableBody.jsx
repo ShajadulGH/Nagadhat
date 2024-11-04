@@ -5,6 +5,9 @@ import NoDataFound from "../../NoDataFound";
 import PrivilegeAddToCard from "./PrivilegeAddToCard";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import PrivilegeDeleteCardItem from "./PrivilegeDeleteCardItem";
+import { useEffect, useState, useTransition } from "react";
+import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
+import { useSession } from "next-auth/react";
 
 const PrivilegeCardProductTableBody = ({
     handleDecrement,
@@ -18,6 +21,49 @@ const PrivilegeCardProductTableBody = ({
     setRendaringCartPrice,
     rendaringCartPrice,
 }) => {
+    const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
+
+    const [isPending, startTransition] = useTransition();
+
+    const { data: session, status } = useSession();
+    const [outletId, setOutletId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+        return 3;
+    });
+
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
+
+    useEffect(() => {
+        const fetchPrivilegeCartProducts = async () => {
+            if (session?.accessToken) {
+                startTransition(async () => {
+                    try {
+                        const params = {
+                            outlet_id: outletId,
+                            location_id: districtId,
+                        };
+                        const response = await getPrivilegeAddToCartProducts(
+                            session.accessToken,
+                            params
+                        );
+
+                        setPrivilegeCartItem(response?.results);
+                    } catch (error) {
+                        console.error("Error fetching cart products:", error);
+                    }
+                });
+            }
+        };
+        fetchPrivilegeCartProducts();
+    }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
+
     return (
         <>
             <tbody>
@@ -31,6 +77,7 @@ const PrivilegeCardProductTableBody = ({
                             id,
                             cart_status,
                         } = item;
+
                         const quantity = quantities[id] || DEFAULT_QUANTITY; // Use id for quantity
                         const imageUrl = product_thumbnail
                             ? `${NagadhatPublicUrl}/${product_thumbnail}`
@@ -109,13 +156,18 @@ const PrivilegeCardProductTableBody = ({
                                         </button>
                                     </div>
                                 </td>
+
                                 <td>
-                                    {showPriceAddCart[id] &&
-                                        id &&
-                                        `৳ ${parseFloat(totalAmount).toFixed(
-                                            2
-                                        )}`}
+                                    {(() => {
+                                        const findPrice =
+                                            privilegeCartItem.find(
+                                                (cartPrice) =>
+                                                    cartPrice.product_id === id
+                                            );
+                                        return findPrice ? findPrice.price : "";
+                                    })()}
                                 </td>
+
                                 <td>
                                     {cart_status === 1 ? (
                                         <PrivilegeAddToCard
