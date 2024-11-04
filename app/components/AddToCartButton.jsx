@@ -354,7 +354,6 @@ function AddToCartButton({
 
     return (
         <div className="add-to-cart-btn">
-            <ToastContainer/>
             <button
                 className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
                 onClick={(e) =>
