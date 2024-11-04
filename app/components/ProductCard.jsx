@@ -5,6 +5,7 @@ import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
 import img from "@/public/images/placeholder--image.jpg"
+import { ToastContainer } from "react-toastify";
 
 function ProductCard({ item }) {
     const image = `${NagadhatPublicUrl}/${item.product_thumbnail}`;
@@ -50,7 +51,7 @@ function ProductCard({ item }) {
                 ? item?.price?.discounted_price
                 : item?.price?.regular_price),
             (productPrice.discountPrice = item?.price?.discount_amount);
-        productStoke = item?.max_quantity === null ? 0 : item?.max_quantity;
+        productStoke = item?.max_quantity ?? 0;
     }
 
     const selectedVariants = [];
@@ -74,6 +75,7 @@ function ProductCard({ item }) {
 
     return (
         <div className="flash-sale-content-item mx-1 ">
+            <ToastContainer/>
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">

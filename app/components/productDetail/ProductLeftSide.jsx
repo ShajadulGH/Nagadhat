@@ -4,6 +4,7 @@ import ProductImage from "./ProductImage";
 import ProductInformetion from "./ProductInformetion";
 import ProductLongDescription from "./ProductLongDescription";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 const ProductLeftSide = ({ productInfo }) => {
     const [productGallery, setProductGallery] = useState([]);
@@ -12,6 +13,7 @@ const ProductLeftSide = ({ productInfo }) => {
 
     return (
         <>
+        <ToastContainer/>
             <div className=" col-xl-9">
                 <div className="row">
                     <ProductImage
