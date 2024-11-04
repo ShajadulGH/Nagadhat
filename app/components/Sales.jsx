@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 // import getAllSettings from "../services/getAllSettings";
 import { getHomeFlashSalesProduct } from "../services/getHomeFlashSalesProduct";
 import { getFlashSlaeShowOnHomePage } from "../services/getFlashSlaeShowOnHomePage";
+import { ToastContainer } from "react-toastify";
 
 function Sales() {
     const [flashSaleProductList, setFlashSaleProductList] = useState([]);
@@ -88,6 +89,7 @@ function Sales() {
 
     return (
         <>
+        <ToastContainer/>
             {flashSaleProductList?.length > 0 &&
                 flashSaleEndsTime?.end_time &&
                 flashSaleEndsTime?.status &&

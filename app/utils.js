@@ -2,9 +2,9 @@
 // export const apiBaseUrl = "https://v3.nagadhat.com/api";
 // export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 // export const VercerUrl = "https://nagadhat-dev.vercel.app";
-// export const frontendLocalUrl = "http://localhost:3000";
+export const frontendLocalUrl = "http://localhost:3000";
 
-// For Localhost 1 way
+// For Live staging way
 export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
 export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
 

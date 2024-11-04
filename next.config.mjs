@@ -6,7 +6,8 @@ const nextConfig = {
                 // // For Live
                 // protocol: "https",
                 // hostname: "v3.nagadhat.com",
-                // For Live
+
+                // For Live staging
                 protocol: "https",
                 hostname: "v3.staging.nagadhat.com",
 
