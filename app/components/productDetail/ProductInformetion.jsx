@@ -485,8 +485,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             defaultVariation();
         }
     }, [selectedVariants]);
-    // console.log("variant item", productAllVariants);
-    console.log(productPrice?.discountPrice);
     
 
     return (

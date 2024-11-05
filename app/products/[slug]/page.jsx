@@ -109,38 +109,38 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
     );
 };
  
-// export async function generateStaticParams() {
-//     const districtId = 47; // Replace with actual district ID
+export async function generateStaticParams() {
+    const districtId = 47; // Replace with actual district ID
 
-//     try {
-//         // Fetch Just For You Products
-//         const justForYouData = await getHomeJustForYouProduct(districtId);
-//         const justForYouProducts =
-//             justForYouData?.results?.just_for_you?.data || [];
+    try {
+        // Fetch Just For You Products
+        const justForYouData = await getHomeJustForYouProduct(districtId);
+        const justForYouProducts =
+            justForYouData?.results?.just_for_you?.data || [];
 
-//         // Fetch Flash Sales Products
-//         const flashSalesData = await getHomeFlashSalesProduct(districtId);
-//         const flashSalesProducts =
-//             flashSalesData?.results?.flash_sales_product?.data || [];
+        // Fetch Flash Sales Products
+        const flashSalesData = await getHomeFlashSalesProduct(districtId);
+        const flashSalesProducts =
+            flashSalesData?.results?.flash_sales_product?.data || [];
 
-//         // Fetch Flash Sales Products
-//         const categoryList = await getHomeCategory();
-//         const categoryInfo = categoryList?.results?.category?.data || [];
+        // Fetch Flash Sales Products
+        const categoryList = await getHomeCategory();
+        const categoryInfo = categoryList?.results?.category?.data || [];
 
-//         // Combine product slugs from both datasets
-//         const allProducts = [
-//             ...justForYouProducts,
-//             ...flashSalesProducts,
-//             ...categoryInfo,
-//         ];
+        // Combine product slugs from both datasets
+        const allProducts = [
+            ...justForYouProducts,
+            ...flashSalesProducts,
+            ...categoryInfo,
+        ];
 
-//         return allProducts.map((product) => ({
-//             slug: product.slug,
-//         }));
-//     } catch (error) {
-//         console.error("Error fetching product parameters:", error);
-//         return [];
-//     }
-// }
+        return allProducts.map((product) => ({
+            slug: product.slug,
+        }));
+    } catch (error) {
+        console.error("Error fetching product parameters:", error);
+        return [];
+    }
+}
 
 export default ProductDetailsShows;
