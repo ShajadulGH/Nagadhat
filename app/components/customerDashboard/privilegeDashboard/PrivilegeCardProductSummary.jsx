@@ -47,6 +47,7 @@ const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
                                 acc + (Number(current.price) || 0),
                             0
                         );
+
                         setSubTotal(subTotalInfo);
 
                         // Calculate totalDiscount (sum of mrp - price)
@@ -57,6 +58,7 @@ const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
                                     (Number(current.price) || 0)),
                             0
                         );
+
                         setTotalDiscount(totalDiscountInfo);
                     } catch (err) {
                         console.error("Error fetching cart products:", err);
