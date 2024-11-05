@@ -13,11 +13,11 @@ const PrivilegeCardProductTable = ({
     showPriceAddCart,
     handleSetShowPrice,
     setRendaringCartPrice,
-    rendaringCartPrice
+    rendaringCartPrice,
+    productCardLimit,
 }) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showingProModal, setShowingProModal] = useState(false);
-   
 
     const [quantities, setQuantities] = useState(
         productsData.reduce((acc, item) => {
@@ -70,6 +70,7 @@ const PrivilegeCardProductTable = ({
                         handleSetShowPrice={handleSetShowPrice}
                         setRendaringCartPrice={setRendaringCartPrice}
                         rendaringCartPrice={rendaringCartPrice}
+                        productCardLimit={productCardLimit}
                     />
                 </table>
             </div>

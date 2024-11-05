@@ -4,8 +4,8 @@ import PrivilegeCardShoppingSummary from "./PrivilegeCardShoppingSummary";
 import PrivilegeCardShoppingTable from "./PrivilegeCardShoppingTable";
 import { useSession } from "next-auth/react";
 import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
-import DefaultLoader from "../../defaultloader/DefaultLoader";
 import NoDataFound from "../../NoDataFound";
+import LodingFixed from "../../LodingFixed";
 
 const PrivilegeCardShoppingWrapper = () => {
     const [isPending, startTransition] = useTransition();
@@ -82,7 +82,7 @@ const PrivilegeCardShoppingWrapper = () => {
             <div className="customer-dashboard-order-history-area pt-4">
                 <h4 className="text-center mb-3">Selected Products</h4>
                 {isPending ? (
-                    <DefaultLoader />
+                    <LodingFixed />
                 ) : privilegeCartProduct?.length > 0 ? (
                     <PrivilegeCardShoppingTable
                         privilegeCartProduct={privilegeCartProduct}
