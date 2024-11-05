@@ -1,12 +1,9 @@
-import React from "react";
-// import ProductSinglePage from "../../components/ProductDetails";
 // import Head from "next/head";
 import { getProductDetails } from "@/app/services/getProductDetails";
 import ProductSinglePage from "@/app/components/ProductDetails";
-
-// import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
-// import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
-// import { getHomeCategory } from "@/app/services/getHomeCategory";
+import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
+import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
+import { getHomeCategory } from "@/app/services/getHomeCategory";
 
 // export async function generateMetadata( productDetails) {
 
@@ -65,11 +62,12 @@ import ProductSinglePage from "@/app/components/ProductDetails";
 // }
 
 const ProductDetailsShows = async ({ searchParams, params }) => {
-    const { outlet_id } = searchParams;
+    const { outlet_id = 3 } = searchParams;
+    const { slug } = params;
     let outletInfo = null;
     let productDetails = null;
-
-    const { slug } = params;
+    
+if (slug) {
     try {
         const productInfo = await getProductDetails(
             `slug=${slug}&outlet_id=${outlet_id}`
@@ -87,8 +85,7 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
     } catch (error) {
         console.error(error);
     }
-
-    
+}
 
     return (
         <>
