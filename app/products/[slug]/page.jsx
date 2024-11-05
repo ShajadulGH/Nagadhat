@@ -70,20 +70,25 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
     let productDetails = null;
 
     const { slug } = params;
-
-    const productInfo = await getProductDetails(
-        `slug=${slug}&outlet_id=${outlet_id}`
-    );
-
-    if (productInfo?.message === "Product found in other outlets.") {
-        outletInfo = productInfo?.available_outlets;
+    try {
+        const productInfo = await getProductDetails(
+            `slug=${slug}&outlet_id=${outlet_id}`
+        );
+    
+        if (productInfo?.message === "Product found in other outlets.") {
+            outletInfo = productInfo?.available_outlets;
+        }
+        if (
+            productInfo?.results &&
+            productInfo.message != "Product found in other outlets."
+        ) {
+            productDetails = productInfo.results;
+        }
+    } catch (error) {
+        console.error(error);
     }
-    if (
-        productInfo?.results &&
-        productInfo.message != "Product found in other outlets."
-    ) {
-        productDetails = productInfo.results;
-    }
+
+    
 
     return (
         <>
@@ -103,7 +108,7 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
         </>
     );
 };
-
+ 
 // export async function generateStaticParams() {
 //     const districtId = 47; // Replace with actual district ID
 

@@ -486,6 +486,8 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         }
     }, [selectedVariants]);
     // console.log("variant item", productAllVariants);
+    console.log(productPrice?.discountPrice);
+    
 
     return (
         <div className="col-md-6">
