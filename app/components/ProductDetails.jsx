@@ -81,7 +81,7 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                     {/* Breadcrumb always visible */}
                     <Breadcrumb category={productInfo?.category} />
 
-                    {Object?.keys(productInfo)?.length > 0 ? (
+                    {productInfo?.id ? (
                         <>
                             <div className="row product-details-info">
                                 <ProductLeftSide

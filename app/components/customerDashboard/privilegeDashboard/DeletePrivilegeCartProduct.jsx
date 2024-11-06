@@ -1,14 +1,15 @@
 "use client";
-import { deleteCartProduct } from "@/app/services/getDeleteCartProduct";
+import { TfiClose } from "react-icons/tfi";
 import { useSession } from "next-auth/react";
-import { useTransition } from "react";
-import { MdClose } from "react-icons/md";
-import { RotatingLines } from "react-loader-spinner";
+import { deleteCartProduct } from "@/app/services/getDeleteCartProduct";
 import { toast, ToastContainer } from "react-toastify";
-const PrivilegeDeleteCardItem = ({
-    setRendaringCartPrice,
-    rendaringCartPrice,
-    cartId,
+import { useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
+
+const DeletePrivilegeCartProduct = ({
+    cartItem,
+    rendaringPrice,
+    setRendaringPrice,
 }) => {
     const [isPending, startTransition] = useTransition();
     const { data: session, status } = useSession();
@@ -30,7 +31,7 @@ const PrivilegeDeleteCardItem = ({
                     toast.success(
                         response.message || "Product deleted successfully"
                     );
-                    setRendaringCartPrice(!rendaringCartPrice);
+                    setRendaringPrice(!rendaringPrice);
                 } else {
                     toast.error(response.message || "Failed to delete product");
                 }
@@ -44,18 +45,18 @@ const PrivilegeDeleteCardItem = ({
         <>
             <ToastContainer />
             <button
-                onClick={() => handleDeleteProduct(cartId)}
-                className="border-0 add-to-cart-link rounded-2 flex items-center justify-center bg-danger"
+                onClick={() => handleDeleteProduct(cartItem?.cart_id)}
+                className="btn btn-danger"
             >
                 {isPending ? (
                     <div
                         className="flex items-center justify-center"
-                        style={{ height: "21px", width: "30px" }}
+                        style={{ height: "21px", width: "20px" }}
                     >
                         <RotatingLines
                             visible={true}
                             height="18"
-                            width="20"
+                            width="15"
                             color="#ffffff"
                             strokeWidth="5"
                             animationDuration="0.75"
@@ -65,11 +66,11 @@ const PrivilegeDeleteCardItem = ({
                         />
                     </div>
                 ) : (
-                    <MdClose />
+                    <TfiClose />
                 )}
             </button>
         </>
     );
 };
 
-export default PrivilegeDeleteCardItem;
+export default DeletePrivilegeCartProduct;

@@ -1,6 +1,5 @@
 "use client";
 
-import { NagadhatPublicUrl, VercerUrl } from "@/app/utils";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -9,7 +8,6 @@ import Link from "next/link";
 const AffiliateReferFriend = ({ affiliateData }) => {
     const baseUrl = window?.location?.origin;
     const referralLink = `${baseUrl}/ref/${affiliateData?.reffer_a_friend_link}`;
-    // const referralLink = `${VercerUrl}/ref/${affiliateData?.reffer_a_friend_link}`;
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {

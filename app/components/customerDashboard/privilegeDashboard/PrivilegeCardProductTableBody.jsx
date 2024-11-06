@@ -5,6 +5,10 @@ import NoDataFound from "../../NoDataFound";
 import PrivilegeAddToCard from "./PrivilegeAddToCard";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import PrivilegeDeleteCardItem from "./PrivilegeDeleteCardItem";
+import { useEffect, useState, useTransition } from "react";
+import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
+import { useSession } from "next-auth/react";
+import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeCardProductTableBody = ({
     handleDecrement,
@@ -17,7 +21,65 @@ const PrivilegeCardProductTableBody = ({
     handleSetShowPrice,
     setRendaringCartPrice,
     rendaringCartPrice,
+    productCardLimit,
 }) => {
+    const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
+
+    const [isPending, startTransition] = useTransition();
+
+    const { data: session, status } = useSession();
+    const [outletId, setOutletId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+        return 3;
+    });
+
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
+
+    useEffect(() => {
+        const fetchPrivilegeCartProducts = async () => {
+            if (session?.accessToken && outletId && districtId) {
+                try {
+                    startTransition(async () => {
+                        const params = {
+                            outlet_id: outletId,
+                            location_id: districtId,
+                        };
+                        const response = await getPrivilegeAddToCartProducts(
+                            session.accessToken,
+                            params
+                        );
+
+                        setPrivilegeCartItem(response?.results);
+                    });
+                } catch (error) {
+                    console.error("Error fetching cart products:", error);
+                }
+            }
+        };
+        fetchPrivilegeCartProducts();
+    }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
+
+    const handleIncrementWithLimit = (
+        id,
+        purchase_quantity,
+        purchases_price
+    ) => {
+        const quantity = quantities[id] || DEFAULT_QUANTITY;
+        const newTotalAmount = purchases_price * (quantity + 1);
+        if (newTotalAmount > productCardLimit) {
+            toast.warning("You have reached the product card limit!");
+        } else {
+            handleIncrement(id, purchase_quantity);
+        }
+    };
+
     return (
         <>
             <tbody>
@@ -30,7 +92,9 @@ const PrivilegeCardProductTableBody = ({
                             purchase_quantity,
                             id,
                             cart_status,
+                            cart_id,
                         } = item;
+
                         const quantity = quantities[id] || DEFAULT_QUANTITY; // Use id for quantity
                         const imageUrl = product_thumbnail
                             ? `${NagadhatPublicUrl}/${product_thumbnail}`
@@ -65,21 +129,24 @@ const PrivilegeCardProductTableBody = ({
                                         <button
                                             className={`d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle `}
                                             disabled={
-                                                quantity >= purchase_quantity
+                                                quantity >= purchase_quantity ||
+                                                cart_status === 2
                                             }
                                             style={{
                                                 width: "30px",
                                                 height: "30px",
                                                 cursor:
                                                     quantity >=
-                                                    purchase_quantity
+                                                        purchase_quantity ||
+                                                    cart_status === 2
                                                         ? "not-allowed"
                                                         : "pointer",
                                             }}
                                             onClick={() =>
-                                                handleIncrement(
+                                                handleIncrementWithLimit(
                                                     id,
-                                                    purchase_quantity
+                                                    purchase_quantity,
+                                                    purchases_price
                                                 )
                                             }
                                         >
@@ -94,12 +161,16 @@ const PrivilegeCardProductTableBody = ({
                                         />
                                         <button
                                             className={`d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle `}
-                                            disabled={quantity <= 1}
+                                            disabled={
+                                                quantity <= 1 ||
+                                                cart_status === 2
+                                            }
                                             style={{
                                                 width: "30px",
                                                 height: "30px",
                                                 cursor:
-                                                    quantity <= 1
+                                                    quantity <= 1 ||
+                                                    cart_status === 2
                                                         ? "not-allowed"
                                                         : "pointer",
                                             }}
@@ -109,13 +180,18 @@ const PrivilegeCardProductTableBody = ({
                                         </button>
                                     </div>
                                 </td>
+
                                 <td>
-                                    {showPriceAddCart[id] &&
-                                        id &&
-                                        `৳ ${parseFloat(totalAmount).toFixed(
-                                            2
-                                        )}`}
+                                    {(() => {
+                                        const findPrice =
+                                            privilegeCartItem.find(
+                                                (cartPrice) =>
+                                                    cartPrice.product_id === id
+                                            );
+                                        return findPrice ? findPrice.price : "";
+                                    })()}
                                 </td>
+
                                 <td>
                                     {cart_status === 1 ? (
                                         <PrivilegeAddToCard
@@ -131,6 +207,7 @@ const PrivilegeCardProductTableBody = ({
                                             rendaringCartPrice={
                                                 rendaringCartPrice
                                             }
+                                            productCardLimit={productCardLimit}
                                         />
                                     ) : (
                                         <PrivilegeDeleteCardItem
@@ -140,6 +217,7 @@ const PrivilegeCardProductTableBody = ({
                                             rendaringCartPrice={
                                                 rendaringCartPrice
                                             }
+                                            cartId={cart_id}
                                         />
                                     )}
                                 </td>

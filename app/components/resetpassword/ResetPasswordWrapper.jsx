@@ -4,11 +4,9 @@ import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { postOneTimeResetPassword } from "@/app/services/onetimeresetpasword/postOneTimeResetPassword";
-import { frontendLocalUrl } from "@/app/utils";
 
 const ResetPasswordWrapper = ({ userId }) => {
-    const pathName = usePathname();
-    const fullPathLink = `${frontendLocalUrl}${pathName}`;
+    const baseUrl = window?.location.href;
 
     const [formData, setFormData] = useState({
         password: "",
@@ -38,7 +36,7 @@ const ResetPasswordWrapper = ({ userId }) => {
         const dataToSubmit = {
             ...formData,
             user_id: parseInt(userId),
-            reset_password_link: fullPathLink,
+            reset_password_link: baseUrl,
         };
 
         try {

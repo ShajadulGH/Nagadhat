@@ -3,6 +3,7 @@ import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
 import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
+import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeAddToCard = ({
     quantity,
@@ -11,6 +12,7 @@ const PrivilegeAddToCard = ({
     totalAmount,
     setRendaringCartPrice,
     rendaringCartPrice,
+    productCardLimit,
 }) => {
     const [isPending, startTransition] = useTransition();
     const [outletId, setOutletId] = useState(() => {
@@ -29,6 +31,10 @@ const PrivilegeAddToCard = ({
     const { data: session, status } = useSession();
 
     const handlePrivilegeAddToCard = async () => {
+        if (totalAmount > productCardLimit) {
+            toast.warning("Product limit reached.");
+            return;
+        }
         const cartItems = {
             product_id: productsData?.id,
             product_name: productsData?.product_name,
@@ -67,6 +73,7 @@ const PrivilegeAddToCard = ({
 
     return (
         <>
+            <ToastContainer />
             <button
                 onClick={handlePrivilegeAddToCard}
                 className="border-0 add-to-cart-link rounded-2 flex items-center justify-center"

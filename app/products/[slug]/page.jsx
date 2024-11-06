@@ -1,12 +1,10 @@
-import React from "react";
-// import ProductSinglePage from "../../components/ProductDetails";
 // import Head from "next/head";
 import { getProductDetails } from "@/app/services/getProductDetails";
 import ProductSinglePage from "@/app/components/ProductDetails";
+// import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
+// import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
+// import { getHomeCategory } from "@/app/services/getHomeCategory";
 
-import { getHomeJustForYouProduct } from "@/app/services/getHomeJustForYouProduct";
-import { getHomeFlashSalesProduct } from "@/app/services/getHomeFlashSalesProduct";
-import { getHomeCategory } from "@/app/services/getHomeCategory";
 // export async function generateMetadata( productDetails) {
 
 //     try {
@@ -64,25 +62,30 @@ import { getHomeCategory } from "@/app/services/getHomeCategory";
 // }
 
 const ProductDetailsShows = async ({ searchParams, params }) => {
-    const { outlet_id } = searchParams;
+    const { outlet_id = 3 } = searchParams;
+    const { slug } = params;
     let outletInfo = null;
     let productDetails = null;
-
-    const { slug } = params;
-
-    const productInfo = await getProductDetails(
-        `slug=${slug}&outlet_id=${outlet_id}`
-    );
-
-    if (productInfo?.message === "Product found in other outlets.") {
-        outletInfo = productInfo?.available_outlets;
+    
+if (slug) {
+    try {
+        const productInfo = await getProductDetails(
+            `slug=${slug}&outlet_id=${outlet_id}`
+        );
+    
+        if (productInfo?.message === "Product found in other outlets.") {
+            outletInfo = productInfo?.available_outlets;
+        }
+        if (
+            productInfo?.results &&
+            productInfo.message != "Product found in other outlets."
+        ) {
+            productDetails = productInfo.results;
+        }
+    } catch (error) {
+        console.error(error);
     }
-    if (
-        productInfo?.results &&
-        productInfo.message != "Product found in other outlets."
-    ) {
-        productDetails = productInfo.results;
-    }
+}
 
     return (
         <>
@@ -102,39 +105,39 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
         </>
     );
 };
+ 
+// export async function generateStaticParams() {
+//     const districtId = 47; // Replace with actual district ID
 
-export async function generateStaticParams() {
-    const districtId = 47; // Replace with actual district ID
+//     try {
+//         // Fetch Just For You Products
+//         const justForYouData = await getHomeJustForYouProduct(districtId);
+//         const justForYouProducts =
+//             justForYouData?.results?.just_for_you?.data || [];
 
-    try {
-        // Fetch Just For You Products
-        const justForYouData = await getHomeJustForYouProduct(districtId);
-        const justForYouProducts =
-            justForYouData?.results?.just_for_you?.data || [];
+//         // Fetch Flash Sales Products
+//         const flashSalesData = await getHomeFlashSalesProduct(districtId);
+//         const flashSalesProducts =
+//             flashSalesData?.results?.flash_sales_product?.data || [];
 
-        // Fetch Flash Sales Products
-        const flashSalesData = await getHomeFlashSalesProduct(districtId);
-        const flashSalesProducts =
-            flashSalesData?.results?.flash_sales_product?.data || [];
+//         // Fetch Flash Sales Products
+//         const categoryList = await getHomeCategory();
+//         const categoryInfo = categoryList?.results?.category?.data || [];
 
-        // Fetch Flash Sales Products
-        const categoryList = await getHomeCategory();
-        const categoryInfo = categoryList?.results?.category?.data || [];
+//         // Combine product slugs from both datasets
+//         const allProducts = [
+//             ...justForYouProducts,
+//             ...flashSalesProducts,
+//             ...categoryInfo,
+//         ];
 
-        // Combine product slugs from both datasets
-        const allProducts = [
-            ...justForYouProducts,
-            ...flashSalesProducts,
-            ...categoryInfo,
-        ];
-
-        return allProducts.map((product) => ({
-            slug: product.slug,
-        }));
-    } catch (error) {
-        console.error("Error fetching product parameters:", error);
-        return [];
-    }
-}
+//         return allProducts.map((product) => ({
+//             slug: product.slug,
+//         }));
+//     } catch (error) {
+//         console.error("Error fetching product parameters:", error);
+//         return [];
+//     }
+// }
 
 export default ProductDetailsShows;
