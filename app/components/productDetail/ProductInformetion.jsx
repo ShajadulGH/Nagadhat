@@ -486,8 +486,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         }
     }, [selectedVariants]);
     
-console.log(productPrice);
-
+    
     return (
         <div className="col-md-6">
             <div className="product-details-content">
