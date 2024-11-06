@@ -486,6 +486,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         }
     }, [selectedVariants]);
     
+console.log(productPrice);
 
     return (
         <div className="col-md-6">
@@ -575,7 +576,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                         {productPrice?.prices && productPrice?.prices}
                     </strong>
                     <del>
-                        {productPrice?.discountPrice &&
+                        {parseInt(productPrice?.discountPrice) > 0 &&
                             `৳ ${(parseInt(productPrice?.discountPrice) + parseInt(productPrice?.prices))}`}
                     </del>
                 </div>

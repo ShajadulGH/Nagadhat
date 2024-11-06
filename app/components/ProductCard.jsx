@@ -73,6 +73,9 @@ function ProductCard({ item }) {
         });
     }
 
+    console.log(item);
+    
+
     return (
         <div className="flash-sale-content-item mx-1 ">
             <ToastContainer/>
@@ -90,8 +93,8 @@ function ProductCard({ item }) {
                                         variant_item?.variations_default ===
                                         1 ? (
                                             <div key={variant_item.id}>
-                                                {variant_item?.price
-                                                    ?.discount_amount > 0 ? (
+                                                {parseInt(variant_item?.price
+                                                    ?.discount_amount) > 0 ? (
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <strong>
                                                             ট{" "}
@@ -124,8 +127,8 @@ function ProductCard({ item }) {
                                             </div>
                                         ) : null
                                     )
-                                ) : item?.product_type === "single" &&
-                                  item?.price?.discounted_price > 0 ? (
+                                ) : 
+                                item?.price?.discount_status ? (
                                     <div className="d-flex align-items-center justify-content-between">
                                         <strong>
                                             ট {item?.price?.discounted_price}
