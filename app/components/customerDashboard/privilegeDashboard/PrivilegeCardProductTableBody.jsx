@@ -11,23 +11,15 @@ import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeCardProductTableBody = ({
-    handleDecrement,
-    handleIncrement,
-    handleProductClick,
-    quantities,
     productsData,
-    DEFAULT_QUANTITY,
-    showPriceAddCart,
-    handleSetShowPrice,
     setRendaringCartPrice,
     rendaringCartPrice,
     productCardLimit,
 }) => {
     const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
-
     const [isPending, startTransition] = useTransition();
-
     const { data: session, status } = useSession();
+
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("outletId") || 3;
@@ -55,33 +47,23 @@ const PrivilegeCardProductTableBody = ({
                             session.accessToken,
                             params
                         );
-
                         setPrivilegeCartItem(response?.results);
                     });
                 } catch (error) {
                     console.error("Error fetching cart products:", error);
+                    toast.error("Failed to fetch cart products.");
                 }
             }
         };
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
-    const handleIncrementWithLimit = (
-        id,
-        purchase_quantity,
-        purchases_price
-    ) => {
-        const quantity = quantities[id] || DEFAULT_QUANTITY;
-        const newTotalAmount = purchases_price * (quantity + 1);
-        if (newTotalAmount > productCardLimit) {
-            toast.warning("You have reached the product card limit!");
-        } else {
-            handleIncrement(id, purchase_quantity);
-        }
-    };
+    const handleIncrementWithLimit = (ID) => {};
+    const handleDecrement = (ID) => {};
 
     return (
         <>
+            <ToastContainer />
             <tbody>
                 {productsData.length > 0 ? (
                     productsData.map((item, index) => {
@@ -89,17 +71,20 @@ const PrivilegeCardProductTableBody = ({
                             product_thumbnail,
                             product_name,
                             purchases_price,
+                            mrp_price,
                             purchase_quantity,
                             id,
                             cart_status,
                             cart_id,
                         } = item;
 
-                        const quantity = quantities[id] || DEFAULT_QUANTITY; // Use id for quantity
                         const imageUrl = product_thumbnail
                             ? `${NagadhatPublicUrl}/${product_thumbnail}`
-                            : "/images/dan-cake-chocolate-muffin-30g-24-pieces_550.jpeg";
-                        const totalAmount = purchases_price * quantity;
+                            : "/images/placeholder.jpg";
+
+                        const totalAmount = purchases_price * purchase_quantity;
+                        const isAddToCardDisabled =
+                            totalAmount >= productCardLimit;
 
                         return (
                             <tr key={id}>
@@ -122,54 +107,52 @@ const PrivilegeCardProductTableBody = ({
                                     </button>
                                 </td>
                                 <td>
-                                    ৳ {parseFloat(purchases_price).toFixed(2)}
+                                    <p className="pb-2">
+                                        ৳ {purchases_price.toFixed(2)}
+                                    </p>
+                                    {purchases_price !== mrp_price && (
+                                        <del>{mrp_price}</del>
+                                    )}
                                 </td>
                                 <td>
                                     <div className="d-flex gap-1 align-items-center">
                                         <button
-                                            className={`d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle `}
-                                            disabled={
-                                                quantity >= purchase_quantity ||
-                                                cart_status === 2
-                                            }
+                                            className="d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle"
+                                            disabled={cart_status === 2}
                                             style={{
                                                 width: "30px",
                                                 height: "30px",
                                                 cursor:
-                                                    quantity >=
-                                                        purchase_quantity ||
                                                     cart_status === 2
                                                         ? "not-allowed"
                                                         : "pointer",
                                             }}
                                             onClick={() =>
-                                                handleIncrementWithLimit(
-                                                    id,
-                                                    purchase_quantity,
-                                                    purchases_price
-                                                )
+                                                handleIncrementWithLimit(id)
                                             }
                                         >
                                             <FaPlus />
                                         </button>
                                         <input
                                             type="text"
-                                            value={quantity}
+                                            value={
+                                                privilegeCartItem.find(
+                                                    (cartPro) =>
+                                                        cartPro.product_id ===
+                                                        id
+                                                )?.quantity || ""
+                                            }
                                             readOnly
                                             className="border-0 text-center px-2 py-2 bg-transparent fs-5"
                                             style={{ width: "60px" }}
                                         />
                                         <button
-                                            className={`d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle `}
-                                            disabled={
-                                                quantity <= 1 ||
-                                                cart_status === 2
-                                            }
+                                            className="d-flex p-0 align-items-center justify-content-center border-0 add-to-cart-link rounded-circle"
+                                            disabled={cart_status === 2}
                                             style={{
                                                 width: "30px",
                                                 height: "30px",
                                                 cursor:
-                                                    quantity <= 1 ||
                                                     cart_status === 2
                                                         ? "not-allowed"
                                                         : "pointer",
@@ -180,34 +163,23 @@ const PrivilegeCardProductTableBody = ({
                                         </button>
                                     </div>
                                 </td>
-
                                 <td>
-                                    {(() => {
-                                        const findPrice =
-                                            privilegeCartItem.find(
-                                                (cartPrice) =>
-                                                    cartPrice.product_id === id
-                                            );
-                                        return findPrice ? findPrice.price : "";
-                                    })()}
+                                    {privilegeCartItem.find(
+                                        (cartPrice) =>
+                                            cartPrice.product_id === id
+                                    )?.price || ""}
                                 </td>
-
                                 <td>
                                     {cart_status === 1 ? (
                                         <PrivilegeAddToCard
-                                            quantity={quantity}
-                                            productsData={item}
-                                            handleSetShowPrice={
-                                                handleSetShowPrice
-                                            }
-                                            totalAmount={totalAmount}
                                             setRendaringCartPrice={
                                                 setRendaringCartPrice
                                             }
                                             rendaringCartPrice={
                                                 rendaringCartPrice
                                             }
-                                            productCardLimit={productCardLimit}
+                                            isDisabled={isAddToCardDisabled}
+                                            totalAmount={totalAmount}
                                         />
                                     ) : (
                                         <PrivilegeDeleteCardItem

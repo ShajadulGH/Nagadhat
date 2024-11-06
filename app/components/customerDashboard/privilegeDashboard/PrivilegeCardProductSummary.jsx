@@ -7,8 +7,6 @@ import { useEffect, useState, useTransition } from "react";
 const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
     const [isPending, startTransition] = useTransition();
     const [privilegeCartProduct, setPrivilegeCartProduct] = useState([]);
-    const [subTotal, setSubTotal] = useState(0);
-    const [totalDiscount, setTotalDiscount] = useState(0);
 
     const { data: session, status } = useSession();
     const [outletId, setOutletId] = useState(() => {
@@ -42,22 +40,22 @@ const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
                         setPrivilegeCartProduct(response?.results);
 
                         // Calculate subTotal
-                        const subTotalInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc + (Number(current.price) || 0),
-                            0
-                        );
+                        // const subTotalInfo = response?.results.reduce(
+                        //     (acc, current) =>
+                        //         acc + (Number(current.price) || 0),
+                        //     0
+                        // );
 
-                        setSubTotal(subTotalInfo);
+                        // setSubTotal(subTotalInfo);
 
                         // Calculate totalDiscount (sum of mrp - price)
-                        const totalDiscountInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc +
-                                ((Number(current.mrp_price) || 0) -
-                                    (Number(current.price) || 0)),
-                            0
-                        );
+                        // const totalDiscountInfo = response?.results.reduce(
+                        //     (acc, current) =>
+                        //         acc +
+                        //         ((Number(current.mrp_price) || 0) -
+                        //             (Number(current.price) || 0)),
+                        //     0
+                        // );
 
                         setTotalDiscount(totalDiscountInfo);
                     } catch (err) {
@@ -69,32 +67,25 @@ const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
-    const deliveryCharge = 0;
-    let netPrice = subTotal - totalDiscount + deliveryCharge;
-    const formatCurrency = (value) => {
-        const numValue = Number(value);
-        return !isNaN(numValue) ? numValue.toFixed(2) : "0.00";
-    };
-
     return (
         <div className="row justify-content-end px-4 pt-2 pb-4">
             <div className="col-md-5 col-sm-12">
                 <ul className="table-bordered pb-4">
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Sub Total Amount:</span>
-                        <strong>৳ {formatCurrency(subTotal)}</strong>
+                        <strong>৳ subTotal</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Total Discount:</span>
-                        <strong>৳ {formatCurrency(totalDiscount)}</strong>
+                        <strong>৳ totalDiscount</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Delivery Charge:</span>
-                        <strong>৳ {formatCurrency(deliveryCharge)}</strong>
+                        <strong>৳ deliveryCharge</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Net Total:</span>
-                        <strong>৳ {formatCurrency(netPrice)}</strong>
+                        <strong>৳ netPrice</strong>
                     </li>
                 </ul>
                 <div className="d-flex align-items-center justify-content-end gap-3">

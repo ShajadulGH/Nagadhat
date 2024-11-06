@@ -15,14 +15,7 @@ const PrivilegeCardProduct = () => {
     const [productCardLimit, setProductCardLimit] = useState(null);
     const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
 
-    const [showPriceAddCart, setshowPriceAddCart] = useState({});
     // Handler to set price visibility for a specific product
-    const handleSetShowPrice = (productId) => {
-        setshowPriceAddCart((prev) => ({
-            ...prev,
-            [productId]: true,
-        }));
-    };
 
     const { data: session, status } = useSession();
 
@@ -72,8 +65,6 @@ const PrivilegeCardProduct = () => {
             ) : (
                 <PrivilegeCardProductTable
                     productsData={productsData}
-                    showPriceAddCart={showPriceAddCart}
-                    handleSetShowPrice={handleSetShowPrice}
                     rendaringCartPrice={rendaringCartPrice}
                     setRendaringCartPrice={setRendaringCartPrice}
                     productCardLimit={productCardLimit}

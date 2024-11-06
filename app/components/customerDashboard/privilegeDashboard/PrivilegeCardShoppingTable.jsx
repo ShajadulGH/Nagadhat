@@ -10,6 +10,9 @@ const PrivilegeCardShoppingTable = ({
     setRendaringPrice,
     rendaringPrice,
 }) => {
+    const handleProductIncrement = () => {};
+    const handleProductDecrement = () => {};
+
     return (
         <>
             <div className="table-responsive px-4">
@@ -66,6 +69,9 @@ const PrivilegeCardShoppingTable = ({
                                     <td>
                                         <div className="d-flex gap-1 align-items-center justify-content-between">
                                             <button
+                                                onClick={() =>
+                                                    handleProductIncrement()
+                                                }
                                                 className="d-flex align-items-center justify-content-center border-0 add-to-cart-link rounded-circle"
                                                 style={{
                                                     width: "30px",
@@ -85,6 +91,9 @@ const PrivilegeCardShoppingTable = ({
                                                 />
                                             </div>
                                             <button
+                                                onClick={() =>
+                                                    handleProductDecrement()
+                                                }
                                                 className="d-flex align-items-center justify-content-center border-0 add-to-cart-link rounded-circle"
                                                 style={{
                                                     width: "30px",

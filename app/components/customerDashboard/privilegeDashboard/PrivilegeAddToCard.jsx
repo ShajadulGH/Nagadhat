@@ -6,13 +6,12 @@ import { RotatingLines } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeAddToCard = ({
-    quantity,
     productsData,
-    handleSetShowPrice,
     totalAmount,
     setRendaringCartPrice,
     rendaringCartPrice,
     productCardLimit,
+    isDisabled,
 }) => {
     const [isPending, startTransition] = useTransition();
     const [outletId, setOutletId] = useState(() => {
@@ -31,10 +30,6 @@ const PrivilegeAddToCard = ({
     const { data: session, status } = useSession();
 
     const handlePrivilegeAddToCard = async () => {
-        if (totalAmount > productCardLimit) {
-            toast.warning("Product limit reached.");
-            return;
-        }
         const cartItems = {
             product_id: productsData?.id,
             product_name: productsData?.product_name,
@@ -62,7 +57,6 @@ const PrivilegeAddToCard = ({
                     session?.accessToken
                 );
                 if (response?.code === 200) {
-                    handleSetShowPrice(productsData?.id);
                     setRendaringCartPrice(!rendaringCartPrice);
                 }
             });
@@ -76,10 +70,8 @@ const PrivilegeAddToCard = ({
             <ToastContainer />
             <button
                 onClick={handlePrivilegeAddToCard}
-                className="border-0 add-to-cart-link rounded-2 flex items-center justify-center"
-                aria-label={
-                    isPending ? "Adding to cart, please wait" : "Add to cart"
-                }
+                className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center `}
+                disabled={isDisabled}
             >
                 {isPending ? (
                     <div
