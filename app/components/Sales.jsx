@@ -89,12 +89,12 @@ function Sales() {
 
     return (
         <>
-        <ToastContainer/>
             {flashSaleProductList?.length > 0 &&
                 flashSaleEndsTime?.end_time &&
                 flashSaleEndsTime?.status &&
                 flashSaleEndsTime?.show_on_home && (
                     <section className={`flash-sale-area `}>
+                        <ToastContainer/>
                         <div className="container">
                             <SectionTitle
                                 isSale={true}

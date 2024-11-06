@@ -8,27 +8,25 @@ import { ToastContainer } from "react-toastify";
 
 const ProductLeftSide = ({ productInfo }) => {
     const [productGallery, setProductGallery] = useState([]);
-    
+
     storeProductId(productInfo?.id);
 
     return (
-        <>
-        <ToastContainer/>
-            <div className=" col-xl-9">
-                <div className="row">
-                    <ProductImage
-                        productInfo={productInfo}
-                        // path_name={path_name}
-                        productGallery={productGallery}
-                    />
-                    <ProductInformetion
-                        productInfo={productInfo}
-                        setProductGallery={setProductGallery}
-                    />
-                </div>
-                <ProductLongDescription productInfo={productInfo} />
+        <div className=" col-xl-9">
+            <ToastContainer />
+            <div className="row">
+                <ProductImage
+                    productInfo={productInfo}
+                    // path_name={path_name}
+                    productGallery={productGallery}
+                />
+                <ProductInformetion
+                    productInfo={productInfo}
+                    setProductGallery={setProductGallery}
+                />
             </div>
-        </>
+            <ProductLongDescription productInfo={productInfo} />
+        </div>
     );
 };
 
