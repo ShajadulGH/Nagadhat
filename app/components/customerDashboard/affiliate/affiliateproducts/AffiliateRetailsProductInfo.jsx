@@ -109,7 +109,7 @@ const AffiliateRetailsProductInfo = ({
                                         onClick={(e) => e.stopPropagation()}
                                         className="copy-link-btn"
                                     >
-                                        {copied ? "Link Copied" : "Copy Link"}
+                                        Copy Link
                                     </button>
                                 </CopyToClipboard>
                             </div>

@@ -15,9 +15,17 @@
     font-weight: 500;
     font-size: 15px;
 }
+.copy-link-btn:focus{
+    border: 1px solid var(--color-44BC9D) !important;
+    content: none;
+}
+.copy-link-btn:focus::before {
+    content: "✔  ";
+}
 .copy-link-btn:hover{
     color: var(--color-white);
     background: var(--color-44BC9D);
+    border: 1px solid var(--color-44BC9D) !important;
 }
 .grid-list-toggol-btn{
     border: 1px solid var(--color-44BC9D) !important;
