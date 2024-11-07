@@ -4,8 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import MultipleProductSlider from "./MultipleProductSlider";
 import { NagadhatPublicUrl } from "@/app/utils";
+import img from "@/public/images/placeholder--image.jpg"
 
 function ProductSlider({ sliderItems, productGallery, productInfo }) {
+    const image = productInfo.product_thumbnail ? `${NagadhatPublicUrl}/${productInfo.product_thumbnail}`: img ;
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
     const sliderRef1 = useRef(null);
@@ -44,7 +46,7 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                     <div className="product-details-info-photo">
                         <div className="product-details-info-img">
                             <Image
-                                src={`${NagadhatPublicUrl}/${productInfo?.product_thumbnail}`}
+                                src={image}
                                 layout="fill"
                                 alt="product gallery banner image"
                                 className="img-fluid object-fit-cover"
@@ -81,7 +83,7 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                         ))
                     ) : (
                         <MultipleProductSlider
-                            thum={productInfo?.product_thumbnail}
+                            thum={image}
                         />
                     )}
                 </Slider>
