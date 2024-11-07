@@ -1,13 +1,13 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 const MultipleProductSlider = ({ multipleImage, thum }) => {
-    const path = multipleImage?.path || thum;
+    const path = multipleImage?.path;
     return (
         <>
             <div className="product-multiple-photo-item">
                 <Image
                     className="img-fluid object-fit-cover"
-                    src={`${NagadhatPublicUrl}/${path}`}
+                    src={path?`${NagadhatPublicUrl}/${path}`:thum}
                     fill={true}
                     alt=" product gallery Image "
                 />
