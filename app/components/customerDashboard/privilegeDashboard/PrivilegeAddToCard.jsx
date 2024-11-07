@@ -11,7 +11,8 @@ const PrivilegeAddToCard = ({
     setRendaringCartPrice,
     rendaringCartPrice,
     productCardLimit,
-    isDisabled,
+    quantity,
+    isButtonDisable,
 }) => {
     const [isPending, startTransition] = useTransition();
     const [outletId, setOutletId] = useState(() => {
@@ -33,9 +34,11 @@ const PrivilegeAddToCard = ({
         const cartItems = {
             product_id: productsData?.id,
             product_name: productsData?.product_name,
-            regular_price: totalAmount,
+            regular_price: productsData?.mrp_price,
             discount_type: "",
-            discountPrice: 0,
+            discountPrice:
+                (productsData?.mrp_price - productsData?.purchases_price) *
+                quantity,
             price: totalAmount,
             outlet_id: outletId,
             product_thumbnail: productsData?.product_thumbnail,
@@ -70,8 +73,10 @@ const PrivilegeAddToCard = ({
             <ToastContainer />
             <button
                 onClick={handlePrivilegeAddToCard}
-                className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center `}
-                disabled={isDisabled}
+                className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${
+                    isButtonDisable ? "" : "disabled-button"
+                }`}
+                disabled={!isButtonDisable}
             >
                 {isPending ? (
                     <div

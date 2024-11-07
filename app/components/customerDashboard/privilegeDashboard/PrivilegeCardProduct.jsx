@@ -4,7 +4,6 @@ import PrivilegeCardProductTable from "./PrivilegeCardProductTable";
 import PrivilegeCardProductTop from "./PrivilegeCardProductTop";
 import { useSession } from "next-auth/react";
 import { getPrivilegeCardProducts } from "@/app/services/privilegeCard/getPrivilegeCardProducts";
-import DefaultLoader from "../../defaultloader/DefaultLoader";
 import LodingFixed from "../../LodingFixed";
 
 const PrivilegeCardProduct = () => {
