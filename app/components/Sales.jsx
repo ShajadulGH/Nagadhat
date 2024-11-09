@@ -94,7 +94,7 @@ function Sales() {
                 flashSaleEndsTime?.status &&
                 flashSaleEndsTime?.show_on_home && (
                     <section className={`flash-sale-area `}>
-                        <ToastContainer/>
+                        <ToastContainer />
                         <div className="container">
                             <SectionTitle
                                 isSale={true}
@@ -111,16 +111,18 @@ function Sales() {
                             <div className="row">
                                 <div className="col-md-12">
                                     <div
-                                        className={`${"flash-sale-content-area-grid "}`}
+                                        className="flash-sale-content-area-grid"
                                     >
                                         <Slider {...settings}>
                                             {flashSaleProductList?.length > 0 &&
                                                 flashSaleProductList?.map(
                                                     (product) => (
-                                                        <ProductCard
-                                                            key={product.id}
-                                                            item={product}
-                                                        />
+                                                        <div className="px-1 px-md-2">
+                                                            <ProductCard
+                                                                key={product.id}
+                                                                item={product}
+                                                            />
+                                                        </div>
                                                     )
                                                 )}
                                         </Slider>

@@ -75,7 +75,7 @@ function ProductCard({ item }) {
 
 
     return (
-        <div className="flash-sale-content-item mx-1 ">
+        <div className="flash-sale-content-item">
             <ToastContainer/>
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
