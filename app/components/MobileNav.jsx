@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
+import { useSelector } from "react-redux";
 
 const MobileNav = () => {
     const [popupSearch, setPopupSearch] = useState(false);
@@ -59,6 +60,10 @@ const MobileNav = () => {
     //         document.removeEventListener("mousedown", handleClickOutside);
     //     };
     // }, []);
+
+    const addToCartProductLength = useSelector(
+        (state) => state.cart?.addToCartLength
+    );
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -145,6 +150,7 @@ const MobileNav = () => {
                                 aria-label="Go to cart page"
                             >
                                 <FaCartShopping />
+                                <sup className="bg-warning rounded-circle px-1 fs-6">{addToCartProductLength}</sup>
                             </div>
                             {session ? (
                                 <div

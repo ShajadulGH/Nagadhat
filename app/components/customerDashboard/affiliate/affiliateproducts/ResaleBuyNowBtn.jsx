@@ -76,7 +76,7 @@ const ResaleBuyNowBtn = ({ product }) => {
             setLoading(false);
         }
     }
- 
+
     return (
         <>
             <button
