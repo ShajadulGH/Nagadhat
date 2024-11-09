@@ -1,6 +1,8 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 import PrivilegeBuyNowBtn from "./PrivilegeBuyNowBtn";
+import PrivilegeChooseOptionBtn from "./PrivilegeChooseOptionBtn";
+import PrivilegeCancelledModal from "./PrivilegeCancelledModal";
 
 const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
@@ -52,9 +54,18 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                             privilegeCardInfo={privilegeCardInfo}
                             session={session}
                         />
+                        <button
+                            data-bs-toggle="modal"
+                            data-bs-target="#privilege-cancelled-modal"
+                            className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
+                        >
+                            Cancelled
+                        </button>
                     </div>
                 </div>
             </div>
+            <PrivilegeCancelledModal />
+            <PrivilegeChooseOptionBtn />
         </div>
     );
 };

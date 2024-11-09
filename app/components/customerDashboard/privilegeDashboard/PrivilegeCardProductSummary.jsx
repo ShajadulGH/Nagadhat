@@ -1,80 +1,25 @@
 "use client";
-import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
-import { useSession } from "next-auth/react";
+
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { useMemo } from "react";
 
-const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
-    const [isPending, startTransition] = useTransition();
-    const [privilegeCartProduct, setPrivilegeCartProduct] = useState([]);
-    const [subTotal, setSubTotal] = useState(0);
-    const [totalDiscount, setTotalDiscount] = useState(0);
+const PrivilegeCardProductSummary = ({ privilegeCartItem }) => {
+    const netPrice = useMemo(
+        () => privilegeCartItem.reduce((acc, item) => acc + item.price, 0),
+        [privilegeCartItem]
+    );
 
-    const { data: session, status } = useSession();
-    const [outletId, setOutletId] = useState(() => {
-        if (typeof window !== "undefined") {
-            return localStorage.getItem("outletId") || 3;
-        }
-        return 3;
-    });
+    const totalDiscount = useMemo(
+        () =>
+            privilegeCartItem.reduce(
+                (acc, item) => acc + parseFloat(item.discountPrice),
+                0
+            ),
+        [privilegeCartItem]
+    );
 
-    const [districtId, setDistrictId] = useState(() => {
-        if (typeof window !== "undefined") {
-            return localStorage.getItem("districtId") || 47;
-        }
-        return 47;
-    });
-
-    useEffect(() => {
-        const fetchPrivilegeCartProducts = async () => {
-            if (session?.accessToken) {
-                startTransition(async () => {
-                    try {
-                        const params = {
-                            outlet_id: outletId,
-                            location_id: districtId,
-                        };
-                        const response = await getPrivilegeAddToCartProducts(
-                            session.accessToken,
-                            params
-                        );
-
-                        setPrivilegeCartProduct(response?.results);
-
-                        // Calculate subTotal
-                        const subTotalInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc + (Number(current.price) || 0),
-                            0
-                        );
-
-                        setSubTotal(subTotalInfo);
-
-                        // Calculate totalDiscount (sum of mrp - price)
-                        const totalDiscountInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc +
-                                ((Number(current.mrp_price) || 0) -
-                                    (Number(current.price) || 0)),
-                            0
-                        );
-
-                        setTotalDiscount(totalDiscountInfo);
-                    } catch (err) {
-                        console.error("Error fetching cart products:", err);
-                    }
-                });
-            }
-        };
-        fetchPrivilegeCartProducts();
-    }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
-
-    const deliveryCharge = 0;
-    let netPrice = subTotal - totalDiscount + deliveryCharge;
-    const formatCurrency = (value) => {
-        const numValue = Number(value);
-        return !isNaN(numValue) ? numValue.toFixed(2) : "0.00";
-    };
+    const deliveryCharge = 0; 
+    const subTotal = netPrice + totalDiscount + deliveryCharge;
 
     return (
         <div className="row justify-content-end px-4 pt-2 pb-4">
@@ -82,19 +27,19 @@ const PrivilegeCardProductSummary = ({ rendaringCartPrice }) => {
                 <ul className="table-bordered pb-4">
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Sub Total Amount:</span>
-                        <strong>৳ {formatCurrency(subTotal)}</strong>
+                        <strong>৳ {subTotal.toFixed(2)}</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Total Discount:</span>
-                        <strong>৳ {formatCurrency(totalDiscount)}</strong>
+                        <strong>৳ {totalDiscount.toFixed(2)}</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Delivery Charge:</span>
-                        <strong>৳ {formatCurrency(deliveryCharge)}</strong>
+                        <strong>৳ {deliveryCharge.toFixed(2)}</strong>
                     </li>
                     <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                         <span>Net Total:</span>
-                        <strong>৳ {formatCurrency(netPrice)}</strong>
+                        <strong>৳ {netPrice.toFixed(2)}</strong>
                     </li>
                 </ul>
                 <div className="d-flex align-items-center justify-content-end gap-3">
