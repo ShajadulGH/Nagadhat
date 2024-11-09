@@ -48,7 +48,7 @@ const PrivilegeCardProductTable = ({
                             location_id: districtId,
                         };
                         const response = await getPrivilegeAddToCartProducts(
-                            session.accessToken,
+                            session?.accessToken,
                             params
                         );
                         setPrivilegeCartItem(response?.results || []);
@@ -99,6 +99,7 @@ const PrivilegeCardProductTable = ({
             <PrivilegeCardProductSummary
                 rendaringCartPrice={rendaringCartPrice}
                 privilegeCartItem={privilegeCartItem}
+                token={session.accessToken}
             />
             {showingProModal && (
                 <PrivilegeProductDetailModal

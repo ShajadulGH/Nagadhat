@@ -59,16 +59,13 @@ const PrivilegeCardProduct = () => {
                 categoryFilter={categoryFilter}
                 setCategoryFilter={setCategoryFilter}
             />
-            {isPending ? (
-                <LodingFixed />
-            ) : (
-                <PrivilegeCardProductTable
-                    productsData={productsData}
-                    rendaringCartPrice={rendaringCartPrice}
-                    setRendaringCartPrice={setRendaringCartPrice}
-                    productCardLimit={productCardLimit}
-                />
-            )}
+            {isPending && <LodingFixed />}
+            <PrivilegeCardProductTable
+                productsData={productsData}
+                rendaringCartPrice={rendaringCartPrice}
+                setRendaringCartPrice={setRendaringCartPrice}
+                productCardLimit={productCardLimit}
+            />
         </>
     );
 };
