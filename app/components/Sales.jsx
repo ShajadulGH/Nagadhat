@@ -87,6 +87,9 @@ function Sales() {
         ],
     };
 
+    console.log(flashSaleProductList);
+    
+
     return (
         <>
             {flashSaleProductList?.length > 0 &&

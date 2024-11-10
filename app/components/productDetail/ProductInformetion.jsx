@@ -136,10 +136,9 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             setProductPrice({
                 ...productPrice,
                 prices:
-                    productInfo?.price?.original?.results?.discounted_price > 0
-                        ? productInfo?.price?.original?.results
-                            ?.discounted_price
-                        : productInfo?.price?.original?.results?.regular_price,
+                    productInfo?.price?.original?.results?.discount_status
+                        ? (productInfo?.price?.original?.results?.discounted_price)
+                        : (productInfo?.price?.original?.results?.regular_price),
                 discountPrice: productInfo?.price?.original?.results?.discount_amount,
             });
             setProductStoke(
@@ -151,6 +150,9 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             setProductGallery(productInfo?.gallery);
         }
     }
+    console.log(productPrice);
+    console.log(productInfo?.price?.original?.results?.discounted_price > 0);
+    
 
     // this handler get the value when user select the variations and change the selected,selectable. set the value error.
     const handleVariations = (variantValue, name) => {

@@ -73,6 +73,7 @@ function ProductCard({ item }) {
         });
     }
 
+console.log(item);
 
     return (
         <div className="flash-sale-content-item">
