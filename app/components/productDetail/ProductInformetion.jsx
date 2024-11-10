@@ -150,9 +150,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             setProductGallery(productInfo?.gallery);
         }
     }
-    console.log(productPrice);
-    console.log(productInfo?.price?.original?.results?.discounted_price > 0);
-    
 
     // this handler get the value when user select the variations and change the selected,selectable. set the value error.
     const handleVariations = (variantValue, name) => {

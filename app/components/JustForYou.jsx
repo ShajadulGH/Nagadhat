@@ -63,8 +63,6 @@ function JustForYou() {
             }
         };
     }, [loading, hasMore]);
-    console.log(jfyProducts);
-    
 
     return (
         <div className="container">
