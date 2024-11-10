@@ -1,7 +1,7 @@
 const PrivilegeChooseOptionBtn = () => {
     return (
         <>
-            <div className="mt-3 mt-md-5">
+            <div className="mt-3 mt-md-5 mb-3 mb-md-4">
                 <div className="bg-white shadow-lg rounded-4 p-4 d-flex flex-column flex-md-row  justify-content-center align-items-center gap-2">
                     <button
                         data-bs-toggle="modal"
