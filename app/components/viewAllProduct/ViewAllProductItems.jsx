@@ -107,7 +107,7 @@ const ViewAllProductitemss = ({ items }) => {
                                                                 ?.discounted_price
                                                         }
                                                     </strong>
-                                                    <strong>
+                                                    <strong className="text-secondary">
                                                         <del>
                                                             ট {""}
                                                             {
@@ -131,13 +131,13 @@ const ViewAllProductitemss = ({ items }) => {
                                     ) : null
                                 )
                             ) : items?.product_type === "single" &&
-                              items?.price?.discounted_price > 0 ? (
+                              parseFloat(items?.price?.discounted_price) > 0 ? (
                                 <div className="d-flex align-items-center justify-content-between">
                                     <strong>
                                         ট {""}
                                         {items?.price?.discounted_price}
                                     </strong>
-                                    <strong>
+                                    <strong className="text-secondary">
                                         ট {""}
                                         <del>{items?.price?.regular_price}</del>
                                     </strong>
