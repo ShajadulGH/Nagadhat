@@ -1,6 +1,6 @@
 // For Live
-// export const apiBaseUrl = "https://v3.nagadhat.com/api";
-// export const NagadhatPublicUrl = "https://v3.nagadhat.com";
+export const apiBaseUrl = "https://v3.nagadhat.com/api";
+export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
 // For Live staging way
 // export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
@@ -11,8 +11,8 @@
 // export const NagadhatPublicUrl = "http://nagadhat-v3.test";
 
 // For Localhost 2 way
-export const apiBaseUrl = "http://127.0.0.1:8000/api";
-export const NagadhatPublicUrl = "http://127.0.0.1:8000";
+// export const apiBaseUrl = "http://127.0.0.1:8000/api";
+// export const NagadhatPublicUrl = "http://127.0.0.1:8000";
 
 export const filterByStatus = (arr) => {
     if (!Array.isArray(arr) || arr.length < 1) {
