@@ -1,3 +1,4 @@
+"use client"
 import { getAffiliateFinanceWithdrawHistory } from "@/app/services/affiliate-finance/getAffiliateFinanceWithdrawHistory";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";

@@ -1,3 +1,4 @@
+"use client"
 import { postWithdrawWithBank } from "@/app/services/affiliate-finance/postWithdrawWithBank";
 import bankImg from "@/public/images/bank.png";
 import { useSession } from "next-auth/react";
