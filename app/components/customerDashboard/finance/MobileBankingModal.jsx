@@ -1,3 +1,4 @@
+"use client"
 import { postWithdrawMobileBanking } from "@/app/services/affiliate-finance/postWithdrawMobileBanking";
 import mobileBankingImg from "@/public/images/mobile-banking.png";
 import { useSession } from "next-auth/react";

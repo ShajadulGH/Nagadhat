@@ -132,8 +132,9 @@ export function storeProductId(productId) {
         return;
     }
 
-    let storedProductIds = JSON.parse(localStorage.getItem("recentlyViewProductIds")) || [];
-    
+    let storedProductIds =
+        JSON.parse(localStorage.getItem("recentlyViewProductIds")) || [];
+
     const existingProductIndex = storedProductIds.indexOf(productId);
 
     if (existingProductIndex === -1) {
@@ -152,7 +153,6 @@ export function storeProductId(productId) {
         JSON.stringify(storedProductIds)
     );
 }
-
 
 // recent view product List
 export function recentViewProductList() {

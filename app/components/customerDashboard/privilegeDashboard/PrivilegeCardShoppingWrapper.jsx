@@ -7,12 +7,10 @@ import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getP
 import NoDataFound from "../../NoDataFound";
 import LodingFixed from "../../LodingFixed";
 
-const PrivilegeCardShoppingWrapper = () => {
+const PrivilegeCardShoppingWrapper = ({ perCardLimit }) => {
     const [isPending, startTransition] = useTransition();
     const [privilegeCartProduct, setPrivilegeCartProduct] = useState([]);
     const [rendaringPrice, setRendaringPrice] = useState(false);
-    const [subTotal, setSubTotal] = useState(0);
-    const [totalDiscount, setTotalDiscount] = useState(0);
 
     const { data: session, status } = useSession();
     const [outletId, setOutletId] = useState(() => {
@@ -42,26 +40,7 @@ const PrivilegeCardShoppingWrapper = () => {
                             session.accessToken,
                             params
                         );
-
                         setPrivilegeCartProduct(response?.results);
-
-                        // Calculate subTotal
-                        const subTotalInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc + (Number(current.price) || 0),
-                            0
-                        );
-                        setSubTotal(subTotalInfo);
-
-                        // Calculate totalDiscount (sum of mrp - price)
-                        const totalDiscountInfo = response?.results.reduce(
-                            (acc, current) =>
-                                acc +
-                                ((Number(current.mrp_price) || 0) -
-                                    (Number(current.price) || 0)),
-                            0
-                        );
-                        setTotalDiscount(totalDiscountInfo);
                     } catch (err) {
                         console.error("Error fetching cart products:", err);
                     }
@@ -71,33 +50,26 @@ const PrivilegeCardShoppingWrapper = () => {
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringPrice]);
 
-    const deliveryCharge = 0;
-    let netPrice = subTotal - totalDiscount + deliveryCharge;
-    const formatCurrency = (value) => {
-        const numValue = Number(value);
-        return !isNaN(numValue) ? numValue.toFixed(2) : "0.00";
-    };
     return (
         <>
             <div className="customer-dashboard-order-history-area pt-4">
+                {isPending && <LodingFixed />}
                 <h4 className="text-center mb-3">Selected Products</h4>
-                {isPending ? (
-                    <LodingFixed />
-                ) : privilegeCartProduct?.length > 0 ? (
+                {privilegeCartProduct?.length > 0 ? (
                     <PrivilegeCardShoppingTable
                         privilegeCartProduct={privilegeCartProduct}
                         setRendaringPrice={setRendaringPrice}
                         rendaringPrice={rendaringPrice}
+                        perCardLimit={perCardLimit}
+                        token={session?.accessToken}
                     />
                 ) : (
                     <NoDataFound />
                 )}
 
                 <PrivilegeCardShoppingSummary
-                    deliveryCharge={deliveryCharge}
-                    subTotal={subTotal}
-                    netPrice={netPrice}
-                    formatCurrency={formatCurrency}
+                    privilegeCartItem={privilegeCartProduct}
+                    token={session?.accessToken}
                 />
             </div>
         </>

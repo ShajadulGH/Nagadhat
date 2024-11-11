@@ -35,7 +35,8 @@ const AddToCartProductShippingPage = () => {
     const [pickUpIdForOrder, setPickUpIdForOrder] = useState(null);
     const [shippingPrice, setShippingPrice] = useState(0);
     const [districtsData, setDistrictsData] = useState([]);
-    const [selectedDefaultAddressId, setSelectedDefaultAddressId] = useState(null);
+    const [selectedDefaultAddressId, setSelectedDefaultAddressId] =
+        useState(null);
     const [loading, setLoading] = useState(false);
     const [redirectPath, setRedirectPath] = useState("#");
     const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -59,7 +60,9 @@ const AddToCartProductShippingPage = () => {
 
     useEffect(() => {
         // Set default address ID when customerAddress changes
-        const defaultAddress = customerAddress.find(address => address.set_default === 1);
+        const defaultAddress = customerAddress.find(
+            (address) => address.set_default === 1
+        );
         if (defaultAddress) {
             setSelectedDefaultAddressId(defaultAddress.id);
         }
@@ -88,8 +91,8 @@ const AddToCartProductShippingPage = () => {
                         outletId,
                         districtId
                     );
-                    console.log(cartProduct?.data);
-                    
+                    // console.log(cartProduct?.data);
+
                     setCartProduct(cartProduct?.data);
                     setShippingPrice(cartProduct?.shipping_charge);
                     const pickUpPoint = await pickUpPontes(outletId);
@@ -121,7 +124,7 @@ const AddToCartProductShippingPage = () => {
             product_discount_amount: item?.discountPrice,
             vendor_id: "", // Replace with actual vendor ID if applicable
             thumbnail: item?.product_thumbnail,
-            product_regular_price: item.regular_price ,
+            product_regular_price: item.regular_price,
         }));
         const payload = {
             outlet_id: outletId,
@@ -146,7 +149,7 @@ const AddToCartProductShippingPage = () => {
             districtId
         );
         const quantityTotal = getTotalQuantity(cartProductsItem?.data);
-        
+
         // setCartProduct(cartProductsItem?.data);
 
         if (order.code == 200) {
@@ -217,7 +220,12 @@ const AddToCartProductShippingPage = () => {
                                         setDeliveryNote={setDeliveryNote}
                                         customerAddress={customerAddress}
                                         setCustomerAddress={setCustomerAddress}
-                                        selectedDefaultAddressId={selectedDefaultAddressId} setSelectedDefaultAddressId={setSelectedDefaultAddressId}
+                                        selectedDefaultAddressId={
+                                            selectedDefaultAddressId
+                                        }
+                                        setSelectedDefaultAddressId={
+                                            setSelectedDefaultAddressId
+                                        }
                                         cartProduct={cartProduct}
                                     />
 

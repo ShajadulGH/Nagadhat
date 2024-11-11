@@ -120,15 +120,15 @@ if (slug) {
 //         const flashSalesProducts =
 //             flashSalesData?.results?.flash_sales_product?.data || [];
 
-//         // Fetch Flash Sales Products
-//         const categoryList = await getHomeCategory();
-//         const categoryInfo = categoryList?.results?.category?.data || [];
+//         // // Fetch Flash Sales Products
+//         // const categoryList = await getHomeCategory();
+//         // const categoryInfo = categoryList?.results?.category?.data || [];
 
 //         // Combine product slugs from both datasets
 //         const allProducts = [
 //             ...justForYouProducts,
 //             ...flashSalesProducts,
-//             ...categoryInfo,
+//             // ...categoryInfo,
 //         ];
 
 //         return allProducts.map((product) => ({

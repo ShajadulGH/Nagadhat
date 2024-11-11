@@ -45,12 +45,12 @@ const PrivilegeDeleteCardItem = ({
             <ToastContainer />
             <button
                 onClick={() => handleDeleteProduct(cartId)}
-                className="border-0 add-to-cart-link rounded-2 flex items-center justify-center bg-danger"
+                className="border-0 add-to-cart-link rounded-2 px-3 py-2 flex items-center justify-center bg-danger"
             >
                 {isPending ? (
                     <div
                         className="flex items-center justify-center"
-                        style={{ height: "21px", width: "30px" }}
+                        style={{ height: "21px", width: "20px" }}
                     >
                         <RotatingLines
                             visible={true}

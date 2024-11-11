@@ -136,10 +136,9 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             setProductPrice({
                 ...productPrice,
                 prices:
-                    productInfo?.price?.original?.results?.discounted_price > 0
-                        ? productInfo?.price?.original?.results
-                            ?.discounted_price
-                        : productInfo?.price?.original?.results?.regular_price,
+                    productInfo?.price?.original?.results?.discount_status
+                        ? (productInfo?.price?.original?.results?.discounted_price)
+                        : (productInfo?.price?.original?.results?.regular_price),
                 discountPrice: productInfo?.price?.original?.results?.discount_amount,
             });
             setProductStoke(
@@ -486,7 +485,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         }
     }, [selectedVariants]);
     
-
+    
     return (
         <div className="col-md-6">
             <div className="product-details-content">
@@ -575,7 +574,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                         {productPrice?.prices && productPrice?.prices}
                     </strong>
                     <del>
-                        {productPrice?.discountPrice &&
+                        {parseInt(productPrice?.discountPrice) > 0 &&
                             `৳ ${(parseInt(productPrice?.discountPrice) + parseInt(productPrice?.prices))}`}
                     </del>
                 </div>

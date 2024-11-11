@@ -1,3 +1,4 @@
+"use client"
 import { getBkashToken } from "@/app/services/placeorder/getBkashToken";
 import { postPaymentWithBkash } from "@/app/services/placeorder/postPaymentWithBkash";
 import { useState } from "react";
