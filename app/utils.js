@@ -1,8 +1,6 @@
 // For Live
 export const apiBaseUrl = "https://v3.nagadhat.com/api";
 export const NagadhatPublicUrl = "https://v3.nagadhat.com";
-export const VercerUrl = "https://nagadhat-dev.vercel.app";
-export const frontendLocalUrl = "http://localhost:3000";
 
 // For Live staging way
 // export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
@@ -134,8 +132,9 @@ export function storeProductId(productId) {
         return;
     }
 
-    let storedProductIds = JSON.parse(localStorage.getItem("recentlyViewProductIds")) || [];
-    
+    let storedProductIds =
+        JSON.parse(localStorage.getItem("recentlyViewProductIds")) || [];
+
     const existingProductIndex = storedProductIds.indexOf(productId);
 
     if (existingProductIndex === -1) {
@@ -154,7 +153,6 @@ export function storeProductId(productId) {
         JSON.stringify(storedProductIds)
     );
 }
-
 
 // recent view product List
 export function recentViewProductList() {

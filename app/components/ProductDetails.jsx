@@ -75,18 +75,16 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
 
     return (
         <>
-        <ToastContainer/>
             <section className="product-details-section">
                 <div className="container">
                     {/* Breadcrumb always visible */}
                     <Breadcrumb category={productInfo?.category} />
-
-                    {Object?.keys(productInfo)?.length > 0 ? (
+                    {productInfo?.id ? (
                         <>
                             <div className="row product-details-info">
                                 <ProductLeftSide
                                     productInfo={productInfo}
-                                    // path_name={pathName}
+                                // path_name={pathName}
                                 />
                                 <ProductRightSide productInfo={productInfo} />
                             </div>

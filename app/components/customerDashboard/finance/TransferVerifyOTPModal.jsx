@@ -1,3 +1,4 @@
+"use client"
 import { postVerifyTransferOtp } from '@/app/services/affiliate-finance/postVerifyTransferOtp';
 import { useSession } from 'next-auth/react';
 import { useRef, useState } from 'react';

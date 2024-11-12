@@ -1,3 +1,4 @@
+"use client"
 import { ToastContainer } from "react-toastify";
 import DiscountPartnerComfarmModal from "./DiscountPartnerComfarmModal";
 import Dropzone from "react-dropzone";

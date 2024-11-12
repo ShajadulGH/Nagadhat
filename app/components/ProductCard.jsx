@@ -8,7 +8,7 @@ import img from "@/public/images/placeholder--image.jpg"
 import { ToastContainer } from "react-toastify";
 
 function ProductCard({ item }) {
-    const image = `${NagadhatPublicUrl}/${item.product_thumbnail}`;
+    const image = item.product_thumbnail ? `${NagadhatPublicUrl}/${item.product_thumbnail}`: img ;
     const {
         product_name: title,
         slug,
@@ -74,12 +74,12 @@ function ProductCard({ item }) {
     }
 
     return (
-        <div className="flash-sale-content-item mx-1 ">
+        <div className="flash-sale-content-item">
             <ToastContainer/>
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">
-                        <Image src={image || img} alt={title} fill={true} />
+                        <Image src={image} alt={title} fill={true} />
                     </div>
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
@@ -90,8 +90,8 @@ function ProductCard({ item }) {
                                         variant_item?.variations_default ===
                                         1 ? (
                                             <div key={variant_item.id}>
-                                                {variant_item?.price
-                                                    ?.discount_amount > 0 ? (
+                                                {parseInt(variant_item?.price
+                                                    ?.discount_amount) > 0 ? (
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <strong>
                                                             ট{" "}
@@ -124,8 +124,8 @@ function ProductCard({ item }) {
                                             </div>
                                         ) : null
                                     )
-                                ) : item?.product_type === "single" &&
-                                  item?.price?.discounted_price > 0 ? (
+                                ) : 
+                                item?.price?.discount_status ? (
                                     <div className="d-flex align-items-center justify-content-between">
                                         <strong>
                                             ট {item?.price?.discounted_price}

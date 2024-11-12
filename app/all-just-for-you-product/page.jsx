@@ -14,9 +14,6 @@ const AllJustForYouProductPage = async ({ searchParams }) => {
     const districtId = searchParams?.districtId || 47;
     const limit = 24;
 
-    console.log({ districtId, page, limit, searchParams });
-
-
     try {
         const justForYouProductData = await getHomeJustForYouProduct(districtId, page, limit);
         viewProductData = justForYouProductData?.results?.just_for_you?.data || [];

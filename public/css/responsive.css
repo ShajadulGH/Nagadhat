@@ -444,8 +444,7 @@
     .flash-sale-content-area {
         -ms-grid-columns: 1fr 10px 1fr;
         grid-template-columns: repeat(2, 1fr);
-        gap: 0;
-        row-gap: 10px;
+        gap: 10px;
     }
 
     .hero-slider-content {

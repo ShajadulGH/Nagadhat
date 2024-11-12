@@ -3,14 +3,16 @@ import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
 import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
+import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeAddToCard = ({
-    quantity,
     productsData,
-    handleSetShowPrice,
     totalAmount,
     setRendaringCartPrice,
     rendaringCartPrice,
+    productCardLimit,
+    quantity,
+    isButtonDisable,
 }) => {
     const [isPending, startTransition] = useTransition();
     const [outletId, setOutletId] = useState(() => {
@@ -32,9 +34,11 @@ const PrivilegeAddToCard = ({
         const cartItems = {
             product_id: productsData?.id,
             product_name: productsData?.product_name,
-            regular_price: totalAmount,
+            regular_price: productsData?.mrp_price,
             discount_type: "",
-            discountPrice: 0,
+            discountPrice:
+                (productsData?.mrp_price - productsData?.purchases_price) *
+                quantity,
             price: totalAmount,
             outlet_id: outletId,
             product_thumbnail: productsData?.product_thumbnail,
@@ -56,7 +60,6 @@ const PrivilegeAddToCard = ({
                     session?.accessToken
                 );
                 if (response?.code === 200) {
-                    handleSetShowPrice(productsData?.id);
                     setRendaringCartPrice(!rendaringCartPrice);
                 }
             });
@@ -67,12 +70,13 @@ const PrivilegeAddToCard = ({
 
     return (
         <>
+            <ToastContainer />
             <button
                 onClick={handlePrivilegeAddToCard}
-                className="border-0 add-to-cart-link rounded-2 flex items-center justify-center"
-                aria-label={
-                    isPending ? "Adding to cart, please wait" : "Add to cart"
-                }
+                className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${
+                    isButtonDisable ? "" : "disabled-button"
+                }`}
+                disabled={!isButtonDisable}
             >
                 {isPending ? (
                     <div

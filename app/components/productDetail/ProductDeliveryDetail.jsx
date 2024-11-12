@@ -321,7 +321,7 @@ const ProductDeliveryDetail = ({ productInfo }) => {
                                         : productInfo?.inside_dhaka
                                     : productInfo?.outside_dhaka === "0.00"
                                     ? "130"
-                                    : productInfo?.outside_dhaka}
+                                    : productInfo?.inside_dhaka}
                             </h6>
                         </div>
                     </div>

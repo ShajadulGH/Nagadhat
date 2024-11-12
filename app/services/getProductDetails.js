@@ -8,7 +8,7 @@ export const getProductDetails = async (pathName) => {
         const response = await fetch(
             `${apiBaseUrl}/get-product-details?${pathName}`,
             {
-                next: { revalidate: 1 },
+                next: { revalidate: 1000 },
             }
         );
 
