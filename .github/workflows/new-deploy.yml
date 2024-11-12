@@ -1,0 +1,29 @@
+name: Deploy Next.js to Cloudways
+
+on:
+    push:
+        branches:
+            - pre-prod # This will only trigger deployment for the main branch
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20" # Use the appropriate Node.js version
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build the Next.js project
+              run: npm run build
+
+            - name: Deploy to Cloudways
+              run: |
+                  ssh -p 22 -o StrictHostKeyChecking=no -i ${{ secrets.CLOUDWAYS_SSH_PRIVATE_KEY }} ${{ secrets.CLOUDWAYS_USER }}@${{ secrets.CLOUDWAYS_SERVER_IP }} 'cd ./public_html && git pull origin pre-prod && npm install && npm run build && pm2 restart nagadhat-v3-frontend'
