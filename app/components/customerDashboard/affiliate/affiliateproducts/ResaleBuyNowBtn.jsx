@@ -83,18 +83,15 @@ const ResaleBuyNowBtn = ({ product }) => {
                 onClick={handlePlaceOrder}
                 className="add-to-cart-link undefined category-product-add-btn border-0"
                 style={{
-                    pointerEvents:"auto",
-                    opacity: (product?.max_quantity || 0) < (product?.min_quantity || 1) ? 0.5 : 1,
+                    pointerEvents: "auto",
+                    opacity: (loading) ? 0.5 : 1,
                 }}
                 disabled={
                     !product ||
-                    (product.max_quantity || 0) < (product.min_quantity || 1) ||
                     loading
                 }
             >
                 {
-                    (product?.max_quantity || 0) < (product?.min_quantity || 1) ?
-                    'out of stock' :
                     loading ? (
                         <div
                             style={{

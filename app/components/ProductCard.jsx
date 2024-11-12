@@ -73,7 +73,6 @@ function ProductCard({ item }) {
         });
     }
 
-
     return (
         <div className="flash-sale-content-item">
             <ToastContainer/>

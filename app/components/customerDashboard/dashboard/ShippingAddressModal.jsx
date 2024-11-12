@@ -1,3 +1,4 @@
+"use client"
 import { getDistrictForShipping } from "@/app/services/getDistrictForShipping";
 import { postShippingAddress } from "@/app/services/postShippingAddress";
 import { updateShippingAddress } from "@/app/services/updateShippingAddress";
