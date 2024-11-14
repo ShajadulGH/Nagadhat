@@ -47,7 +47,10 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                     {member.name}
                                 </Link>
                             </td>
-                            <td>{member.affiliate_user?.sponsor || ""}</td>
+                            <td>
+                                {member?.user_customer_rank_tree?.placement_user
+                                    ?.name || ""}
+                            </td>
                             <td>
                                 {member.affiliate_user?.total_resell_amount ||
                                     0}
