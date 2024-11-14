@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { FaPlus } from "react-icons/fa";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import { ToastContainer, toast } from "react-toastify";
 import { getCustomerAllShippingAddress } from "@/app/services/getShippingCustomerAddresses";
 import { updateShippingAddress } from "@/app/services/updateShippingAddress";
 import ShippingAddressModal from "./ShippingAddressModal";
@@ -154,7 +153,6 @@ const CustomerDashboardRightSide = () => {
 
     return (
         <>
-            <ToastContainer />
             <div className="customer-dashboard-section">
                 <DashboardTopInfo userDashboard={userDashboard} />
                 <div className="d-flex gap-3 flex-column flex-md-row">

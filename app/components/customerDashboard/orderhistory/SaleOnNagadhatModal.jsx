@@ -14,7 +14,7 @@ import LodingFixed from "../../LodingFixed";
 import NoDataFound from "../../NoDataFound";
 import { postSaleOnNagadhat } from "@/app/services/affiliate/postSaleOnNagadhat";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 
 const SaleOnNagadhatModal = ({ resaleOrderID }) => {
     const [isPending, startTransition] = useTransition();
@@ -131,7 +131,6 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
 
     return (
         <>
-            <ToastContainer />
             <div
                 ref={modalRef}
                 className="modal fade"

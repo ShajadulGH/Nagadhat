@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { getManageBasicInfo } from "@/app/services/getManageBasicInfo";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { postManageBasicInfo } from "@/app/services/postManageBasicInfo";
 
@@ -95,7 +94,6 @@ const ManageBasicInfo = () => {
 
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
-            <ToastContainer />
             <h2 className="accordion-header">
                 <button
                     className="accordion-button shadow-none rounded-bottom bg-white customer-dashboard-subtitle"

@@ -1,10 +1,9 @@
 "use client";
 import { storeProductId } from "@/app/utils";
 import ProductImage from "./ProductImage";
+import { useState } from "react";
 import ProductInformetion from "./ProductInformetion";
 import ProductLongDescription from "./ProductLongDescription";
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
 
 const ProductLeftSide = ({ productInfo }) => {
     const [productGallery, setProductGallery] = useState([]);
@@ -13,7 +12,6 @@ const ProductLeftSide = ({ productInfo }) => {
 
     return (
         <div className=" col-xl-9">
-            <ToastContainer />
             <div className="row">
                 <ProductImage
                     productInfo={productInfo}

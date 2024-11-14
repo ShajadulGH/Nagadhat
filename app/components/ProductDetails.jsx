@@ -12,7 +12,6 @@ import ProductRightSide from "@/app/components/productDetail/ProductRightSide";
 import NoDataFound from "@/app/components/NoDataFound";
 import RecentViewProduc from "@/app/components/RecentViewProduc";
 import Service from "@/app/components/Service";
-import { ToastContainer } from "react-toastify";
 
 const ProductSinglePage = ({ productInfo, outletInfo }) => {
     // const { status, data: session } = useSession();

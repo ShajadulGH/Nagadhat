@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { getCustomerAllShippingAddress } from "../../services/getShippingCustomerAddresses";
 import { deleteBuyNowProductData, getBuyNowProductData } from "../../utils";
 import { placeOrder } from "../../services/postPlaceOrder";
-import { showToast } from "@/app/components/Toast";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import CustomerAddress from "@/app/components/shippingPage/customerAddress/CustomerAddress";
@@ -139,7 +138,7 @@ const BuyNowShippingProductPage = () => {
             router.push(`/paynow?orderId=${order?.results?.order_id}`);
         } else {
             setRedirectPath("#");
-            showToast(order.message, "error");
+            toast.error(order.message);
         }
     };
 

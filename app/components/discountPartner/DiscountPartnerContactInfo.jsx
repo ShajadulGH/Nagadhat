@@ -1,6 +1,4 @@
 "use client";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const DiscountPartnerContactInfo = ({ handleTabClick, formData, setFormData }) => {
@@ -15,7 +13,6 @@ const DiscountPartnerContactInfo = ({ handleTabClick, formData, setFormData }) =
 
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
-            <ToastContainer />
             <div>
                 <div className="accordion-body">
                     <div className="customer-manage-profile-from-area">

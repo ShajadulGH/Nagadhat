@@ -1,10 +1,10 @@
 "use client";
-import { showToast } from '@/app/components/Toast';
 import { placeOrder } from '@/app/services/postPlaceOrder';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { RotatingLines } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
 
 const ResaleBuyNowBtn = ({ product }) => {
     const { status, data: session } = useSession();
@@ -67,11 +67,11 @@ const ResaleBuyNowBtn = ({ product }) => {
             if (order.code == 200) {
                 router.push(`/paynow?orderId=${order?.results?.order_id}`);
             } else {
-                showToast(order.message, "error");
+                toast.error(order.message);
             }
         } catch (error) {
             console.error("An error occurred while placing the order:", error);
-            showToast("Something went wrong, please try again later.", "error");
+            toast.error("Something went wrong, please try again later.");
         } finally {
             setLoading(false);
         }

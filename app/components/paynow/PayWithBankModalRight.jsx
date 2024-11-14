@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 const BankSubmitPaymentBtn = dynamic(() => import("./BankSubmitPaymentBtn"));
 
 const PayWithBankModalRight = ({
@@ -92,7 +92,6 @@ const PayWithBankModalRight = ({
 
     return (
         <div className="col-md-8">
-            <ToastContainer />
             <div className="bg-body-secondary px-3 pt-4 pb-4">
                 <form onSubmit={handleFormSubmit}>
                     <div className="mb-3 d-flex gap-2">

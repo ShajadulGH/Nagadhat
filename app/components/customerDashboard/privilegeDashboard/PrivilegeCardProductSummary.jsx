@@ -4,7 +4,7 @@ import { addToCartSelectedProduct } from "@/app/services/postCartSelectedProduct
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
     const router = useRouter();
@@ -50,7 +50,6 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
 
     return (
         <>
-            <ToastContainer />
             <div className="row justify-content-end px-4 pt-2 pb-4">
                 <div className="col-md-5 col-sm-12">
                     <ul className="table-bordered pb-4">

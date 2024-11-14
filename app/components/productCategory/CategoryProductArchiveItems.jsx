@@ -6,7 +6,6 @@ import Link from "next/link";
 import AddToCartButton from "../AddToCartButton";
 import { NagadhatPublicUrl } from "../../utils";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
 import img from "@/public/images/placeholder--image.jpg"
 
 const CategoryProductArchiveItems = ({ productItem }) => {
@@ -89,7 +88,6 @@ const CategoryProductArchiveItems = ({ productItem }) => {
 
     return (
         <div className="flash-sale-content-item">
-            <ToastContainer />
             <Link
                 href={`/products/${slug}?outlet_id=${outletId}`}
             >

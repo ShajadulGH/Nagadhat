@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import Link from "next/link";
 import { FaMinus, FaPlus, FaTrashAlt } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ContainerOrderDetails = ({
@@ -177,7 +176,6 @@ const ContainerOrderDetails = ({
 
     return (
         <>
-            <ToastContainer />
             <div className="row gy-3 p-4">
                 <div className="col-md-8 overflow-x-auto">
                     <div

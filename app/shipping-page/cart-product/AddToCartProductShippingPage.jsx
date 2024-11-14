@@ -13,10 +13,8 @@ import { getDistrictForShipping } from "../../services/getDistrictForShipping";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddToCart } from "../../store/cartSlice";
 import { RotatingLines } from "react-loader-spinner";
-import { showToast } from "@/app/components/Toast";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import CustomerAddress from "@/app/components/shippingPage/customerAddress/CustomerAddress";
 import ShippingProduct from "@/app/components/shippingPage/ShippingProduct";
 import ShippingOrderSection from "@/app/components/shippingPage/ShippingOrderSection";
@@ -164,7 +162,7 @@ const AddToCartProductShippingPage = () => {
             );
         } else {
             setRedirectPath("#");
-            showToast(order.message, "error");
+            toast.error(order.message, "error");
         }
     };
 

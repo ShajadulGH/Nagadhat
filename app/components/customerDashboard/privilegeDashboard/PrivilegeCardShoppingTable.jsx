@@ -5,7 +5,7 @@ import { FaPlus, FaMinus } from "react-icons/fa6";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import DeletePrivilegeCartProduct from "./DeletePrivilegeCartProduct";
 import { addToCartQuantityUpdate } from "@/app/services/addToCartQuantityUpdate";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const PrivilegeCardShoppingTable = ({
@@ -185,7 +185,6 @@ const PrivilegeCardShoppingTable = ({
                     })}
                 </tbody>
             </table>
-            <ToastContainer />
         </div>
     );
 };

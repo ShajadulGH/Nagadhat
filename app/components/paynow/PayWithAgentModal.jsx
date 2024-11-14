@@ -3,7 +3,7 @@ import { getAffiliateFinanceAgents } from "@/app/services/affiliate-finance/getA
 import { postOrderFullPaymentWithAgent } from "@/app/services/placeorder/postOrderFullPaymentWithAgent";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useEffect, useState, useTransition } from "react";
 import { getPayAgentLists } from "@/app/services/affiliate-finance/getPayAgentLists";
 import { useRouter } from "next/navigation";
@@ -85,7 +85,6 @@ const PayWithAgentModal = ({
 
     return (
         <>
-            <ToastContainer />
             <div
                 className={`modal fade ${showAgentModal ? "show" : ""}`}
                 tabIndex="-1"

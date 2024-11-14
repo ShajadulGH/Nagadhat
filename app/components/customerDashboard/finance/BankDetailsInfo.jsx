@@ -4,7 +4,7 @@ import { updateAffiliateFinanceBankInfo } from "@/app/services/affiliate-finance
 import { getDistrictForShipping } from "@/app/services/getDistrictForShipping";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const BankDetailsInfo = () => {
     const [bankInfo, setBankInfo] = useState({
@@ -87,7 +87,6 @@ const BankDetailsInfo = () => {
     
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
-            <ToastContainer/>
             <h2 className="accordion-header">
                 <button
                     className="accordion-button shadow-none rounded-bottom bg-white customer-dashboard-subtitle"

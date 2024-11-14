@@ -10,7 +10,6 @@ import "slick-carousel/slick/slick-theme.css";
 // import getAllSettings from "../services/getAllSettings";
 import { getHomeFlashSalesProduct } from "../services/getHomeFlashSalesProduct";
 import { getFlashSlaeShowOnHomePage } from "../services/getFlashSlaeShowOnHomePage";
-import { ToastContainer } from "react-toastify";
 
 function Sales() {
     const [flashSaleProductList, setFlashSaleProductList] = useState([]);
@@ -94,7 +93,6 @@ function Sales() {
                 flashSaleEndsTime?.status &&
                 flashSaleEndsTime?.show_on_home && (
                     <section className={`flash-sale-area `}>
-                        <ToastContainer />
                         <div className="container">
                             <SectionTitle
                                 isSale={true}

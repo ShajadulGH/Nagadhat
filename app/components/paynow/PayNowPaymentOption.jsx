@@ -4,7 +4,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import DefaultLoader from "../defaultloader/DefaultLoader";
@@ -101,7 +101,6 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
 
     return (
         <div className="col-lg-8">
-            <ToastContainer />
             {isPending ? (
                 <DefaultLoader />
             ) : orderSummary?.payment_status === "Unpaid" ||
