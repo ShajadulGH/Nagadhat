@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import Image from "next/image";
@@ -61,7 +61,6 @@ const DiscountPartnerBasicInfo = ({ handleTabClick, setFormData, formData }) => 
 
     return (
         <div className="accordion-item border-0 rounded-bottom">
-            <ToastContainer />
             <div
                 id="flush-collapseOne"
                 className="accordion-collapse collapse border-top show"

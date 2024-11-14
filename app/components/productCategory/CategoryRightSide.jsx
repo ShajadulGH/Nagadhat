@@ -5,7 +5,6 @@ import CategoryProductArchive from "./CategoryProductArchive";
 import ShotBy from "./ShotBy";
 import NoDataFound from "../NoDataFound";
 import Pagination from "./Pagination";
-import { ToastContainer } from "react-toastify";
 
 const CategoryRightSide = ({
     categoryByProduct,
@@ -22,7 +21,6 @@ const CategoryRightSide = ({
 
     return (
         <main className="product-category-right-Side">
-            <ToastContainer/>
             <div className="category-right-Side">
                 <div className="all-category-item-area d-flex align-items-center justify-content-between">
                     <div className="all-category-item">

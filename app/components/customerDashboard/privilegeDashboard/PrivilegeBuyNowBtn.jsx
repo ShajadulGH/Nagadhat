@@ -3,7 +3,7 @@
 import { placeOrder } from "@/app/services/postPlaceOrder";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
 
 const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
@@ -82,8 +82,6 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
 
     return (
         <>
-            <ToastContainer />
-
             <button
                 onClick={handlePrivilegeBuyNow}
                 className="add-to-cart-link border-0 rounded-3 text-capitalize"

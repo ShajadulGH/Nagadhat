@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { postExecutePaymentWithBkash } from "../services/placeorder/postExecutePaymentWithBkash";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import DefaultLoader from "../components/defaultloader/DefaultLoader";
 import { postCancelPaymentWithBkash } from "../services/placeorder/postCancelPaymentWithBkash";
 
@@ -35,7 +35,6 @@ const BkashCallBack = () => {
 
     return (
         <>
-            <ToastContainer />
             <DefaultLoader />
         </>
     );

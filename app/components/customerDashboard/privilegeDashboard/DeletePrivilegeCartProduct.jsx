@@ -2,7 +2,7 @@
 import { TfiClose } from "react-icons/tfi";
 import { useSession } from "next-auth/react";
 import { deleteCartProduct } from "@/app/services/getDeleteCartProduct";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 
@@ -43,7 +43,6 @@ const DeletePrivilegeCartProduct = ({
     };
     return (
         <>
-            <ToastContainer />
             <button
                 onClick={() => handleDeleteProduct(cartItem?.cart_id)}
                 className="btn btn-danger"

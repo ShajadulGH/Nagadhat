@@ -12,7 +12,6 @@ import { getFinanceMobileBankingInfo } from "@/app/services/affiliate-finance/ge
 import { getFinanceBankTransferInfo } from "@/app/services/affiliate-finance/getFinanceBankTransferInfo";
 import { getAffiliateFinanceAgents } from "@/app/services/affiliate-finance/getAffiliateFinanceAgents";
 import LastFiveWithdrawHistory from "./LastFiveWithdrawHistory";
-import { ToastContainer } from "react-toastify";
 
 const WithdrawWrapper = () => {
     const [isPending, startTransition] = useTransition();
@@ -84,7 +83,6 @@ const WithdrawWrapper = () => {
     return (
         <>
             <div className="customer-dashboard-order-history-area">
-                <ToastContainer/>
                 <FinanceTopTitle title="Withdraw" />
                 <div className="p-4">
                     {/* withdraw top banner section */}

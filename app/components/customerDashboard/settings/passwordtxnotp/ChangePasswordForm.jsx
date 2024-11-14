@@ -3,7 +3,7 @@ import postManagePassword from "@/app/services/postManagePassword";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const ChangePasswordForm = () => {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -93,7 +93,6 @@ const ChangePasswordForm = () => {
 
     return (
         <>
-            <ToastContainer />
             <div
                 className="tab-pane fade show active"
                 id="change-password"

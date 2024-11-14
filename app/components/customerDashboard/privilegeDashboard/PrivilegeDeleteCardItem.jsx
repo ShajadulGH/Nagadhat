@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useTransition } from "react";
 import { MdClose } from "react-icons/md";
 import { RotatingLines } from "react-loader-spinner";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 const PrivilegeDeleteCardItem = ({
     setRendaringCartPrice,
     rendaringCartPrice,
@@ -42,7 +42,6 @@ const PrivilegeDeleteCardItem = ({
     };
     return (
         <>
-            <ToastContainer />
             <button
                 onClick={() => handleDeleteProduct(cartId)}
                 className="border-0 add-to-cart-link rounded-2 px-3 py-2 flex items-center justify-center bg-danger"

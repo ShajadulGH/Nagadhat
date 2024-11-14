@@ -3,7 +3,7 @@ import { getDistrictForShipping } from "@/app/services/getDistrictForShipping";
 import { postShippingAddress } from "@/app/services/postShippingAddress";
 import { updateShippingAddress } from "@/app/services/updateShippingAddress";
 import { useEffect, useState, useRef } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast} from "react-toastify";
 
 const ShippingAddressModal = ({ currentAddress, session }) => {
     const [newEmail, setNewEmail] = useState("");
@@ -249,7 +249,6 @@ const ShippingAddressModal = ({ currentAddress, session }) => {
                         </div>
                     </div>
                 </div>
-                <ToastContainer />
             </div>
         </>
     );

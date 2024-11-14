@@ -5,7 +5,6 @@ import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
 import img from "@/public/images/placeholder--image.jpg"
-import { ToastContainer } from "react-toastify";
 
 function ProductCard({ item }) {
     const image = item.product_thumbnail ? `${NagadhatPublicUrl}/${item.product_thumbnail}`: img ;
@@ -75,7 +74,6 @@ function ProductCard({ item }) {
 
     return (
         <div className="flash-sale-content-item">
-            <ToastContainer/>
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
                     <div className="flash-sale-content-img image-hover-effect">

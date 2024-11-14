@@ -1,5 +1,4 @@
 "use client"
-import { ToastContainer } from "react-toastify";
 import DiscountPartnerComfarmModal from "./DiscountPartnerComfarmModal";
 import Dropzone from "react-dropzone";
 import { IoCloudUploadOutline } from "react-icons/io5";
@@ -50,7 +49,6 @@ const DiscountPartnerBusinessInfo = ({ handleTabClick, formData, setFormData }) 
 
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
-            <ToastContainer />
             <div>
                 <div className="accordion-body">
                     <div className="customer-manage-profile-from-area">
