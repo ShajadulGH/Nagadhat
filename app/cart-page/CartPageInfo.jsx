@@ -27,14 +27,13 @@ import {
     FaTrashCan,
 } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import { showToast } from "../components/Toast";
 import { useRouter } from "next/navigation";
 import { addToCartSelectedProduct } from "../services/postCartSelectedProducts";
-import { toast } from "react-toastify";
 import NoDataFound from "../components/NoDataFound";
 import { placeOrder } from "../services/postPlaceOrder";
 import LodingFixed from "../components/LodingFixed";
 import { fetchCartProducts } from "../services/getShowAddToCartProduct";
+import { toast } from "react-toastify";
 const CartPage = () => {
     const [checkedProductCard, setCheckedProductCard] = useState([]);
     const [checkingProductFilter, setCheckingProductFilter] = useState([]);
@@ -144,7 +143,7 @@ const CartPage = () => {
                     );
 
                     if (updatedCartProducts?.success) {
-                        showToast("Product delete successfully");
+                        toast.success("Product delete successfully");
                         const selectedProductIds = getSelectedCardIds();
                         const updatedProducts = updateProductWithChecked(
                             selectedProductIds,
@@ -550,10 +549,10 @@ const CartPage = () => {
             } else {
                 requestPage("cart-page");
                 router.push("/login?from=cart-page");
-                showToast("Log in to access shipping", "error");
+                toast.error("Log in to access shipping");
             }
         } else {
-            showToast("Please select product first", "error");
+            toast.error("Please select product first");
         }
     };
 
@@ -607,18 +606,18 @@ const CartPage = () => {
                         })
                     );
                 } else {
-                    showToast(order.message, "error");
+                    toast.error(order.message);
                 }
                 setLoading(false);
             } else {
                 requestPage("cart-page");
                 router.push("/login?from=cart-page");
-                showToast("Log in to access shipping", "error");
+                toast.error("Log in to access shipping");
             }
         } catch (error) {
             setLoading(false);
             console.error("An error occurred while placing the order:", error);
-            showToast("Something went wrong, please try again later.", "error");
+            toast.error("Something went wrong, please try again later.");
         }
     };
 
