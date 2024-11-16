@@ -22,19 +22,19 @@ const nextConfig = {
             },
         ],
     },
-    async headers() {
-        return [
-            {
-                source: "/_next/static/:path*", // Target the static files
-                headers: [
-                    {
-                        key: "Cache-Control",
-                        value: "no-store", // Prevent caching of static assets
-                    },
-                ],
-            },
-        ];
-    },
+    // async headers() {
+    //     return [
+    //         {
+    //             source: "/_next/static/:path*", // Target the static files
+    //             headers: [
+    //                 {
+    //                     key: "Cache-Control",
+    //                     value: "no-store", // Prevent caching of static assets
+    //                 },
+    //             ],
+    //         },
+    //     ];
+    // },
 };
 
 export default nextConfig;
