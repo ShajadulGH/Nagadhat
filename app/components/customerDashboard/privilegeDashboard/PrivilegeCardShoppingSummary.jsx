@@ -3,7 +3,7 @@ import { addToCartSelectedProduct } from "@/app/services/postCartSelectedProduct
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const PrivilegeCardShoppingSummary = ({ privilegeCartItem, token }) => {
     const [netPrice, setNetPrice] = useState(0);
@@ -57,7 +57,6 @@ const PrivilegeCardShoppingSummary = ({ privilegeCartItem, token }) => {
 
     return (
         <>
-            <ToastContainer />
             <div className="row justify-content-end px-4 pt-2 pb-4 ">
                 <div className="col-md-5 col-sm-12">
                     <ul className="table-bordered pb-4">

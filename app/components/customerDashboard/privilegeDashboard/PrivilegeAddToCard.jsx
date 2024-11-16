@@ -3,7 +3,7 @@ import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
 import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const PrivilegeAddToCard = ({
     productsData,
@@ -70,7 +70,6 @@ const PrivilegeAddToCard = ({
 
     return (
         <>
-            <ToastContainer />
             <button
                 onClick={handlePrivilegeAddToCard}
                 className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${

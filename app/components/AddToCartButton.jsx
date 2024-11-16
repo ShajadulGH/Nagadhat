@@ -13,9 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAddToCart } from "../store/cartSlice";
 import { fetchCartProducts } from "../services/getShowAddToCartProduct";
 import { useRouter } from "next/navigation";
-import { Bounce, toast, ToastContainer } from "react-toastify";
-import { showToast } from "./Toast";
 import { RotatingLines, ThreeDots } from "react-loader-spinner";
+import { toast } from "react-toastify";
 //  function to check if all three properties (variation_size, variation_color, variation_weight) are present and not null in the decorateVariation object. If they are, the function will only check the first two properties (variation_size and variation_color) against selectedVariantKey.
 function findMissingProperties(decorateVariation, selectedVariantKey) {
     const requiredKeys = [
@@ -171,14 +170,14 @@ function AddToCartButton({
                                             length: quantityTotal,
                                         })
                                     );
-                                    showToast(productAdded.message);
+                                    toast.success(productAdded.message);
                                 } else {
-                                    showToast(productAdded.message, "error");
+                                    toast.error(productAdded.message);
                                 }
                             } else {
                                 addToCartInLocalStorage(addToCartInfo);
                                 const addToCartProduct = addToCartProductList();
-                                showToast("Add To Cart Success");
+                                toast.success("Add To Cart Success");
                                 const quantityTotal =
                                     getTotalQuantity(addToCartProduct);
 
@@ -190,7 +189,7 @@ function AddToCartButton({
                                 );
                             }
                         } catch (error) {
-                            showToast("An error occurred", "error");
+                            toast.error("An error occurred");
                         } finally {
                             setLoading(false);
                         }
@@ -244,14 +243,14 @@ function AddToCartButton({
                                         length: quantityTotal,
                                     })
                                 );
-                                showToast(productAdded.message);
+                                toast.success(productAdded.message);
                             } else {
-                                showToast(productAdded.message, "error");
+                                toast.error(productAdded.message);
                             }
                         } else {
                             addToCartInLocalStorage(addToCartInfo);
                             const addToCartProduct = addToCartProductList();
-                            showToast("Add To Cart Success");
+                            toast.success("Add To Cart Success");
                             const quantityTotal =
                                 getTotalQuantity(addToCartProduct);
                             dispatch(
@@ -262,7 +261,7 @@ function AddToCartButton({
                             );
                         }
                     } catch (error) {
-                        showToast("An error occurred", "error");
+                        toast.error("An error occurred");
                     } finally {
                         setLoading(false);
                     }

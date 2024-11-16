@@ -1,5 +1,4 @@
 "use client";
-import { showToast } from '@/app/components/Toast';
 import { fetchCartProducts } from '@/app/services/getShowAddToCartProduct';
 import { addToCartProduct } from '@/app/services/postAddToCartAfterLogin';
 import { setAddToCart } from '@/app/store/cartSlice';
@@ -71,13 +70,13 @@ const ResaleAddToCartBtn = ({ product }) => {
                         length: quantityTotal,
                     })
                 );
-                showToast(productAdded.message);
+                toast.success(productAdded.message);
             } else {
-                showToast(productAdded.message, "error");
+                toast.error(productAdded.message,);
             }
         } catch (error) {
             console.error("An error occurred while placing the order:", error);
-            showToast("Something went wrong, please try again later.", "error");
+            toast.error("Something went wrong, please try again later.");
         } finally {
             setLoading(false);
         }

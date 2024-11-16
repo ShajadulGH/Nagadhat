@@ -7,7 +7,6 @@ import DistrictModal from "./components/DistrictModal";
 import AuthProvider from "./auth/Provider";
 import { Suspense } from "react";
 import { ReduxProvider } from "./ReduxProvider";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import ToastProvider from "./ToastProvider";

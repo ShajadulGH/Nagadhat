@@ -3,7 +3,7 @@ import { postaffiliateFundTransfer } from "@/app/services/affiliate-finance/post
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import TransferVerifyOTPModal from "./TransferVerifyOTPModal";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { postVerifyTransferOtpRequest } from "@/app/services/affiliate-finance/postVerifyTransferOtp copy";
 import FinanceHistoryModalTable from "./FinanceHistoryModalTable";
 import Link from "next/link";
@@ -78,7 +78,6 @@ const TransferForm = () => {
 
     return (
         <>
-            <ToastContainer />
             <form className="d-flex flex-column gap-3">
                 <div className="form-group">
                     <label className="form-label" htmlFor="transfefrom">
