@@ -17,6 +17,11 @@ const DynamicCategoryPage = ({ params }) => {
     const [outletId, setOutletId] = useState(0);
     const [loading, setLoading] = useState(false);
 
+    if (!slug) {
+        console.log("Slug not found");
+        return <div>Slug not found</div>;
+    }
+
     useEffect(() => {
         const initialOutletId = localStorage.getItem("outletId");
         setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
@@ -53,9 +58,6 @@ const DynamicCategoryPage = ({ params }) => {
                 }
             };
             fetchProducts();
-        }else{
-            console.error("No slug provided");
-            return <div>Error: No product found</div>;
         }
     }, [slug, option, outletId]);
 

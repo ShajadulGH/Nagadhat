@@ -12,7 +12,7 @@ function MiniNav() {
                                     href="/affiliate"
                                     className=" text-white text-capitalize"
                                 >
-                                    Affiliate
+                                    Affiliate Page
                                 </Link>
                             </li>
                             <li>
