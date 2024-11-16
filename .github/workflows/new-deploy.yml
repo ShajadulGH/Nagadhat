@@ -10,7 +10,9 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout repository
+            
+
+              - name: Checkout code
               uses: actions/checkout@v3
 
             - name: Set up Node.js
@@ -20,10 +22,26 @@ jobs:
 
             - name: Install dependencies
               run: npm install
+              
 
-            - name: Build the Next.js project
+            - name: Build the Next.js app
               run: npm run build
 
-            - name: Deploy to Cloudways
-              run: |
-                  ssh -p 22 -o StrictHostKeyChecking=no -i ${{ secrets.CLOUDWAYS_SSH_PRIVATE_KEY }} ${{ secrets.CLOUDWAYS_USER }}@${{ secrets.CLOUDWAYS_SERVER_IP }} 'cd ./public_html && git pull origin pre-prod && npm install && npm run build && pm2 restart nagadhat-v3-frontend'
+
+              - name: SSH Deploy
+        # Use the 'appleboy/ssh-action' action for SSH deployment
+        uses: appleboy/ssh-action@
+        with:
+          host: ${{ secrets.167.71.237.196 }} # Your server's IP address
+          username: ${{ secrets.nagadhat-v3-frontend }} # Your server's username
+          key: ${{ secrets.AAAAB3NzaC1yc2EAAAADAQABAAACAQDIjixk0GjYIRtUf11jxjgyGIHH5IpElErGp3UXbKLGqGXVBrlDel+RfkC+mBM }} # Your server's SSH private key
+          script: |
+            cd cd ./public_html # Specify the path to your app directory on the server
+            git pull
+            npm install
+            npm run build
+            pm2 restart nagadhat-v3-frontend # Replace with your PM2 service name
+
+              
+
+           
