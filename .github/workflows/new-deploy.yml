@@ -10,8 +10,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            
-
             - name: Checkout code
               uses: actions/checkout@v3
 
@@ -22,22 +20,19 @@ jobs:
 
             - name: Install dependencies
               run: npm install
-              
 
             - name: Build the Next.js app
               run: npm run build
 
-
             - name: SSH Deploy # Use the 'appleboy/ssh-action' action for SSH deployment
               uses: appleboy/ssh-action@v3
               with:
-                host: ${{ secrets.167.71.237.196 }} # Your server's IP address
-                username: ${{ secrets.nagadhat-v3-frontend }} # Your server's username
-                key: ${{ secrets.AAAAB3NzaC1yc2EAAAADAQABAAACAQDIjixk0GjYIRtUf11jxjgyGIHH5IpElErGp3UXbKLGqGXVBrlDel+RfkC+mBM }} # Your server's SSH private key
-                script: |
-                  cd cd ./public_html # Specify the path to your app directory on the server
-                  git pull
-                  npm install
-                  npm run build
-                  pm2 restart nagadhat-v3-frontend # Replace with your PM2 service name
-
+                  # host: ${{ secrets.167.71.237.196 }} # Your server's IP address
+                  # username: ${{ secrets.nagadhat-v3-frontend }} # Your server's username
+                  # key: ${{ secrets.AAAAB3NzaC1yc2EAAAADAQABAAACAQDIjixk0GjYIRtUf11jxjgyGIHH5IpElErGp3UXbKLGqGXVBrlDel+RfkC+mBM }} # Your server's SSH private key
+                  script: |
+                      cd cd ./public_html # Specify the path to your app directory on the server
+                      git pull
+                      npm install
+                      npm run build
+                      pm2 restart nagadhat-v3-frontend # Replace with your PM2 service name
