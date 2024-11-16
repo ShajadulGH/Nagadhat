@@ -66,6 +66,7 @@ const ProductDetailsShows = async ({ searchParams, params }) => {
     const { slug } = params;
     let outletInfo = null;
     let productDetails = null;
+
     
 if (slug) {
     try {
@@ -84,7 +85,11 @@ if (slug) {
         }
     } catch (error) {
         console.error(error);
+        return <div>Something went wrong</div>;
     }
+}else{
+    console.error("No slug provided");
+    return <div>Error: No product found</div>;
 }
 
     return (
