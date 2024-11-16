@@ -58,7 +58,7 @@ const PayWithBankModalRight = ({
             );
 
             if (!response?.error) {
-                toast.success("", response?.message);
+                toast.success(response?.message);
                 setShowBankModal(false);
                 router.push(`/thankyou?orderId=${orderId}`);
             } else {
