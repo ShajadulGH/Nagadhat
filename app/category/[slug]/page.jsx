@@ -53,6 +53,9 @@ const DynamicCategoryPage = ({ params }) => {
                 }
             };
             fetchProducts();
+        }else{
+            console.error("No slug provided");
+            return <div>Error: No product found</div>;
         }
     }, [slug, option, outletId]);
 
