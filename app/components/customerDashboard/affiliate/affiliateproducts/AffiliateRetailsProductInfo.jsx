@@ -102,7 +102,7 @@ const AffiliateRetailsProductInfo = ({
                                     </div>
                                 </Link>
                                 <CopyToClipboard
-                                    text={`${referralLink}${product.affiliate_product_copy_link}`}
+                                    text={`${referralLink}/${product.affiliate_product_copy_link}`}
                                     onCopy={handleCopy}
                                 >
                                     <button
