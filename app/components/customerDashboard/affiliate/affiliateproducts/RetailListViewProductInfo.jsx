@@ -23,7 +23,7 @@ const RetailListViewProductInfo = ({
             >
                 {retailProduct?.length > 0 ? (
                     retailProduct?.map((product) => {
-                        const imageUrl = `${NagadhatPublicUrl}/${product?.product_thumbnail}`;
+                        const imageUrl = `${NagadhatPublicUrl}${product?.product_thumbnail}`;
                         return (
                             <div
                                 key={product.id}
