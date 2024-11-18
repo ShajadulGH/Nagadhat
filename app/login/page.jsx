@@ -58,8 +58,8 @@ const Login = () => {
 
     return (
         <div className="container">
-            <div className="row justify-content-center user-login-section">
-                <div className="col-md-5">
+            <div className=" user-login-section mx-auto">
+                <div className="user-login-area-container mx-auto">
                     <div className="user-login-area shadow rounded-4 px-3 py-5">
                         <h1 className="text-center text-capitalize">
                             Login to your account.

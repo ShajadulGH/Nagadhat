@@ -225,7 +225,8 @@ export const authOptions = {
                         : baseUrl;
                 } else {
                     // console.log("=>>> profileData 4 email redirect ");
-                    return url.startsWith(baseUrl) ? `${baseUrl}/` : baseUrl;
+                    // return url.startsWith(baseUrl) ? `${baseUrl}/` : baseUrl;
+                    return `${baseUrl}`;
                 }
             } catch (error) {
                 console.error("=>>> profileData 5 error", error.message);
@@ -264,6 +265,9 @@ export const authOptions = {
     },
     pages: {
         newUser: "/dashboard",
+    },
+    pages: {
+        signOut: "/", // Redirect to home page or another URL after logout
     },
     secret: process.env.NEXTAUTH_SECRET,
     debug: true,
