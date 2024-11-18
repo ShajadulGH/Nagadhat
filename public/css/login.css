@@ -2,6 +2,11 @@
     padding: 80px 0;
 }
 
+.user-login-area-container{
+    min-width: 200px ;
+    max-width: 460px;
+}
+
 .user-login-area h1 {
     font-size: 24px;
     margin-bottom: 20px;
