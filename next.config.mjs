@@ -26,6 +26,7 @@ const nextConfig = {
     //     return [
     //         {
     //             source: "/_next/static/:path*", // Target the static files
+    //             assetPrefix: 'https://prepod.nagadhat.com',
     //             headers: [
     //                 {
     //                     key: "Cache-Control",

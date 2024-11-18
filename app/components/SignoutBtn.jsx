@@ -6,7 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 const SignoutBtn = () => {
     return (
         <div
-            className="text-capitalize d-flex align-items-center cars"
+            className="text-capitalize d-flex align-items-center"
             onClick={(e) => {
                 e.preventDefault();
                 signOut({ callbackUrl: '/' });
