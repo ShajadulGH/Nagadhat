@@ -58,3 +58,49 @@
     padding-bottom: 8px;
     text-align: center;
 }
+
+
+
+
+/* horizontal scroll */
+
+  .scroll-container {
+    overflow-x: hidden; 
+    white-space: nowrap;
+    margin: 0 auto;
+    padding: 20px 24px;
+    padding-top: 0;
+  }
+  
+  .scroll-content {
+    display: inline-flex;
+    gap: 10px; 
+    width: 100%;
+  }
+  
+  .box {
+    flex: 0 0 auto;
+    width: 25%;
+    flex-basis: 25%;
+    height: 200px;
+    background-color: lightblue;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+
+  @media screen and (max-width: 991px) {
+    .box {
+      width: 50%; 
+      flex-basis: 50%; 
+    }
+  }
+  
+  
+ 
+  
