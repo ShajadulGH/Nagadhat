@@ -1,6 +1,7 @@
 const GenerationBonusDetail = ({
     generationBonusData,
     generationBonusResult,
+    serialNumber
 }) => {
     return (
         <>
@@ -29,7 +30,7 @@ const GenerationBonusDetail = ({
                         {generationBonusData?.map((item, index) => (
                             <tr key={item.id}>
                                 <td className="align-middle text-center">
-                                    {index + 1}
+                                    {index + 1 + serialNumber}
                                 </td>
                                 <td className="align-middle text-start">
                                     {item?.date_time || "N/A"}
