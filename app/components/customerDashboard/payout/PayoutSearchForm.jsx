@@ -20,6 +20,7 @@ const PayoutSearchForm = ({ searchTerm, setSearchTerm }) => {
                 }?${newParams.toString()}`;
                 router.push(newUrl);
             }, 500);
+
             return () => {
                 clearTimeout(handler);
             };
