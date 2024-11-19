@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 
-const ResaleBonusDetail = ({ resalBonusResult, resalBonusData }) => {
+const ResaleBonusDetail = ({ resalBonusResult, resalBonusData, serialNumber }) => {
     return (
         <>
             <div className="table-responsive">
@@ -26,7 +26,7 @@ const ResaleBonusDetail = ({ resalBonusResult, resalBonusData }) => {
                             return (
                                 <tr key={item?.id || index}>
                                     <td className="align-middle text-center">
-                                        {index + 1}
+                                        {index + 1 + serialNumber}
                                     </td>
 
                                     <td className="align-middle text-center">

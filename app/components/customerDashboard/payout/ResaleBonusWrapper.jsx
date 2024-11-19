@@ -7,18 +7,16 @@ import { getPayoutResaleBonus } from "@/app/services/affiliatepayout/getPayoutRe
 import NoDataFound from "../../NoDataFound";
 import LodingFixed from "../../LodingFixed";
 import PayoutSearchForm from "./PayoutSearchForm";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Pagination from "../../productCategory/Pagination";
 
 const ResaleBonusWrapper = () => {
     const [resalBonusResult, setResalBonusResult] = useState({});
     const [resalBonusData, setResalBonusData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
     const [isPending, startTransition] = useTransition();
     const { data: session, status } = useSession();
     const searchParam = useSearchParams();
-    const router = useRouter();
     const [lastPage, setLastPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,27 +29,11 @@ const ResaleBonusWrapper = () => {
 
     const limit = 20;
 
-    useEffect(() => {
-        if (debouncedSearchTerm.length >= 3 || debouncedSearchTerm === "") {
-            const handle = setTimeout(() => {
-                const newParams = new URLSearchParams(searchParam);
-                newParams.set("page", 1);
-                const newUrl = `${
-                    window.location.pathname
-                }?${newParams.toString()}`;
-                router.push(newUrl);
-                setDebouncedSearchTerm(searchTerm);
-            }, 500);
-            return () => {
-                clearTimeout(handle);
-            };
-        }
-    }, [searchTerm]);
 
     const fetchResalBonus = async () => {
         if (status === "authenticated" && session?.accessToken) {
             let params = {
-                search: debouncedSearchTerm,
+                search: searchTerm,
                 limit,
                 page: currentPage,
             };
@@ -73,7 +55,9 @@ const ResaleBonusWrapper = () => {
 
     useEffect(() => {
         fetchResalBonus();
-    }, [status, session?.accessToken, debouncedSearchTerm, currentPage]);
+    }, [status, session?.accessToken, searchTerm, currentPage]);
+
+    const serialNumber = (currentPage - 1 ) * limit;
 
     return (
         <>
@@ -89,6 +73,7 @@ const ResaleBonusWrapper = () => {
                         <ResaleBonusDetail
                             resalBonusResult={resalBonusResult}
                             resalBonusData={resalBonusData}
+                            serialNumber={serialNumber}
                         />
                         <Pagination
                             currentPage={currentPage}
