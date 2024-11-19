@@ -1,4 +1,4 @@
-const PayoutSalaryDetail = ({ salaryList, salaryResult }) => {
+const PayoutSalaryDetail = ({ salaryList, salaryResult, serialNumber }) => {
     return (
         <>
             <div className="table-responsive px-3">
@@ -19,7 +19,7 @@ const PayoutSalaryDetail = ({ salaryList, salaryResult }) => {
                             salaryList?.map((item, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>{index + 1}</td>
+                                        <td>{index + 1 + serialNumber}</td>
                                         <td>{item?.date_time}</td>
                                         <td>{item?.rank}</td>
                                         <td>{item?.purpose}</td>
