@@ -40,7 +40,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <td>{member.username}</td>
                             <td>
                                 <Link
-                                    href={`/affiliateteam/${member.id}?member=${member.name}`}
+                                    href={`/affiliate-team/${member.id}?member=${member.name}`}
                                     className=" border-0 bg-transparent "
                                     style={{ color: "green" }}
                                 >
