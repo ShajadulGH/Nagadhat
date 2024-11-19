@@ -83,7 +83,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     </h2>
                     <p>{authSessionData?.phone}</p>
                 </div>
-                <nav className="customer-dashboard-side-navbar">
+                <nav className="customer-dashboard-side-navbar bg-white">
                     <ul className="nav flex-column">
                         <li className="nav-item customer-dashboard-nav-item">
                             <Link
