@@ -47,6 +47,7 @@ const PayoutRankRewardWrapper = () => {
             fetchRankReward();
         }
     }, [status, session?.accessToken, currentPage]);
+    const serialNumber = (currentPage - 1 ) * limit;
 
     return (
         <>
@@ -59,6 +60,7 @@ const PayoutRankRewardWrapper = () => {
                             <PayoutRankRewardDetail
                                 rankRewardData={rankRewardData}
                                 rankRewardResult={rankRewardResult}
+                                serialNumber={serialNumber}
                             />
                             <Pagination
                                 currentPage={currentPage}
