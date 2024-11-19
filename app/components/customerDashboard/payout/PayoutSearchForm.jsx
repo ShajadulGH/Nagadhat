@@ -1,10 +1,30 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
+
 const PayoutSearchForm = ({ searchTerm, setSearchTerm }) => {
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
+    const [debouncedTerm, setDebouncedTerm] = useState('');
+    const searchParam = useSearchParams();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (debouncedTerm.length > 1) {
+            const handler = setTimeout(() => {
+                setSearchTerm(debouncedTerm);
+                const newParams = new URLSearchParams(searchParam);
+                newParams.set("page", 1);
+                const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+                router.push(newUrl);
+            }, 500); // Delay of 300ms
+            return () => {
+                clearTimeout(handler); // Cleanup timeout on every re-render
+            };
+        }else{
+            setSearchTerm("");
+        }
+    }, [debouncedTerm]);
 
     return (
         <>
@@ -18,8 +38,8 @@ const PayoutSearchForm = ({ searchTerm, setSearchTerm }) => {
                             className="form-control"
                             placeholder="Search..."
                             type="search"
-                            value={searchTerm}
-                            onChange={handleSearchChange}
+                            value={debouncedTerm}
+                            onChange={(e) => setDebouncedTerm(e.target.value)}
                             name="search"
                         />
                         <button className="input-group-text" id="search">

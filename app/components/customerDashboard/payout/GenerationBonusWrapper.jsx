@@ -14,7 +14,6 @@ const GenerationBonusWrapper = () => {
     const [generationBonusResult, setGenerationBonusResult] = useState({});
     const [generationBonusData, setGenerationBonusData] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
     const [isPending, startTransition] = useTransition();
     const { data: session, status } = useSession();
     const searchParam = useSearchParams();
@@ -30,27 +29,10 @@ const GenerationBonusWrapper = () => {
 
     const limit = 20;
 
-    useEffect(() => {
-        if (searchTerm.length >= 3 || searchTerm === "") {
-            const handler = setTimeout(() => {
-                const newParams = new URLSearchParams(searchParam);
-                newParams.set("page", 1);
-                const newUrl = `${
-                    window.location.pathname
-                }?${newParams.toString()}`;
-                router.replace(newUrl);
-                setDebouncedSearchTerm(searchTerm);
-            }, 500);
-            return () => {
-                clearTimeout(handler);
-            };
-        }
-    }, [searchTerm]);
-
     const fetchgenerationBonus = async () => {
         if (status === "authenticated" && session?.accessToken) {
             let params = {
-                search: debouncedSearchTerm,
+                search: searchTerm,
                 limit,
                 page: currentPage,
             };
@@ -72,7 +54,9 @@ const GenerationBonusWrapper = () => {
 
     useEffect(() => {
         fetchgenerationBonus();
-    }, [status, session?.accessToken, debouncedSearchTerm, currentPage]);
+    }, [status, session?.accessToken, searchTerm, currentPage]);
+
+    const serialNumber = (currentPage - 1 ) * limit;
 
     return (
         <>
@@ -89,6 +73,7 @@ const GenerationBonusWrapper = () => {
                         <GenerationBonusDetail
                             generationBonusData={generationBonusData}
                             generationBonusResult={generationBonusResult}
+                            serialNumber={serialNumber}
                         />
                         <Pagination
                             currentPage={currentPage}
