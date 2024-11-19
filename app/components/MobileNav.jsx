@@ -35,31 +35,31 @@ const MobileNav = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (
-    //             (searchAreaRef.current &&
-    //                 !searchAreaRef.current.contains(event.target)) ||
-    //             (searchResultRef.current &&
-    //                 !searchResultRef.current.contains(event.target))
-    //         ) {
-    //             setPopupSearch(false);
-    //             setSearchProduct([]);
-    //         }
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                (searchAreaRef.current &&
+                    !searchAreaRef.current.contains(event.target)) ||
+                (searchResultRef.current &&
+                    !searchResultRef.current.contains(event.target))
+            ) {
+                setPopupSearch(false);
+                setSearchProduct([]);
+            }
 
-    //         if (
-    //             sidebarRef.current &&
-    //             !sidebarRef.current.contains(event.target)
-    //         ) {
-    //             setIsSidebarOpen(false); // Close sidebar when clicking outside
-    //         }
-    //     };
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+                setIsSidebarOpen(false); // Close sidebar when clicking outside
+            }
+        };
 
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
@@ -212,7 +212,7 @@ const MobileNav = () => {
                     )}
                     <aside
                         className={`customer-dashboard-side-navbar-mobile d-xl-none left-100 ${
-                            isSidebarOpen ? "start-0" : "left-100"
+                            isSidebarOpen ? "start-0 mobile-nave-shadow" : "left-100"
                         } `}
                         ref={sidebarRef} // Sidebar ref
                     >
