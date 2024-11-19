@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { getPayoutAffiliateBonus } from "@/app/services/affiliatepayout/getPayoutAffiliateBonus";
 import LodingFixed from "../../LodingFixed";
 import NoDataFound from "../../NoDataFound";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import PayoutSearchForm from "./PayoutSearchForm";
 import Pagination from "../../productCategory/Pagination";
 
@@ -15,10 +15,8 @@ const AffiliateBonusWrapper = () => {
     const [affiliateBonusData, setAffiliateBonusData] = useState([]);
     const [isPending, startTransition] = useTransition();
     const [searchTerm, setSearchTerm] = useState("");
-    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
     const { data: session, status } = useSession();
     const searchParam = useSearchParams();
-    const router = useRouter();
     const [lastPage, setLastPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 20;
@@ -30,25 +28,10 @@ const AffiliateBonusWrapper = () => {
         }
     }, [searchParam]);
 
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            const newParams = new URLSearchParams(searchParam);
-            newParams.set("page", 1);
-            const newUrl = `${
-                window.location.pathname
-            }?${newParams.toString()}`;
-            router.replace(newUrl);
-            setDebouncedSearchTerm(searchTerm);
-        }, 500);
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchTerm]);
-
     const fetchAffiliateBonus = async () => {
         if (status === "authenticated" && session.accessToken) {
             let params = {
-                search: debouncedSearchTerm,
+                search: searchTerm,
                 limit,
                 page: currentPage,
             };
@@ -69,10 +52,10 @@ const AffiliateBonusWrapper = () => {
     };
 
     useEffect(() => {
-        if (debouncedSearchTerm.length >= 3 || debouncedSearchTerm === "") {
-            fetchAffiliateBonus();
-        }
-    }, [status, session?.accessToken, debouncedSearchTerm, currentPage]);
+        fetchAffiliateBonus();
+    }, [status, session?.accessToken, searchTerm, currentPage]);
+
+    const serialNumber = (currentPage - 1) * limit;
 
     return (
         <>
@@ -88,6 +71,7 @@ const AffiliateBonusWrapper = () => {
                         <AffiliateBonusDetail
                             affiliateBonusResult={affiliateBonusResult}
                             affiliateBonusData={affiliateBonusData}
+                            serialNumber={serialNumber}
                         />
                         <Pagination
                             currentPage={currentPage}

@@ -1,6 +1,6 @@
 import PayoutSearchForm from "./PayoutSearchForm";
 
-const AffiliateBonusDetail = ({ affiliateBonusResult, affiliateBonusData }) => {
+const AffiliateBonusDetail = ({ affiliateBonusResult, affiliateBonusData, serialNumber }) => {
     return (
         <div className="p-3">
             <div className="table-responsive">
@@ -38,7 +38,7 @@ const AffiliateBonusDetail = ({ affiliateBonusResult, affiliateBonusData }) => {
                             return (
                                 <tr key={item?.id}>
                                     <td className="align-middle text-center">
-                                        {index + 1}
+                                        {index + 1 + serialNumber}
                                     </td>
 
                                     <td className="align-middle text-start">

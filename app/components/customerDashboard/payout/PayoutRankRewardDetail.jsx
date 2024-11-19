@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 
-const PayoutRankRewardDetail = ({ rankRewardData, rankRewardResult }) => {
+const PayoutRankRewardDetail = ({ rankRewardData, rankRewardResult, serialNumber }) => {
     return (
         <>
             <div className="table-responsive">
@@ -17,7 +17,7 @@ const PayoutRankRewardDetail = ({ rankRewardData, rankRewardResult }) => {
                         {rankRewardData?.map((item, index) => {
                             return (
                                 <tr key={item?.id || index}>
-                                    <td scope="row">{index + 1}</td>
+                                    <td scope="row">{index + 1 + serialNumber}</td>
                                     <td>{item?.date_time || "N/A"}</td>
                                     <td>{item?.purpose || "N/A"} </td>
                                     <td> ৳ {item?.earning || "0"} </td>

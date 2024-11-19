@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";
 import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 import NoDataFound from "@/app/components/NoDataFound";
+import ContainerHorizontalScroll from "./ContainerHorizontalScroll";
 
 const ContainerBooking = ({ isActive }) => {
     const [isPending, startTransition] = useTransition();
@@ -59,6 +60,8 @@ const ContainerBooking = ({ isActive }) => {
                 id="container-booking"
                 role="tabpanel"
             >
+                <ContainerHorizontalScroll />
+
                 <ContainerTopInfo containerData={containerData} />
                 {isPending ? (
                     <DefaultLoader />
