@@ -72,7 +72,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     }
 
     return (
+<<<<<<< HEAD
         <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column h-100 ">
+=======
+        <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column" style={{ height: "100vh" }}>
+>>>>>>> 236d1c6 (mobile nav auto off add)
             <div className="bg-white">
                 <div className="p-4 text-center customer-dashboard-profile">
                     <div className="mb-3 customer-dashboard-profile-avatar">
@@ -90,7 +94,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     </h2>
                     <p>{authSessionData?.phone}</p>
                 </div>
+<<<<<<< HEAD
                 <nav className="customer-dashboard-side-navbar bg-white">
+=======
+                <nav className="customer-dashboard-side-navbar">
+>>>>>>> 236d1c6 (mobile nav auto off add)
                     <ul className="nav flex-column">
                         <li className="nav-item customer-dashboard-nav-item">
                             <Link
@@ -118,12 +126,25 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         </li>
                         <li className="nav-item customer-dashboard-nav-item">
                             <p
+<<<<<<< HEAD
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "privilegeCard"? "activ-link":""}`}
+=======
+                                className="nav-link customer-dashboard-nav-link dropdown-btn"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                 onClick={() => toggleDropdown("privilegeCard")}
                             >
                                 <FaCreditCard className="nav-icon me-2" />
                                 Privilege Card
+<<<<<<< HEAD
                                 <FaAngleRight className={`dropdown ${activeDropdown === "privilegeCard"? "rotate":""}`}/>
+=======
+                                <FaAngleRight
+                                    className={`dropdown ${activeDropdown === "privilegeCard"
+                                        ? "rotate"
+                                        : ""
+                                        }`}
+                                />
+>>>>>>> 236d1c6 (mobile nav auto off add)
                             </p>
                             <ul
                                 className={`dropdown-conteiner ${activeDropdown === "privilegeCard" ? "show" : ""
@@ -175,7 +196,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         {isAffiliateUser?.affiliate_user_status == "Affiliate" && (
                             <li className="nav-item customer-dashboard-nav-item">
                                 <p
+<<<<<<< HEAD
                                     className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "affiliate"? "activ-link":""}`}
+=======
+                                    className="nav-link customer-dashboard-nav-link dropdown-btn"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                     onClick={() => toggleDropdown("affiliate")}
                                 >
                                     <FaWallet className="nav-icon me-2" />
@@ -194,11 +219,19 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
+<<<<<<< HEAD
                                             className={`${isActive("/affiliate-dashboard")
                                                 ? "activ-link"
                                                 : ""
                                                 } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-dashboard"
+=======
+                                            className={`${isActive("/affiliatedashboard")
+                                                ? "activ-link"
+                                                : ""
+                                                } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliatedashboard"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Affiliate Dashboard
@@ -207,11 +240,19 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
+<<<<<<< HEAD
                                             className={`${isActive("/affiliate-team")
                                                 ? "activ-link"
                                                 : ""
                                                 } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-team"
+=======
+                                            className={`${isActive("/affiliateteam")
+                                                ? "activ-link"
+                                                : ""
+                                                } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliateteam"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             My Team
@@ -220,11 +261,19 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
+<<<<<<< HEAD
                                             className={`${isActive("/affiliate-products")
                                                 ? "activ-link"
                                                 : ""
                                                 } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-products"
+=======
+                                            className={`${isActive("/affiliateproducts")
+                                                ? "activ-link"
+                                                : ""
+                                                } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliateproducts"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Affiliate Products
@@ -234,12 +283,20 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         <Link
                                             onClick={toggleSidebar}
                                             className={`${isActive(
+<<<<<<< HEAD
                                                 "/affiliate-sell-on-nagadhat"
+=======
+                                                "/affiliat-sell-on-nagadhat"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                             )
                                                 ? "activ-link"
                                                 : ""
                                                 } nav-link customer-dashboard-nav-link`}
+<<<<<<< HEAD
                                             href="/affiliate-sell-on-nagadhat"
+=======
+                                            href="/affiliat-sell-on-nagadhat"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Sell On Nagadhat
@@ -248,11 +305,19 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
+<<<<<<< HEAD
                                             className={`${isActive("/affiliate-rankreward")
                                                 ? "activ-link"
                                                 : ""
                                                 } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-rankreward"
+=======
+                                            className={`${isActive("/affiliaterankreward")
+                                                ? "activ-link"
+                                                : ""
+                                                } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliaterankreward"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Ranks & Rewards
@@ -275,8 +340,13 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
 
                         <li className="nav-item customer-dashboard-nav-item">
                             <p
+<<<<<<< HEAD
                                     className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "payout"? "activ-link":""}`}
                                     onClick={() => toggleDropdown("payout")}
+=======
+                                className="nav-link customer-dashboard-nav-link dropdown-btn"
+                                onClick={() => toggleDropdown("payout")}
+>>>>>>> 236d1c6 (mobile nav auto off add)
                             >
                                 <FaBangladeshiTakaSign className="nav-icon me-2" />
                                 Payout
@@ -358,7 +428,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         </li>
                         <li className="nav-item customer-dashboard-nav-item">
                             <p
+<<<<<<< HEAD
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "finance"? "activ-link":""}`}
+=======
+                                className="nav-link customer-dashboard-nav-link dropdown-btn"
+>>>>>>> 236d1c6 (mobile nav auto off add)
                                 onClick={() => toggleDropdown("finance")}
                             >
                                 <FaMoneyBillTransfer className="nav-icon me-2" />
@@ -501,8 +575,13 @@ onClick={toggleSidebar}
 
                         <li className="nav-item customer-dashboard-nav-item">
                             <p
+<<<<<<< HEAD
                                     className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "others"? "activ-link":""}`}
                                     onClick={() => toggleDropdown("others")}
+=======
+                                className="nav-link customer-dashboard-nav-link dropdown-btn d-flex justify-content-between"
+                                onClick={() => toggleDropdown("others")}
+>>>>>>> 236d1c6 (mobile nav auto off add)
                             >
                                 <span>
                                     <IoMdOptions className="nav-icon me-2 fw-bolder " />
