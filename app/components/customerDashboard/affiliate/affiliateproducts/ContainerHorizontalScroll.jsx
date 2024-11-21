@@ -31,8 +31,9 @@ const ContainerHorizontalScroll = ({
                 text: "This container is no longer available.",
                 icon: "error",
             });
+        } else {
+            setContainerActiveId(activeID);
         }
-        setContainerActiveId(activeID);
     };
 
     return (
