@@ -14,7 +14,7 @@ const WithdrawChart = ({ chartInfo }) => {
 
     useEffect(() => {
         const chartLabel =
-            chartInfo?.chartData?.map((item) => item.label) || [];
+            chartInfo?.chartData?.map((item) => item.label +" - ৳" + item.value) || [];
         const chartValue =
             chartInfo?.chartData?.map((item) => item.value) || [];
         setSeries(chartValue);
@@ -28,7 +28,7 @@ const WithdrawChart = ({ chartInfo }) => {
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 200,
+                            width: 400,
                         },
                         legend: {
                             position: "bottom",
@@ -49,8 +49,8 @@ const WithdrawChart = ({ chartInfo }) => {
                     options={options}
                     series={series}
                     type="donut"
-                    height={280}
-                    width={350}
+                    height={320}
+                    width={400}
                 />
             </div>
             <div id="html-dist"></div>
