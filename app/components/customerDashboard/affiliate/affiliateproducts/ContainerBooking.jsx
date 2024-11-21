@@ -8,14 +8,37 @@ import { useEffect, useState, useTransition } from "react";
 import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 import NoDataFound from "@/app/components/NoDataFound";
 import ContainerHorizontalScroll from "./ContainerHorizontalScroll";
+import { getActiveContainers } from "@/app/services/affiliate/affiliateproducts/getActiveContainers";
 
 const ContainerBooking = ({ isActive }) => {
     const [isPending, startTransition] = useTransition();
     const [containerData, setContainerData] = useState({});
     const [containerProduct, setContainerProduct] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const [activeContainerData, setActiveContainerData] = useState([]);
+    const [containerActiveId, setContainerActiveId] = useState(null);
     const [quantityFull, setQuantityFull] = useState(1);
     const { data: session, status } = useSession();
+
+    useEffect(() => {
+        const fetchActiveContainer = async () => {
+            try {
+                startTransition(async () => {
+                    const response = await getActiveContainers(
+                        session?.accessToken
+                    );
+                    if (response?.code === 200) {
+                        setActiveContainerData(response?.results);
+                    } else {
+                        console.log(response?.message);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to fetch container data:", error);
+            }
+        };
+        fetchActiveContainer();
+    }, [session?.accessToken]);
 
     useEffect(() => {
         const fetchRetailProducts = async () => {
@@ -60,7 +83,12 @@ const ContainerBooking = ({ isActive }) => {
                 id="container-booking"
                 role="tabpanel"
             >
-                <ContainerHorizontalScroll />
+                <ContainerHorizontalScroll
+                    activeContainerData={activeContainerData}
+                    isPending={isPending}
+                    setContainerActiveId={setContainerActiveId}
+                    containerActiveId={containerActiveId}
+                />
 
                 <ContainerTopInfo containerData={containerData} />
                 {isPending ? (
