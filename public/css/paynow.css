@@ -123,6 +123,11 @@
     padding-top: 50px;
 }
 
+.bank-payment-modal-h-fixed {
+    max-height: 430px;
+    overflow-y: auto;
+}
+
 @media (max-width:991px) {
     .pay-now-terms-condition-area {
         padding-bottom: 20px;
