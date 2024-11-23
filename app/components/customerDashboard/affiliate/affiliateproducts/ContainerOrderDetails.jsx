@@ -1,7 +1,7 @@
 "use client";
 import LodingFixed from "@/app/components/LodingFixed";
 import { postContainerPlaceOrder } from "@/app/services/affiliate/affiliateproducts/postContainerPlaceOrder";
-import { NagadhatPublicUrl } from "@/app/utils";
+import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -176,123 +176,136 @@ const ContainerOrderDetails = ({
 
     return (
         <>
-            <div className="row gy-3 p-4">
+            <div className="row gy-3 gx-2 p-4">
                 <div className="col-md-8 overflow-x-auto">
-                    <div
-                        className="container-booking-oder-table"
-                        style={{ minWidth: "400px" }}
-                    >
+                    <div className="container-booking-oder-table">
                         <h3>Order Details</h3>
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Details</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {selectedProducts.map((product) => (
-                                    <tr key={product.id}>
-                                        <td>
-                                            <Image
-                                                height={50}
-                                                width={50}
-                                                src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
-                                                alt={product.product_name}
-                                            />
-                                        </td>
-                                        <td>{product.product_name}</td>
-                                        <td className="align-middle">
-                                            <div
-                                                className="btn-group px-1 quantity-area container-booking-quantity-area"
-                                                role="group"
-                                                aria-label="Basic example"
-                                            >
-                                                <button
-                                                    type="button"
-                                                    className="quantity-decrease"
-                                                    onClick={() =>
-                                                        handleDecrease(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    style={{ fontSize: "16px" }}
-                                                >
-                                                    <FaMinus />
-                                                </button>
-                                                <input
-                                                    className="quantity-fild py-1"
-                                                    min="1"
-                                                    max="500"
-                                                    type="text"
-                                                    style={{ width: "36px" }}
-                                                    value={product.quantity}
-                                                    onChange={(e) =>
-                                                        handleQuantityChange(
-                                                            product.id,
-                                                            e
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        availableValue <
-                                                        finalTotal
-                                                    }
-                                                    readOnly={
-                                                        availableValue <
-                                                        finalTotal
-                                                            ? true
-                                                            : false
-                                                    }
-                                                />
-                                                <button
-                                                    className="quantity-increase"
-                                                    type="button"
-                                                    onClick={() =>
-                                                        handleIncrease(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    style={{ fontSize: "16px" }}
-                                                    disabled={
-                                                        availableValue <
-                                                        finalTotal
-                                                    }
-                                                >
-                                                    <FaPlus />
-                                                </button>
-                                            </div>
-                                        </td>
-                                        <td className="align-middle">
-                                            <strong>
-                                                {product.pivot.mrp_price *
-                                                    product.quantity}{" "}
-                                                ৳
-                                            </strong>
-                                        </td>
-                                        <td className="align-middle">
-                                            <p
-                                                onClick={() =>
-                                                    handleDeleteSelectedProducts(
-                                                        product.id
-                                                    )
-                                                }
-                                                className="text-danger"
-                                                title="Delete"
-                                                style={{
-                                                    cursor: "pointer",
-                                                    textAlign: "center",
-                                                }}
-                                            >
-                                                <FaTrashAlt />
-                                            </p>
-                                        </td>
+                        <div className="table-responsive">
+                            <table
+                                className="table"
+                                style={{ minWidth: "550px" }}
+                            >
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Details</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Remove</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {selectedProducts.map((product) => (
+                                        <tr key={product.id}>
+                                            <td>
+                                                <Image
+                                                    height={50}
+                                                    width={50}
+                                                    src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
+                                                    alt={product.product_name}
+                                                />
+                                            </td>
+                                            <td>
+                                                {truncateTitle(
+                                                    product.product_name,
+                                                    25
+                                                )}
+                                            </td>
+                                            <td className="align-middle">
+                                                <div
+                                                    className="btn-group px-1 quantity-area container-booking-quantity-area"
+                                                    role="group"
+                                                    aria-label="Basic example"
+                                                >
+                                                    <button
+                                                        type="button"
+                                                        className="quantity-decrease"
+                                                        onClick={() =>
+                                                            handleDecrease(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        style={{
+                                                            fontSize: "16px",
+                                                        }}
+                                                    >
+                                                        <FaMinus />
+                                                    </button>
+                                                    <input
+                                                        className="quantity-fild py-1"
+                                                        min="1"
+                                                        max="500"
+                                                        type="text"
+                                                        style={{
+                                                            width: "36px",
+                                                        }}
+                                                        value={product.quantity}
+                                                        onChange={(e) =>
+                                                            handleQuantityChange(
+                                                                product.id,
+                                                                e
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            availableValue <
+                                                            finalTotal
+                                                        }
+                                                        readOnly={
+                                                            availableValue <
+                                                            finalTotal
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    />
+                                                    <button
+                                                        className="quantity-increase"
+                                                        type="button"
+                                                        onClick={() =>
+                                                            handleIncrease(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        style={{
+                                                            fontSize: "16px",
+                                                        }}
+                                                        disabled={
+                                                            availableValue <
+                                                            finalTotal
+                                                        }
+                                                    >
+                                                        <FaPlus />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td className="align-middle">
+                                                <strong>
+                                                    {product.pivot.mrp_price *
+                                                        product.quantity}{" "}
+                                                    ৳
+                                                </strong>
+                                            </td>
+                                            <td className="align-middle">
+                                                <p
+                                                    onClick={() =>
+                                                        handleDeleteSelectedProducts(
+                                                            product.id
+                                                        )
+                                                    }
+                                                    className="text-danger"
+                                                    title="Delete"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        textAlign: "center",
+                                                    }}
+                                                >
+                                                    <FaTrashAlt />
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-4">
