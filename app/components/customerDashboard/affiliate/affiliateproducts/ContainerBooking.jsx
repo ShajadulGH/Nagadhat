@@ -21,47 +21,52 @@ const ContainerBooking = ({ isActive }) => {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        const fetchActiveContainer = async () => {
-            try {
-                startTransition(async () => {
-                    const response = await getActiveContainers(
-                        session?.accessToken
-                    );
-                    if (response?.code === 200) {
-                        setActiveContainerData(response?.results);
-                    } else {
-                        console.log(response?.message);
-                    }
-                });
-            } catch (error) {
-                console.error("Failed to fetch container data:", error);
-            }
-        };
-        fetchActiveContainer();
+        if (session?.accessToken) {
+            const fetchActiveContainer = async () => {
+                try {
+                    startTransition(async () => {
+                        const response = await getActiveContainers(
+                            session?.accessToken
+                        );
+                        if (response?.code === 200) {
+                            setActiveContainerData(response?.results);
+                        } else {
+                            console.log(response?.message);
+                        }
+                    });
+                } catch (error) {
+                    console.error("Failed to fetch container data:", error);
+                }
+            };
+            fetchActiveContainer();
+        }
     }, [session?.accessToken]);
 
     useEffect(() => {
-        const fetchRetailProducts = async () => {
-            try {
-                startTransition(async () => {
-                    const containerResponse = await getAffiliateContainer(
-                        session?.accessToken
-                    );
-                    if (containerResponse?.code === 200) {
-                        setContainerData(containerResponse?.results);
-                        setContainerProduct(
-                            containerResponse?.results?.products
+        if (session?.accessToken) {
+            const fetchRetailProducts = async () => {
+                try {
+                    startTransition(async () => {
+                        const containerResponse = await getAffiliateContainer(
+                            session?.accessToken,
+                            containerActiveId
                         );
-                    } else {
-                        console.log(containerResponse?.message);
-                    }
-                });
-            } catch (error) {
-                console.error("Failed to fetch container data:", error);
-            }
-        };
-        fetchRetailProducts();
-    }, [session?.accessToken]);
+                        if (containerResponse?.code === 200) {
+                            setContainerData(containerResponse?.results);
+                            setContainerProduct(
+                                containerResponse?.results?.products
+                            );
+                        } else {
+                            console.log(containerResponse?.message);
+                        }
+                    });
+                } catch (error) {
+                    console.error("Failed to fetch container data:", error);
+                }
+            };
+            fetchRetailProducts();
+        }
+    }, [session?.accessToken, containerActiveId]);
 
     const availableQuantity =
         containerData?.quantity - containerData?.booked_quantity;

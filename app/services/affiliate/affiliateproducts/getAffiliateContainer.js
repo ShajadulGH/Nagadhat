@@ -1,8 +1,10 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getAffiliateContainer = async (token) => {
+export const getAffiliateContainer = async (token, containerId) => {
     try {
-        const url = `${apiBaseUrl}/container`;
+        const url = containerId
+            ? `${apiBaseUrl}/container?containerId=${containerId}`
+            : `${apiBaseUrl}/container`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -15,9 +17,7 @@ export const getAffiliateContainer = async (token) => {
 
         return await response.json();
     } catch (error) {
-        console.error(
-            "Something went wrong fetching affiliate Container Data"
-        );
+        console.error("Something went wrong fetching affiliate Container Data");
         console.info(error);
     }
 };
