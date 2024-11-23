@@ -602,7 +602,7 @@ onClick={toggleSidebar}
                                                 ? "activ-link"
                                                 : ""
                                         } nav-link customer-dashboard-nav-link`}
-                                        href="/passwordtxnotp"
+                                        href="/affiliate-password-txn-otp"
                                     >
                                         <span className="dropdown-item-circle"></span>
                                         Password & TXN OTP
