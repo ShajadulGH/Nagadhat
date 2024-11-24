@@ -254,6 +254,11 @@ body {
     background: var(--color-414042);
 }
 
+.active-nav {
+    color: var(--color-1A9D78); 
+}
+
+
 /*------------------- End nh-categories-area ---------------------------*/
 
 /*------------------- Start nh-brands-area ---------------------------*/

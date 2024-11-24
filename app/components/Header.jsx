@@ -16,12 +16,14 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setAddToCart } from "../store/cartSlice";
 import { fetchCartProducts } from "../services/getShowAddToCartProduct";
+import { FaPhone } from "react-icons/fa6";
 
 function Header() {
     const path = useParams();
     const { status, data: session } = useSession();
     const [isSticky, setSticky] = useState(false);
     const [isObserverMenuVisible, setObserverMenuVisible] = useState(false);
+    const [mobileTopMenuVisible, setMobileTopMenuVisible] = useState(false);
     const [isCategoryHoverMenu, setCategoryHoverMenu] = useState(false);
     const [isResponsive, setResponsive] = useState(false);
     const [outletId, setOutletId] = useState(() => {
@@ -46,8 +48,8 @@ function Header() {
             let scrollPosition = 5;
             let scrollPositionWidth = 5;
             if (typeof window !== "undefined") {
-                scrollPosition = window.scrollY ||5;
-                scrollPositionWidth = window.innerWidth ||5;
+                scrollPosition = window.scrollY || 5;
+                scrollPositionWidth = window.innerWidth || 5;
             }
             scrollPosition >= 0 ? setSticky(true) : setSticky(false);
             scrollPositionWidth < 1200
@@ -58,6 +60,11 @@ function Header() {
             } else {
                 setObserverMenuVisible(false);
                 setCategoryHoverMenu(false);
+            }
+            if (scrollPosition > 40) {
+                setMobileTopMenuVisible(true);
+            } else {
+                setMobileTopMenuVisible(false);
             }
         };
         handleScrollPosition()
@@ -89,11 +96,11 @@ function Header() {
                     },
                     body: JSON.stringify({ cart_items: cartItems }),
                 });
-    
+
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-    
+
                 return response.json();
             } else {
                 console.warn("No items to add or missing access token.");
@@ -104,7 +111,7 @@ function Header() {
             return null;
         }
     };
-    
+
 
     useEffect(() => {
         storeUserAgent();
@@ -164,12 +171,20 @@ function Header() {
         <>
             <header className={`header-sticky ${isSticky ? "header-sticky" : ""}`}>
                 <div className="header-wrapper">
+                    {!mobileTopMenuVisible && isResponsive &&
+                        <div className="bg-white">
+                            <div className={`mobile-nav-top-menu container header-container`}>
+                                <a className="py-2" href="tel:+01906198502"><FaPhone className="pe-1"/> 01906198502</a>
+                            </div>
+                        </div>
+                    }
                     <div className="container header-container">
                         {!isObserverMenuVisible && !isResponsive && <MiniNav />}
                         {!isResponsive ? (
                             <MainNav {...scrollOption} authStatus={status} />
                         ) : (
-                            <MobileNav />
+
+                            <MobileNav mobileTopMenuVisible={mobileTopMenuVisible} />
                         )}
                         {!path && <HeroSlider />}
                     </div>

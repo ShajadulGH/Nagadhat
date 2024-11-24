@@ -10,7 +10,7 @@ import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 import { useSelector } from "react-redux";
 
-const MobileNav = () => {
+const MobileNav = ({mobileTopMenuVisible}) => {
     const [popupSearch, setPopupSearch] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [search, setSearch] = useState("");
@@ -174,9 +174,8 @@ const MobileNav = () => {
                         </div>
                     </div>
                     <div
-                        className={`mobile-popup-search-area ${
-                            popupSearch ? "active" : ""
-                        }`}
+                        className={`mobile-popup-search-area ${popupSearch ? "active" : ""
+                            }`}
                         ref={searchAreaRef}
                     >
                         <form action="#">
@@ -213,9 +212,8 @@ const MobileNav = () => {
                         </div>
                     )}
                     <aside
-                        className={`customer-dashboard-side-navbar-mobile d-xl-none left-100 ${
-                            isSidebarOpen ? "start-0 mobile-nave-shadow" : "left-100"
-                        } `}
+                        className={`customer-dashboard-side-navbar-mobile d-xl-none left-100 ${isSidebarOpen ? "start-0 mobile-nave-shadow" : "left-100"
+                            } `}
                         ref={sidebarRef} // Sidebar ref
                     >
                         <div

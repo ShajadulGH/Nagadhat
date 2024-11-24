@@ -277,7 +277,7 @@ header {
 .observer-hover-menu {
     position: fixed;
     top: 67px;
-    z-index: 1050;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     width: 310px;
