@@ -37,10 +37,9 @@ const ContainerHorizontalScroll = ({
     };
 
     return (
-        <div ref={containerRef} className="scroll-container">
-            {isPending ? (
-                <LodingFixed />
-            ) : (
+        <>
+            {isPending && <LodingFixed />}
+            <div ref={containerRef} className="scroll-container">
                 <div className="scroll-content">
                     {activeContainerData?.length > 0 ? (
                         activeContainerData.map((item) => {
@@ -127,12 +126,13 @@ const ContainerHorizontalScroll = ({
                                 </div>
                             );
                         })
-                    ) : (
+                    ) : ( 
+                        !isPending &&
                         <NoDataFound />
                     )}
                 </div>
-            )}
-        </div>
+            </div>
+        </>
     );
 };
 

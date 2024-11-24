@@ -97,6 +97,7 @@
   }
   .after-click-bg {
     box-shadow: rgba(14, 30, 37, 0.18) 0px 2px 4px 0px, rgba(14, 30, 37, 0.36) 0px 2px 16px 0px;
+    border: 2px solid #44bc9d;
   }
   .container-top-tags {
     font-size: 14px;
