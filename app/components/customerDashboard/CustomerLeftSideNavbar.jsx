@@ -560,7 +560,7 @@ onClick={toggleSidebar}
                             <Link
                                 onClick={toggleSidebar}
                                 className="nav-link customer-dashboard-nav-link"
-                                href="#"
+                                href="/support"
                             >
                                 <FaTicket className="nav-icon me-2" />
                                 Support
