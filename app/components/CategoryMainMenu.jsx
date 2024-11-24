@@ -1,6 +1,6 @@
 import CategoryMainMenuList from "./CategoryMainMenuList";
 
-const CategoryMainMenu = ({ categoryMenu }) => {
+const CategoryMainMenu = ({ categoryMenu, isMobile, setCategoryHoverMenu }) => {
     const menuItems = categoryMenu;
     return (
         <>
@@ -10,6 +10,8 @@ const CategoryMainMenu = ({ categoryMenu }) => {
                         <CategoryMainMenuList
                             key={menuItem.id}
                             menuList={menuItem}
+                            isMobile={isMobile}
+                            setCategoryHoverMenu={setCategoryHoverMenu}
                         />
                     ))}
             </ul>

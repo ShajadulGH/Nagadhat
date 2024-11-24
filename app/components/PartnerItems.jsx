@@ -5,14 +5,15 @@ import React from 'react'
 const PartnerItems = ({ optionData }) => {
     const { path, imageUrl, altText } = optionData;
     return (
-        <div className="col-lg-3 col-md-6 col-sm-6 col-6">
+        <div className="px-2">
             <div className="nagadhat-partner">
                 <Link href={path} target='_blank'>
                     <Image
                         className="img-fluid"
                         src={imageUrl}
                         alt={altText}
-                        fill={true}
+                        height={200}
+                        width={300}
                     />
                 </Link>
             </div>

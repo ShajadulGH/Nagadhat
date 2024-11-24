@@ -234,6 +234,11 @@
         width: 65%;
     }
 
+    .observer-hover-menu {
+        bottom: 58px !important;
+        top: auto;
+    }
+
     .hero-slider-content h1 {
         font-size: 36px;
         line-height: 41px;
@@ -337,6 +342,9 @@
 @media (max-width: 767px) {
     .affiliate-page-substr {
         width: 100%;
+    }
+    .observer-hover-menu {
+        width: auto;
     }
     .table-responsive-md table {
         min-width: 700px !important;

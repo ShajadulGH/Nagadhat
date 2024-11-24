@@ -14,7 +14,7 @@ const MainSlider = ({ sliderOptionData }) => {
         arrows: false,
         autoplay: true,
         speed: 2000,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 4000,
     };
     return (
         <div className="hero-slider-holder hero-slider-main-item">

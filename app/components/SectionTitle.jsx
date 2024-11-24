@@ -17,15 +17,16 @@ function SectionTitle({
         <div className="row nh-common-title-area">
             <div className="col-md-12">
                 <div
-                    className={`nh-common-title d-flex align-items-center justify-content-between ${
-                        isSale && width < MAX_SCREEN_SIZE ? "flex-column" : ""
-                    }`}
+                    className={`nh-common-title d-flex align-items-center justify-content-between`}
                 >
                     <div className="nh-common-item d-flex align-items-center">
                         <h3>{title}</h3>
                         <div className="common-border"></div>
                     </div>
-                    {children}
+                    
+                    {
+                        isSale && width > MAX_SCREEN_SIZE ? <div>{children}</div> : ""
+                    }
                     {showViewAll && (
                         <div className="nh-common-item">
                             {districtId ? (
@@ -44,6 +45,9 @@ function SectionTitle({
                         </div>
                     )}
                 </div>
+                {
+                    isSale && width < MAX_SCREEN_SIZE ? <div className="pt-2">{children}</div> : ""
+                }
             </div>
         </div>
     );

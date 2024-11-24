@@ -112,7 +112,8 @@ const MobileNav = () => {
                                     <Image
                                         src="/images/logo.svg"
                                         alt="logo"
-                                        fill={true}
+                                        height={40}
+                                        width={180}
                                         aria-label="Navigate to homepage"
                                     />
                                 </Link>
@@ -144,14 +145,14 @@ const MobileNav = () => {
                                     height={21}
                                 />
                             </div>
-                            <div
+                            {/* <div
                                 className="fs-4 text-white dashboard-side-navbar-togol"
                                 onClick={() => router.push("/cart-page")}
                                 aria-label="Go to cart page"
                             >
                                 <FaCartShopping />
                                 <sup className="bg-warning rounded-circle px-1 fs-6">{addToCartProductLength}</sup>
-                            </div>
+                            </div> */}
                             {session ? (
                                 <div
                                     className="fs-4 text-white dashboard-side-navbar-togol"
@@ -161,13 +162,14 @@ const MobileNav = () => {
                                     <FaBars />
                                 </div>
                             ) : (
-                                <div
-                                    className="fs-6 text-white dashboard-side-navbar-togol"
-                                    onClick={() => router.push("/login")}
-                                    aria-label="Go to login page"
-                                >
-                                    <FaUser />
-                                </div>
+                                ""
+                                // <div
+                                //     className="fs-6 text-white dashboard-side-navbar-togol"
+                                //     onClick={() => router.push("/login")}
+                                //     aria-label="Go to login page"
+                                // >
+                                //     <FaUser />
+                                // </div>
                             )}
                         </div>
                     </div>
