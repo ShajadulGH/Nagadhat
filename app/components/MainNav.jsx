@@ -102,9 +102,8 @@ function MainNav({
     return (
         <div ref={searchResultRef}>
             <div
-                className={`row main-header-section ${
-                    !isObserverMenuVisible ? "" : "d-none"
-                }`}
+                className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"
+                    }`}
             >
                 <div className="col-12">
                     <div className="main-header-area d-flex">
@@ -170,46 +169,13 @@ function MainNav({
                         </div>
                         <div className="header-auth-area d-flex justify-content-end">
                             <ul className="d-flex align-items-center">
-                                {authStatus === "unauthenticated" && (
-                                    <li>
-                                        <Link
-                                            href="/login"
-                                            className="text-white text-capitalize d-flex align-items-center"
-                                        >
-                                            <Image
-                                                src="/images/login-icon.svg"
-                                                alt="login-icon"
-                                                width={13}
-                                                height={19}
-                                            />
-                                            Login
-                                        </Link>
-                                    </li>
-                                )}
-
-                                {authStatus === "unauthenticated" && (
-                                    <li>
-                                        <Link
-                                            href="/registration"
-                                            className="text-white text-capitalize d-flex align-items-center"
-                                        >
-                                            <Image
-                                                src="/images/register-icon.svg"
-                                                alt="register-icon"
-                                                width={14}
-                                                height={17}
-                                            />
-                                            Register
-                                        </Link>
-                                    </li>
-                                )}
 
                                 <li>
                                     <Link
                                         href="/cart-page"
-                                        className="text-white text-capitalize d-flex align-items-center"
+                                        className="text-white text-capitalize position-relative"
                                     >
-                                        <span className="bg-white d-flex align-items-center">
+                                        <span className="bg-white d-flex align-items-center m-0">
                                             <Image
                                                 src="/images/cart-icon.svg"
                                                 alt="cart-icon"
@@ -217,7 +183,11 @@ function MainNav({
                                                 height={15}
                                             />
                                         </span>
-                                        Cart ({addToCartProductLength})
+                                        {addToCartProductLength ?(
+                                            <p className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" style={{ height: "22px", width: "22px", top: "-25%", right: "-30%" }}>
+                                            <small className="text-center">{addToCartProductLength}</small>
+                                        </p>
+                                        ):""}
                                     </Link>
                                 </li>
                                 {authStatus === "authenticated" && (
@@ -235,6 +205,22 @@ function MainNav({
                                         </Link>
                                     </li>
                                 )}
+                                {authStatus === "unauthenticated" && (
+                                    <li>
+                                        <Link
+                                            href="/login"
+                                            className="text-white text-capitalize d-flex align-items-center"
+                                        >
+                                            <Image
+                                                src="/images/login-icon.svg"
+                                                alt="login-icon"
+                                                width={13}
+                                                height={19}
+                                            />
+                                            Login / Register
+                                        </Link>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     </div>
@@ -242,9 +228,8 @@ function MainNav({
             </div>
 
             <div
-                className={`row observerable-header-section ${
-                    isObserverMenuVisible ? "" : "d-none"
-                }`}
+                className={`row observerable-header-section ${isObserverMenuVisible ? "" : "d-none"
+                    }`}
             >
                 <div className="col-12">
                     <div className="main-header-area d-flex">
@@ -338,46 +323,12 @@ function MainNav({
                         </div>
                         <div className="header-auth-area d-flex justify-content-end">
                             <ul className="d-flex align-items-center">
-                                {authStatus === "unauthenticated" && (
-                                    <li>
-                                        <Link
-                                            href="/login"
-                                            className="text-white text-capitalize d-flex align-items-center"
-                                        >
-                                            <Image
-                                                src="/images/login-icon.svg"
-                                                alt="login-icon"
-                                                width={13}
-                                                height={19}
-                                            />
-                                            Login
-                                        </Link>
-                                    </li>
-                                )}
-
-                                {authStatus === "unauthenticated" && (
-                                    <li>
-                                        <Link
-                                            href="/registration"
-                                            className="text-white text-capitalize d-flex align-items-center"
-                                        >
-                                            <Image
-                                                src="/images/register-icon.svg"
-                                                alt="register-icon"
-                                                width={14}
-                                                height={17}
-                                            />
-                                            Register
-                                        </Link>
-                                    </li>
-                                )}
-
                                 <li>
                                     <Link
                                         href="/cart-page"
-                                        className="text-white text-capitalize d-flex align-items-center"
+                                        className="text-white text-capitalize position-relative"
                                     >
-                                        <span className="bg-white d-flex align-items-center">
+                                        <span className="bg-white d-flex align-items-center m-0">
                                             <Image
                                                 src="/images/cart-icon.svg"
                                                 alt="cart-icon"
@@ -385,10 +336,13 @@ function MainNav({
                                                 height={15}
                                             />
                                         </span>
-                                        Cart ({addToCartProductLength})
+                                        {addToCartProductLength ?(
+                                            <p className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" style={{ height: "22px", width: "22px", top: "-25%", right: "-30%" }}>
+                                            <small className="text-center">{addToCartProductLength}</small>
+                                        </p>
+                                        ):""}
                                     </Link>
                                 </li>
-
                                 {authStatus === "authenticated" && (
                                     <li>
                                         <Link
@@ -401,6 +355,22 @@ function MainNav({
                                                 />
                                             </span>
                                             User
+                                        </Link>
+                                    </li>
+                                )}
+                                {authStatus === "unauthenticated" && (
+                                    <li>
+                                        <Link
+                                            href="/login"
+                                            className="text-white text-capitalize d-flex align-items-center"
+                                        >
+                                            <Image
+                                                src="/images/login-icon.svg"
+                                                alt="login-icon"
+                                                width={13}
+                                                height={19}
+                                            />
+                                            Login / Register
                                         </Link>
                                     </li>
                                 )}

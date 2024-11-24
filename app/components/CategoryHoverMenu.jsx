@@ -4,7 +4,7 @@ import { getCategoryMenu } from "../services/getCategoryMenu";
 import CategoryMainMenu from "./CategoryMainMenu";
 // import { filterBySliderMenuView } from "../utils";
 
-function CategoryHoverMenu({ isActive, setCategoryHoverMenu }) {
+function CategoryHoverMenu({ isActive, setCategoryHoverMenu, isMobile }) {
     const [categoryMenuOption, setCategoryMenuOption] = useState([]);
     useEffect(() => {
         async function fetchData() {
@@ -16,13 +16,13 @@ function CategoryHoverMenu({ isActive, setCategoryHoverMenu }) {
     }, []);
 
     return (
-        <div className="container">
+        <div className={`container ${isMobile? "bg-light-subtle":""}`}>
             <div
-                className={`observer-hover-menu ${isActive ? "active" : ""}`}
+                className={`observer-hover-menu  ${isActive ? "active" : ""} ${isMobile ? "bottom-0 bg-opacity-25":""}`}
                 onMouseLeave={() => setCategoryHoverMenu(false)}
             >
                 {categoryMenuOption && (
-                    <CategoryMainMenu categoryMenu={categoryMenuOption} />
+                    <CategoryMainMenu categoryMenu={categoryMenuOption} isMobile={isMobile} setCategoryHoverMenu={setCategoryHoverMenu} />
                 )}
             </div>
         </div>

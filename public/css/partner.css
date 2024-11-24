@@ -36,7 +36,6 @@
 
 .nagadhat-partner a {
     display: block;
-    height: 182px;
-    width: 100%;
+    aspect-ratio: 3 / 1.5;
     position: relative;
 }

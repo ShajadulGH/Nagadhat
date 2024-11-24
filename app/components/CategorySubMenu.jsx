@@ -2,13 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const CategorySubMenu = ({ subMenuItem }) => {
+const CategorySubMenu = ({ subMenuItem, setCategoryHoverMenu, isMobile }) => {
     // const subsubMenuItem = subMenuItem?.child_categories;
     return (
         <li className="sub-category-menu-li-list">
             <Link
                 href={`/category/${subMenuItem.slug}`}
                 className=" d-flex align-items-center justify-content-between"
+                onClick={() => isMobile && setCategoryHoverMenu(false)}
             >
                 {subMenuItem.title ? subMenuItem.title : ""}
                 {/* {subsubMenuItem &&

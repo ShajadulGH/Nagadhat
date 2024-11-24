@@ -23,10 +23,6 @@ function MiniNav() {
                                     Career
                                 </Link>
                             </li>
-                        </ul>
-                    </div>
-                    <div className="header-top-menu-item">
-                        <ul className="d-flex align-items-center">
                             <li>
                                 <Link
                                     href="/merchant"
