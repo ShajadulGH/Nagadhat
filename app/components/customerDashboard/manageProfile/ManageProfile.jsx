@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import ManageBasicInfo from "./ManageProfileItem.jsx/ManageBasicInfo";
-import ManageShippingAddress from "./ManageProfileItem.jsx/ManageShippingAddress";
+// import ManageShippingAddress from "./ManageProfileItem.jsx/ManageShippingAddress";
 import ManageTakePhoto from "./ManageProfileItem.jsx/ManageTakePhoto";
 import ManageIDVerification from "./ManageProfileItem.jsx/ManageIDVerification";
 import ManageNomineeInfo from "./ManageProfileItem.jsx/ManageNomineeInfo";
@@ -17,7 +17,7 @@ const ManageProfile = () => {
                     id="accordionFlushExample"
                 >
                     <ManageBasicInfo />
-                    <ManageShippingAddress />
+                    {/* <ManageShippingAddress /> */}
                     <ManageTakePhoto />
                     <ManageIDVerification />
                     <ManageNomineeInfo />
