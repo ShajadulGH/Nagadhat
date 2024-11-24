@@ -570,18 +570,18 @@ onClick={toggleSidebar}
                         <li className="nav-item customer-dashboard-nav-item">
                             <p
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${
-                                    activeDropdown === "otherSetting"
+                                    activeDropdown === "others"
                                         ? "activ-link"
                                         : ""
                                 }`}
-                                onClick={() => toggleDropdown("otherSetting")}
+                                onClick={() => toggleDropdown("others")}
                             >
                                 {/* <FaCreditCard className="nav-icon me-2" /> */}
                                 <IoMdOptions className="nav-icon me-2" />
                                 Others
                                 <FaAngleRight
                                     className={`dropdown ${
-                                        activeDropdown === "otherSetting"
+                                        activeDropdown === "others"
                                             ? "rotate"
                                             : ""
                                     }`}
@@ -589,20 +589,18 @@ onClick={toggleSidebar}
                             </p>
                             <ul
                                 className={`dropdown-conteiner ${
-                                    activeDropdown === "otherSetting"
-                                        ? "show"
-                                        : ""
+                                    activeDropdown === "others" ? "show" : ""
                                 }`}
                             >
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
                                         className={`${
-                                            isActive("/passwordtxnotp")
+                                            isActive("/others-password-txn-otp")
                                                 ? "activ-link"
                                                 : ""
                                         } nav-link customer-dashboard-nav-link`}
-                                        href="/affiliate-password-txn-otp"
+                                        href="/others-password-txn-otp"
                                     >
                                         <span className="dropdown-item-circle"></span>
                                         Password & TXN OTP
@@ -612,11 +610,13 @@ onClick={toggleSidebar}
                                     <Link
                                         onClick={toggleSidebar}
                                         className={`${
-                                            isActive("/customershippingaddress")
+                                            isActive(
+                                                "/others-customer-shipping-address"
+                                            )
                                                 ? "activ-link"
                                                 : ""
                                         } nav-link customer-dashboard-nav-link`}
-                                        href="/customershippingaddress"
+                                        href="/others-customer-shipping-address"
                                     >
                                         <span className="dropdown-item-circle"></span>
                                         Shipping Address
