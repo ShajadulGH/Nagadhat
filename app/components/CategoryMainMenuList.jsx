@@ -37,7 +37,7 @@ const CategoryMainMenuList = ({ menuList, isMobile, setCategoryHoverMenu }) => {
                 )}
             </Link>
             {categorySubMenuItem && categorySubMenuItem.length > 0 && (
-                <ul className="sub-category-menu">
+                <ul className="sub-category-menu shadow">
                     {categorySubMenuItem.map((subMenuItem) => (
                         <CategorySubMenu
                             key={subMenuItem.id}

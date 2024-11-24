@@ -6,14 +6,19 @@ import { FaHeadset, FaListUl, FaUser } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import CategoryHoverMenu from "./CategoryHoverMenu";
+import { usePathname } from "next/navigation";
 
 const MobileButtonNav = () => {
     const { data: session } = useSession();
     const [isCategoryHoverMenu, setCategoryHoverMenu] = useState(false);
+    const currentPath = usePathname();
 
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
     );
+
+    // Function to determine if a nav link is active
+    const isActive = (path) => currentPath === path;
 
     return (
         <div className="position-fixed bottom-0 z-3 w-100">
@@ -24,35 +29,37 @@ const MobileButtonNav = () => {
                 }}
             >
                 <div className="d-flex justify-content-around align-items-center">
-                    <div className="">
-                        <Link href="/" className="d-block text-center pb-2 pt-2">
+                    <div>
+                        <Link
+                            href="/"
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/") ? "active-nav" : ""
+                                }`}
+                        >
                             <FaShoppingBag />
                             <span className="d-block fs-10 fw-600">Home</span>
                         </Link>
                     </div>
-                    <div className="">
+                    <div>
                         <div
-                            onMouseEnter={()=>setCategoryHoverMenu(true)}
-                            className="d-block text-center pb-2 pt-2"
+                            onClick={() => setCategoryHoverMenu(!isCategoryHoverMenu)}
+                            className={`d-block text-center pb-2 pt-2 ${isCategoryHoverMenu ? "active-nav" : ""
+                                }`}
                         >
-                            <i className="las la-list-ul fs-20"></i>
                             <FaListUl />
                             <span className="d-block fs-10 fw-600">Category</span>
                         </div>
                     </div>
 
-                    <div className="">
+                    <div>
                         <Link
                             href="/cart-page"
-                            id="cart-elements-design-mobile"
-                            type="button"
-                            className="d-block pb-2 pt-2 text-center"
-                        //   onClick={showCartInHeader}
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/cart-page") ? "active-nav" : ""
+                                }`}
                         >
                             <FaShoppingCart />
                             <span className="d-block fs-10 fw-600">
                                 Cart (
-                                <span className="cart-count" id="totoal-cart-elements-number-mobile">
+                                <span className="cart-count">
                                     {addToCartProductLength}
                                 </span>
                                 )
@@ -60,30 +67,34 @@ const MobileButtonNav = () => {
                         </Link>
                     </div>
 
-                    <div className="">
-                        <Link href="/support" className="d-block text-center pb-2 pt-2">
-                            <span className="d-inline-block position-relative px-2">
-                                <FaHeadset />
-                            </span>
+                    <div>
+                        <Link
+                            href="/support"
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/support") ? "active-nav" : ""
+                                }`}
+                        >
+                            <FaHeadset />
                             <span className="d-block fs-10 fw-600">Support</span>
                         </Link>
                     </div>
                     {session ? (
-                        <Link href="/dashboard" className="d-block text-center pb-2 pt-2 mobile-side-nav-thumb">
-                            <span className="d-block mx-auto">
-                                <FaUser />
-                            </span>
+                        <Link
+                            href="/dashboard"
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/dashboard") ? "active-nav" : ""
+                                }`}
+                        >
+                            <FaUser />
                             <span className="d-block fs-10 fw-600">Dashboard</span>
                         </Link>
                     ) : (
-                        <div className="">
-                            <Link href="/login" className="d-block text-center pb-2 pt-2 mobile-side-nav-thumb">
-                                <span className="d-block mx-auto">
-                                    <FaUser />
-                                </span>
-                                <span className="d-block fs-10 fw-600">Login</span>
-                            </Link>
-                        </div>
+                        <Link
+                            href="/login"
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/login") ? "active-nav" : ""
+                                }`}
+                        >
+                            <FaUser />
+                            <span className="d-block fs-10 fw-600">Login</span>
+                        </Link>
                     )}
                 </div>
                 <CategoryHoverMenu
