@@ -311,8 +311,14 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className="dropdown-link customer-dashboard-dropdown-link"
-                                            href="affiliate-terms-condition"
+                                            className={`${
+                                                isActive(
+                                                    "/affiliate-terms-condition"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliate-terms-condition"
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Terms & Condition
