@@ -42,6 +42,8 @@ const PrivilegeCardProductTableBody = ({
     );
 
     const handleIncrementWithLimit = (purchase_quantity) => {
+        console.log("purchase_quantity", { purchase_quantity });
+
         if (
             changeQuantity < purchase_quantity &&
             changePrice + total <= productCardLimit
@@ -65,7 +67,6 @@ const PrivilegeCardProductTableBody = ({
     }, [changeQuantity]);
 
     const handleProductClick = (proItem) => {
-        console.log("Product Details:", proItem);
         alert("The product details feature is under development.");
     };
 
