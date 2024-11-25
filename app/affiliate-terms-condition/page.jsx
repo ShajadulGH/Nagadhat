@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Service from "../components/Service";
 
 const AffiliateTermsConditionPage = () => {
     return (
@@ -20,7 +21,7 @@ const AffiliateTermsConditionPage = () => {
             <div className=" container">
                 <div className="row">
                     <div className="col-md-12">
-                        <div className="py-5">
+                        <div className="py-4 py-md-5">
                             <div className="pb-3">
                                 <p>
                                     These Affiliate Terms and Conditions (the
@@ -94,8 +95,9 @@ const AffiliateTermsConditionPage = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>1. DEFINITIONS</h5>
                         </div>
@@ -246,7 +248,7 @@ const AffiliateTermsConditionPage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>2. REFERREL</h5>
                         </div>
@@ -285,7 +287,7 @@ const AffiliateTermsConditionPage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>3. COMPENSATION</h5>
                         </div>
@@ -393,7 +395,7 @@ const AffiliateTermsConditionPage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>4. PROMOTION AND ORDER TRACKING</h5>
                         </div>
@@ -426,7 +428,7 @@ const AffiliateTermsConditionPage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>5. RELATIONSHIP OF COMPANY AND AFFILIATE</h5>
                         </div>
@@ -468,7 +470,7 @@ const AffiliateTermsConditionPage = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>6. CONFIDENTIAL INFORMATION</h5>
                         </div>
@@ -561,9 +563,8 @@ const AffiliateTermsConditionPage = () => {
                         </ul>
                     </div>
                 </div>
-
                 <div className="row">
-                    <div className="col-md-12 pb-5">
+                    <div className="col-md-12 pb-3 pb-md-5">
                         <div className="">
                             <h5>
                                 7. AFFILIATE RESPONSIBILITIES AND PROHIBITIONS
@@ -820,6 +821,508 @@ const AffiliateTermsConditionPage = () => {
                         </ul>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>
+                                8. COMPANY RESPONSIBILITIES AND LIMITATIONS OF
+                                LIABILITY
+                            </h5>
+                        </div>
+                        <ul>
+                            <li className="pb-3">
+                                <p>
+                                    8.1 The Company shall be solely responsible
+                                    for the ensuring the display and supply of
+                                    the Products, and the sellers listing the
+                                    Products on the Channels shall be
+                                    responsible for the design, development,
+                                    production, and performance of its Products
+                                    and the protection of its trade names. The
+                                    Company’s aggregate liability towards the
+                                    Affiliate under this Agreement, whether in
+                                    contract, tort, or otherwise shall not
+                                    exceed the amount of aggregate Commission
+                                    paid to the Affiliate in the 06 (six) months
+                                    preceding such claim.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    8.2 The Company shall not, under any
+                                    circumstances, be liable for any
+                                    disruptions, unavailability, glitches,
+                                    downtime or delays in functionality of its
+                                    Channels, nor does the Company guarantee,
+                                    represent or warrant in any way that the
+                                    Channels shall function free of the same.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    8.3 The Company shall not, under any
+                                    circumstances, be liable to the Affiliate
+                                    for any special, consequential, incidental,
+                                    punitive, exemplary, or indirect costs or
+                                    damages, including, but not limited to,
+                                    litigation costs, installation and removal
+                                    costs, or loss of data, production, profit,
+                                    or business opportunities.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    8.4 the company will maintain auto ranking
+                                    of the affiliates. The company shall have
+                                    the only right to declare extra profit
+                                    bonus, power bonus, rank bonus..
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>9. INTELLECTUAL PROPERTY RIGHTS</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    The Parties hereby agree, acknowledge and
+                                    affirm that the Company and its licensors
+                                    retain all right, title, and interest in and
+                                    to all Intellectual Property Rights related
+                                    in and to the Channels and the Advertising
+                                    Materials. The logos and names are
+                                    trademarks of the Company and are registered
+                                    in certain jurisdictions. All other Product
+                                    names, brand names, marks, logos, and
+                                    symbols on the Channels may be the
+                                    trademarks of their respective owners.
+                                    Except as expressly stated in this
+                                    Agreement, nothing in the Agreement confers
+                                    any license or ownership to the Affiliate or
+                                    any third party, under any of Company’s or
+                                    any third party’s Intellectual Property
+                                    Rights, whether by estoppels, implication,
+                                    or otherwise.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>10. INDEMNIFICATION</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    The Affiliate shall indemnify, defend, and
+                                    hold harmless Company, and its directors,
+                                    officers, employees, representatives, and
+                                    agents (each an “Indemnified Party”) from
+                                    any and all claims, damages, liabilities,
+                                    costs, losses, and expenses (including, but
+                                    not limited to, reasonable attorneys’ fees
+                                    and all related costs and expenses) arising
+                                    from or relating to any claim, suit,
+                                    proceeding, demand, or action brought by the
+                                    Affiliate or any third party against an
+                                    Indemnified Party relating to: (a)
+                                    publishing and/or use of the Advertising
+                                    Material in any unauthorized manner, or
+                                    tampering them or any part thereof; (b) the
+                                    Affiliate’s failure to comply with the
+                                    Agreement; (c) Affiliate’s failure to comply
+                                    with applicable law(s) and/or regulation(s);
+                                    (d) Affiliate’s negligence, willful
+                                    misconduct, or fraud; and (e) defamation,
+                                    libel, violation of privacy rights, unfair
+                                    competition, or infringement of Intellectual
+                                    Property Rights or allegations thereof to
+                                    the extent caused by the Affiliate.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>11. TERM AND TERMINATION</h5>
+                        </div>
+                        <ul>
+                            <li className="pb-3">
+                                <p>
+                                    11.1 This Agreement shall come into full
+                                    force and effect upon the Affiliate’s
+                                    acceptance of this Agreement in the manner
+                                    prescribed hereinabove, and shall continue
+                                    to remain valid and in force, unless
+                                    otherwise terminated in accordance with this
+                                    Agreement (“Term”).
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.2 Upon the termination of this Agreement,
+                                    a final accounting shall be made between the
+                                    Parties. Company shall maintain an accurate
+                                    set of books and records regarding
+                                    Commissions due to Affiliate following the
+                                    termination of this Agreement. Following
+                                    termination, the Company shall be entitled
+                                    to withhold Commissions accrued up to the
+                                    effective date of termination for a
+                                    reasonable period after said Commissions
+                                    become due and payable, to ensure all
+                                    corresponding Commission Exemptions have
+                                    been accounted for prior to paying said
+                                    Commission.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.3 Upon termination of this Agreement, the
+                                    Affiliate is entitled to Commissions on all
+                                    orders solicited prior to the effective date
+                                    of termination/expiration (which are not
+                                    subsequently returned/refunded), regardless
+                                    of when the Company accepts, invoices, or
+                                    ships such orders. Affiliate shall return,
+                                    within thirty (30) days of termination all
+                                    Advertising Materials, as well as any other
+                                    property of Company that the Affiliate is
+                                    holding.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.4 This Agreement may be terminated for
+                                    the following reasons only:
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.4.1 In the event that either Party shall
+                                    commit an act of bankruptcy or file a
+                                    voluntary petition for bankruptcy, or be
+                                    declared bankrupt in an involuntary
+                                    proceeding, or file for a plan under any
+                                    Bankruptcy Act, or place its affairs in the
+                                    hand of a receiver, or enter into a
+                                    composition for the benefit of creditors, or
+                                    perform any other act based upon or due to
+                                    its inadequate credit position, then the
+                                    other part to the Agreement may terminate
+                                    this Agreement immediately by written notice
+                                    of termination to the other Party.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.4.2 Save for the provisions under Clause
+                                    11.4.4 hereunder, should either Party be in
+                                    material breach of its obligations and
+                                    responsibilities under this Agreement, then
+                                    the other Party may terminate this Agreement
+                                    by giving 7 days advance written notice of
+                                    termination to the other Party setting forth
+                                    the material breach upon which the
+                                    termination is based. However, after
+                                    receiving such notice, the Party receiving
+                                    same shall have 7 days to cure the alleged
+                                    breach. If such breach is cured, then the
+                                    termination notice shall stand withdrawn,
+                                    and this Agreement shall continue in full
+                                    force and effect.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.4.3 By either Party, without cause, by
+                                    serving the other Party a 15-day written
+                                    notice of termination to the other Party
+                                    specifying the effective date of such
+                                    termination therein.
+                                </p>
+                            </li>
+                            <li className="pb-3">
+                                <p>
+                                    11.4.4 By Company, with immediate effect
+                                    upon serving a written notice of termination
+                                    to the Affiliate, in the event that the
+                                    Merchant is found, in the absolute
+                                    discretion and sole opinion of the Company,
+                                    to have committed any fraudulent activity
+                                    whatsoever, in pursuance of the Affiliate’s
+                                    obligations under this Agreement.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    11.4.5 By mutual agreement of the Parties in
+                                    writing specifying the effective date of
+                                    termination.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>12. ASSIGNMENT</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    This Agreement shall not be assigned by the
+                                    Affiliate, at any time or for any purpose
+                                    whatsoever, without the Company’s express
+                                    written consent to such assignment.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>13. WAIVER</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    The waiver by either Party of a right,
+                                    default, or breach of any provision of this
+                                    Agreement by the other Party shall not
+                                    operate or be construed as a waiver of any
+                                    subsequent right, default, or breach.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>14. MODIFICATIONS</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    Any modifications to this Agreement shall
+                                    only be effective if (1) issued in a revised
+                                    version by the Company in writing; or (2) if
+                                    said modification is proposed by the
+                                    Affiliate, then in a writing signed by both
+                                    Parties.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>15. FURTHER ACTIONS</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    Each Party shall, without further
+                                    consideration, execute and deliver such
+                                    additional documents and instruments and
+                                    perform all such other and further actions
+                                    as may be necessary or reasonably requested
+                                    in order to carry out the purposes and
+                                    intents of this Agreement.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>16. APPLICABLE LAW</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    This Agreement and any question concerning
+                                    its validity, construction or performance
+                                    shall be governed by the laws of The
+                                    People’s Republic of Bangladesh,
+                                    irrespective of the place of execution, or
+                                    the order in which the signatures of the
+                                    Parties are affixed or the place or places
+                                    of performance. The Parties agree that the
+                                    courts, tribunals and/or quasi-judicial
+                                    bodies located in Dhaka, Bangladesh shall
+                                    have the exclusive jurisdiction on any
+                                    dispute arising inside Bangladesh under this
+                                    Agreement.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>17. SEVERABILITY</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    The unenforceability (or the modification
+                                    necessary to conform to such law and public
+                                    policy) of any part of this Agreement shall
+                                    not be deemed to render unenforceable any
+                                    other part of this Agreement. If any part of
+                                    this Agreement shall be decided to be
+                                    invalid or unenforceable in any action or
+                                    proceeding in which Affiliate or Company are
+                                    parties, then such part shall be deemed
+                                    deleted or amended, as the case may be, from
+                                    the Agreement in order to render the
+                                    remainder of this Agreement valid and
+                                    enforceable. Any such deletion or amendment
+                                    shall apply only where the court rendering
+                                    the same has jurisdiction.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>18. ENTIRE AGREEMENT</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    This Agreement contains the entire
+                                    understanding and Agreement of the Parties
+                                    with respect to the subject matter hereof.
+                                    There has been, is and will be, no
+                                    representation, covenant, or undertaking
+                                    other than those expressly set forth in this
+                                    Agreement. Each Party hereby acknowledges
+                                    and represents that in executing and
+                                    entering into this Agreement, no other party
+                                    nor any agent, attorney or other
+                                    representative of any Party has made any
+                                    promise, representation, warranty, covenant,
+                                    warning or inducement whatsoever, express or
+                                    implied, except as contained in this
+                                    Agreement. Each Party acknowledges and
+                                    represents that he has read and understands
+                                    this Agreement, and each and every provision
+                                    and term of this Agreement.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>19. DISPUTE RESOLUTION</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    The Parties agree that any disputes or
+                                    questions arising hereunder including the
+                                    construction or application of this
+                                    Agreement shall first be attempted to be
+                                    amicably settled by the senior management of
+                                    the Parties within 15 (fifteen) days of one
+                                    Party notifying the other Party of such
+                                    dispute in writing. If the Parties cannot
+                                    reach an amicable settlement of such dispute
+                                    within 15 days, then the matter shall be
+                                    referred to mandatory and binding
+                                    arbitration in accordance with the Rules of
+                                    Arbitration of the Bangladesh International
+                                    Arbitration Centre (“BIAC”) by one or more
+                                    arbitrators appointed in accordance with the
+                                    said Rules. The seat of arbitration shall be
+                                    Dhaka and the arbitrations shall be
+                                    conducted in the English Language. The
+                                    decision of the arbitrator shall be final
+                                    and binding upon the Parties both as to law
+                                    and to fact and shall not be appealable to
+                                    any court in any jurisdiction. The Parties
+                                    shall share the expenses of the arbitration
+                                    equally, unless the arbitrator determines
+                                    that the expenses shall be otherwise
+                                    assessed.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 pb-3 pb-md-5">
+                        <div className="">
+                            <h5>20. ATTORNEY’S FEES</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    If suit or action is instituted in
+                                    connection with any controversy arising out
+                                    of this Agreement or an enforcement of any
+                                    right hereunder, the prevailing Party shall
+                                    be entitled to recover, in addition to
+                                    costs, such sums as the court may adjudge
+                                    reasonable as attorney’s fees, including
+                                    fees on any appeal.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 ">
+                        <div className="">
+                            <h5>21. NOTICES</h5>
+                        </div>
+                        <ul>
+                            <li>
+                                <p>
+                                    Any notice to be given or served upon any
+                                    Party to this Agreement must be in writing
+                                    and shall be deemed to have been given (i)
+                                    upon receipt in the event of personal
+                                    service by actual delivery (including by
+                                    telecopy or delivery service); (ii) upon
+                                    posting if deposited in the local post
+                                    office with proper postage and dispatched by
+                                    certified mail; or (iii) upon receipt if
+                                    notice is given otherwise than by personal
+                                    service or by certified mail. Notices may
+                                    also be transmitted by facsimile or
+                                    electronic mail, provided that proper
+                                    arrangements are made in advance to
+                                    facilitate such communications and provide
+                                    for their security and verification.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div className="pb-4 terms-condition-page">
+                <Service />
             </div>
         </div>
     );
