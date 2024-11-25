@@ -64,6 +64,11 @@ const PrivilegeCardProductTableBody = ({
         setChangePrice(purchases_price * changeQuantity);
     }, [changeQuantity]);
 
+    const handleProductClick = (proItem) => {
+        console.log("Product Details:", proItem);
+        alert("The product details feature is under development.");
+    };
+
     return (
         <>
             <tr key={id}>
