@@ -92,7 +92,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                 </div>
                 <nav className="customer-dashboard-side-navbar bg-white">
                     <ul className="nav flex-column">
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
                                 className={`${
@@ -105,7 +105,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 Dashboard
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
                                 className={`${
@@ -120,7 +120,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 Order History
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${
                                     activeDropdown === "privilege"
@@ -207,7 +207,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
 
                         {isAffiliateUser?.affiliate_user_status ==
                             "Affiliate" && (
-                            <li className="nav-item customer-dashboard-nav-item">
+                            <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                 <p
                                     className={`nav-link customer-dashboard-nav-link dropdown-btn ${
                                         activeDropdown === "affiliate"
@@ -328,7 +328,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </li>
                         )}
 
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${
                                     activeDropdown === "payout"
@@ -424,7 +424,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${
                                     activeDropdown === "finance"
@@ -563,7 +563,7 @@ onClick={toggleSidebar}
                             My Vouchers
                         </Link>
                     </li> */}
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
                                 className={`${
@@ -578,7 +578,7 @@ onClick={toggleSidebar}
                                 Manage Profile/KYC
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
                                 className="nav-link customer-dashboard-nav-link"
@@ -589,7 +589,7 @@ onClick={toggleSidebar}
                             </Link>
                         </li>
 
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
                                 className={`nav-link customer-dashboard-nav-link dropdown-btn ${
                                     activeDropdown === "others"
