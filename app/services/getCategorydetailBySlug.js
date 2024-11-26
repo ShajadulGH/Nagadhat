@@ -17,7 +17,7 @@ export const getCategorydetailBySlug = async (
             }
 
             const response = await fetch(CategoryRootApi, {
-                next: { revalidate: 1 },
+                next: { revalidate: 100 },
             });
             return await response.json();
         }

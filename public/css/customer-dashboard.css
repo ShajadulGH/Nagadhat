@@ -17,6 +17,21 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+.catagory-side-navbar-mobile{
+    position: absolute !important;
+    top: 0;
+    left: -250%;
+    z-index: 2;
+    transition: 800ms;
+    max-width: 315px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.rotate-180{
+    transform: rotate(180deg);
+}
 .dashboard-side-navbar-togol-mobile{
     position: absolute;
     top: 10px;
