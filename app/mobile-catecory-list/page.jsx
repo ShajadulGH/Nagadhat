@@ -37,7 +37,6 @@ const MobileCategory = () => {
         } else {
             setCategoryChild([]);
             getProductInThisCategory(categories?.slug);
-            console.log(categories);
         }
         setShowCategory(false);
     };
@@ -129,43 +128,47 @@ const MobileCategory = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className="w-100" style={{ maxWidth: "350px" }}>
-                            <ul
+                        <div className="w-100" style={{ maxWidth: "450px" }}>
+                            <div
                                 className="category-menu-area shadow-sm overflow-y-scroll overflow-x-hidden"
                                 style={{ height: "calc(100vh - 150px)" }}
                             >
-                                {categoryChild?.map((subMenuItem) => (
-                                    <li
-                                        key={subMenuItem.id}
-                                        className="menu-link"
-                                        onClick={() => handleCategoryChildClick(categoryChild, subMenuItem)}
-                                    >
-                                        <div className="link-item d-flex align-items-center justify-content-between">
-                                            <p className="d-flex align-items-center">
-                                                <span>
-                                                    <Image
-                                                        width={23}
-                                                        height={20}
-                                                        src={`${NagadhatPublicUrl}/${subMenuItem?.logo}`}
-                                                        alt={subMenuItem?.title}
-                                                    />
-                                                </span>
-                                                {subMenuItem?.title}
-                                            </p>
-                                            {subMenuItem?.child_categories?.length > 0 && (
-                                                <small>
-                                                    <Image
-                                                        width={32}
-                                                        height={32}
-                                                        src="/images/menu-arrow.svg"
-                                                        alt="arrow icon"
-                                                    />
-                                                </small>
-                                            )}
+                                <div className="row">
+                                    {categoryChild?.map((subMenuItem) => (
+                                        <div
+                                            key={subMenuItem.id}
+                                            className="menu-link border p-1 col-6"
+                                            onClick={() => handleCategoryChildClick(categoryChild, subMenuItem)}
+                                        >
+                                            <div className="d-flex gap-2 flex-column align-items-center">
+                                                <div className="">
+                                                    <span>
+                                                        <Image
+                                                            width={60}
+                                                            height={60}
+                                                            src={`${NagadhatPublicUrl}/${subMenuItem?.logo}`}
+                                                            alt={subMenuItem?.title}
+                                                        />
+                                                    </span>
+                                                </div>
+                                                <div className="d-flex align-items-center">
+                                                    <p>{subMenuItem?.title}</p>
+                                                    {/* {subMenuItem?.child_categories?.length > 0 && (
+                                                        <small>
+                                                            <Image
+                                                                width={32}
+                                                                height={32}
+                                                                src="/images/menu-arrow.svg"
+                                                                alt="arrow icon"
+                                                            />
+                                                        </small>
+                                                    )} */}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </li>
-                                ))}
-                            </ul>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     )}
             </div>

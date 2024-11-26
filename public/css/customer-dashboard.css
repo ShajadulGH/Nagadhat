@@ -29,9 +29,7 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
-.rotate-180{
-    transform: rotate(180deg);
-}
+
 .dashboard-side-navbar-togol-mobile{
     position: absolute;
     top: 10px;
