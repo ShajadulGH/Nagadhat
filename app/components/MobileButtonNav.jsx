@@ -40,14 +40,15 @@ const MobileButtonNav = () => {
                         </Link>
                     </div>
                     <div>
-                        <div
-                            onClick={() => setCategoryHoverMenu(!isCategoryHoverMenu)}
-                            className={`d-block text-center pb-2 pt-2 ${isCategoryHoverMenu ? "active-nav" : ""
+                        <Link
+                            // onClick={() => setCategoryHoverMenu(!isCategoryHoverMenu)}
+                            href={"/mobile-catecory-list"}
+                            className={`d-block text-center pb-2 pt-2 ${isActive("/mobile-catecory-list") ? "active-nav" : ""
                                 }`}
                         >
                             <FaListUl />
                             <span className="d-block fs-10 fw-600">Category</span>
-                        </div>
+                        </Link>
                     </div>
 
                     <div>

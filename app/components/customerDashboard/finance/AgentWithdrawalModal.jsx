@@ -68,17 +68,17 @@ const AgentWithdrawalModal = ({
             setIsButtonDisabled(false);
         }
     }, [amount, agentId, agentWithdrawMethod])
-    
+
     const handleWithdrawRequest = async () => {
         let selectedAccount = null;
         if (agentWithdrawMethod == 3) {
             selectedAccount = bankTransferData.account_number;
-        }else if (agentWithdrawMethod == 2){
+        } else if (agentWithdrawMethod == 2) {
             selectedAccount = mobileBankingList?.find(item => item.name == accountType)?.account_number;
-        }else{
+        } else {
             selectedAccount = null;
         }
-         
+
         const data = {
             bank_id: financeAgentInfo?.bank_id,
             agent_id: parseInt(agentId),
@@ -228,9 +228,11 @@ const AgentWithdrawalModal = ({
                                         <option defaultValue="Select Billing Method">
                                             Select Billing Method
                                         </option>
-                                        <option value={bankTransferData?.name}>
-                                            {bankTransferData?.name} - {bankTransferData?.account_number}
-                                        </option>
+                                        {bankTransferData?.account_number &&
+                                            <option value={bankTransferData?.name}>
+                                                {bankTransferData?.name} - {bankTransferData?.account_number}
+                                            </option>
+                                        }
                                     </select>
                                 </div>
                             )}
