@@ -14,8 +14,6 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.back_image}`
         : "/path-to-default-back-image.jpg";
 
-    console.log("privilegeCardInfo====>", { privilegeCardInfo });
-
     return (
         <div className="customer-dashboard-order-history-title">
             <div className="flipper-container-wrapp">

@@ -107,6 +107,18 @@
     background: rgba(230, 46, 4, 0.15);
     border-left: 4px solid var(--color-FC7024) !important;
 }
+.parent-nav-item .dropdown-conteiner .activ-link {
+    background: rgba(68, 188, 157, 0.2);
+    border-left: 4px solid rgba(68, 188, 157, 1) !important;
+   
+}
+
+.customer-dashboard-nav-link:active ,
+.customer-dashboard-nav-link:hover  {
+    background-color: rgba(68, 188, 157, 0.2) !important;
+    border-left: 4px solid rgba(68, 188, 157, 1) !important;
+}
+
 .customer-dashboard-side-nav .activ-link .nav-icon{
     color: var(--color-FC7024);
 }
