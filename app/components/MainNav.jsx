@@ -201,7 +201,6 @@ function MainNav({
                                                     style={{ color: "#44bc9d" }}
                                                 />
                                             </span>
-                                            User
                                         </Link>
                                     </li>
                                 )}
@@ -354,7 +353,6 @@ function MainNav({
                                                     style={{ color: "#44bc9d" }}
                                                 />
                                             </span>
-                                            User
                                         </Link>
                                     </li>
                                 )}
