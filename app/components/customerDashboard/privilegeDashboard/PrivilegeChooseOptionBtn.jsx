@@ -4,43 +4,46 @@ import { useSession } from "next-auth/react";
 import { useRef } from "react";
 import { toast, ToastContainer } from "react-toastify";
 const PrivilegeChooseOptionBtn = () => {
-    const startShoppingModal = useRef(null);
+    const chooseListedModal = useRef(null);
+    const chooseOwndModal = useRef(null);
     const { data: session } = useSession();
 
-    console.log("session", { session });
-
-    const handleListedProductClick = async () => {
-        const rebateData = {
-            rebate: 1,
-        };
+    const handleChooseProductClick = async (rebateID) => {
+        const rebateData = { rebate: rebateID };
         try {
             const response = await postPrivilegeCardShoppingChoice(
                 session?.accessToken,
                 rebateData
             );
-            console.log("API Response:", response);
 
             if (response?.code === 200) {
                 toast.success(
-                    response?.message,
-                    "Shopping choice submitted successfully!"
+                    response?.message ||
+                        "Shopping choice submitted successfully! "
                 );
-                if (startShoppingModal.current) {
+
+                const modalRef =
+                    rebateID === 1 ? chooseListedModal : chooseOwndModal;
+                if (modalRef?.current) {
                     const modalInstance = bootstrap.Modal.getInstance(
-                        startShoppingModal.current
+                        modalRef.current
                     );
                     modalInstance?.hide();
                 }
             } else {
                 toast.error(
-                    "Failed to submit shopping choice. Please try again."
+                    response?.message ||
+                        `Failed to submit shopping choice Please try again.`
                 );
             }
         } catch (error) {
             console.error("Error submitting shopping choice:", error);
-            toast.error("An unexpected error occurred. Please try again.");
+            toast.error(
+                `An unexpected error occurred while choosing Please try again.`
+            );
         }
     };
+
     return (
         <>
             <ToastContainer />
@@ -67,11 +70,15 @@ const PrivilegeChooseOptionBtn = () => {
                 className="modal fade"
                 id="choose-listed-modal"
                 tabIndex="-1"
+                ref={chooseListedModal}
+                role="dialog"
                 aria-labelledby="choose-listed-modalLabel"
                 aria-hidden="true"
-                ref={startShoppingModal}
             >
-                <div className="modal-dialog  modal-dialog-centered">
+                <div
+                    className="modal-dialog  modal-dialog-centered"
+                    role="document"
+                >
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1
@@ -97,7 +104,7 @@ const PrivilegeChooseOptionBtn = () => {
                         </div>
                         <div className="modal-footer justify-content-center ">
                             <button
-                                onClick={handleListedProductClick}
+                                onClick={() => handleChooseProductClick(1)}
                                 type="button"
                                 className="add-to-cart-link border-0 rounded-3 text-capitalize px-4"
                             >
@@ -113,10 +120,15 @@ const PrivilegeChooseOptionBtn = () => {
                 className="modal fade"
                 id="choose-own-modal"
                 tabIndex="-1"
+                ref={chooseOwndModal}
+                role="dialog"
                 aria-labelledby="choose-own-modalLabel"
                 aria-hidden="true"
             >
-                <div className="modal-dialog  modal-dialog-centered">
+                <div
+                    className="modal-dialog  modal-dialog-centered"
+                    role="document"
+                >
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1
@@ -142,6 +154,7 @@ const PrivilegeChooseOptionBtn = () => {
                         </div>
                         <div className="modal-footer justify-content-center ">
                             <button
+                                onClick={() => handleChooseProductClick(2)}
                                 type="button"
                                 className="add-to-cart-link border-0 rounded-3 text-capitalize px-4"
                             >
