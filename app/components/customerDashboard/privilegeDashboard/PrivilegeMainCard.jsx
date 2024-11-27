@@ -55,13 +55,15 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                             privilegeCardInfo={privilegeCardInfo}
                             session={session}
                         />
-                        <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#privilege-cancelled-modal"
-                            className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
-                        >
-                            Cancel
-                        </button>
+                        {privilegeCardInfo?.status === 2 && (
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#privilege-cancelled-modal"
+                                className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
+                            >
+                                Cancel
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
