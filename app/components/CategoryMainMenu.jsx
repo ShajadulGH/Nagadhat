@@ -1,17 +1,15 @@
 import CategoryMainMenuList from "./CategoryMainMenuList";
 
-const CategoryMainMenu = ({ categoryMenu, isMobile, setCategoryHoverMenu }) => {
+const CategoryMainMenu = ({ categoryMenu }) => {
     const menuItems = categoryMenu;
     return (
         <>
-            <ul className="category-menu-area shadow">
+            <ul className="category-menu-area shadow-sm">
                 {Array.isArray(menuItems) &&
                     menuItems.map((menuItem) => (
                         <CategoryMainMenuList
                             key={menuItem.id}
                             menuList={menuItem}
-                            isMobile={isMobile}
-                            setCategoryHoverMenu={setCategoryHoverMenu}
                         />
                     ))}
             </ul>

@@ -55,19 +55,19 @@ function Footer() {
                     </div>
                     <div className="col-xl-5">
                         <div className="row footer-widget footer-widget-last">
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-6">
                                 <QuickLinks
                                     title="Quick Links"
                                     option={linkListsOptionOne}
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-6">
                                 <QuickLinks
                                     title="My Account"
                                     option={myAccoutOptions}
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-12">
                                 <QuickLinks title="Be A Seller">
                                     <div className="applay-now-btn">
                                         <Link href="#">APPLY NOW</Link>
