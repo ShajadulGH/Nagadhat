@@ -13,7 +13,7 @@ const SupportPage = () => {
                 <div className="">
                     <Link
                         href="/add-customer-support-ticket"
-                        className="px-3 py-2 text-capitalize fw-bold rounded-3"
+                        className="px-3 py-2 text-capitalize fw-bold rounded-3 shadow-lg "
                         style={{ background: "rgb(98 239 203)" }}
                     >
                         {" "}
