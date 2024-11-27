@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { getCategoryMobile } from "../services/getCategoryMobile";
 import { NagadhatPublicUrl } from "../utils";
@@ -12,6 +12,27 @@ const MobileCategory = () => {
     const [categoryChild, setCategoryChild] = useState([]);
     const [categoryPrduct, setCategoryPrduct] = useState([]);
     const [showCategory, setShowCategory] = useState(false);
+    const sidebarRef = useRef(null); // Create ref for the sidebar
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            event.stopPropagation();
+            if (
+                sidebarRef.current &&
+                !sidebarRef.current.contains(event.target)
+            ) {
+                setShowCategory(false); // Close sidebar when clicking outside
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                event.preventDefault();
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     useEffect(() => {
         async function fetchData() {
@@ -71,6 +92,8 @@ const MobileCategory = () => {
                         ${categoryPrduct?.length > 0 && showCategory ? "start-0" : ""}
                     `}
                     style={{ maxWidth: "350px" }}
+                    ref={sidebarRef} // Sidebar ref
+                    onClick={(e) => e.stopPropagation()} 
                 >
                     <ul
                         className="category-menu-area shadow-sm overflow-y-scroll"
