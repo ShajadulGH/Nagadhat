@@ -10,7 +10,7 @@ import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 import { useSelector } from "react-redux";
 
-const MobileNav = ({mobileTopMenuVisible}) => {
+const MobileNav = ({ mobileTopMenuVisible }) => {
     const [popupSearch, setPopupSearch] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [search, setSearch] = useState("");
@@ -45,6 +45,9 @@ const MobileNav = ({mobileTopMenuVisible}) => {
             ) {
                 setPopupSearch(false);
                 setSearchProduct([]);
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                event.preventDefault();
             }
 
             if (
@@ -52,6 +55,8 @@ const MobileNav = ({mobileTopMenuVisible}) => {
                 !sidebarRef.current.contains(event.target)
             ) {
                 setIsSidebarOpen(false); // Close sidebar when clicking outside
+                event.stopPropagation();
+                event.preventDefault();
             }
         };
 
@@ -60,10 +65,6 @@ const MobileNav = ({mobileTopMenuVisible}) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
-    const addToCartProductLength = useSelector(
-        (state) => state.cart?.addToCartLength
-    );
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
