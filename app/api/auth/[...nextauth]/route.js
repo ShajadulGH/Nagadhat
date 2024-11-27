@@ -59,11 +59,6 @@ export const authOptions = {
                         password: credentials?.password,
                     });
 
-                    // console.log(
-                    //     "=>>> after credentials login successfully res from api auth route page",
-                    //     res
-                    // );
-
                     if (res.error) {
                         throw new Error("Email or Password is not correct");
                     }
@@ -99,43 +94,16 @@ export const authOptions = {
 
     callbacks: {
         async signIn({ user, account, profile }) {
-            // console.log("=>>> signIn from api auth route page ...");
-
-            // console.log(
-            //     "=>>> signIn from api auth route page account",
-            //     account
-            // );
-            // console.log(
-            //     "=>>> signIn from api auth route page profile",
-            //     profile
-            // );
-
             if (account.provider === "google") {
                 signInStatus = "login";
-                // Example accessToken and expiresIn, replace with actual token logic
-
-                // console.log("user from api auth route page ----", user);
-                // console.log('profile from api auth route page ----', account)
-                // console.log('profile from api auth route page ----', profile)
-
                 const formData = {
                     provider_account_id: account?.providerAccountId || "",
                     name: profile?.name || "",
                     email: profile?.email || "",
                 };
-
-                // console.log("=>>> formdata before form submit", formData);
-
                 const googleLogin = await googleLoginAPI(formData);
-
-                // console.log(
-                //     "googleLogin from api auth route page",
-                //     googleLogin
-                // );
-
                 user.accessToken = googleLogin?.user?.accessToken;
                 user.expiresIn = googleLogin?.user?.expiresIn;
-
                 user.name = profile?.name;
                 user.email = profile?.email;
 
@@ -147,16 +115,9 @@ export const authOptions = {
                     }, 1000); // Simulate a 1-second delay
                 });
 
-                // console.log("=> profileData 1 sign", profileData);
-
                 const userExists = await checkUserExistByGoogleLogin({
                     email: profile?.email,
                 });
-
-                // console.log(
-                //     "userExists 1 signin from api auth route page",
-                //     userExists
-                // );
 
                 if (userExists) {
                     if (
@@ -164,16 +125,8 @@ export const authOptions = {
                         (userExists?.account_provider == "credentials" ||
                             userExists?.account_provider == "google")
                     ) {
-                        // console.log(
-                        //     "userExists 2 signin from api auth route page"
-                        // );
-
                         userStatus = "complete";
                     } else {
-                        // console.log(
-                        //     "userExists 3 signin from api auth route page"
-                        // );
-
                         userStatus = "no complete";
                     }
                 }
