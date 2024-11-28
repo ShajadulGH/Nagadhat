@@ -1,9 +1,11 @@
 "use client";
 import { postPrivilegeCardShoppingChoice } from "@/app/services/privilegeCard/postPrivilegeCardShoppingChoice";
 import { useSession } from "next-auth/react";
-import { useRef } from "react";
+import { useRef, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
 const PrivilegeChooseOptionBtn = () => {
+    const [isPending, startTransition] = useTransition();
     const chooseListedModal = useRef(null);
     const chooseOwndModal = useRef(null);
     const { data: session } = useSession();
@@ -11,31 +13,33 @@ const PrivilegeChooseOptionBtn = () => {
     const handleChooseProductClick = async (rebateID) => {
         const rebateData = { rebate: rebateID };
         try {
-            const response = await postPrivilegeCardShoppingChoice(
-                session?.accessToken,
-                rebateData
-            );
-
-            if (response?.code === 200) {
-                toast.success(
-                    response?.message ||
-                        "Shopping choice submitted successfully! "
+            startTransition(async () => {
+                const response = await postPrivilegeCardShoppingChoice(
+                    session?.accessToken,
+                    rebateData
                 );
 
-                const modalRef =
-                    rebateID === 1 ? chooseListedModal : chooseOwndModal;
-                if (modalRef?.current) {
-                    const modalInstance = bootstrap.Modal.getInstance(
-                        modalRef.current
+                if (response?.code === 200) {
+                    toast.success(
+                        response?.message ||
+                            "Shopping choice submitted successfully! "
                     );
-                    modalInstance?.hide();
+
+                    const modalRef =
+                        rebateID === 1 ? chooseListedModal : chooseOwndModal;
+                    if (modalRef?.current) {
+                        const modalInstance = bootstrap.Modal.getInstance(
+                            modalRef.current
+                        );
+                        modalInstance?.hide();
+                    }
+                } else {
+                    toast.error(
+                        response?.message ||
+                            `Failed to submit shopping choice Please try again.`
+                    );
                 }
-            } else {
-                toast.error(
-                    response?.message ||
-                        `Failed to submit shopping choice Please try again.`
-                );
-            }
+            });
         } catch (error) {
             console.error("Error submitting shopping choice:", error);
             toast.error(
@@ -102,13 +106,39 @@ const PrivilegeChooseOptionBtn = () => {
                                 button.
                             </p>
                         </div>
-                        <div className="modal-footer justify-content-center ">
+                        <div className="modal-footer justify-content-center">
                             <button
-                                onClick={() => handleChooseProductClick(1)}
+                                onClick={() =>
+                                    !isPending && handleChooseProductClick(1)
+                                }
                                 type="button"
-                                className="add-to-cart-link border-0 rounded-3 text-capitalize px-4"
+                                className={`add-to-cart-link border-0 rounded-3 text-capitalize px-4 ${
+                                    isPending ? "disabled-button" : ""
+                                }`}
                             >
-                                Let's start shopping
+                                {isPending ? (
+                                    <div
+                                        style={{
+                                            height: "21px",
+                                            width: "96px",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <RotatingLines
+                                            visible={true}
+                                            height="18"
+                                            width="20"
+                                            color="#ffffff"
+                                            strokeWidth="5"
+                                            animationDuration="0.75"
+                                            ariaLabel="rotating-lines-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="w-25"
+                                        />
+                                    </div>
+                                ) : (
+                                    <span>Let's start shopping</span>
+                                )}
                             </button>
                         </div>
                     </div>
@@ -154,11 +184,37 @@ const PrivilegeChooseOptionBtn = () => {
                         </div>
                         <div className="modal-footer justify-content-center ">
                             <button
-                                onClick={() => handleChooseProductClick(2)}
+                                onClick={() =>
+                                    !isPending && handleChooseProductClick(2)
+                                }
                                 type="button"
-                                className="add-to-cart-link border-0 rounded-3 text-capitalize px-4"
+                                className={`add-to-cart-link border-0 rounded-3 text-capitalize px-4 ${
+                                    isPending ? "disabled-button" : ""
+                                }`}
                             >
-                                Let's start shopping
+                                {isPending ? (
+                                    <div
+                                        style={{
+                                            height: "21px",
+                                            width: "96px",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <RotatingLines
+                                            visible={true}
+                                            height="18"
+                                            width="20"
+                                            color="#ffffff"
+                                            strokeWidth="5"
+                                            animationDuration="0.75"
+                                            ariaLabel="rotating-lines-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="w-25"
+                                        />
+                                    </div>
+                                ) : (
+                                    <span>Let's start shopping</span>
+                                )}
                             </button>
                         </div>
                     </div>

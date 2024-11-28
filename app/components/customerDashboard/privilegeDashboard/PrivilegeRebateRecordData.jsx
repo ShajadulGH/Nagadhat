@@ -9,7 +9,7 @@ const PrivilegeRebateRecordData = ({ rebateRecordData }) => {
                         <thead>
                             <tr>
                                 <th scope="col">SL</th>
-                                <th scope="col">Date/Time</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Purpose</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Action</th>
@@ -18,12 +18,11 @@ const PrivilegeRebateRecordData = ({ rebateRecordData }) => {
                         <tbody>
                             {rebateRecordData?.length > 0 ? (
                                 rebateRecordData?.map((item, index) => {
-                                    const { id, created_at, amount, note } =
-                                        item;
+                                    const { id, date, amount, note } = item;
                                     return (
                                         <tr key={id}>
                                             <td>{index + 1}</td>
-                                            <td>{created_at}</td>
+                                            <td>{date}</td>
                                             <td>{note}</td>
                                             <td>৳ {amount.toFixed(2)}</td>
                                             <td>----</td>

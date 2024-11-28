@@ -26,6 +26,7 @@ const PrivilegeCardProductTableBody = ({
         cart_status,
         cart_id,
     } = item;
+    const [productDetail, setProductDetail] = useState(null);
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
     const [changePrice, setChangePrice] = useState(
         purchases_price * changeQuantity
@@ -67,8 +68,9 @@ const PrivilegeCardProductTableBody = ({
     }, [changeQuantity]);
 
     const handleProductClick = (proItem) => {
-        alert("The product details feature is under development.");
+        setProductDetail(proItem);
     };
+    console.log("productDetail===", { productDetail });
 
     return (
         <>

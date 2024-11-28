@@ -9,7 +9,7 @@ const PrivilegeRebateRecordWrapper = async ({ searchParams }) => {
         session?.accessToken,
         searchParams
     );
-    const rebateRecordData = response?.results || [];
+    const rebateRecordData = response?.results?.data || [];
 
     return (
         <div className="customer-dashboard-order-history-area  ">
