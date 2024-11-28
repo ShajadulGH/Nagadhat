@@ -1,4 +1,6 @@
-const PrivilegeRebateRecordData = () => {
+import NoDataFound from "../../NoDataFound";
+
+const PrivilegeRebateRecordData = ({ rebateRecordData }) => {
     return (
         <>
             <div className="px-4 py-4">
@@ -14,30 +16,25 @@ const PrivilegeRebateRecordData = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>15 Jan, 2024 / 07:12 pm</td>
-                                <td>
-                                    Monthly (List Choice) Rebate of October,
-                                    2024
-                                </td>
-                                <td>৳ 444</td>
-                                <td>--</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>25 Jun, 2024 / 07:12 pm</td>
-                                <td>Fund Transfer</td>
-                                <td>৳ 465</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>30 August, 2024 / 07:12 pm</td>
-                                <td>Payment</td>
-                                <td>৳ 444</td>
-                                <td>--</td>
-                            </tr>
+                            {rebateRecordData?.length > 0 ? (
+                                rebateRecordData?.map((item, index) => {
+                                    const { id, created_at, amount, note } =
+                                        item;
+                                    return (
+                                        <tr key={id}>
+                                            <td>{index + 1}</td>
+                                            <td>{created_at}</td>
+                                            <td>{note}</td>
+                                            <td>৳ {amount.toFixed(2)}</td>
+                                            <td>--</td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                <NoDataFound
+                                    title={`Rebate History Data Not Found`}
+                                />
+                            )}
                         </tbody>
                     </table>
                 </div>

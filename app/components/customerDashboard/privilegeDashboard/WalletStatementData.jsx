@@ -1,4 +1,6 @@
-const WalletStatementData = () => {
+import NoDataFound from "../../NoDataFound";
+
+const WalletStatementData = ({ statementData }) => {
     return (
         <>
             <div className="px-4 py-4">
@@ -15,30 +17,51 @@ const WalletStatementData = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>15 Jan, 2024 / 07:12 pm</td>
-                                <td>Payment</td>
-                                <td>৳ 444</td>
-                                <td>--</td>
-                                <td>৳ 21</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>25 Jun, 2024 / 07:12 pm</td>
-                                <td>Fund Transfer</td>
-                                <td>--</td>
-                                <td>৳ 465</td>
-                                <td>৳ 21</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>30 August, 2024 / 07:12 pm</td>
-                                <td>Payment</td>
-                                <td>৳ 444</td>
-                                <td>--</td>
-                                <td>৳ 21</td>
-                            </tr>
+                            {statementData?.length > 0 ? (
+                                statementData?.map((item, index) => {
+                                    const {
+                                        id,
+                                        date,
+                                        time,
+                                        transaction_type,
+                                        purpose,
+                                        amount,
+                                        balance,
+                                    } = item;
+
+                                    return (
+                                        <tr key={id}>
+                                            <td>{index + 1}</td>
+                                            <td>
+                                                {date} / {time}
+                                            </td>
+                                            <td>{purpose}</td>
+                                            <td>
+                                                ৳{" "}
+                                                {transaction_type === "Debit"
+                                                    ? amount.toFixed(2)
+                                                    : 0}
+                                            </td>
+                                            <td>
+                                                ৳{" "}
+                                                {transaction_type === "Credit"
+                                                    ? amount.toFixed(2)
+                                                    : 0}
+                                            </td>
+                                            <td>
+                                                ৳{" "}
+                                                {balance
+                                                    ? balance.toFixed(2)
+                                                    : 0}
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            ) : (
+                                <NoDataFound
+                                    title={`Wallet Statement Data Not Found`}
+                                />
+                            )}
                         </tbody>
                     </table>
                 </div>
