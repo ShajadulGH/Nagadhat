@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaArrowDownShortWide, FaBangladeshiTakaSign, FaList, FaTag } from "react-icons/fa6";
+import { FaArrowDownShortWide, FaBangladeshiTakaSign, FaFilter, FaList, FaTag } from "react-icons/fa6";
 import { IoMdColorPalette } from "react-icons/io";
 import SubCategoryList from "./SubCategoryList";
 import PriceRange from "./PriceRange";
@@ -15,7 +15,7 @@ const FiltersCategoryMobile = ({
     searchParams,
     allSubCategories,
     categoryTotalMaxPrice,
-    categoryTotalMinPrice
+    categoryTotalMinPrice,
 }) => {
     const [activeDropdown, setActiveDropdown] = useState(null);
 
@@ -38,12 +38,12 @@ const FiltersCategoryMobile = ({
     }, []);
 
     return (
-        <div className="">
+        <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex gap-3 align-items-center">
                 {allSubCategories?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("subCategory")}>
-                            <FaList title="Sub Categories" /> Categories
+                            <FaList title="Sub Categories" /> Sub Categories
                         </p>
                         {activeDropdown === "subCategory" && (
                             <div className="dropdown-content">
@@ -76,7 +76,7 @@ const FiltersCategoryMobile = ({
                             <FaTag title={`Brand`} /> Brand
                         </p>
                         {activeDropdown === "brand" && (
-                            <div className="dropdown-content">
+                            <div className="dropdown-content end-0">
                                 <CategoryVariant
                                     variantData={categoryByBrand}
                                     type="brand"
@@ -92,7 +92,7 @@ const FiltersCategoryMobile = ({
                             <IoMdColorPalette title={`Color`} /> Color
                         </p>
                         {activeDropdown === "color" && (
-                            <div className="dropdown-content">
+                            <div className="dropdown-content end-0">
                                 <CategoryColorVariant
                                     colorVariant={categoryByColor}
                                     searchParams={searchParams}
@@ -107,7 +107,7 @@ const FiltersCategoryMobile = ({
                             <FaArrowDownShortWide title={`Size`} /> Size
                         </p>
                         {activeDropdown === "size" && (
-                            <div className="dropdown-content">
+                            <div className="dropdown-content end-0">
                                 <CategoryVariant
                                     variantData={categoryBySize}
                                     mergeId={1}
