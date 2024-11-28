@@ -23,7 +23,7 @@ const CategoryLeftSide = ({
     const shouldShowPriceRange = categoryByMinPrice && categoryByMaxPrice;
     
     return (
-        <aside className="product-category-left-Side">
+        <aside className="product-category-left-Side d-none d-xl-block">
             <div className="category-left-Side-info">
                 {subCategoryData?.length > 0 && (
                     <>

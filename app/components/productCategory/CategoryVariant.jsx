@@ -10,18 +10,18 @@ const CategoryVariant = ({
     type,
     searchParams,
 }) => {
-    const [startIndex, setStartIndex] = useState(0);
-    const itemsPerPage = countItem ? 7 : 5;
+    // const [startIndex, setStartIndex] = useState(0);
+    // const itemsPerPage = countItem ? 7 : 5;
 
-    const handleViewMore = () => {
-        setStartIndex(startIndex + itemsPerPage);
-    };
+    // const handleViewMore = () => {
+    //     setStartIndex(startIndex + itemsPerPage);
+    // };
 
     return (
-        <div className="product-brand-category-area sub-category-pb40">
+        <div className="product-brand-category-area sub-category-pb40 overflow-y-auto" style={{maxHeight: "400px", scrollbarWidth: "thin"}}>
             <div className="product-brand-category-list">
                 {variantData
-                    .slice(startIndex, startIndex + itemsPerPage)
+                    // .slice(startIndex, startIndex + itemsPerPage)
                     .map((brandItem) => (
                         <CategoryVariantItems
                             key={brandItem.id}
@@ -31,9 +31,9 @@ const CategoryVariant = ({
                             searchParams={searchParams}
                         />
                     ))}
-                {startIndex + itemsPerPage < variantData.length && (
+                {/* {startIndex + itemsPerPage < variantData.length && (
                     <ViewMoreLink handleViewMore={handleViewMore} />
-                )}
+                )} */}
             </div>
         </div>
     );

@@ -321,13 +321,6 @@
         line-height: 34px;
     }
 
-    .product-category-pagination-area,
-    .all-category-item-area {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start !important;
-    }
-
     .product-category-grid-area {
         -ms-grid-columns: 1fr 20px 1fr;
         grid-template-columns: repeat(2, 1fr);
@@ -614,8 +607,3 @@
     }
 }
 
-@media (max-width: 390px) {
-    .category-shot-option {
-        min-width: 100%;
-    }
-}
