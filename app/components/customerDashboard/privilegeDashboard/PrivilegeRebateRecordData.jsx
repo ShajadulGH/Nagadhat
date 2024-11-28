@@ -26,7 +26,7 @@ const PrivilegeRebateRecordData = ({ rebateRecordData }) => {
                                             <td>{created_at}</td>
                                             <td>{note}</td>
                                             <td>৳ {amount.toFixed(2)}</td>
-                                            <td>--</td>
+                                            <td>----</td>
                                         </tr>
                                     );
                                 })
