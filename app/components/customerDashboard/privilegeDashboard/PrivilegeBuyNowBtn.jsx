@@ -79,7 +79,7 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
             toast.error("Failed to place order. Please try again.");
         }
     };
-    console.log("privilegeCardInfo", { privilegeCardInfo });
+
     return (
         <>
             <button

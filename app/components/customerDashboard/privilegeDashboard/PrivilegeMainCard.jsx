@@ -67,7 +67,9 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                     </div>
                 </div>
             </div>
+
             <PrivilegeCancelledModal />
+            
             {privilegeCardInfo?.product_name !== "Membership Card" && (
                 <PrivilegeChooseOptionBtn />
             )}

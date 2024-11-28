@@ -9,7 +9,7 @@ const WalletStatementWrapper = async ({ searchParams }) => {
         session?.accessToken,
         searchParams
     );
-    const statementData = response?.results || [];
+    const statementData = response?.results?.data || [];
 
     return (
         <div className="customer-dashboard-order-history-area  ">
