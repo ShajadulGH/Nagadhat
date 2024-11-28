@@ -8,6 +8,7 @@ const ShotBy = ({ searchParams, categoryByProduct }) => {
     const [orderValue, setOrderValue] = useState(
         searchParams?.order || "Best Match"
     );
+    
     const handleChange = (e) => {
         const order = e.target.value;
         updateURL(order);
@@ -24,8 +25,9 @@ const ShotBy = ({ searchParams, categoryByProduct }) => {
         params.set("page", "1");
         url.search = params.toString();
         router.push(url.toString(), undefined, { shallow: true });
-        setOrderValue(!order);
+        setOrderValue(order);    
     };
+
     return (
         <div className="all-category-item">
             <div className="category-shot-area d-flex align-items-center">

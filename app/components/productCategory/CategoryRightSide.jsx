@@ -5,6 +5,7 @@ import CategoryProductArchive from "./CategoryProductArchive";
 import ShotBy from "./ShotBy";
 import NoDataFound from "../NoDataFound";
 import Pagination from "./Pagination";
+import FiltersCategoryMobile from "./FiltersCategoryMobile";
 
 const CategoryRightSide = ({
     categoryByProduct,
@@ -14,20 +15,45 @@ const CategoryRightSide = ({
     currentPage,
     lastPage,
     totalProduct,
-    loading
+    loading,
+    categoryByBrand,
+    categoryByColor,
+    categoryBySize,
+    subCategoryTitle,
+    categoryByMinPrice,
+    categoryByMaxPrice,
+    allSubCategories,
+    categoryTotalMaxPrice,
+    categoryTotalMinPrice
 }) => {
     const categoryMainTitle = categoryTitle?.title;
     let categoryProductLength = categoryByProduct?.length;
 
     return (
-        <main className="product-category-right-Side">
+        <section className="product-category-right-Side">
             <div className="category-right-Side">
-                <div className="all-category-item-area d-flex align-items-center justify-content-between">
-                    <div className="all-category-item">
+                <div className="all-category-item-area flex-md-row justify-content-between align-items-md-center">
+                    <div className="all-category-item d-none d-xl-block">
                         {totalProduct > 0 && categoryMainTitle?.length > 0 && (
                             <p>
                                 {totalProduct} Items Found “{categoryMainTitle}”
                             </p>
+                        )}
+                    </div>
+                    <div className="all-category-item d-xl-none">
+                        {categoryProductLength > 0 && (
+                            <FiltersCategoryMobile
+                            categoryByBrand={categoryByBrand}
+                            categoryByColor={categoryByColor}
+                            categoryBySize={categoryBySize}
+                            subCategoryTitle={subCategoryTitle}
+                            categoryByMinPrice={categoryByMinPrice}
+                            categoryByMaxPrice={categoryByMaxPrice}
+                            categoryTotalMinPrice={categoryTotalMinPrice}
+                            categoryTotalMaxPrice={categoryTotalMaxPrice}
+                            allSubCategories={allSubCategories}
+                            searchParams={searchParams}
+                            />
                         )}
                     </div>
                     {categoryProductLength > 0 && (
@@ -39,23 +65,17 @@ const CategoryRightSide = ({
                 </div>
                 {categoryProductLength > 0 ? (
                     <CategoryProductArchive
-                    productArvhiveList={categoryByProduct}
+                        productArvhiveList={categoryByProduct}
                     />
                 ) : (
                     !loading &&
                     <NoDataFound />
                 )}
-                {lastPage > 1 && (
-                    <div className="row product-category-pagination-row">
-                        <div className="col-md-12">
-                            <div className="product-category-pagination-area d-flex flex-wrap align-items-center justify-content-center">
-                                <Pagination currentPage={currentPage} lastPage={lastPage} />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                <div className=" pt-4">
+                    <Pagination currentPage={currentPage} lastPage={lastPage} />
+                </div>
             </div>
-        </main>
+        </section>
     );
 };
 

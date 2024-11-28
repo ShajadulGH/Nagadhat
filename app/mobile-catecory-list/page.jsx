@@ -13,6 +13,12 @@ const MobileCategory = () => {
     const [categoryPrduct, setCategoryPrduct] = useState([]);
     const [showCategory, setShowCategory] = useState(false);
     const sidebarRef = useRef(null); // Create ref for the sidebar
+    const [outletId, setOutletId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+        return 3;
+    });
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -44,7 +50,7 @@ const MobileCategory = () => {
 
     const getProductInThisCategory = async (slug) => {
         try {
-            const productList = await getProductByCategory(3, slug);
+            const productList = await getProductByCategory(outletId, slug);
             setCategoryPrduct(productList?.results?.products || []);
         } catch (error) {
             console.error("Failed to fetch products in this category:", error);
