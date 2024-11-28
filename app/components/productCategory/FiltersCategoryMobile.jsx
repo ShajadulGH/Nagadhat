@@ -43,7 +43,7 @@ const FiltersCategoryMobile = ({
                 {allSubCategories?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("subCategory")}>
-                            <FaList title="Sub Categories" /> Sub Categories
+                            <FaList title="Sub Categories" /> Subcategory
                         </p>
                         {activeDropdown === "subCategory" && (
                             <div className="dropdown-content">
