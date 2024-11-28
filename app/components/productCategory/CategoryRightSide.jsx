@@ -32,7 +32,7 @@ const CategoryRightSide = ({
     return (
         <section className="product-category-right-Side">
             <div className="category-right-Side">
-                <div className="all-category-item-area flex-md-row justify-content-between align-items-md-center">
+                <div className="all-category-item-area">
                     <div className="all-category-item d-none d-xl-block">
                         {totalProduct > 0 && categoryMainTitle?.length > 0 && (
                             <p>
