@@ -8,9 +8,8 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
-import { useSelector } from "react-redux";
 
-const MobileNav = ({ mobileTopMenuVisible }) => {
+const MobileNav = () => {
     const [popupSearch, setPopupSearch] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [search, setSearch] = useState("");
@@ -45,9 +44,6 @@ const MobileNav = ({ mobileTopMenuVisible }) => {
             ) {
                 setPopupSearch(false);
                 setSearchProduct([]);
-                event.stopPropagation();
-                event.stopImmediatePropagation();
-                event.preventDefault();
             }
 
             if (
@@ -55,8 +51,6 @@ const MobileNav = ({ mobileTopMenuVisible }) => {
                 !sidebarRef.current.contains(event.target)
             ) {
                 setIsSidebarOpen(false); // Close sidebar when clicking outside
-                event.stopPropagation();
-                event.preventDefault();
             }
         };
 

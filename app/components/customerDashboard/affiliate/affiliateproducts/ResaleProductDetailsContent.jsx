@@ -113,6 +113,7 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
                                         readOnly
                                         type="text"
                                         value={quantity}
+                                        style={{width:"40px"}}
                                     />
                                     <button type="button" onClick={handleIncrease}>
                                         +
