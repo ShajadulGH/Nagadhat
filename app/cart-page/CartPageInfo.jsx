@@ -864,7 +864,6 @@ const CartPage = () => {
                                                                         <input
                                                                             className="quantity-fild"
                                                                             min="1"
-                                                                            max="5"
                                                                             step="1"
                                                                             autoComplete="off"
                                                                             type="text"
@@ -916,7 +915,7 @@ const CartPage = () => {
                                         <Image
                                             fill={true}
                                             src="/images/discount-code.png"
-                                            alt="discount-code"
+                                            alt=""
                                         />
                                     </div>
 

@@ -40,9 +40,9 @@ const FinanceTransactions = async ({ searchParams }) => {
                                     <td>{index + 1 + serialNumber}</td>
                                     <td>{transaction.date_time}</td>
                                     <td>{transaction.purpose}</td>
-                                    <td className="text-end">{transaction.debit ? transaction.debit : "--"}</td>
-                                    <td className="text-end">{transaction.credit ? transaction.credit : "--"}</td>
-                                    <td className="text-end">{transaction.balance}</td>
+                                    <td className="text-end">{transaction.debit ? "৳"+transaction.debit : "--"}</td>
+                                    <td className="text-end">{transaction.credit ? "৳"+transaction.credit : "--"}</td>
+                                    <td className="text-end">৳{transaction.balance}</td>
                                     <td>
                                         <span
                                             className={

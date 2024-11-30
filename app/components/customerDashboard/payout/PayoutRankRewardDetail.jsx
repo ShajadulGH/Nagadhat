@@ -20,7 +20,7 @@ const PayoutRankRewardDetail = ({ rankRewardData, rankRewardResult, serialNumber
                                     <td scope="row">{index + 1 + serialNumber}</td>
                                     <td>{item?.date_time || "N/A"}</td>
                                     <td>{item?.purpose || "N/A"} </td>
-                                    <td> ৳ {item?.earning || "0"} </td>
+                                    <td className="text-end">৳ {item?.earning || "0"} </td>
                                 </tr>
                             );
                         })}
