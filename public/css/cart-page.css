@@ -124,7 +124,7 @@
 }
 .quantity-fild {
     border: none;
-    width: 38px;
+    min-width: 24px;
     color: var(--color-1A9D78);
     font-size: 18px;
     font-weight: 700;

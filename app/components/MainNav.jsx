@@ -184,7 +184,10 @@ function MainNav({
                                             />
                                         </span>
                                         {addToCartProductLength ?(
-                                            <p className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" style={{ height: "22px", width: "22px", top: "-25%", right: "-30%" }}>
+                                            <p 
+                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
+                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                            >
                                             <small className="text-center">{addToCartProductLength}</small>
                                         </p>
                                         ):""}
@@ -336,7 +339,10 @@ function MainNav({
                                             />
                                         </span>
                                         {addToCartProductLength ?(
-                                            <p className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" style={{ height: "22px", width: "22px", top: "-25%", right: "-30%" }}>
+                                            <p 
+                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
+                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                            >
                                             <small className="text-center">{addToCartProductLength}</small>
                                         </p>
                                         ):""}
