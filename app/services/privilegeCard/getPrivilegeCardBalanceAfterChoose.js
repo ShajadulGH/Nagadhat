@@ -1,11 +1,8 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getPrivilegeCardShoppingChoiceDetail = async (token, rebateId) => {
+export const getPrivilegeCardBalanceAfterChoose = async (token) => {
     try {
-        const url = rebateId
-            ? `${apiBaseUrl}/privilege-card-shopping-choice-detail?rebate=${rebateId}`
-            : `${apiBaseUrl}/privilege-card-shopping-choice-detail`;
-
+        const url = `${apiBaseUrl}/privilege-card-balance-after-choose`;
         const response = await fetch(url, {
             method: "GET",
             headers: {

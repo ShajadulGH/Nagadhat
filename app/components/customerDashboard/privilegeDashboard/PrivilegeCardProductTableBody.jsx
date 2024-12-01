@@ -5,7 +5,6 @@ import PrivilegeAddToCard from "./PrivilegeAddToCard";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import PrivilegeDeleteCardItem from "./PrivilegeDeleteCardItem";
 import { useEffect, useMemo, useState, useTransition } from "react";
-
 import { toast } from "react-toastify";
 
 const PrivilegeCardProductTableBody = ({
@@ -15,6 +14,7 @@ const PrivilegeCardProductTableBody = ({
     productCardLimit,
     index,
     privilegeCartItem,
+    setProductDetail,
 }) => {
     const {
         product_thumbnail,
@@ -26,7 +26,7 @@ const PrivilegeCardProductTableBody = ({
         cart_status,
         cart_id,
     } = item;
-    const [productDetail, setProductDetail] = useState(null);
+
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
     const [changePrice, setChangePrice] = useState(
         purchases_price * changeQuantity
@@ -70,7 +70,6 @@ const PrivilegeCardProductTableBody = ({
     const handleProductClick = (proItem) => {
         setProductDetail(proItem);
     };
-    console.log("productDetail===", { productDetail });
 
     return (
         <>
@@ -82,6 +81,8 @@ const PrivilegeCardProductTableBody = ({
                 <td>
                     <button
                         type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#handleProductModal"
                         className="border-0 bg-transparent"
                         onClick={() => handleProductClick(item)}
                     >

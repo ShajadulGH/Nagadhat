@@ -20,7 +20,7 @@ const PrivilegeCardDashboardTop = async () => {
                 <PrivilegeCardProduct />
             </div>
 
-            {/* <!-- Modal --> */}
+            {/* <!--Privilege Main Card Details Btn Modal --> */}
             <PrivilegeCardModal />
         </>
     );

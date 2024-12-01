@@ -1,11 +1,21 @@
-const ShowingProductPrices = () => {
+const ShowingProductPrices = ({ balanceAfterChoosing }) => {
     return (
         <div className="  d-flex flex-column flex-md-row align-items-center justify-content-between ">
             <div className="fs-5">
-                <p>List Choice Balance: 5,400.00</p>
+                <p>
+                    List Choice Balance: ৳ {""}
+                    {typeof balanceAfterChoosing?.list_shopping === "number"
+                        ? balanceAfterChoosing.list_shopping.toFixed(2)
+                        : "0.00"}
+                </p>
             </div>
             <div className="fs-5">
-                <p>Shopping Balance: 11.00</p>
+                <p>
+                    Shopping Balance: ৳ {""}
+                    {typeof balanceAfterChoosing?.shopping_balance === "number"
+                        ? balanceAfterChoosing.shopping_balance.toFixed(2)
+                        : "0.00"}
+                </p>
             </div>
         </div>
     );
