@@ -4,7 +4,12 @@ import { useSession } from "next-auth/react";
 import { useRef, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
-const PrivilegeChooseOptionBtn = () => {
+const PrivilegeChooseOptionBtn = ({
+    ownChoocingAmount,
+    setToggleStatte,
+    toggleStatte,
+    choocingProductAmount,
+}) => {
     const [isPending, startTransition] = useTransition();
     const chooseListedModal = useRef(null);
     const chooseOwndModal = useRef(null);
@@ -20,6 +25,7 @@ const PrivilegeChooseOptionBtn = () => {
                 );
 
                 if (response?.code === 200) {
+                    setToggleStatte(!toggleStatte);
                     toast.success(
                         response?.message ||
                             "Shopping choice submitted successfully! "
@@ -27,7 +33,9 @@ const PrivilegeChooseOptionBtn = () => {
 
                     const modalRef =
                         rebateID === 1 ? chooseListedModal : chooseOwndModal;
+
                     if (modalRef?.current) {
+                        document.activeElement?.blur();
                         const modalInstance = bootstrap.Modal.getInstance(
                             modalRef.current
                         );
@@ -100,10 +108,20 @@ const PrivilegeChooseOptionBtn = () => {
                         </div>
                         <div className="modal-body">
                             <p className="fs-6 text-black">
-                                You will get <strong>Tk 3000 BDT</strong> for
-                                free shopping on your shopping balance for
-                                December, 2024. If you agree then click the
-                                button.
+                                You will get{" "}
+                                <strong>
+                                    Tk{" "}
+                                    {typeof choocingProductAmount?.amount ===
+                                    "number"
+                                        ? choocingProductAmount?.amount.toFixed(
+                                              2
+                                          )
+                                        : "0.00"}{" "}
+                                    BDT
+                                </strong>{" "}
+                                for free shopping on your shopping balance for{" "}
+                                {choocingProductAmount?.date}. If you agree then
+                                click the button.
                             </p>
                         </div>
                         <div className="modal-footer justify-content-center">
@@ -176,10 +194,18 @@ const PrivilegeChooseOptionBtn = () => {
                         </div>
                         <div className="modal-body">
                             <p className="fs-6 text-black">
-                                You will get <strong>Tk 2000 BDT</strong> for
-                                free shopping on your shopping balance for
-                                December, 2024. If you agree then click the
-                                confirm button.
+                                You will get{" "}
+                                <strong>
+                                    Tk{" "}
+                                    {typeof ownChoocingAmount?.amount ===
+                                    "number"
+                                        ? ownChoocingAmount?.amount.toFixed(2)
+                                        : "0.00"}{" "}
+                                    BDT
+                                </strong>{" "}
+                                for free shopping on your shopping balance for{" "}
+                                {ownChoocingAmount?.date}. If you agree then
+                                click the confirm button.
                             </p>
                         </div>
                         <div className="modal-footer justify-content-center ">
