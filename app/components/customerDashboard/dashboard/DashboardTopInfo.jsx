@@ -18,7 +18,7 @@ const DashboardTopInfo = ({ userDashboard }) => {
                                     ? userDashboard?.wallet
                                     : "0"}
                             </h3>
-                            <p className="opacity-50">Wallet</p>
+                            <p className="opacity-50">Withdrawable</p>
                         </div>
                     </div>
                     <div className="col-6 col-md-3">
