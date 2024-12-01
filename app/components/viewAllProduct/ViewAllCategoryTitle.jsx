@@ -19,7 +19,10 @@ const ViewAllCategoryTitle = ({
                     {isFlashSaleTimer &&
                         title === "Flash Sale" &&
                         flashSaleEndData && (
-                            <FlipClock endsAt={flashSaleEndData} />
+                            <FlipClock
+                                endsAt={flashSaleEndData}
+                                isflashsalePage={true}
+                            />
                         )}
                 </div>
             </div>
