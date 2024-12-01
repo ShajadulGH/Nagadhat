@@ -2,26 +2,28 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 
-const PrivilegeProductDetailModal = ({ productInfo, onClose }) => {
+const PrivilegeProductDetailModal = ({ productInfo }) => {
     const imgUrl = productInfo?.product_thumbnail
         ? `${NagadhatPublicUrl}/${productInfo.product_thumbnail}`
         : "/images/DanishFoodsCondensedMilk397g.png";
-    console.log("productInfo", productInfo);
 
     return (
         <div
-            className={`modal fade ${productInfo ? "show" : "hide"}`}
-            style={{ display: productInfo ? "block" : "none" }}
-            aria-hidden={!productInfo}
+            className={`modal fade privilere-modal`}
+            id="handleProductModal"
+            tabIndex="-1"
+            aria-labelledby="handleProductModal"
+            aria-hidden="true"
         >
-            <div className="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
-                <div className="modal-content">
+            <div className="modal-dialog modal-dialog-centered modal-xl">
+                <div className="modal-content ">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5">Product Details</h1>
+
                         <button
                             type="button"
                             className="btn-close"
-                            onClick={onClose}
+                            data-bs-dismiss="modal"
                             aria-label="Close"
                         ></button>
                     </div>
@@ -61,10 +63,13 @@ const PrivilegeProductDetailModal = ({ productInfo, onClose }) => {
                                     </li>
                                     <li className="pb-2 fs-6">Brand: Nestle</li>
                                     <li className="pb-2 fs-6">
-                                        {
-                                            productInfo?.products
-                                                ?.short_description
-                                        }
+                                        {productInfo?.products
+                                            ?.short_description
+                                            ? productInfo.products.short_description.replace(
+                                                  /<[^>]+>/g,
+                                                  ""
+                                              )
+                                            : ""}
                                     </li>
                                 </ul>
                             </div>
@@ -73,8 +78,8 @@ const PrivilegeProductDetailModal = ({ productInfo, onClose }) => {
                     <div className="modal-footer">
                         <button
                             type="button"
-                            className="btn btn-danger"
-                            onClick={onClose}
+                            className="btn btn-danger "
+                            data-bs-dismiss="modal"
                         >
                             Close
                         </button>
