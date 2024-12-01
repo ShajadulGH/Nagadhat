@@ -49,7 +49,7 @@ const ShotBy = ({ searchParams }) => {
     return (
         <div className="all-category-item">
             {/* Desktop Sorting */}
-            <div className="category-shot-area d-flex align-items-center d-none d-md-block">
+            <div className="category-shot-area d-lg-flex align-items-center d-none">
                 <p className="text-capitalize">Sort By</p>
                 <div className="category-shot-option">
                     <select
@@ -65,7 +65,7 @@ const ShotBy = ({ searchParams }) => {
             </div>
 
             {/* Mobile Sorting */}
-            <div className="dropdown-container d-block d-md-none">
+            <div className="dropdown-container d-block d-lg-none">
                 <p onClick={() => setActiveDropdownSort(!activeDropdownSort)}>
                     <FaFilter/>
                 </p>

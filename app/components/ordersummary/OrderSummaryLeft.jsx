@@ -17,7 +17,11 @@ const OrderSummaryLeft = ({ orderSummary }) => {
             <div className="col-lg-5">
                 <div className="order-billing-info">
                     <div className="thank-you">
+                        <div className="d-flex justify-content-between gap-3">
                         {message && <h1>{message}</h1>}
+                        <span className="d-lg-none"><DownloadInvoiceBtn orderSummary={orderSummary} /></span>
+                        </div>
+                        
                         {orderSummary?.order_product_type === "2" ? (
                             <>
                                 <p className="pb-2">
@@ -59,7 +63,8 @@ const OrderSummaryLeft = ({ orderSummary }) => {
 
                     <div className="billing-btn-area">
                         <TrackYourOrderBtn />
-                        <DownloadInvoiceBtn orderSummary={orderSummary} />
+                        <span className="d-none d-lg-block"><DownloadInvoiceBtn orderSummary={orderSummary} /></span>
+                        
                     </div>
                 </div>
             </div>
