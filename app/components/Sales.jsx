@@ -103,14 +103,13 @@ function Sales() {
                                 {flashSaleEndsTime?.end_time && (
                                     <FlipClock
                                         endsAt={flashSaleEndsTime?.end_time}
+                                        isflashsalePage={false}
                                     />
                                 )}
                             </SectionTitle>
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div
-                                        className="flash-sale-content-area-grid"
-                                    >
+                                    <div className="flash-sale-content-area-grid">
                                         <Slider {...settings}>
                                             {flashSaleProductList?.length > 0 &&
                                                 flashSaleProductList?.map(

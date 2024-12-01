@@ -589,7 +589,18 @@
         padding: 6px 7px;
         width: 77px;
     }
-
+    .is-flashsale-time-align {
+        width: 100%;
+    }
+    .is-flashsale-time-align .flash-end-time {
+        width: 36%;
+    }
+    .is-flashsale-time-align .flash-sale-end-time {
+       width: 64%;
+    }
+    .nh-common-item.d-flex {
+        gap: 5px;
+    }
     .category-product-price {
         flex-direction: column;
     }
