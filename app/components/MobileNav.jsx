@@ -2,10 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { FaBars, FaCartShopping, FaUser, FaXmark } from "react-icons/fa6";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import CustomerLeftSideNavbar from "./customerDashboard/CustomerLeftSideNavbar";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRoute } from "next/navigation";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 
@@ -19,7 +19,6 @@ const MobileNav = () => {
     const searchResultRef = useRef(null);
     const sidebarRef = useRef(null); // Create ref for the sidebar
     const { data: session } = useSession();
-    const router = useRouter();
 
     // const searchParams = useSearchParams();
     // let districtId = searchParams.get("districtId");

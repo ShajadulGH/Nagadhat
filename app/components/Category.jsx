@@ -1,8 +1,6 @@
 import { getHomeCategoryList } from "../services/getHomeCategoryList";
-import Service from "./Service";
 import SectionTitle from "./SectionTitle";
 import ProductCategories from "./ProductCategories";
-import JustForYou from "./JustForYou";
 import { getHomePageBodyBrand } from "../services/getHomePageBodyBrand";
 import ProductBrands from "./ProductBrands";
 
