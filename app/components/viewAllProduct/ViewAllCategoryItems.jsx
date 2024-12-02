@@ -10,7 +10,7 @@ const ViewAllCategoryItems = ({ items }) => {
     }
     return (
         <div className="nh-categories-item">
-            {/* <Link href={`/category/${path}`}> */}
+            <Link href={`/category/${path}`}>
             <div className="nh-categories-item-bg nh-hover-box-shadow">
                 <div className="nh-categories-img image-hover-effect">
                     <Image
@@ -24,7 +24,7 @@ const ViewAllCategoryItems = ({ items }) => {
                     <h4>{title}</h4>
                 </div>
             </div>
-            {/* </Link> */}
+            </Link>
         </div>
     );
 };

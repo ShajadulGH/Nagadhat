@@ -43,7 +43,7 @@ const FiltersCategoryMobile = ({
                 {allSubCategories?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("subCategory")}>
-                            <FaList title="Sub Categories" /> Subcategory
+                            <FaList className="praymary-color" title="Sub Categories"/> Subcategory
                         </p>
                         {activeDropdown === "subCategory" && (
                             <div className="dropdown-content">
@@ -55,7 +55,7 @@ const FiltersCategoryMobile = ({
                 {categoryByMinPrice && categoryByMaxPrice && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("priceRange")}>
-                            <FaBangladeshiTakaSign title={`Price Range`} /> Price
+                            <FaBangladeshiTakaSign className="praymary-color" title={`Price Range`} /> Price
                         </p>
                         {activeDropdown === "priceRange" && (
                             <div className="dropdown-content">
@@ -73,7 +73,7 @@ const FiltersCategoryMobile = ({
                 {categoryByBrand?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("brand")}>
-                            <FaTag title={`Brand`} /> Brand
+                            <FaTag className="praymary-color" title={`Brand`} /> Brand
                         </p>
                         {activeDropdown === "brand" && (
                             <div className="dropdown-content end-0">
@@ -89,7 +89,7 @@ const FiltersCategoryMobile = ({
                 {categoryByColor?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("color")}>
-                            <IoMdColorPalette title={`Color`} /> Color
+                            <IoMdColorPalette className="praymary-color" title={`Color`} /> Color
                         </p>
                         {activeDropdown === "color" && (
                             <div className="dropdown-content end-0">
@@ -104,7 +104,7 @@ const FiltersCategoryMobile = ({
                 {categoryBySize?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("size")}>
-                            <FaArrowDownShortWide title={`Size`} /> Size
+                            <FaArrowDownShortWide className="praymary-color" title={`Size`} /> Size
                         </p>
                         {activeDropdown === "size" && (
                             <div className="dropdown-content end-0">

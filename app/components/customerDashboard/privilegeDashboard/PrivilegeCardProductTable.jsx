@@ -8,6 +8,7 @@ import PrivilegeCardProductTableBody from "./PrivilegeCardProductTableBody";
 import { useSession } from "next-auth/react";
 import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
 import PrivilegeProductDetailModal from "./PrivilegeProductDetailModal";
+import Pagination from "../../productCategory/Pagination";
 
 // const DEFAULT_QUANTITY = 1;
 
@@ -100,7 +101,9 @@ const PrivilegeCardProductTable = ({
                 </table>
             </div>
 
-            <div className="p-4">pagination...</div>
+            <div className="p-4">
+                <Pagination/>
+            </div>
 
             {productDetail && (
                 <PrivilegeProductDetailModal productInfo={productDetail} />

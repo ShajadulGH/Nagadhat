@@ -67,7 +67,7 @@ const ShotBy = ({ searchParams }) => {
             {/* Mobile Sorting */}
             <div className="dropdown-container d-block d-lg-none">
                 <p onClick={() => setActiveDropdownSort(!activeDropdownSort)}>
-                    <FaFilter/>
+                    <FaFilter className="praymary-color" title="Sort By"/>
                 </p>
                 {activeDropdownSort && (
                     <div className="dropdown-content end-0 fs-6">
