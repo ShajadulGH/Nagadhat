@@ -1,28 +1,47 @@
 "use client";
 
 import { getHomeCategory } from "@/app/services/getHomeCategory";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const PrivilegeCardProductTop = ({
     setCategoryFilter,
     categoryFilter,
-    setSearchTerms,
-    searchTerms,
+    setSearchTerm,
+    searchTerm,
 }) => {
-    const [searchValue, setSearchValue] = useState(searchTerms);
+    const [searchValue, setSearchValue] = useState(searchTerm);
     const [categoryValue, setCategoryValue] = useState([]);
 
-    const handleSearchChange = (event) => {
-        const value = event.target.value;
-        setSearchValue(value);
-        if (value.length === 0 || value.length >= 3) {
-            setSearchTerms(value);
+
+    const searchParam = useSearchParams();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (searchValue.length > 1) {
+            const handler = setTimeout(() => {
+                setSearchTerm(searchValue);
+                const newParams = new URLSearchParams(searchParam);
+                newParams.set("page", 1);
+                const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+                router.push(newUrl);
+            }, 500);
+
+            return () => {
+                clearTimeout(handler);
+            };
+        } else {
+            setSearchTerm("");
         }
-    };
+    }, [searchValue]);
 
     const handleCategoryChange = (event) => {
         const value = event.target.value;
         setCategoryFilter(value);
+        const newParams = new URLSearchParams(searchParam);
+        newParams.set("page", 1);
+        const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+        router.push(newUrl);
     };
 
     useEffect(() => {
@@ -47,7 +66,7 @@ const PrivilegeCardProductTop = ({
                             className="form-control"
                             placeholder="Search Product"
                             value={searchValue}
-                            onChange={handleSearchChange}
+                            onChange={(e) => setSearchValue(e.target.value)}
                         />
                     </div>
                     <div>
