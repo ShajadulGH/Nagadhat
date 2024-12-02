@@ -1,7 +1,9 @@
 .nh-service-area {
     padding-top: 70px;
 }
-
+.terms-condition-page .nh-service-area {
+    padding-top: 40px;
+}
 .nh-service-box {
     display: -ms-grid;
     display: grid;

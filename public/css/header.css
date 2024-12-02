@@ -277,7 +277,7 @@ header {
 .observer-hover-menu {
     position: fixed;
     top: 67px;
-    z-index: 1050;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     width: 310px;
@@ -386,6 +386,11 @@ header {
 .hero-slider-main-section {
     background: var(--color-53c0a080);
 }
+
 .mobile-nave-shadow {
     box-shadow: 200px 0px 280px 800px rgba(3, 3, 3, 0.185);
+}
+
+.mobile-category-shadow {
+    box-shadow: 300px 0px 100px 320px rgba(3, 3, 3, 0.103);
 }

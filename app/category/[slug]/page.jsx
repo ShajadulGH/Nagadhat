@@ -107,6 +107,15 @@ const DynamicCategoryPage = ({ params }) => {
                                 lastPage={lastPage}
                                 currentPage={page}
                                 loading={loading}
+                                categoryByBrand={categoryByBrand}
+                                categoryByColor={categoryByColor}
+                                categoryBySize={categoryBySize}
+                                subCategoryTitle={subCategoryTitle}
+                                categoryByMinPrice={categoryByMinPrice}
+                                categoryByMaxPrice={categoryByMaxPrice}
+                                categoryTotalMinPrice={categoryTotalMinPrice}
+                                categoryTotalMaxPrice={categoryTotalMaxPrice}
+                                allSubCategories={allSubCategories}
                             />
                         </div>
                     </div>

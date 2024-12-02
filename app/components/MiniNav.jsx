@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FaPhone } from "react-icons/fa6";
 
 function MiniNav() {
     return (
@@ -23,10 +24,6 @@ function MiniNav() {
                                     Career
                                 </Link>
                             </li>
-                        </ul>
-                    </div>
-                    <div className="header-top-menu-item">
-                        <ul className="d-flex align-items-center">
                             <li>
                                 <Link
                                     href="/merchant"
@@ -42,6 +39,18 @@ function MiniNav() {
                                 >
                                     Discount Partner
                                 </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="header-top-menu-item">
+                        <ul className="d-flex align-items-center">
+                            <li>
+                                <a
+                                    href="tel:+01906198502"
+                                    className=" text-white text-capitalize"
+                                >
+                                    <FaPhone className="pe-1"/> 01906198502
+                                </a>
                             </li>
                         </ul>
                     </div>

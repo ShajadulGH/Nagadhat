@@ -4,7 +4,7 @@ const CategoryMainMenu = ({ categoryMenu }) => {
     const menuItems = categoryMenu;
     return (
         <>
-            <ul className="category-menu-area">
+            <ul className="category-menu-area shadow-sm">
                 {Array.isArray(menuItems) &&
                     menuItems.map((menuItem) => (
                         <CategoryMainMenuList

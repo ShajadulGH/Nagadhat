@@ -107,10 +107,14 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
                             wrapperClass="w-25"
                         />
                     </div>
+                ) : privilegeCardInfo?.status === 0 ? (
+                    <span>Buy Now</span>
+                ) : privilegeCardInfo?.status === 1 ? (
+                    <span>In Review</span>
                 ) : privilegeCardInfo?.status === 2 ? (
                     <span>Active</span>
                 ) : (
-                    <span>Buy Now</span>
+                    <span>Unknown Status</span>
                 )}
             </button>
         </>

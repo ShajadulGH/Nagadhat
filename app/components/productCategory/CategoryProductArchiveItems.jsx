@@ -109,8 +109,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                                 productItem.variations?.map((variant_item) =>
                                     variant_item?.variations_default === 1 ? (
                                         <div key={variant_item.id}>
-                                            {variant_item?.price
-                                                ?.discount_amount > 0 ? (
+                                            {parseInt(variant_item?.price?.discount_amount) > 0 ? (
                                                 <div className="d-flex align-items-center justify-content-between">
                                                     <strong>
                                                         ট {""}
@@ -119,7 +118,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                                                                 ?.discounted_price
                                                         }
                                                     </strong>
-                                                    <strong>
+                                                    <strong className="text-secondary">
                                                         <del>
                                                             ট {""}
                                                             {
@@ -142,14 +141,13 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                                         </div>
                                     ) : null
                                 )
-                            ) : productItem?.product_type === "single" &&
-                                productItem?.price?.discounted_price > 0 ? (
+                            ) : productItem?.price?.discount_status ? (
                                 <div className="d-flex align-items-center justify-content-between">
                                     <strong>
                                         ট {""}
                                         {productItem?.price?.discounted_price}
                                     </strong>
-                                    <strong>
+                                    <strong className="text-secondary">
                                         <del>
                                             ট {""}
                                             {productItem?.price?.regular_price}

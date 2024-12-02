@@ -4,7 +4,6 @@ import { useEffect, useState, useTransition } from "react";
 import WithdrawChart from "./WithdrawChart";
 import { useSession } from "next-auth/react";
 import { getAffiliateFinanceBalanceChart } from "@/app/services/affiliate-finance/getAffiliateFinanceBalanceChart";
-import LodingFixed from "../../LodingFixed";
 import NoDataFound from "../../NoDataFound";
 
 const WithdrawTopBanner = () => {
@@ -44,7 +43,7 @@ const WithdrawTopBanner = () => {
                         <p className="fs-6">Withdrawable Balance</p>
                     </div>
                     {isPending ? (
-                        <h2 className="text-center w-100">Loding...</h2>
+                        <h2 className="text-center w-100">Loading...</h2>
                     ) : hasChartInfo ? (
                         <WithdrawChart chartInfo={chartInfo} />
                     ) : (

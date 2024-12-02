@@ -254,6 +254,11 @@ body {
     background: var(--color-414042);
 }
 
+.active-nav {
+    color: var(--color-1A9D78); 
+}
+
+
 /*------------------- End nh-categories-area ---------------------------*/
 
 /*------------------- Start nh-brands-area ---------------------------*/
@@ -378,4 +383,15 @@ body {
 .circle-new-updated {
     display: flex;
     align-items: center;
+}
+
+
+.privilere-modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+.privilere-modal.show {
+    opacity: 1;
+    visibility: visible;
 }

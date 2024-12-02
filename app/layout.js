@@ -10,6 +10,7 @@ import { ReduxProvider } from "./ReduxProvider";
 import "react-toastify/dist/ReactToastify.css";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import ToastProvider from "./ToastProvider";
+import MobileButtonNav from "./components/MobileButtonNav";
 const lato = Lato({
     subsets: ["latin"],
     display: "swap",
@@ -246,6 +247,7 @@ export default function RootLayout({ children, slug, option }) {
                                     <main className="main-body-pading">
                                         {children}
                                     </main>
+                                    <MobileButtonNav/>
                                     <Footer />
                                 </ToastProvider>
                             </ErrorBoundary>

@@ -161,15 +161,11 @@ const AffiliateRetailsProduct = ({ isActive }) => {
     const handleInputChange = (event) => {
         const value = event.target.value;
         setTempSearchProduct(value);
-        if (value.length < 3) {
-            setSearchProduct("");
-        }
-    };
 
-    const handleSearchClick = () => {
-        if (tempSearchProduct.length >= 3) {
-            setSearchProduct(tempSearchProduct);
-            setTempSearchProduct("");
+        if (value.length > 3) {
+            setSearchProduct(value);
+        } else {
+            setSearchProduct("");
         }
     };
 
@@ -192,11 +188,7 @@ const AffiliateRetailsProduct = ({ isActive }) => {
                             value={tempSearchProduct}
                             onChange={handleInputChange}
                         />
-                        <button
-                            onClick={handleSearchClick}
-                            className="input-group-text"
-                            id="search"
-                        >
+                        <button className="input-group-text" id="search">
                             <FaMagnifyingGlass />
                         </button>
                     </div>

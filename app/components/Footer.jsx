@@ -9,22 +9,21 @@ import Subscribe from "./Subscribe";
 
 function Footer() {
     const linkListsOptionOne = [
+        { title: "About Us", path: "#" },
         { title: "FAQ", path: "#" },
         { title: "Support", path: "#" },
-        { title: "About Us", path: "#" },
         { title: "Terms & Conditions", path: "#" },
-        { title: "Join Us", path: "#" },
         { title: "Quiz", path: "#" },
     ];
     const myAccoutOptions = [
         { title: "Login", path: "/login" },
-        { title: "Be an Affiliate", path: "#" },
-        { title: "Be a Merchant", path: "#" },
-        { title: "Discount Partner", path: "#" },
+        { title: "Be an Affiliate", path: "/affiliate" },
+        { title: "Be a Merchant", path: "/merchant" },
+        { title: "Discount Partner", path: "/discount-partner" },
     ];
 
     const socialLinkItem = [
-        { image: "/images/facbook.svg", alt: "facbook", path: "#" },
+        { image: "/images/facbook.svg", alt: "facbook", path: "https://www.facebook.com/nagadhat" },
         { image: "/images/twitter.svg", alt: "twitter", path: "#" },
         { image: "/images/linkedin.svg", alt: "linkedin", path: "#" },
         { image: "/images/youtube.svg", alt: "youtube", path: "#" },
@@ -56,19 +55,19 @@ function Footer() {
                     </div>
                     <div className="col-xl-5">
                         <div className="row footer-widget footer-widget-last">
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-6">
                                 <QuickLinks
                                     title="Quick Links"
                                     option={linkListsOptionOne}
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-6">
                                 <QuickLinks
                                     title="My Account"
                                     option={myAccoutOptions}
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-4 col-12">
                                 <QuickLinks title="Be A Seller">
                                     <div className="applay-now-btn">
                                         <Link href="#">APPLY NOW</Link>

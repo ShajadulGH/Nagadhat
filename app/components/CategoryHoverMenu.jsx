@@ -16,9 +16,9 @@ function CategoryHoverMenu({ isActive, setCategoryHoverMenu }) {
     }, []);
 
     return (
-        <div className="container">
+        <div className={`container`}>
             <div
-                className={`observer-hover-menu ${isActive ? "active" : ""}`}
+                className={`observer-hover-menu  ${isActive ? "active" : ""}`}
                 onMouseLeave={() => setCategoryHoverMenu(false)}
             >
                 {categoryMenuOption && (

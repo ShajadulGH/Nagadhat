@@ -1,11 +1,20 @@
+"use client";
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 import PrivilegeBuyNowBtn from "./PrivilegeBuyNowBtn";
 import PrivilegeChooseOptionBtn from "./PrivilegeChooseOptionBtn";
 import PrivilegeCancelledModal from "./PrivilegeCancelledModal";
 import ShowingProductPrices from "./ShowingProductPrices";
+import { useEffect, useState } from "react";
+import { getPrivilegeCardShoppingChoiceDetail } from "@/app/services/privilegeCard/getPrivilegeCardShoppingChoiceDetail";
+import { getPrivilegeCardBalanceAfterChoose } from "@/app/services/privilegeCard/getPrivilegeCardBalanceAfterChoose";
 
 const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
+    const [toggleStatte, setToggleStatte] = useState(false);
+    const [choocingProductAmount, setChoocingProductAmount] = useState({});
+    const [ownChoocingAmount, setOwnChoocingAmount] = useState({});
+    const [balanceAfterChoosing, setBalanceAfterChoosing] = useState({});
+
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.front_image}`
         : "/path-to-default-front-image.jpg";
@@ -14,7 +23,67 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.back_image}`
         : "/path-to-default-back-image.jpg";
 
-    console.log("privilegeCardInfo====>", { privilegeCardInfo });
+    // Choose Listed Products
+    useEffect(() => {
+        const fetchingChooseListedProducts = async () => {
+            try {
+                const rebate = 1;
+                const response = await getPrivilegeCardShoppingChoiceDetail(
+                    session?.accessToken,
+                    rebate
+                );
+                setChoocingProductAmount(response?.results);
+            } catch (error) {
+                console.error("Error fetching choosing products:", error);
+                console.info(error);
+            }
+        };
+        if (session?.accessToken) {
+            fetchingChooseListedProducts();
+        }
+    }, [session?.accessToken]);
+
+    // Choose Own Choice Shopping
+    useEffect(() => {
+        const fetchingChooseOwnShopping = async () => {
+            try {
+                const rebate = 2;
+                const response = await getPrivilegeCardShoppingChoiceDetail(
+                    session?.accessToken,
+                    rebate
+                );
+                setOwnChoocingAmount(response?.results);
+            } catch (error) {
+                console.error(
+                    "Error fetching Choose Own Choice Shopping",
+                    error
+                );
+                console.info(error);
+            }
+        };
+        if (session?.accessToken) {
+            fetchingChooseOwnShopping();
+        }
+    }, [session?.accessToken]);
+
+    // balance-after-choose
+
+    useEffect(() => {
+        const fetchingBalanceAfterChoose = async () => {
+            try {
+                const response = await getPrivilegeCardBalanceAfterChoose(
+                    session?.accessToken
+                );
+                setBalanceAfterChoosing(response?.results);
+            } catch (error) {
+                console.error("Error Fetching Balance After Choose", error);
+                console.info(error);
+            }
+        };
+        if (session?.accessToken) {
+            fetchingBalanceAfterChoose();
+        }
+    }, [session?.accessToken, toggleStatte]);
 
     return (
         <div className="customer-dashboard-order-history-title">
@@ -57,23 +126,34 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                             privilegeCardInfo={privilegeCardInfo}
                             session={session}
                         />
-                        <button
-                            data-bs-toggle="modal"
-                            data-bs-target="#privilege-cancelled-modal"
-                            className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
-                        >
-                            Cancel
-                        </button>
+                        {privilegeCardInfo?.status === 2 && (
+                            <button
+                                data-bs-toggle="modal"
+                                data-bs-target="#privilege-cancelled-modal"
+                                className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
+                            >
+                                Cancel
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
+
             <PrivilegeCancelledModal />
+
             {privilegeCardInfo?.product_name !== "Membership Card" && (
-                <PrivilegeChooseOptionBtn />
+                <PrivilegeChooseOptionBtn
+                    choocingProductAmount={choocingProductAmount}
+                    toggleStatte={toggleStatte}
+                    setToggleStatte={setToggleStatte}
+                    ownChoocingAmount={ownChoocingAmount}
+                />
             )}
 
             {privilegeCardInfo?.product_name !== "Membership Card" && (
-                <ShowingProductPrices />
+                <ShowingProductPrices
+                    balanceAfterChoosing={balanceAfterChoosing}
+                />
             )}
         </div>
     );

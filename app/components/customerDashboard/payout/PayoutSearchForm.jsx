@@ -3,9 +3,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-
 const PayoutSearchForm = ({ searchTerm, setSearchTerm }) => {
-    const [debouncedTerm, setDebouncedTerm] = useState('');
+    const [debouncedTerm, setDebouncedTerm] = useState("");
+
     const searchParam = useSearchParams();
     const router = useRouter();
 
@@ -15,13 +15,16 @@ const PayoutSearchForm = ({ searchTerm, setSearchTerm }) => {
                 setSearchTerm(debouncedTerm);
                 const newParams = new URLSearchParams(searchParam);
                 newParams.set("page", 1);
-                const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+                const newUrl = `${
+                    window.location.pathname
+                }?${newParams.toString()}`;
                 router.push(newUrl);
-            }, 500); // Delay of 300ms
+            }, 500);
+
             return () => {
-                clearTimeout(handler); // Cleanup timeout on every re-render
+                clearTimeout(handler);
             };
-        }else{
+        } else {
             setSearchTerm("");
         }
     }, [debouncedTerm]);

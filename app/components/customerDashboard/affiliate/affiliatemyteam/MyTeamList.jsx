@@ -51,12 +51,12 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 {member?.user_customer_rank_tree?.placement_user
                                     ?.name || ""}
                             </td>
-                            <td>
-                                {member.affiliate_user?.total_resell_amount ||
+                            <td className="text-end">
+                                ৳{member.affiliate_user?.total_resell_amount.toFixed(2) ||
                                     0}
                             </td>
-                            <td>
-                                {member.affiliate_user?.total_retail_amount ||
+                            <td className="text-end">
+                                ৳{member.affiliate_user?.total_retail_amount.toFixed(2) ||
                                     0}
                             </td>
                             <td>{member.affiliate_user?.refer_count || 0}</td>
@@ -85,18 +85,17 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                         <td></td>
                         <td>
                             <strong>
-                                ৳{" "}
-                                {teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount
-                                    : "0"}
+                                ৳{teamGrandTotal?.grand_total_resell_amount
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
+                                    : 0}
                             </strong>
                         </td>
                         <td>
                             <strong>
                                 ৳{" "}
                                 {teamGrandTotal?.grand_total_retail_amount
-                                    ? teamGrandTotal?.grand_total_retail_amount
-                                    : "0"}
+                                    ? teamGrandTotal?.grand_total_retail_amount.toFixed(2)
+                                    : 0}
                             </strong>
                         </td>
                         <td></td>
@@ -104,7 +103,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <strong>
                                 {teamGrandTotal?.grand_total_members
                                     ? teamGrandTotal?.grand_total_members
-                                    : teamGrandTotal?.grand_total_members}
+                                    : 0}
                             </strong>
                         </td>
                         <td></td>

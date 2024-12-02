@@ -2,13 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { FaBars, FaCartShopping, FaUser, FaXmark } from "react-icons/fa6";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import CustomerLeftSideNavbar from "./customerDashboard/CustomerLeftSideNavbar";
 import { useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRoute } from "next/navigation";
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
-import { useSelector } from "react-redux";
 
 const MobileNav = () => {
     const [popupSearch, setPopupSearch] = useState(false);
@@ -20,7 +19,6 @@ const MobileNav = () => {
     const searchResultRef = useRef(null);
     const sidebarRef = useRef(null); // Create ref for the sidebar
     const { data: session } = useSession();
-    const router = useRouter();
 
     // const searchParams = useSearchParams();
     // let districtId = searchParams.get("districtId");
@@ -60,10 +58,6 @@ const MobileNav = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
-    const addToCartProductLength = useSelector(
-        (state) => state.cart?.addToCartLength
-    );
 
     const handleSearchChange = (e) => {
         setSearch(e.target.value);
@@ -112,7 +106,8 @@ const MobileNav = () => {
                                     <Image
                                         src="/images/logo.svg"
                                         alt="logo"
-                                        fill={true}
+                                        height={40}
+                                        width={180}
                                         aria-label="Navigate to homepage"
                                     />
                                 </Link>
@@ -144,14 +139,14 @@ const MobileNav = () => {
                                     height={21}
                                 />
                             </div>
-                            <div
+                            {/* <div
                                 className="fs-4 text-white dashboard-side-navbar-togol"
                                 onClick={() => router.push("/cart-page")}
                                 aria-label="Go to cart page"
                             >
                                 <FaCartShopping />
                                 <sup className="bg-warning rounded-circle px-1 fs-6">{addToCartProductLength}</sup>
-                            </div>
+                            </div> */}
                             {session ? (
                                 <div
                                     className="fs-4 text-white dashboard-side-navbar-togol"
@@ -161,20 +156,20 @@ const MobileNav = () => {
                                     <FaBars />
                                 </div>
                             ) : (
-                                <div
-                                    className="fs-6 text-white dashboard-side-navbar-togol"
-                                    onClick={() => router.push("/login")}
-                                    aria-label="Go to login page"
-                                >
-                                    <FaUser />
-                                </div>
+                                ""
+                                // <div
+                                //     className="fs-6 text-white dashboard-side-navbar-togol"
+                                //     onClick={() => router.push("/login")}
+                                //     aria-label="Go to login page"
+                                // >
+                                //     <FaUser />
+                                // </div>
                             )}
                         </div>
                     </div>
                     <div
-                        className={`mobile-popup-search-area ${
-                            popupSearch ? "active" : ""
-                        }`}
+                        className={`mobile-popup-search-area ${popupSearch ? "active" : ""
+                            }`}
                         ref={searchAreaRef}
                     >
                         <form action="#">
@@ -211,9 +206,8 @@ const MobileNav = () => {
                         </div>
                     )}
                     <aside
-                        className={`customer-dashboard-side-navbar-mobile d-xl-none left-100 ${
-                            isSidebarOpen ? "start-0 mobile-nave-shadow" : "left-100"
-                        } `}
+                        className={`customer-dashboard-side-navbar-mobile d-xl-none left-100 ${isSidebarOpen ? "start-0 mobile-nave-shadow" : "left-100"
+                            } `}
                         ref={sidebarRef} // Sidebar ref
                     >
                         <div

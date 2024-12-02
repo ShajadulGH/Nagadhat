@@ -59,11 +59,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const isActive = (href) => currentPath === href;
 
     useEffect(() => {
-        const firstPartOfPath = currentPath.split('-')[0]; // Get the first part of currentPath
-        const sanitizedPath = firstPartOfPath.startsWith('/')
+        const firstPartOfPath = currentPath.split("-")[0]; // Get the first part of currentPath
+        const sanitizedPath = firstPartOfPath.startsWith("/")
             ? firstPartOfPath.slice(1) // Remove the leading "/" if it exists
             : firstPartOfPath; // Use as is if no "/"
-        setActiveDropdown(sanitizedPath)
+        setActiveDropdown(sanitizedPath);
     }, [currentPath]);
 
     let profilePicture;
@@ -92,11 +92,12 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                 </div>
                 <nav className="customer-dashboard-side-navbar bg-white">
                     <ul className="nav flex-column">
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
-                                className={`${isActive("/dashboard") ? "activ-link" : ""
-                                    } nav-link customer-dashboard-nav-link`}
+                                className={`${
+                                    isActive("/dashboard") ? "activ-link" : ""
+                                } nav-link customer-dashboard-nav-link`}
                                 href="/dashboard"
                                 scroll={false}
                             >
@@ -104,11 +105,14 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 Dashboard
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
-                                className={`${isActive("/orderhistory") ? "activ-link" : ""
-                                    } nav-link customer-dashboard-nav-link`}
+                                className={`${
+                                    isActive("/orderhistory")
+                                        ? "activ-link"
+                                        : ""
+                                } nav-link customer-dashboard-nav-link`}
                                 href="/orderhistory"
                                 scroll={false}
                             >
@@ -116,23 +120,40 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 Order History
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
-                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "privilegeCard"? "activ-link":""}`}
-                                onClick={() => toggleDropdown("privilegeCard")}
+                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${
+                                    activeDropdown === "privilege"
+                                        ? "activ-link"
+                                        : ""
+                                }`}
+                                onClick={() => toggleDropdown("privilege")}
                             >
                                 <FaCreditCard className="nav-icon me-2" />
                                 Privilege Card
-                                <FaAngleRight className={`dropdown ${activeDropdown === "privilegeCard"? "rotate":""}`}/>
+                                <FaAngleRight
+                                    className={`dropdown ${
+                                        activeDropdown === "privilege"
+                                            ? "rotate"
+                                            : ""
+                                    }`}
+                                />
                             </p>
                             <ul
-                                className={`dropdown-conteiner ${activeDropdown === "privilegeCard" ? "show" : ""
-                                    }`}
+                                className={`dropdown-conteiner ${
+                                    activeDropdown === "privilege" ? "show" : ""
+                                }`}
                             >
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className="dropdown-link customer-dashboard-dropdown-link"
+                                        className={`${
+                                            isActive(
+                                                "/privilege-card-dashboard"
+                                            )
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link customer-dashboard-dropdown-link`}
                                         href="/privilege-card-dashboard"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -152,8 +173,14 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className="dropdown-link customer-dashboard-dropdown-link"
-                                        href="/wallet-statement"
+                                        className={`${
+                                            isActive(
+                                                "/privilege-card-wallet-statement"
+                                            )
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link customer-dashboard-dropdown-link`}
+                                        href="/privilege-card-wallet-statement"
                                     >
                                         <span className="dropdown-item-circle"></span>
                                         Wallet Statement
@@ -162,8 +189,14 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className="dropdown-link customer-dashboard-dropdown-link"
-                                        href="/privilege-rebate-records"
+                                        className={`${
+                                            isActive(
+                                                "/privilege-card-rebate-records"
+                                            )
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link customer-dashboard-dropdown-link`}
+                                        href="/privilege-card-rebate-records"
                                     >
                                         <span className="dropdown-item-circle"></span>
                                         Rebate History
@@ -172,32 +205,42 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </ul>
                         </li>
 
-                        {isAffiliateUser?.affiliate_user_status == "Affiliate" && (
-                            <li className="nav-item customer-dashboard-nav-item">
+                        {isAffiliateUser?.affiliate_user_status ==
+                            "Affiliate" && (
+                            <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                 <p
-                                    className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "affiliate"? "activ-link":""}`}
+                                    className={`nav-link customer-dashboard-nav-link dropdown-btn ${
+                                        activeDropdown === "affiliate"
+                                            ? "activ-link"
+                                            : ""
+                                    }`}
                                     onClick={() => toggleDropdown("affiliate")}
                                 >
                                     <FaWallet className="nav-icon me-2" />
                                     Affiliate
                                     <FaAngleRight
-                                        className={`dropdown ${activeDropdown === "affiliate"
-                                            ? "rotate"
-                                            : ""
-                                            }`}
+                                        className={`dropdown ${
+                                            activeDropdown === "affiliate"
+                                                ? "rotate"
+                                                : ""
+                                        }`}
                                     />
                                 </p>
                                 <ul
-                                    className={`dropdown-conteiner ${activeDropdown === "affiliate" ? "show" : ""
-                                        }`}
+                                    className={`dropdown-conteiner ${
+                                        activeDropdown === "affiliate"
+                                            ? "show"
+                                            : ""
+                                    }`}
                                 >
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className={`${isActive("/affiliate-dashboard")
-                                                ? "activ-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
+                                            className={`${
+                                                isActive("/affiliate-dashboard")
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-dashboard"
                                         >
                                             <span className="dropdown-item-circle"></span>
@@ -207,10 +250,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className={`${isActive("/affiliate-team")
-                                                ? "activ-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
+                                            className={`${
+                                                isActive("/affiliate-team")
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-team"
                                         >
                                             <span className="dropdown-item-circle"></span>
@@ -220,10 +264,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className={`${isActive("/affiliate-products")
-                                                ? "activ-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
+                                            className={`${
+                                                isActive("/affiliate-products")
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-products"
                                         >
                                             <span className="dropdown-item-circle"></span>
@@ -233,12 +278,13 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className={`${isActive(
-                                                "/affiliate-sell-on-nagadhat"
-                                            )
-                                                ? "activ-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
+                                            className={`${
+                                                isActive(
+                                                    "/affiliate-sell-on-nagadhat"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-sell-on-nagadhat"
                                         >
                                             <span className="dropdown-item-circle"></span>
@@ -248,10 +294,13 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className={`${isActive("/affiliate-rankreward")
-                                                ? "activ-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
+                                            className={`${
+                                                isActive(
+                                                    "/affiliate-rankreward"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
                                             href="/affiliate-rankreward"
                                         >
                                             <span className="dropdown-item-circle"></span>
@@ -262,8 +311,14 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                     <li className="dropdown-item customer-dashboard-dropdown-item">
                                         <Link
                                             onClick={toggleSidebar}
-                                            className="dropdown-link customer-dashboard-dropdown-link"
-                                            href="#"
+                                            className={`${
+                                                isActive(
+                                                    "/affiliate-terms-condition"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                            } nav-link customer-dashboard-nav-link`}
+                                            href="/affiliate-terms-condition"
                                         >
                                             <span className="dropdown-item-circle"></span>
                                             Terms & Condition
@@ -273,29 +328,38 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </li>
                         )}
 
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
-                                    className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "payout"? "activ-link":""}`}
-                                    onClick={() => toggleDropdown("payout")}
+                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${
+                                    activeDropdown === "payout"
+                                        ? "activ-link"
+                                        : ""
+                                }`}
+                                onClick={() => toggleDropdown("payout")}
                             >
                                 <FaBangladeshiTakaSign className="nav-icon me-2" />
                                 Payout
                                 <FaAngleRight
-                                    className={`dropdown ${activeDropdown === "payout" ? "rotate" : ""
-                                        }`}
+                                    className={`dropdown ${
+                                        activeDropdown === "payout"
+                                            ? "rotate"
+                                            : ""
+                                    }`}
                                 />
                             </p>
                             <ul
-                                className={`dropdown-conteiner ${activeDropdown === "payout" ? "show" : ""
-                                    }`}
+                                className={`dropdown-conteiner ${
+                                    activeDropdown === "payout" ? "show" : ""
+                                }`}
                             >
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/payout-affiliate-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/payout-affiliate-bonus")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/payout-affiliate-bonus"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -305,10 +369,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/payout-resale-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/payout-resale-bonus")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/payout-resale-bonus"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -318,10 +383,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/payout-generation-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/payout-generation-bonus")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/payout-generation-bonus"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -331,10 +397,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/payout-rank-&-reward")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/payout-rank-&-reward")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/payout-rank-&-reward"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -344,10 +411,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/payout-salary")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/payout-salary")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/payout-salary"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -356,29 +424,38 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
-                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "finance"? "activ-link":""}`}
+                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${
+                                    activeDropdown === "finance"
+                                        ? "activ-link"
+                                        : ""
+                                }`}
                                 onClick={() => toggleDropdown("finance")}
                             >
                                 <FaMoneyBillTransfer className="nav-icon me-2" />
                                 Finance
                                 <FaAngleRight
-                                    className={`dropdown ${activeDropdown === "finance" ? "rotate" : ""
-                                        }`}
+                                    className={`dropdown ${
+                                        activeDropdown === "finance"
+                                            ? "rotate"
+                                            : ""
+                                    }`}
                                 />
                             </p>
                             <ul
-                                className={`dropdown-conteiner ${activeDropdown === "finance" ? "show" : ""
-                                    }`}
+                                className={`dropdown-conteiner ${
+                                    activeDropdown === "finance" ? "show" : ""
+                                }`}
                             >
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-transactions")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/finance-transactions")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-transactions"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -388,10 +465,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-transfer")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/finance-transfer")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-transfer"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -401,10 +479,13 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-transfer-history")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive(
+                                                "/finance-transfer-history"
+                                            )
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-transfer-history"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -414,10 +495,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-withdraw")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/finance-withdraw")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-withdraw"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -427,10 +509,13 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-withdraw-history")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive(
+                                                "/finance-withdraw-history"
+                                            )
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-withdraw-history"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -440,10 +525,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-my-bank-details")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/finance-my-bank-details")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-my-bank-details"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -453,10 +539,11 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
-                                        className={`${isActive("/finance-bank-info")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
+                                        className={`${
+                                            isActive("/finance-bank-info")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
                                         href="/finance-bank-info"
                                     >
                                         <span className="dropdown-item-circle"></span>
@@ -476,11 +563,14 @@ onClick={toggleSidebar}
                             My Vouchers
                         </Link>
                     </li> */}
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
-                                className={`${isActive("/manage-profile") ? "activ-link" : ""
-                                    } nav-link customer-dashboard-nav-link`}
+                                className={`${
+                                    isActive("/manage-profile")
+                                        ? "activ-link"
+                                        : ""
+                                } nav-link customer-dashboard-nav-link`}
                                 href="/manage-profile"
                                 scroll={false}
                             >
@@ -488,126 +578,75 @@ onClick={toggleSidebar}
                                 Manage Profile/KYC
                             </Link>
                         </li>
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <Link
                                 onClick={toggleSidebar}
                                 className="nav-link customer-dashboard-nav-link"
-                                href="#"
+                                href="/support"
                             >
                                 <FaTicket className="nav-icon me-2" />
                                 Support
                             </Link>
                         </li>
 
-                        <li className="nav-item customer-dashboard-nav-item">
+                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
-                                    className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "others"? "activ-link":""}`}
-                                    onClick={() => toggleDropdown("others")}
+                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${
+                                    activeDropdown === "others"
+                                        ? "activ-link"
+                                        : ""
+                                }`}
+                                onClick={() => toggleDropdown("others")}
                             >
-                                <span>
-                                    <IoMdOptions className="nav-icon me-2 fw-bolder " />
-                                    Others
-                                </span>
-
+                                {/* <FaCreditCard className="nav-icon me-2" /> */}
+                                <IoMdOptions className="nav-icon me-2" />
+                                Others
                                 <FaAngleRight
-                                    className={`dropdown-arrow  ${activeDropdown === "others" ? "rotate" : ""
-                                        }`}
+                                    className={`dropdown ${
+                                        activeDropdown === "others"
+                                            ? "rotate"
+                                            : ""
+                                    }`}
                                 />
                             </p>
-
-                            {activeDropdown === "others" && (
-                                <div className="dropdown-container show">
-                                    <p
-                                        className="nav-link customer-dashboard-nav-link dropdown-btn d-flex justify-content-between"
-                                        onClick={() => toggleDropdown("settings")}
+                            <ul
+                                className={`dropdown-conteiner ${
+                                    activeDropdown === "others" ? "show" : ""
+                                }`}
+                            >
+                                <li className="dropdown-item customer-dashboard-dropdown-item">
+                                    <Link
+                                        onClick={toggleSidebar}
+                                        className={`${
+                                            isActive("/others-password-txn-otp")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
+                                        href="/others-password-txn-otp"
                                     >
-                                        <span>
-                                            <FaCog className="nav-icon me-2" />
-                                            Settings
-                                        </span>
-
-                                        <FaAngleRight
-                                            className={`dropdown-arrow ${activeDropdown === "settings"
-                                                ? "rotate"
+                                        <span className="dropdown-item-circle"></span>
+                                        Password & TXN OTP
+                                    </Link>
+                                </li>
+                                <li className="dropdown-item customer-dashboard-dropdown-item">
+                                    <Link
+                                        onClick={toggleSidebar}
+                                        className={`${
+                                            isActive(
+                                                "/others-customer-shipping-address"
+                                            )
+                                                ? "activ-link"
                                                 : ""
-                                                }`}
-                                        />
-                                    </p>
-                                </div>
-                            )}
-
-                            {activeDropdown === "settings" && (
-                                <ul className="dropdown-container show">
-                                    <li className="dropdown-item customer-dashboard-dropdown-item">
-                                        <Link
-                                            onClick={toggleSidebar}
-                                            className={`${isActive("/passwordtxnotp")
-                                                ? "active-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
-                                            href="/passwordtxnotp"
-                                        >
-                                            <span className="dropdown-item-circle"></span>
-                                            Password & TXN OTP
-                                        </Link>
-                                    </li>
-                                    <li className="dropdown-item customer-dashboard-dropdown-item">
-                                        <Link
-                                            onClick={toggleSidebar}
-                                            className={`${isActive("/customershippingaddress")
-                                                ? "active-link"
-                                                : ""
-                                                } nav-link customer-dashboard-nav-link`}
-                                            href="/customershippingaddress"
-                                        >
-                                            <span className="dropdown-item-circle"></span>
-                                            Shipping Address
-                                        </Link>
-                                    </li>
-                                </ul>
-                            )}
+                                        } nav-link customer-dashboard-nav-link`}
+                                        href="/others-customer-shipping-address"
+                                    >
+                                        <span className="dropdown-item-circle"></span>
+                                        Shipping Address
+                                    </Link>
+                                </li>
+                            </ul>
                         </li>
 
-                        {/* <li className="nav-item customer-dashboard-nav-item">
-                        <p
-                            className="nav-link customer-dashboard-nav-link dropdown-btn"
-                            onClick={() => toggleDropdown("others")}
-                        >
-                            <FaPoll className="nav-icon me-2" />
-                            Others
-                            <FaAngleRight
-                                className={`dropdown ${
-                                    activeDropdown === "others" ? "rotate" : ""
-                                }`}
-                            />
-                        </p>
-                        <ul
-                            className={`dropdown-conteiner ${
-                                activeDropdown === "others" ? "show" : ""
-                            }`}
-                        >
-                            <li className="dropdown-item customer-dashboard-dropdown-item">
-                                <Link
-onClick={toggleSidebar}
-                                    className="dropdown-link customer-dashboard-dropdown-link"
-                                    href="#"
-                                >
-                                    <span className="dropdown-item-circle"></span>
-                                    Invitations
-                                </Link>
-                            </li>
-                            <li className="dropdown-item customer-dashboard-dropdown-item">
-                                <Link
-onClick={toggleSidebar}
-                                    className="dropdown-link customer-dashboard-dropdown-link"
-                                    href="#"
-                                >
-                                    <span className="dropdown-item-circle"></span>
-                                    Quizes
-                                </Link>
-                            </li>
-                        </ul>
-                    </li> */}
                         {status === "authenticated" && (
                             <li className="nav-item customer-dashboard-nav-item">
                                 <p className="customer-dashboard-nav-link p-0">

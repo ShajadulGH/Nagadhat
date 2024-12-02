@@ -1,12 +1,14 @@
 "use client";
 
 import PrivilegeCardProductSummary from "./PrivilegeCardProductSummary";
-import PrivilegeProductDetailModal from "./PrivilegeProductDetailModal";
+// import PrivilegeProductDetailModal from "./PrivilegeProductDetailModal";
 import { useEffect, useState, useTransition } from "react";
 import PrivilegeCardProductTableHead from "./PrivilegeCardProductTableHead";
 import PrivilegeCardProductTableBody from "./PrivilegeCardProductTableBody";
 import { useSession } from "next-auth/react";
 import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getPrivilegeAddToCartProducts";
+import PrivilegeProductDetailModal from "./PrivilegeProductDetailModal";
+import Pagination from "../../productCategory/Pagination";
 
 // const DEFAULT_QUANTITY = 1;
 
@@ -16,8 +18,7 @@ const PrivilegeCardProductTable = ({
     rendaringCartPrice,
     productCardLimit,
 }) => {
-    const [selectedProduct, setSelectedProduct] = useState(null);
-    const [showingProModal, setShowingProModal] = useState(false);
+    const [productDetail, setProductDetail] = useState(null);
     const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
     const [isPending, startTransition] = useTransition();
     const { data: session } = useSession();
@@ -62,6 +63,10 @@ const PrivilegeCardProductTable = ({
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
+    const closeModal = () => {
+        setProductDetail(null);
+    };
+
     return (
         <>
             <div className="table-responsive px-4">
@@ -84,6 +89,7 @@ const PrivilegeCardProductTable = ({
                                     item={item}
                                     index={index}
                                     privilegeCartItem={privilegeCartItem}
+                                    setProductDetail={setProductDetail}
                                 />
                             ))
                         ) : (
@@ -94,22 +100,19 @@ const PrivilegeCardProductTable = ({
                     </tbody>
                 </table>
             </div>
-            <div className="p-4">pagination...</div>
 
+            <div className="p-4">
+                <Pagination/>
+            </div>
+
+            {productDetail && (
+                <PrivilegeProductDetailModal productInfo={productDetail} />
+            )}
             <PrivilegeCardProductSummary
                 rendaringCartPrice={rendaringCartPrice}
                 privilegeCartItem={privilegeCartItem}
                 token={session.accessToken}
             />
-            {showingProModal && (
-                <PrivilegeProductDetailModal
-                    productInfo={selectedProduct}
-                    onClose={() => {
-                        setShowingProModal(false);
-                        setSelectedProduct(null);
-                    }}
-                />
-            )}
         </>
     );
 };

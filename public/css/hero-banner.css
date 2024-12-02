@@ -52,7 +52,7 @@
     opacity: 0;
     visibility: hidden;
     transition: all .2s linear;
-    z-index: 100;
+    z-index: 4;
 }
 
 .category-menu-area .menu-link:hover .sub-category-menu {
@@ -90,7 +90,7 @@
     position: absolute;
     top: 100px !important;
     left: 50px !important;
-    z-index: 1010;
+    z-index: 3;
     width: 40%;
 }
 
@@ -146,13 +146,14 @@
 }
 
 .hero-slider-photo {
-    height: 500px;
-    width: 1010px;
-    max-width:100%;
+    height: auto;
+    /* width: 1010px; */
+    width:100%;
     position: relative;
 }
 .hero-slider-photo img {
     object-fit: cover;
+    aspect-ratio: 2/1;
 }
 
 .hero-slider-content h1 {

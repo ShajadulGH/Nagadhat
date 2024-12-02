@@ -7,27 +7,27 @@ const SocialLink = ({ path_name, product_name, product_thumbnail }) => {
         {
             image: "/images/facbook.svg",
             alt: "Facebook",
-            path: `https://www.facebook.com/sharer/sharer.php?u=https://nagadhat-dev.vercel.app/products/${path_name}`,
+            path: `https://www.facebook.com/nagadhat`,
         },
         {
             image: "/images/twitter.svg",
             alt: "Twitter",
-            path: `https://twitter.com/intent/tweet?url=https://nagadhat-dev.vercel.app/products/${path_name}`,
+            path: `#`,
         },
         {
             image: "/images/linkedin.svg",
             alt: "LinkedIn",
-            path: `https://www.linkedin.com/shareArticle?mini=true&url=https://nagadhat-dev.vercel.app/products/${path_name}`,
+            path: `https://www.linkedin.com/in/nagadhat-bangladesh-ltd-6a59071b1/`,
         },
         {
             image: "/images/youtube.svg",
             alt: "YouTube",
-            path: "https://www.youtube.com",
+            path: "https://www.youtube.com/channel/UCS5oyiXLPqlTjirRuGhkUVA",
         },
         {
             image: "/images/instagram.svg",
             alt: "Instagram",
-            path: "https://www.instagram.com",
+            path: "https://www.instagram.com/nagadhat9/",
         },
     ];
     // console.log("socialLinkItem final path path ", socialLinkItem);

@@ -75,22 +75,32 @@
   .scroll-content {
     display: inline-flex;
     gap: 10px; 
-    width: 100%;
+    width: 98%;
   }
   
   .box {
     flex: 0 0 auto;
-    width: 25%;
-    flex-basis: 25%;
-    height: 200px;
-    background-color: lightblue;
+    width: 33.33%;
+    flex-basis: 33.33%;
+    min-height: 200px;
+    background-color: white;
     border: 1px solid #ddd;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
-    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     cursor: pointer;
+  }
+  .active-container-bg.box {
+    background-color:#c5eee3;
+  }
+  .after-click-bg {
+    box-shadow: rgba(14, 30, 37, 0.18) 0px 2px 4px 0px, rgba(14, 30, 37, 0.36) 0px 2px 16px 0px;
+    border: 2px solid #44bc9d;
+  }
+  .container-top-tags {
+    font-size: 14px;
   }
 
 
@@ -101,6 +111,15 @@
     }
   }
   
+  @media screen and (max-width: 767px) {
+    .box {
+      width: 100%; 
+      flex-basis: 100%; 
+    }
+    .scroll-content {
+      width: 100%;
+    }
+  }
   
  
   

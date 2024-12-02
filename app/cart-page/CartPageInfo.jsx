@@ -136,6 +136,8 @@ const CartPage = () => {
                         cart_id,
                         session?.accessToken
                     );
+                    console.log(deleteProduct);
+                    
                     const updatedCartProducts = await fetchCartProducts(
                         session?.accessToken,
                         outletId,
@@ -621,6 +623,7 @@ const CartPage = () => {
         }
     };
 
+
     return (
         <section className="cart-section-area">
             <div className="container">
@@ -681,15 +684,8 @@ const CartPage = () => {
                                             {checkedProductCard.length > 0 ? (
                                                 checkedProductCard.map(
                                                     (item, index) => {
-                                                        const price =
-                                                            item.price *
-                                                            item.quantity;
-                                                        const regularPrice =
-                                                            item.regular_price *
-                                                            item.quantity;
-                                                            console.log("cart page",item);
-                                                            
-
+                                                        const price = item.price * item.quantity;
+                                                        const regularPrice = item.regular_price * item.quantity;
                                                         return (
                                                             <div
                                                                 className="d-flex justify-content-between gap-2 product-cart-details-item"
@@ -868,7 +864,6 @@ const CartPage = () => {
                                                                         <input
                                                                             className="quantity-fild"
                                                                             min="1"
-                                                                            max="5"
                                                                             step="1"
                                                                             autoComplete="off"
                                                                             type="text"
@@ -920,7 +915,7 @@ const CartPage = () => {
                                         <Image
                                             fill={true}
                                             src="/images/discount-code.png"
-                                            alt="discount-code"
+                                            alt=""
                                         />
                                     </div>
 
