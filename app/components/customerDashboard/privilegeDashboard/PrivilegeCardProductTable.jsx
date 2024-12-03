@@ -17,6 +17,8 @@ const PrivilegeCardProductTable = ({
     setRendaringCartPrice,
     rendaringCartPrice,
     productCardLimit,
+    currentPage,
+    lastPage
 }) => {
     const [productDetail, setProductDetail] = useState(null);
     const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
@@ -102,7 +104,10 @@ const PrivilegeCardProductTable = ({
             </div>
 
             <div className="p-4">
-                <Pagination/>
+            <Pagination 
+                    currentPage={currentPage}
+                    lastPage={lastPage}
+                />
             </div>
 
             {productDetail && (

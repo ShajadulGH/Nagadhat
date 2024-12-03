@@ -5,18 +5,30 @@ import PrivilegeCardProductTop from "./PrivilegeCardProductTop";
 import { useSession } from "next-auth/react";
 import { getPrivilegeCardProducts } from "@/app/services/privilegeCard/getPrivilegeCardProducts";
 import LodingFixed from "../../LodingFixed";
+import { useSearchParams } from "next/navigation";
 
 const PrivilegeCardProduct = () => {
     const [isPending, startTransition] = useTransition();
-    const [searchTerms, setSearchTerms] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
     const [productsData, setProductsData] = useState([]);
     const [productCardLimit, setProductCardLimit] = useState(null);
     const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
+    const searchParam = useSearchParams();
+    const [lastPage, setLastPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const limit = 20;
 
     // Handler to set price visibility for a specific product
 
     const { data: session, status } = useSession();
+
+    useEffect(() => {
+        const page = searchParam.get("page");
+        if (page && parseInt(page) !== currentPage) {
+            setCurrentPage(parseInt(page));
+        }
+    }, [searchParam]);
 
     useEffect(() => {
         if (session?.accessToken) {
@@ -24,8 +36,10 @@ const PrivilegeCardProduct = () => {
                 try {
                     startTransition(async () => {
                         const params = {
-                            search: searchTerms,
+                            search: searchTerm,
                             category: categoryFilter,
+                            limit,
+                            page: currentPage,
                         };
                         const response = await getPrivilegeCardProducts(
                             session.accessToken,
@@ -39,6 +53,7 @@ const PrivilegeCardProduct = () => {
                         setProductCardLimit(cartLimitPrice);
 
                         setProductsData(response?.results?.data);
+                        setLastPage(response?.results?.last_page);
                     });
                 } catch (error) {
                     console.error(
@@ -49,13 +64,13 @@ const PrivilegeCardProduct = () => {
             };
             fetchPrivilegeProduct();
         }
-    }, [session?.accessToken, searchTerms, categoryFilter, rendaringCartPrice]);
+    }, [session?.accessToken, searchTerm, categoryFilter, rendaringCartPrice, currentPage]);
 
     return (
         <>
             <PrivilegeCardProductTop
-                searchTerms={searchTerms}
-                setSearchTerms={setSearchTerms}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
                 categoryFilter={categoryFilter}
                 setCategoryFilter={setCategoryFilter}
             />
@@ -65,6 +80,8 @@ const PrivilegeCardProduct = () => {
                 rendaringCartPrice={rendaringCartPrice}
                 setRendaringCartPrice={setRendaringCartPrice}
                 productCardLimit={productCardLimit}
+                currentPage={currentPage}
+                lastPage={lastPage}
             />
         </>
     );
