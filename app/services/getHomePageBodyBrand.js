@@ -4,7 +4,7 @@ export const getHomePageBodyBrand = async () => {
   try {
     const response = await fetch(`${apiBaseUrl}/get-homepage-brand`,
       ['posts'],
-      { revalidate: 36000, tags: ['posts'] }
+      { revalidate: 1, tags: ['posts'] }
     );
     return await response.json();
   } catch (error) {
