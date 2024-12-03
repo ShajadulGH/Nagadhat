@@ -9,8 +9,8 @@ export const getHomeFlashSalesProduct = async (
         try {
             const response = await fetch(
                 `${apiBaseUrl}/get-outlet-product-by-district-id-v2-flash-sale/${districtId}?page=${page}&limit=${limit}`,
-                ['posts'],
-                { revalidate: 36000, tags: ['posts'] }
+                ["posts"],
+                { revalidate: 1, tags: ["posts"] }
             );
             return await response.json();
         } catch (error) {

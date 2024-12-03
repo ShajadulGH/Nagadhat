@@ -4,7 +4,7 @@ export const getHomeCategoryList = async () => {
     try {
         const response = await fetch(`${apiBaseUrl}/all-category-top-menu`,
             ['posts'],
-            { revalidate: 36000, tags: ['posts'] }
+            { revalidate: 1, tags: ['posts'] }
         );
         const data = await response.json();
         return filterByStatus(data.results.category);
