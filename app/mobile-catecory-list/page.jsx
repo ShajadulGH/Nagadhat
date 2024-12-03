@@ -42,8 +42,13 @@ const MobileCategory = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const data = await getCategoryMobile();
-            setCategoryMenuOption(data || []);
+            try {
+                const data = await getCategoryMobile();
+                setCategoryMenuOption(data || []);
+                // await getProductInThisCategory(data[0]?.slug);
+            } catch (error) {
+                console.error("Failed to fetch category:", error);
+            }
         }
         fetchData();
     }, []);
@@ -147,7 +152,7 @@ const MobileCategory = () => {
                             className=" py-4 overflow-y-scroll overflow-x-hidden w-100"
                             style={{ height: "calc(100vh - 140px)" }}
                         >
-                            <div className="flash-sale-content-area">
+                            <div className="product-category-grid-area">
                                 {categoryPrduct?.map((product) => (
                                     <CategoryProductArchiveItems
                                         key={product.id}
