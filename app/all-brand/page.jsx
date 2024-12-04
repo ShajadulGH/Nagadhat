@@ -15,12 +15,12 @@ const ViewAllPage = async ({ searchParams }) => {
     let lastPage = 1;
     const limit = 24; //Per Page Category
 
-            const brandData = await getHomeBrand(page, limit);
-            viewCategoryData = brandData.results.brands.data;
-            lastPage = brandData.results.brands.last_page;
-            if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner) {
-                bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner}`;
-            }
+    const brandData = await getHomeBrand(page, limit);
+    viewCategoryData = brandData.results.brands.data;
+    lastPage = brandData.results.brands.last_page;
+    if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner) {
+        bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner}`;
+    }
 
     return (
         <div className="container view-all-product-container">
@@ -33,7 +33,7 @@ const ViewAllPage = async ({ searchParams }) => {
                     lastPage={lastPage}
                 />
             </div>
-            <RecentViewProduc/>
+            <RecentViewProduc />
             <Service />
         </div>
     );
