@@ -1,9 +1,9 @@
 import PrivilegeRebateRecordWrapper from "@/app/components/customerDashboard/privilegeDashboard/PrivilegeRebateRecordWrapper";
 
-const PrivilegeRebateRecordsPage = () => {
+const PrivilegeRebateRecordsPage = ({ searchParams }) => {
     return (
         <>
-            <PrivilegeRebateRecordWrapper />
+            <PrivilegeRebateRecordWrapper searchParams={searchParams} />
         </>
     );
 };
