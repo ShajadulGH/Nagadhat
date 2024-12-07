@@ -6,15 +6,16 @@ import NoDataFound from "../../NoDataFound";
 import WithdrawHistoryBtn from "./WithdrawHistoryBtn";
 import Pagination from "../../productCategory/Pagination";
 
-const WithdrawHistory = async ({searchParams}) => {
+const WithdrawHistory = async ({ searchParams }) => {
     const page = parseInt(searchParams?.page) || 1;
     let lastPage = 1;
     const limit = 24; //Per Page Category
 
     const session = await getServerSession(authOptions);
     const response = await getAffiliateFinanceWithdrawHistory(
-        session.accessToken,
-        page, limit
+        session?.accessToken,
+        page,
+        limit
     );
     let withdrawHistoryData = response?.results?.data;
     lastPage = response?.results?.last_page;
@@ -48,7 +49,13 @@ const WithdrawHistory = async ({searchParams}) => {
                                     <td className="text-end">{item.amount}</td>
                                     <td className="text-end">{item.charge}</td>
                                     <td className="text-end">{item.payable}</td>
-                                    <td className={item.status === "Completed"? "paid" : "pending"}>
+                                    <td
+                                        className={
+                                            item.status === "Completed"
+                                                ? "paid"
+                                                : "pending"
+                                        }
+                                    >
                                         {item.status}
                                     </td>
                                     <WithdrawHistoryBtn
@@ -60,10 +67,7 @@ const WithdrawHistory = async ({searchParams}) => {
                         </tbody>
                     </table>
                 )}
-                <Pagination
-                    currentPage={page}
-                    lastPage={lastPage}
-                />
+                <Pagination currentPage={page} lastPage={lastPage} />
             </div>
         </>
     );
