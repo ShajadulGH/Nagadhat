@@ -20,7 +20,7 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                                 <h4 className="mb-1">
                                     ট { cash_balance || 0}
                                 </h4>
-                                <p className="opacity-75">Withdrawable</p>
+                                <p className="opacity-75">Withdrawable Amount</p>
                             </div>
                             <div className="flex-1 pt-3 ">
                                 <h4 className="mb-1">

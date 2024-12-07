@@ -33,7 +33,7 @@ const FinanceHistoryModalTable = ({ data }) => {
                     ))}
                 </tbody>
             </table>
-            {!data.length && <NoDataFound />}
+            {!data?.length && <NoDataFound />}
         </div>
     );
 };
