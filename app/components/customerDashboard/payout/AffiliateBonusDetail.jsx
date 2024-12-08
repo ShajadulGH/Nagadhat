@@ -1,10 +1,17 @@
 import PayoutSearchForm from "./PayoutSearchForm";
 
-const AffiliateBonusDetail = ({ affiliateBonusResult, affiliateBonusData, serialNumber }) => {
+const AffiliateBonusDetail = ({
+    affiliateBonusResult,
+    affiliateBonusData,
+    serialNumber,
+}) => {
     return (
         <div className="p-3">
             <div className="table-responsive">
-                <table className="table table-hover">
+                <table
+                    className="table table-hover"
+                    style={{ minWidth: "1000px" }}
+                >
                     <thead>
                         <tr>
                             <th scope="col" className="text-center">
@@ -68,11 +75,15 @@ const AffiliateBonusDetail = ({ affiliateBonusResult, affiliateBonusData, serial
 
                         <tr>
                             <td colSpan="3" className="align-middle text-end ">
-                                {affiliateBonusResult?.total_earning > 0 && (
+                                {affiliateBonusResult?.total_earning !==
+                                    null && (
                                     <strong>
                                         Total : ৳{" "}
-                                        {Number(
-                                            affiliateBonusResult.total_earning
+                                        {parseFloat(
+                                            affiliateBonusResult?.total_earning.replace(
+                                                /,/g,
+                                                ""
+                                            ) || 0
                                         ).toFixed(2)}
                                     </strong>
                                 )}
