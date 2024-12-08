@@ -30,6 +30,7 @@ const PrivilegeAddToCard = ({
     });
     const { data: session, status } = useSession();
 
+    // handlePrivilegeAddToCard
     const handlePrivilegeAddToCard = async () => {
         const cartItems = {
             product_id: productsData?.id,
@@ -74,8 +75,14 @@ const PrivilegeAddToCard = ({
                 onClick={handlePrivilegeAddToCard}
                 className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${
                     isButtonDisable ? "" : "disabled-button"
+                } ${
+                    productsData?.purchase_quantity === 0
+                        ? "disabled-button"
+                        : ""
                 }`}
-                disabled={!isButtonDisable}
+                disabled={
+                    !isButtonDisable || productsData?.purchase_quantity === 0
+                }
             >
                 {isPending ? (
                     <div

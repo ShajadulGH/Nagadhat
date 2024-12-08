@@ -9,13 +9,13 @@ const FinancePaymentMethod = () => {
             <div className="p-3">
                 <div className="row">
                     <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#agentModel">
-                        <Image height={200} width={300} src={agent} className="img-fluid" alt="Agent Withdrawal" />
+                        <Image height={200} width={500} src={agent} className="img-fluid" alt="Agent Withdrawal" />
                     </div>
                     <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#mobileBankingModal">
-                        <Image src={mobileBanking} height={200} width={300} className="img-fluid" alt="Mobile Banking Withdrawal" />
+                        <Image src={mobileBanking} height={200} width={500} className="img-fluid" alt="Mobile Banking Withdrawal" />
                     </div>
                     <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#bankModal">
-                        <Image src={bank} height={200} width={300} alt="Bank Withdrawal" className="img-fluid" />
+                        <Image src={bank} height={200} width={500} alt="Bank Withdrawal" className="img-fluid" />
                     </div>
                 </div>
             </div>

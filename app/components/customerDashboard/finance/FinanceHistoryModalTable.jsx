@@ -5,7 +5,7 @@ import NoDataFound from "../../NoDataFound";
 const FinanceHistoryModalTable = ({ data }) => {
     return (
         <div className=" table-responsive">
-            <table className="table table-hover" style={{ minWidth: "645px" }}>
+            <table className="table table-hover" style={{ minWidth: "900px" }}>
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -20,12 +20,22 @@ const FinanceHistoryModalTable = ({ data }) => {
                 <tbody>
                     {data?.map((transaction) => (
                         <tr key={transaction.id}>
-                            <td>{moment(transaction.created_at).format("YYYY-MM-DD hh:mm A")}</td>
+                            <td>
+                                {moment(transaction.created_at).format(
+                                    "YYYY-MM-DD hh:mm A"
+                                )}
+                            </td>
                             <td>{transaction.transfer_form}</td>
                             <td>{transaction.transfer_to}</td>
-                            <td className="text-end">{transaction.amount.toFixed(2)}</td>
-                            <td className="text-end">{transaction.charge.toFixed(2)}</td>
-                            <td className="text-end">{transaction.payable.toFixed(2)}</td>
+                            <td className="text-end">
+                                {transaction.amount.toFixed(2)}
+                            </td>
+                            <td className="text-end">
+                                {transaction.charge.toFixed(2)}
+                            </td>
+                            <td className="text-end">
+                                {transaction.payable.toFixed(2)}
+                            </td>
                             <td>
                                 <FinanceHistoryBtn transaction={transaction} />
                             </td>
@@ -33,7 +43,7 @@ const FinanceHistoryModalTable = ({ data }) => {
                     ))}
                 </tbody>
             </table>
-            {!data.length && <NoDataFound />}
+            {!data?.length && <NoDataFound />}
         </div>
     );
 };

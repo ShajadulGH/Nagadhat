@@ -1,13 +1,13 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getAffiliateFinanceWithdrawHistory = async (token) => {
+export const getAffiliateFinanceWithdrawHistory = async (token, page, limit) => {
     if (!token) {
         console.error(
             "Token is missing. Cannot fetch Finance Withdraw History data."
         );
         return null;
     }
-    const url = `${apiBaseUrl}/affiliate-finance-withdraw-history`;
+    const url = `${apiBaseUrl}/affiliate-finance-withdraw-history?page=${page}&limit=${limit}`;
     try {
         const response = await fetch(url, {
             method: "GET",

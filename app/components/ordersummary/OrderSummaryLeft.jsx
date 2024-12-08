@@ -8,6 +8,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
         1: "Thank you for your purchase!",
         2: "Thank You!",
         3: "Thank you for your Container Product purchase!",
+        4: "Thank you for your purchase!",
     };
 
     const message = messages[orderSummary?.order_product_type];
@@ -18,10 +19,14 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                 <div className="order-billing-info">
                     <div className="thank-you">
                         <div className="d-flex justify-content-between gap-3">
-                        {message && <h1>{message}</h1>}
-                        <span className="d-lg-none"><DownloadInvoiceBtn orderSummary={orderSummary} /></span>
+                            {message && <h1>{message}</h1>}
+                            <span className="d-lg-none">
+                                <DownloadInvoiceBtn
+                                    orderSummary={orderSummary}
+                                />
+                            </span>
                         </div>
-                        
+
                         {orderSummary?.order_product_type === "2" ? (
                             <>
                                 <p className="pb-2">
@@ -57,14 +62,16 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             </p>
                         )}
                     </div>
-                    {orderSummary?.order_product_type === "1" && (
-                        <OrderShippingAddress orderSummary={orderSummary} />
-                    )}
+                    {orderSummary?.order_product_type === "1" ||
+                        (orderSummary?.order_product_type === "4" && (
+                            <OrderShippingAddress orderSummary={orderSummary} />
+                        ))}
 
                     <div className="billing-btn-area">
                         <TrackYourOrderBtn />
-                        <span className="d-none d-lg-block"><DownloadInvoiceBtn orderSummary={orderSummary} /></span>
-                        
+                        <span className="d-none d-lg-block">
+                            <DownloadInvoiceBtn orderSummary={orderSummary} />
+                        </span>
                     </div>
                 </div>
             </div>

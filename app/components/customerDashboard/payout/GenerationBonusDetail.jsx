@@ -1,12 +1,15 @@
 const GenerationBonusDetail = ({
     generationBonusData,
     generationBonusResult,
-    serialNumber
+    serialNumber,
 }) => {
     return (
         <>
             <div className="table-responsive">
-                <table className="table table-hover">
+                <table
+                    className="table table-hover"
+                    style={{ minWidth: "920px" }}
+                >
                     <thead>
                         <tr>
                             <th scope="col" className="text-center">
@@ -48,10 +51,16 @@ const GenerationBonusDetail = ({
                         ))}
                         <tr>
                             <td colSpan={3} className="align-middle text-end">
-                                {generationBonusResult?.total_earning > 0 && (
+                                {generationBonusResult?.total_earning !==
+                                    null && (
                                     <strong>
                                         Total: ৳{" "}
-                                        {generationBonusResult?.total_earning}
+                                        {parseFloat(
+                                            generationBonusResult?.total_earning.replace(
+                                                /,/g,
+                                                ""
+                                            ) || 0
+                                        ).toFixed(2)}
                                     </strong>
                                 )}
                             </td>

@@ -18,10 +18,10 @@ const MainSliderItems = ({ sliderItem }) => {
             <div className="hero-slider-photo">
                 <Image
                     src={imageurl}
-                    className="img-fluid"
                     alt={altText || "Image"}
                     height={500}
-                    width={1000}
+                    width={1200}
+                    className="img-fluid"
                 />
             </div>
             <div className="hero-slider-content">

@@ -16,7 +16,7 @@ const PartnerDetailsWrapper = async ({ partnerId }) => {
     return (
         <>
             <div
-                className=" text-center fs-1 py-2"
+                className="text-center fs-1 py-2"
                 style={{ background: "#44bc9d" }}
             >
                 <h1 className="text-white mb-0">{companyName}</h1>

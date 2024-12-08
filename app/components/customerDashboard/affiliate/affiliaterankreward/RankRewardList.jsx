@@ -17,7 +17,10 @@ const RankRewardList = ({ rankList, setStatusChange }) => {
     return (
         <>
             <div className="table-responsive">
-                <table className="table table-hover">
+                <table
+                    className="table table-hover"
+                    style={{ minWidth: "950px" }}
+                >
                     <thead>
                         <tr>
                             <th scope="col">Ranks</th>

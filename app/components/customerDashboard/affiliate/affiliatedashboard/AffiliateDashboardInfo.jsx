@@ -18,16 +18,13 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                         <div className="d-flex flex-column w-100">
                             <div className="flex-1 pb-2 border-bottom ">
                                 <h4 className="mb-1">
-                                    ট {cash_balance > 0 ? cash_balance : "0"}
+                                    ট { cash_balance || 0}
                                 </h4>
-                                <p className="opacity-75">Withdrawable</p>
+                                <p className="opacity-75">Withdrawable Amount</p>
                             </div>
                             <div className="flex-1 pt-3 ">
                                 <h4 className="mb-1">
-                                    ট{" "}
-                                    {pending_balance > 0
-                                        ? pending_balance
-                                        : "0"}
+                                    {pending_balance || 0}
                                 </h4>
                                 <p className="opacity-75">Pending Balance</p>
                             </div>
@@ -40,15 +37,13 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                         <div className="d-flex flex-column w-100">
                             <div className="flex-1 pb-2 border-bottom">
                                 <h4 className="mb-1">
-                                    {total_referral > 0 ? total_referral : "0"}
+                                    {total_referral || 0}
                                 </h4>
                                 <p className="opacity-75">Total Referral</p>
                             </div>
                             <div className="flex-1 pt-3">
                                 <h4 className="mb-1">
-                                    {total_team_members > 0
-                                        ? total_team_members
-                                        : "0"}
+                                    {total_team_members || "0"}
                                 </h4>
                                 <p className="opacity-75">Team member</p>
                             </div>
@@ -62,18 +57,14 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                             <div className="flex-1 pb-2 border-bottom">
                                 <h4 className="mb-1">
                                     ট{" "}
-                                    {total_resell_amount > 0
-                                        ? total_resell_amount
-                                        : "0"}
+                                    {total_resell_amount || "0"}
                                 </h4>
                                 <p className="opacity-75">Resell Amount</p>
                             </div>
                             <div className="flex-1 pt-3">
                                 <h4 className="mb-1">
                                     ট{" "}
-                                    {total_retail_amount > 0
-                                        ? total_retail_amount
-                                        : "0"}
+                                    {total_retail_amount || "0"}
                                 </h4>
                                 <p className="opacity-75">Retail Amount</p>
                             </div>
@@ -86,13 +77,13 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                         <div className="d-flex flex-column w-100">
                             <div className="flex-1 pb-2 border-bottom">
                                 <h4 className="mb-1">
-                                    ট {total_earning > 0 ? total_earning : "0"}
+                                    ট {total_earning || "0"}
                                 </h4>
                                 <p className="opacity-75">Total Earning</p>
                             </div>
                             <div className="flex-1 pt-3">
                                 <h4 className="mb-1">
-                                    ট {earning_limit > 0 ? earning_limit : "0"}
+                                    ট {earning_limit || "0"}
                                 </h4>
                                 <p className="opacity-75">Earning Limit</p>
                             </div>

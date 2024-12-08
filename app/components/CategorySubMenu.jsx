@@ -1,9 +1,8 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
 const CategorySubMenu = ({ subMenuItem }) => {
-    // const subsubMenuItem = subMenuItem?.child_categories;
+    const subsubMenuItem = subMenuItem?.child_categories;
     return (
         <li className="sub-category-menu-li-list">
             <Link
@@ -11,29 +10,30 @@ const CategorySubMenu = ({ subMenuItem }) => {
                 className=" d-flex align-items-center justify-content-between"
             >
                 {subMenuItem.title ? subMenuItem.title : ""}
-                {/* {subsubMenuItem &&
-                    subsubMenuItem?.length > 0 (
-                            <small>
-                                <Image
-                                    width={28}
-                                    height={28}
-                                    src="/images/menu-arrow.svg"
-                                    alt="arrow icon"
-                                />
-                            </small>
-                )} */}
+                {subsubMenuItem && subsubMenuItem?.length > 0 && (
+                    <small>
+                        <Image
+                            width={28}
+                            height={28}
+                            src="/images/menu-arrow.svg"
+                            alt="arrow icon"
+                        />
+                    </small>
+                )}
             </Link>
-            {/* {subsubMenuItem && subsubMenuItem.length > 0 && (
+            {subsubMenuItem && subsubMenuItem.length > 0 && (
                 <ul className="inner-sub-category-menu">
                     {subsubMenuItem.map((item) => (
                         <li key={item.id}>
-                            <Link href="#">{item.title}</Link>
+                            <Link href={`/category/${item.slug}`}>
+                                {item.title}
+                            </Link>
                         </li>
                     ))}
                 </ul>
-            )} */}
+            )}
         </li>
     );
-}
+};
 
-export default CategorySubMenu
+export default CategorySubMenu;

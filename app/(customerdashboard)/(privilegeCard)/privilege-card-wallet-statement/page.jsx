@@ -1,9 +1,9 @@
 import WalletStatementWrapper from "@/app/components/customerDashboard/privilegeDashboard/WalletStatementWrapper";
 
-const WalletStatementPage = () => {
+const WalletStatementPage = ({ searchParams }) => {
     return (
         <>
-            <WalletStatementWrapper />
+            <WalletStatementWrapper searchParams={searchParams} />
         </>
     );
 };

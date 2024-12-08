@@ -9,8 +9,9 @@ import DiscountPartnerTop from "./DiscountPartnerTop";
 import { getDiscountPartnerList } from "@/app/services/discountPartner/getDiscountPartnerList";
 import { useEffect, useState, useTransition } from "react";
 import { getServiceCategoryWithDiscountPartner } from "@/app/services/discountPartner/getServiceCategoryWithDiscountPartner";
-import DefaultLoader from "../defaultloader/DefaultLoader";
-import NoDataFound from "../NoDataFound";
+// import DefaultLoader from "../defaultloader/DefaultLoader";
+// import NoDataFound from "../NoDataFound";
+import LodingFixed from "../LodingFixed";
 
 const DiscountPartnerWrapper = () => {
     const [selectedCategory, setSelectedCategory] = useState("All Category");
@@ -70,11 +71,11 @@ const DiscountPartnerWrapper = () => {
                 setSelectedCategory={setSelectedCategory}
                 serviceCategory={serviceCategory}
             />
-            {isPending ? (
-                <DefaultLoader />
-            ) : (
-                <DiscountPartnerInfo partnerData={partnerData} />
-            )}
+            {isPending && <LodingFixed />}
+            <DiscountPartnerInfo
+                partnerData={partnerData}
+                isPending={isPending}
+            />
         </div>
     );
 };

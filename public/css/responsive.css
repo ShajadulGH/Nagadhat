@@ -323,7 +323,7 @@
 
     .product-category-grid-area {
         -ms-grid-columns: 1fr 20px 1fr;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
     .product-details-quantity-area {
@@ -344,6 +344,9 @@
 }
 
 @media (max-width: 767px) {
+    .withdraw-top-section {
+        padding: 15px !important;
+    }
     .affiliate-page-substr {
         width: 100%;
     }
@@ -457,6 +460,11 @@
         -ms-grid-columns: 1fr 10px 1fr;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
+    }
+
+    .product-category-grid-area {
+        -ms-grid-columns: 1fr 20px 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .hero-slider-content {

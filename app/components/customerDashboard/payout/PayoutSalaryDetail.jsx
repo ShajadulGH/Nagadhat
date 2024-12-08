@@ -2,7 +2,7 @@ const PayoutSalaryDetail = ({ salaryList, salaryResult, serialNumber }) => {
     return (
         <>
             <div className="table-responsive px-3">
-                <table className="table">
+                <table className="table" style={{ minWidth: "920px" }}>
                     <thead>
                         <tr>
                             <th scope="col">SL</th>

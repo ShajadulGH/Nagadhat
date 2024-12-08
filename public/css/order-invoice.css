@@ -1,6 +1,15 @@
 p {
     margin: 0 !important;
 }
+.discount-partners-text-brack h4 a {
+    word-break: break-all;
+}
+.discount-partners-banner-height {
+    height:400px;
+}
+.discount-partners-banner-height img {
+    height: 100% !important;
+}
 
 .bg-secondary-color {
     background-color: #F05A2F;
@@ -111,6 +120,7 @@ p {
         justify-content: flex-start !important;
     }
 }
+/* print page css */
 @media print {
     @page {
         size:A4 portrait;
@@ -124,12 +134,18 @@ p {
     }
 
     body {
-        margin: 0;
+        margin: 0 !important;
         padding: 0 15px !important;
     }
     .order-invoice-section-area {
         padding-left: 5px !important;
         padding-right: 5px;
+    }
+    .romove-in-invoice-page {
+        display: none;
+    }
+    .invoice-section.order-invoice-section-area {
+        padding-top: 0 !important;
     }
 
 }

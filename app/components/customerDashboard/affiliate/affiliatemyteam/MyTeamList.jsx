@@ -18,15 +18,19 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
 
     return (
         <div className="table-responsive">
-            <table className="table table-hover">
+            <table className="table table-hover" style={{ minWidth: "900px" }}>
                 <thead>
                     <tr>
                         <th scope="col">Ranks</th>
                         <th scope="col">Username</th>
                         <th scope="col">Full Name</th>
                         <th scope="col">Sponsor</th>
-                        <th scope="col">Resell</th>
-                        <th scope="col">Retail</th>
+                        <th className="text-center" scope="col">
+                            Resell
+                        </th>
+                        <th className="text-center" scope="col">
+                            Retail
+                        </th>
                         <th scope="col">Total Refer</th>
                         <th scope="col">Members</th>
                         <th scope="col">User Type</th>
@@ -52,15 +56,21 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                     ?.name || ""}
                             </td>
                             <td className="text-end">
-                                ৳{member.affiliate_user?.total_resell_amount.toFixed(2) ||
-                                    0}
+                                ৳{" "}
+                                {member.affiliate_user?.total_resell_amount.toFixed(
+                                    2
+                                ) || 0}
                             </td>
                             <td className="text-end">
-                                ৳{member.affiliate_user?.total_retail_amount.toFixed(2) ||
-                                    0}
+                                ৳{" "}
+                                {member.affiliate_user?.total_retail_amount.toFixed(
+                                    2
+                                ) || 0}
                             </td>
-                            <td>{member.affiliate_user?.refer_count || 0}</td>
-                            <td>
+                            <td className="text-center">
+                                {member.affiliate_user?.refer_count || 0}
+                            </td>
+                            <td className="text-center">
                                 {member.affiliate_user?.total_team_members || 0}
                             </td>
                             <td>{member.affiliate_user_status}</td>
@@ -79,35 +89,35 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                     ))}
 
                     <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
+                        <td colSpan={5} className="text-end">
                             <strong>
-                                ৳{teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
+                                Total ৳{" "}
+                                {teamGrandTotal?.grand_total_resell_amount
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
-                        <td>
+                        <td colSpan={2}>
                             <strong>
-                                ৳{" "}
+                                Total ৳{" "}
                                 {teamGrandTotal?.grand_total_retail_amount
-                                    ? teamGrandTotal?.grand_total_retail_amount.toFixed(2)
+                                    ? teamGrandTotal?.grand_total_retail_amount.toFixed(
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
-                        <td></td>
-                        <td>
+
+                        <td colSpan={3}>
                             <strong>
+                                Total{" "}
                                 {teamGrandTotal?.grand_total_members
                                     ? teamGrandTotal?.grand_total_members
                                     : 0}
                             </strong>
                         </td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>
