@@ -3,9 +3,9 @@ import Link from "next/link";
 import NoDataFound from "../NoDataFound";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 
-const DiscountPartnerInfo = ({ partnerData }) => {
+const DiscountPartnerInfo = ({ partnerData ,isPending }) => {
     return (
-        <div className="row row-gap-4">
+        <div className="row row-gap-4 discount-partners-text-brack">
             {partnerData && partnerData?.length > 0 ? (
                 partnerData?.map((item) => {
                     const imageUrl = item?.company_logo
@@ -62,7 +62,7 @@ const DiscountPartnerInfo = ({ partnerData }) => {
                     );
                 })
             ) : (
-                <NoDataFound title={`Selected category is not available.`} />
+                !isPending && <NoDataFound title={`Selected category is not available.`} />
             )}
         </div>
     );

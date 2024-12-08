@@ -21,7 +21,7 @@ const MobileButtonNav = () => {
     const isActive = (path) => currentPath === path;
 
     return (
-        <div className="position-fixed bottom-0 z-3 w-100">
+        <div className="position-fixed bottom-0 z-3 w-100 romove-in-invoice-page">
             <div
                 className="d-xl-none bg-white w-100"
                 style={{
@@ -32,8 +32,9 @@ const MobileButtonNav = () => {
                     <div>
                         <Link
                             href="/"
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/") ? "active-nav" : ""
+                            }`}
                         >
                             <FaShoppingBag />
                             <span className="d-block fs-10 fw-600">Home</span>
@@ -43,19 +44,25 @@ const MobileButtonNav = () => {
                         <Link
                             // onClick={() => setCategoryHoverMenu(!isCategoryHoverMenu)}
                             href={"/mobile-catecory-list"}
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/mobile-catecory-list") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/mobile-catecory-list")
+                                    ? "active-nav"
+                                    : ""
+                            }`}
                         >
                             <FaListUl />
-                            <span className="d-block fs-10 fw-600">Category</span>
+                            <span className="d-block fs-10 fw-600">
+                                Category
+                            </span>
                         </Link>
                     </div>
 
                     <div>
                         <Link
                             href="/cart-page"
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/cart-page") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/cart-page") ? "active-nav" : ""
+                            }`}
                         >
                             <FaShoppingCart />
                             <span className="d-block fs-10 fw-600">
@@ -71,27 +78,34 @@ const MobileButtonNav = () => {
                     <div>
                         <Link
                             href="/support"
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/support") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/support") ? "active-nav" : ""
+                            }`}
                         >
                             <FaHeadset />
-                            <span className="d-block fs-10 fw-600">Support</span>
+                            <span className="d-block fs-10 fw-600">
+                                Support
+                            </span>
                         </Link>
                     </div>
                     {session ? (
                         <Link
                             href="/dashboard"
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/dashboard") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/dashboard") ? "active-nav" : ""
+                            }`}
                         >
                             <FaUser />
-                            <span className="d-block fs-10 fw-600">Dashboard</span>
+                            <span className="d-block fs-10 fw-600">
+                                Dashboard
+                            </span>
                         </Link>
                     ) : (
                         <Link
                             href="/login"
-                            className={`d-block text-center pb-2 pt-2 ${isActive("/login") ? "active-nav" : ""
-                                }`}
+                            className={`d-block text-center pb-2 pt-2 ${
+                                isActive("/login") ? "active-nav" : ""
+                            }`}
                         >
                             <FaUser />
                             <span className="d-block fs-10 fw-600">Login</span>
