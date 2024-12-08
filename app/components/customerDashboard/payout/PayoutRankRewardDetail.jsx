@@ -1,36 +1,47 @@
 import { FaSearch } from "react-icons/fa";
 
-const PayoutRankRewardDetail = ({ rankRewardData, rankRewardResult, serialNumber }) => {
+const PayoutRankRewardDetail = ({
+    rankRewardData,
+    rankRewardResult,
+    serialNumber,
+}) => {
     return (
         <>
             <div className="table-responsive">
-                <table className="table">
+                <table className="table" style={{ minWidth: "800px" }}>
                     <thead>
                         <tr>
                             <th scope="col">SL</th>
                             <th scope="col">Date/Time</th>
                             <th scope="col">Rank & reward</th>
-                            <th scope="col">Amount</th>
+                            <th className="text-end" scope="col">
+                                Amount
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {rankRewardData?.map((item, index) => {
                             return (
                                 <tr key={item?.id || index}>
-                                    <td scope="row">{index + 1 + serialNumber}</td>
+                                    <td scope="row">
+                                        {index + 1 + serialNumber}
+                                    </td>
                                     <td>{item?.date_time || "N/A"}</td>
                                     <td>{item?.purpose || "N/A"} </td>
-                                    <td className="text-end">৳ {item?.earning || "0"} </td>
+                                    <td className="text-end">
+                                        ৳ {item?.earning || "0"}{" "}
+                                    </td>
                                 </tr>
                             );
                         })}
 
                         <tr>
                             <td colSpan={3} scope="row"></td>
-                            <td>
-                                {rankRewardResult?.total_earning > 0 && (
+                            <td className="text-end">
+                                {rankRewardResult?.total_earning !== null && (
                                     <strong>
-                                        ৳ {rankRewardResult?.total_earning}
+                                        Total: ৳{" "}
+                                        {rankRewardResult?.total_earning}
                                     </strong>
                                 )}
                             </td>
