@@ -27,6 +27,8 @@ const PrivilegeCardProductTableBody = ({
         cart_id,
     } = item;
 
+    console.log("purchase_quantity", { purchase_quantity });
+
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
     const [changePrice, setChangePrice] = useState(
         purchases_price * changeQuantity
