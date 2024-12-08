@@ -2,7 +2,7 @@
 import { PostOrderFullPaymentWithBank } from "@/app/services/bank/PostOrderFullPaymentWithBank";
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 const BankSubmitPaymentBtn = dynamic(() => import("./BankSubmitPaymentBtn"));
@@ -22,6 +22,7 @@ const PayWithBankModalRight = ({
     const [paymentNote, setPaymentNote] = useState("");
     const [paymentSlip, setPaymentSlip] = useState(null);
     const [formError, setFormError] = useState("");
+    const [isPending, startTransition] = useTransition();
 
     const { data: session, status } = useSession();
     const router = useRouter();
@@ -52,18 +53,20 @@ const PayWithBankModalRight = ({
         formData.append("payment_slip", paymentSlip || "");
 
         try {
-            const response = await PostOrderFullPaymentWithBank(
-                session?.accessToken,
-                formData
-            );
+            startTransition(async () => {
+                const response = await PostOrderFullPaymentWithBank(
+                    session?.accessToken,
+                    formData
+                );
 
-            if (!response?.error) {
-                toast.success(response?.message);
-                setShowBankModal(false);
-                router.push(`/thankyou?orderId=${orderId}`);
-            } else {
-                toast.error(response?.message);
-            }
+                if (!response?.error) {
+                    toast.success(response?.message);
+                    setShowBankModal(false);
+                    router.push(`/thankyou?orderId=${orderId}`);
+                } else {
+                    toast.error(response?.message);
+                }
+            });
         } catch (error) {
             console.error("Payment submission failed:", error);
             setFormError("Payment submission failed. Please try again.");
@@ -226,7 +229,7 @@ const PayWithBankModalRight = ({
                         <div className="alert alert-danger">{formError}</div>
                     )}
 
-                    <BankSubmitPaymentBtn />
+                    <BankSubmitPaymentBtn isPending={isPending} />
                 </form>
             </div>
         </div>
