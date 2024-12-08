@@ -7,18 +7,18 @@ const PartnerImageSlider = ({ partnerDetail }) => {
     const partnerGallery = partnerDetail?.gallery || [];
 
     const settings = {
-        dots: true,
-        infinite: true,
+        dots: partnerGallery.length > 1 ? true : false,
+        infinite: false,
         arrows: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
     };
     return (
-        <div className="row  pb-5">
+        <div className="row pb-2 pb-md-3">
             <div className="col-md-12 partner_Images_slider">
                 <Slider {...settings}>
-                    {partnerGallery.length > 0 ? (
+                    {partnerGallery?.length > 0 ? (
                         partnerGallery.map((gallery) => {
                             const { id, image } = gallery;
                             const galleryImageUrl = image
@@ -30,22 +30,31 @@ const PartnerImageSlider = ({ partnerDetail }) => {
                                         className=" position-relative"
                                         style={{
                                             width: "1300px",
-                                            height: "350px",
+                                            height: "250px",
                                         }}
                                     >
                                         <Image
                                             fill
-                                            className="img-fluid"
                                             src={galleryImageUrl}
                                             alt="Gallery Image"
-                                            style={{ objectFit: "cover" }}
+                                            style={{ objectFit: "fill" }}
+                                            className="img-fluid"
                                         />
                                     </div>
                                 </div>
                             );
                         })
                     ) : (
-                        <div>No gallery images available</div>
+                        <div className="discount-partners-banner-height">
+                            <Image
+                                src="/images/placeholder--image.jpg"
+                                alt="Placeholder"
+                                width={1300}
+                                className="img-fluid"
+                                height={250}
+                                style={{ objectFit: "fill" }}
+                            />
+                        </div>
                     )}
                 </Slider>
             </div>

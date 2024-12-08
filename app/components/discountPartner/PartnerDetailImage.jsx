@@ -10,13 +10,13 @@ const PartnerDetailImage = ({ partnerDetail }) => {
         <div className="col-md-6 col-12">
             <div
                 className="mb-4 position-relative w-100"
-                style={{ height: "320px" }}
+                style={{ height: "350px" }}
             >
                 <Image
                     fill
                     src={imageUrl}
                     alt="Company Logo"
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "fill" }}
                 />
             </div>
         </div>
