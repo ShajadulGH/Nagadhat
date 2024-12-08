@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { getAffiliateFinanceWithdrawHistory } from "@/app/services/affiliate-finance/getAffiliateFinanceWithdrawHistory";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";
@@ -48,7 +48,7 @@ const LastFiveWithdrawHistory = () => {
             ) : (
                 <div className="table-responsive pt-4">
                     {lastFiveData?.length > 0 ? (
-                        <table className="table" style={{ minWidth: "645px" }}>
+                        <table className="table" style={{ minWidth: "900px" }}>
                             <thead>
                                 <tr>
                                     <th>Date</th>

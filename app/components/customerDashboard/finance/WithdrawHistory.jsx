@@ -19,7 +19,6 @@ const WithdrawHistory = async ({ searchParams }) => {
     );
     let withdrawHistoryData = response?.results?.data;
     lastPage = response?.results?.last_page;
-    console.log(response);
 
     return (
         <>
@@ -27,7 +26,7 @@ const WithdrawHistory = async ({ searchParams }) => {
                 {withdrawHistoryData?.length === 0 ? (
                     <NoDataFound />
                 ) : (
-                    <table className="table" style={{ minWidth: "645px" }}>
+                    <table className="table" style={{ minWidth: "900px" }}>
                         <thead>
                             <tr>
                                 <th>Date</th>
