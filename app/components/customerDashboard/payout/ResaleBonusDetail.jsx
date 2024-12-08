@@ -1,10 +1,17 @@
 import { FaSearch } from "react-icons/fa";
 
-const ResaleBonusDetail = ({ resalBonusResult, resalBonusData, serialNumber }) => {
+const ResaleBonusDetail = ({
+    resalBonusResult,
+    resalBonusData,
+    serialNumber,
+}) => {
     return (
         <>
             <div className="table-responsive">
-                <table className="table table-hover">
+                <table
+                    className="table table-hover"
+                    style={{ minWidth: "900px" }}
+                >
                     <thead>
                         <tr>
                             <th scope="col" className="text-center">
