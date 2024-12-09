@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState, useTransition } from "react";
 import { getPayAgentLists } from "@/app/services/affiliate-finance/getPayAgentLists";
 import { useRouter } from "next/navigation";
+import { RotatingLines } from "react-loader-spinner";
 
 const PayWithAgentModal = ({
     showAgentModal,
@@ -62,21 +63,22 @@ const PayWithAgentModal = ({
                 payment_getway: "Pay With Agent",
                 note_1: referenceNote,
             };
-
-            const response = await postOrderFullPaymentWithAgent(
-                agentPayData,
-                session?.accessToken
-            );
-            if (!response?.error) {
-                toast.success(
-                    "Agent payment details submitted successfully.",
-                    response?.message
+            startTransition(async () => {
+                const response = await postOrderFullPaymentWithAgent(
+                    agentPayData,
+                    session?.accessToken
                 );
-                setShowAgentModal(false);
-                router.push(`/thankyou?orderId=${orderSummary?.order_id}`);
-            } else {
-                toast.error(response?.message);
-            }
+                if (!response?.error) {
+                    toast.success(
+                        "Agent payment details submitted successfully.",
+                        response?.message
+                    );
+                    setShowAgentModal(false);
+                    router.push(`/thankyou?orderId=${orderSummary?.order_id}`);
+                } else {
+                    toast.error(response?.message);
+                }
+            });
         } catch (error) {
             toast.error("Failed to submit agent payment details.");
             console.error("Error submitting agent payment details:", error);
@@ -200,8 +202,31 @@ const PayWithAgentModal = ({
                                         : "not-allowed",
                                 }}
                                 className="add-to-cart-link border-0 rounded-2"
+                                disabled={isPending}
                             >
-                                Confirm Payment
+                                {isPending ? (
+                                    <div
+                                        style={{
+                                            height: "21px",
+                                            width: "90px",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <RotatingLines
+                                            visible={true}
+                                            height="18"
+                                            width="20"
+                                            color="#ffffff"
+                                            strokeWidth="5"
+                                            animationDuration="0.75"
+                                            ariaLabel="rotating-lines-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="w-25"
+                                        />
+                                    </div>
+                                ) : (
+                                    "Confirm Payment"
+                                )}
                             </button>
                         </div>
                     </div>
