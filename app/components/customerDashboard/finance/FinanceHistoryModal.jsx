@@ -14,7 +14,10 @@ const FinanceHistoryModal = ({ transaction, modalId }) => {
                 <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id={`${modalId}Label`}>
+                            <h1
+                                className="modal-title fs-5"
+                                id={`${modalId}Label`}
+                            >
                                 Transfer Details
                             </h1>
                             <button
@@ -30,11 +33,17 @@ const FinanceHistoryModal = ({ transaction, modalId }) => {
                                     <tbody>
                                         <tr>
                                             <th>Date :</th>
-                                            <td>{moment(transaction?.created_at).format("YYYY-MM-DD hh:mm A")}</td>
+                                            <td>
+                                                {moment(
+                                                    transaction?.created_at
+                                                ).format("YYYY-MM-DD hh:mm A")}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Transfer From :</th>
-                                            <td>{transaction?.transfer_form}</td>
+                                            <td>
+                                                {transaction?.transfer_form}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Transfer To :</th>
@@ -42,15 +51,24 @@ const FinanceHistoryModal = ({ transaction, modalId }) => {
                                         </tr>
                                         <tr>
                                             <th>Amount :</th>
-                                            <td>{transaction?.amount}</td>
+                                            <td>
+                                                ৳ {""}
+                                                {transaction?.amount}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Charge :</th>
-                                            <td>{transaction?.charge}</td>
+                                            <td>
+                                                ৳ {""}
+                                                {transaction?.charge}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Payable :</th>
-                                            <td>{transaction?.payable}</td>
+                                            <td>
+                                                ৳ {""}
+                                                {transaction?.payable}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

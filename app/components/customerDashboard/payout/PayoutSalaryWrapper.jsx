@@ -57,7 +57,7 @@ const PayoutSalaryWrapper = () => {
     }, [session?.accessToken, salarySearch, currentPage]);
 
     const hasSalary = salaryResult && Object.keys(salaryResult).length > 0;
-    const serialNumber = (currentPage - 1 ) * limit;
+    const serialNumber = (currentPage - 1) * limit;
 
     return (
         <div className="customer-dashboard-order-history-area h-100 pb-4">
@@ -83,7 +83,7 @@ const PayoutSalaryWrapper = () => {
                             />
                         </>
                     ) : (
-                        <NoDataFound />
+                        !isPending && <NoDataFound />
                     )}
                 </div>
             </div>
