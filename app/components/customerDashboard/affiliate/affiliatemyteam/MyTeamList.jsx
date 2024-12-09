@@ -18,7 +18,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
 
     return (
         <div className="table-responsive">
-            <table className="table table-hover" style={{ minWidth: "900px" }}>
+            <table className="table table-hover" style={{ minWidth: "950px" }}>
                 <thead>
                     <tr>
                         <th scope="col">Ranks</th>

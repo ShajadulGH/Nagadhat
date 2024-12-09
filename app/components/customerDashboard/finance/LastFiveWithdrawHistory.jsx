@@ -57,7 +57,7 @@ const LastFiveWithdrawHistory = () => {
                                     <th className="text-end">Amount</th>
                                     <th className="text-end">Charge</th>
                                     <th className="text-end">Payable</th>
-                                    <th>Status</th>
+                                    <th className="text-center">Status</th>
                                     <th className="text-center">View</th>
                                 </tr>
                             </thead>
@@ -68,12 +68,14 @@ const LastFiveWithdrawHistory = () => {
                                         <td>{item.billing_method}</td>
                                         <td>{item.account_number}</td>
                                         <td className="text-end">
-                                            {item.amount}
+                                            ৳ {""} {item.amount}
                                         </td>
                                         <td className="text-end">
+                                            ৳ {""}
                                             {item.charge}
                                         </td>
                                         <td className="text-end">
+                                            ৳ {""}
                                             {item.payable}
                                         </td>
                                         <td
