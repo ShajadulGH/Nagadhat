@@ -11,10 +11,10 @@ const FinanceHistoryModalTable = ({ data }) => {
                         <th>Date</th>
                         <th>Transfer From</th>
                         <th>Transfer To</th>
-                        <th>Amount</th>
-                        <th>Charge</th>
-                        <th>To Credit</th>
-                        <th>View</th>
+                        <th className="text-end">Amount</th>
+                        <th className="text-end">Charge</th>
+                        <th className="text-end">To Credit</th>
+                        <th className="text-center">View</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,15 +28,17 @@ const FinanceHistoryModalTable = ({ data }) => {
                             <td>{transaction.transfer_form}</td>
                             <td>{transaction.transfer_to}</td>
                             <td className="text-end">
-                                {transaction.amount.toFixed(2)}
+                                ৳ {""} {transaction.amount.toFixed(2)}
                             </td>
                             <td className="text-end">
+                                ৳ {""}
                                 {transaction.charge.toFixed(2)}
                             </td>
                             <td className="text-end">
+                                ৳ {""}
                                 {transaction.payable.toFixed(2)}
                             </td>
-                            <td>
+                            <td className="text-center">
                                 <FinanceHistoryBtn transaction={transaction} />
                             </td>
                         </tr>

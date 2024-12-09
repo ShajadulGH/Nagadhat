@@ -30,26 +30,37 @@ const WithdrawTopBanner = () => {
         }
     }, [status, session?.accessToken]);
 
-    const hasChartInfo = Object.keys(chartInfo).length > 0;
+    const hasChartInfo = Object?.keys(chartInfo).length > 0;
 
     return (
         <>
             <div className="w-100 withdraw-top-section">
-                <div className="d-flex flex-column flex-md-row gap-5 justify-content-between align-items-center">
-                    <div className="text-black">
-                        <h2 className="fw-bold">
-                            {chartInfo?.total_withdrawable ?? "N/A"}
-                        </h2>
-                        <p className="fs-6"> Balance</p>
+                {isPending ? (
+                    <h2
+                        className="text-center w-100"
+                        aria-live="polite"
+                        aria-busy="true"
+                    >
+                        Loading...
+                    </h2>
+                ) : (
+                    <div className="d-flex flex-column flex-md-row gap-5 justify-content-between align-items-center">
+                        {/* Balance Section */}
+                        <div className="text-black">
+                            <h2 className="fw-bold">
+                                ৳ {chartInfo?.total_withdrawable ?? "N/A"}
+                            </h2>
+                            <p className="fs-6">Balance</p>
+                        </div>
+
+                        {/* Chart or No Data Section */}
+                        {hasChartInfo ? (
+                            <WithdrawChart chartInfo={chartInfo} />
+                        ) : (
+                            <NoDataFound />
+                        )}
                     </div>
-                    {isPending ? (
-                        <h2 className="text-center w-100">Loading...</h2>
-                    ) : hasChartInfo ? (
-                        <WithdrawChart chartInfo={chartInfo} />
-                    ) : (
-                        <NoDataFound />
-                    )}
-                </div>
+                )}
             </div>
         </>
     );

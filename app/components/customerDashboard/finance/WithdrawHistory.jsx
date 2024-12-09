@@ -30,12 +30,12 @@ const WithdrawHistory = async ({ searchParams }) => {
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Billing Method</th>
-                                <th>Account ID/Code</th>
+                                <th className="text-center">Billing Method</th>
+                                <th className="text-center">Account ID/Code</th>
                                 <th className="text-end">Amount</th>
                                 <th className="text-end">Charge</th>
                                 <th className="text-end">Payable</th>
-                                <th>Status</th>
+                                <th className="text-center">Status</th>
                                 <th className="text-center">View</th>
                             </tr>
                         </thead>
@@ -45,15 +45,25 @@ const WithdrawHistory = async ({ searchParams }) => {
                                     <td>{item.date_time}</td>
                                     <td>{item.billing_method}</td>
                                     <td>{item.account_number}</td>
-                                    <td className="text-end">{item.amount}</td>
-                                    <td className="text-end">{item.charge}</td>
-                                    <td className="text-end">{item.payable}</td>
+                                    <td className="text-end">
+                                        ৳ {""}
+                                        {item.amount}
+                                    </td>
+                                    <td className="text-end">
+                                        ৳ {""}
+                                        {item.charge}
+                                    </td>
+                                    <td className="text-end">
+                                        ৳ {""}
+                                        {item.payable}
+                                    </td>
                                     <td
                                         className={
                                             item.status === "Completed"
                                                 ? "paid"
                                                 : "pending"
                                         }
+                                        style={{ textAlign: "center" }}
                                     >
                                         {item.status}
                                     </td>
