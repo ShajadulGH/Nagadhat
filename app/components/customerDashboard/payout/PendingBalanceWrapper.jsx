@@ -30,52 +30,67 @@ const PendingBalanceWrapper = () => {
         }
     }, [session?.accessToken]);
 
+    const totalAmount = pendingBalance.reduce(
+        (sum, item) => sum + item.amount,
+        0
+    );
+
     return (
         <div className="customer-dashboard-order-history-area h-100 pb-4">
             <div className="customer-dashboard-order-history-title">
                 <h1 className="customer-dashboard-title">Pending Balance</h1>
             </div>
-            <div className=" px-4">
-                <div className="table-responsive">
-                    <table className="table" style={{ minWidth: "900px" }}>
-                        <thead>
-                            <tr>
-                                <th scope="col">SL</th>
-                                <th scope="col">Date/Time</th>
-                                <th scope="col">From</th>
-                                <th scope="col">Purpose</th>
-                                <th className="text-end" scope="col">
-                                    Amount
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {isPending ? (
+            <div className="px-4">
+                {isPending ? (
+                    <LodingFixed />
+                ) : (
+                    <div className="table-responsive">
+                        <table className="table" style={{ minWidth: "1000px" }}>
+                            <thead>
                                 <tr>
-                                    <td colSpan="5">
-                                        <LodingFixed />
-                                    </td>
+                                    <th scope="col">SL</th>
+                                    <th scope="col">Date/Time</th>
+                                    <th scope="col">Particular</th>
+                                    <th scope="col">From</th>
+                                    <th scope="col">Purpose</th>
+                                    <th className="text-end" scope="col">
+                                        Amount
+                                    </th>
                                 </tr>
-                            ) : pendingBalance.length > 0 ? (
-                                pendingBalance.map((item, index) => {
-                                    return (
-                                        <PendingBalanceLists
-                                            key={index}
-                                            item={item}
-                                            index={index}
-                                        />
-                                    );
-                                })
-                            ) : (
-                                <tr>
-                                    <td colSpan="5">
-                                        <NoDataFound />
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {pendingBalance.length > 0 ? (
+                                    <>
+                                        {pendingBalance.map((item, index) => (
+                                            <PendingBalanceLists
+                                                key={index}
+                                                item={item}
+                                                index={index}
+                                            />
+                                        ))}
+                                        <tr>
+                                            <td
+                                                colSpan="6"
+                                                className="text-end"
+                                            >
+                                                <strong>
+                                                    Total: ৳{" "}
+                                                    {totalAmount.toFixed(2)}
+                                                </strong>
+                                            </td>
+                                        </tr>
+                                    </>
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6">
+                                            <NoDataFound />
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
         </div>
     );
