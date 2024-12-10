@@ -380,6 +380,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         Resell Bonus
                                     </Link>
                                 </li>
+
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
@@ -394,6 +395,22 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         Generation Bonus
                                     </Link>
                                 </li>
+
+                                <li className="dropdown-item customer-dashboard-dropdown-item">
+                                    <Link
+                                        onClick={toggleSidebar}
+                                        className={`${
+                                            isActive("/payout-pending-balance")
+                                                ? "activ-link"
+                                                : ""
+                                        } nav-link customer-dashboard-nav-link`}
+                                        href="/payout-pending-balance"
+                                    >
+                                        <span className="dropdown-item-circle"></span>
+                                        Pending Balance
+                                    </Link>
+                                </li>
+
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
