@@ -6,6 +6,7 @@ import { NagadhatPublicUrl } from "../utils";
 import { getProductByCategory } from "../services/getProductByCategory";
 import CategoryProductArchiveItems from "../components/productCategory/CategoryProductArchiveItems";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const MobileCategory = () => {
     const [categoryMenuOption, setCategoryMenuOption] = useState([]);
@@ -13,13 +14,23 @@ const MobileCategory = () => {
     const [categoryChild, setCategoryChild] = useState([]);
     const [categoryPrduct, setCategoryPrduct] = useState([]);
     const [showCategory, setShowCategory] = useState(false);
+    const [childCategoryClick, setChildCategoryClick] = useState(false);
     const sidebarRef = useRef(null); // Create ref for the sidebar
+    const searchParams = useSearchParams();
+    const router = useRouter();
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("outletId") || 3;
         }
         return 3;
     });
+
+    const handleSetSearchParams = (slug) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set("category", slug);
+        const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+        router.push(newUrl);
+    };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -73,6 +84,7 @@ const MobileCategory = () => {
             getProductInThisCategory(categories?.slug);
         }
         setShowCategory(false);
+        handleSetSearchParams(categories?.slug)
     };
 
     const handleCategoryChildClick = (childCategories, childCategorieItem) => {
@@ -80,11 +92,13 @@ const MobileCategory = () => {
         if (childCategorieItem?.child_categories?.length > 0) {
             setCategoryChild(childCategorieItem?.child_categories || []);
             setCategoryPrduct([]);
+            setChildCategoryClick(true)
         } else {
             setCategoryChild([]);
             getProductInThisCategory(childCategorieItem?.slug);
         }
         setShowCategory(false);
+        handleSetSearchParams(childCategorieItem?.slug)
     };
 
     const handleBackRootCategory = () => {
@@ -92,6 +106,9 @@ const MobileCategory = () => {
         setCategoryChild([]);
         setCategoryPrduct([]);
         setShowCategory(true);
+        setChildCategoryClick(false)
+        handleSetSearchParams("root")
+        // getProductInThisCategory(rootCategory[0]?.slug);
     };
 
     return (
@@ -119,7 +136,7 @@ const MobileCategory = () => {
                         className="category-menu-area shadow-sm overflow-y-scroll"
                         style={{ height: "calc(100vh - 140px)" }}
                     >
-                        {categoryPrduct?.length > 0 &&
+                        {(categoryPrduct?.length > 0 || childCategoryClick) &&
                             <li
                                 className="menu-link"
                                 onClick={handleBackRootCategory}
