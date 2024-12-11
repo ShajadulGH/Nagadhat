@@ -8,6 +8,7 @@ import ShowingProductPrices from "./ShowingProductPrices";
 import { useEffect, useState } from "react";
 import { getPrivilegeCardShoppingChoiceDetail } from "@/app/services/privilegeCard/getPrivilegeCardShoppingChoiceDetail";
 import { getPrivilegeCardBalanceAfterChoose } from "@/app/services/privilegeCard/getPrivilegeCardBalanceAfterChoose";
+import PrivilegeCardModal from "./PrivilegeCardModal";
 
 const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
     const [toggleStatte, setToggleStatte] = useState(false);
@@ -114,14 +115,17 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                     </strong>
                     <h6 className="fs-6">{privilegeCardInfo?.product_name}</h6>
                     <div className="pt-2 d-flex align-items-center gap-2">
-                        <button
-                            type="button"
-                            className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                        >
-                            Details
-                        </button>
+                        {privilegeCardInfo?.status !== 2 && (
+                            <button
+                                type="button"
+                                className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampl-Detailse-Modal"
+                            >
+                                Details
+                            </button>
+                        )}
+
                         <PrivilegeBuyNowBtn
                             privilegeCardInfo={privilegeCardInfo}
                             session={session}
@@ -139,6 +143,9 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                 </div>
             </div>
 
+            {/* Privilege Details btn Modal */}
+            <PrivilegeCardModal />
+            {/* PrivilegeCancelled btn Modal */}
             <PrivilegeCancelledModal />
 
             {privilegeCardInfo?.product_name !== "Membership Card" && (

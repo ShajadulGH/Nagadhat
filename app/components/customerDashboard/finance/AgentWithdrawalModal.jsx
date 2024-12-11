@@ -241,7 +241,7 @@ const AgentWithdrawalModal = ({
                                 <label className="form-label">
                                     Amount{" "}
                                     <span className="praymary-color">
-                                        (Balance: {financeAgentInfo?.total_withdrawable || "N/A"})
+                                        (Balance: ৳ { financeAgentInfo?.total_withdrawable?.toFixed(2) || "00"})
                                     </span>
                                 </label>
                                 <div className="input-group">
