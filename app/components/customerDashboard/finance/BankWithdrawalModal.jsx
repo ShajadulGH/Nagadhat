@@ -138,7 +138,7 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
                                 <label className="form-label">
                                     Amount{" "}
                                     <span className="praymary-color">
-                                        (Balance:{bankTransferInfo?.total_withdrawable})
+                                        (Balance: ৳ {bankTransferInfo?.total_withdrawable?.toFixed(2)})
                                     </span>
                                 </label>
                                 <div className="input-group">
