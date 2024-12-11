@@ -41,15 +41,15 @@ const PrivilegeCancelledModal = () => {
                                 </div>
                             </div>
                             {/*  */}
-                            <div className="resal-top-areass p-4">
-                                <div className=" text-center px-5 py-2 mb-4 ">
-                                    <h1 className="mb-4 bg-success d-inline-block text-white px-4 py-2 fs-4 font-width-medium rounded-4 ">
+                            <div className="resal-top-areass p-0 p-md-4">
+                                <div className=" text-center px-2 px-md-4 py-2 mb-1 mb-md-4 ">
+                                    <h1 className="mb-4 bg-success d-inline-block text-white px-4 py-2 fs-5 font-width-medium rounded-4 ">
                                         প্রিভিলেজ কার্ড রিফান্ডের শর্তাবলী
                                     </h1>
                                 </div>
                                 <div className="pb-4">
                                     <p className="fs-6 lh-lg">
-                                        <strong className="bg-success px-3 text-white py-2 rounded-2 me-2">
+                                        <strong className="bg-success px-3 text-white py-2 rounded-2 me-2 d-block d-md-inline-block">
                                             কার্ড বাতিল এবং মূল্য ফেরতের
                                             শর্তাবলী:
                                         </strong>
@@ -60,7 +60,7 @@ const PrivilegeCancelledModal = () => {
                                 </div>
                                 <div className="pb-4">
                                     <div className="fs-6 lh-lg ">
-                                        <strong className="bg-success px-3 text-white py-2 rounded-2 me-2">
+                                        <strong className="bg-success px-3 text-white py-1 d-inline-block rounded-2 me-2">
                                             ১. রিফান্ডের সময় ও সার্ভিস চার্জ:
                                         </strong>
                                         <p className="pt-2 ps-3">
@@ -113,6 +113,54 @@ const PrivilegeCancelledModal = () => {
                                                 রিফান্ড করতে চাইলে, কোনো সার্ভিস
                                                 চার্জ প্রযোজ্য হবে না।
                                             </small>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="pb-4">
+                                    <div className="fs-6 lh-lg ">
+                                        <strong className="bg-success px-3 text-white py-1 d-inline-block rounded-2 me-2">
+                                            ২. রিফান্ড প্রক্রিয়া:
+                                        </strong>
+                                        <p className="pt-2 ps-3 pb-2">
+                                            <span>
+                                                কার্ড বাতিলের অনুরোধ আপনার
+                                                অ্যাকাউন্ট থেকে প্রাপ্তির ১৫
+                                                কার্যদিবসের মধ্যে, নির্ধারিত
+                                                সার্ভিস চার্জ কর্তন করে অবশিষ্ট
+                                                অর্থ আপনার প্রদত্ত ব্যাংক
+                                                অ্যাকাউন্টে ফেরত প্রদান করা হবে।
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className="fs-6 lh-lg ">
+                                        <strong className="bg-success px-3 text-white py-1 d-inline-block rounded-2 me-2">
+                                            ৩. সুবিধা স্থগিতকরণ:
+                                        </strong>
+                                        <p className="pt-2 ps-3 pb-2">
+                                            <span>
+                                                কার্ড বাতিলের অনুরোধ প্রাপ্তির
+                                                সঙ্গে সঙ্গে কার্ডের মাধ্যমে
+                                                প্রদত্ত সকল সুবিধা স্থগিত হয়ে
+                                                যাবে।
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div className="fs-6 lh-lg ">
+                                        <strong className="bg-success px-3 text-white py-1 d-inline-block rounded-2 me-2">
+                                            অতিরিক্ত তথ্য:
+                                        </strong>
+                                        <p className="pt-2 ps-3 pb-2">
+                                            <span>
+                                                নগদহাট কর্তৃপক্ষ কার্ডের রিফান্ড
+                                                পলিসি যেকোনো সময় পরিবর্তন করার
+                                                অধিকার সংরক্ষণ করে।
+                                            </span>
+                                        </p>
+                                        <p className="pb-2">
+                                            নগদহাট প্রিভিলেজ কার্ড ব্যবহারের
+                                            জন্য ধন্যবাদ। আমাদের লক্ষ্য আপনাকে
+                                            সর্বোত্তম সেবা প্রদান করা।
                                         </p>
                                     </div>
                                 </div>
