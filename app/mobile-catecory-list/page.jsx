@@ -9,6 +9,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const MobileCategory = () => {
     const [categoryMenuOption, setCategoryMenuOption] = useState([]);
+    const [rootCategory, setRootCategory] = useState([]);
     const [categoryChild, setCategoryChild] = useState([]);
     const [categoryPrduct, setCategoryPrduct] = useState([]);
     const [showCategory, setShowCategory] = useState(false);
@@ -45,6 +46,7 @@ const MobileCategory = () => {
             try {
                 const data = await getCategoryMobile();
                 setCategoryMenuOption(data || []);
+                setRootCategory(data || []);
                 // await getProductInThisCategory(data[0]?.slug);
             } catch (error) {
                 console.error("Failed to fetch category:", error);
@@ -72,6 +74,7 @@ const MobileCategory = () => {
         }
         setShowCategory(false);
     };
+
     const handleCategoryChildClick = (childCategories, childCategorieItem) => {
         setCategoryMenuOption(childCategories || []);
         if (childCategorieItem?.child_categories?.length > 0) {
@@ -84,6 +87,12 @@ const MobileCategory = () => {
         setShowCategory(false);
     };
 
+    const handleBackRootCategory = () => {
+        setCategoryMenuOption(rootCategory || []);
+        setCategoryChild([]);
+        setCategoryPrduct([]);
+        setShowCategory(true);
+    };
 
     return (
         <div className="container">
@@ -104,12 +113,27 @@ const MobileCategory = () => {
                     `}
                     style={{ maxWidth: "350px" }}
                     ref={sidebarRef} // Sidebar ref
-                    onClick={(e) => e.stopPropagation()} 
+                    onClick={(e) => e.stopPropagation()}
                 >
                     <ul
                         className="category-menu-area shadow-sm overflow-y-scroll"
                         style={{ height: "calc(100vh - 140px)" }}
                     >
+                        {categoryPrduct?.length > 0 &&
+                            <li
+                                className="menu-link"
+                                onClick={handleBackRootCategory}
+                            >
+                                <div className="link-item d-flex align-items-center gap-2">
+                                    <p className="fs-4 praymary-color">
+                                        <IoIosArrowBack />
+                                    </p>
+                                    <p className="d-flex align-items-center">
+                                        Back Root
+                                    </p>
+                                </div>
+                            </li>
+                        }
                         {Array.isArray(categoryMenuOption) &&
                             categoryMenuOption.map((menuItem) => (
                                 <li

@@ -27,8 +27,6 @@ const PrivilegeCardProductTableBody = ({
         cart_id,
     } = item;
 
-    console.log("purchase_quantity", { purchase_quantity });
-
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
     const [changePrice, setChangePrice] = useState(
         purchases_price * changeQuantity
@@ -93,7 +91,7 @@ const PrivilegeCardProductTableBody = ({
                 </td>
                 <td>
                     <p className="pb-2">৳ {purchases_price.toFixed(2)}</p>
-                    {purchases_price !== mrp_price && <del>{mrp_price}</del>}
+                    {purchases_price !== mrp_price && <del>৳ {mrp_price}</del>}
                 </td>
                 <td>
                     <span className="d-flex gap-1 align-items-center">

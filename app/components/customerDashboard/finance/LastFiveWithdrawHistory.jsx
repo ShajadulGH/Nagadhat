@@ -109,7 +109,7 @@ const LastFiveWithdrawHistory = () => {
                             </tbody>
                         </table>
                     ) : (
-                        !isPending && <NoDataFound />
+                        ""
                     )}
                 </div>
             )}
