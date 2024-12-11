@@ -1,14 +1,55 @@
+"use client";
+import { postPrivilegeCardCancelAggriment } from "@/app/services/privilegeCard/postPrivilegeCardCancelAggriment";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRef, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
+import { toast, ToastContainer } from "react-toastify";
 
 const PrivilegeCancelledModal = () => {
+    const [isPending, startTransition] = useTransition();
+    const { data: session } = useSession();
+    const closeCancelModal = useRef(null);
+
+    const handleCancelAggriment = async () => {
+        const cancelStatus = { status: 2 };
+
+        try {
+            startTransition(async () => {
+                const response = await postPrivilegeCardCancelAggriment(
+                    session?.accessToken,
+                    cancelStatus
+                );
+
+                if (response?.code === 200) {
+                    toast.success(response?.message);
+                    if (closeCancelModal?.current) {
+                        document.activeElement?.blur();
+                        const modalInstance = bootstrap.Modal.getInstance(
+                            closeCancelModal.current
+                        );
+                        modalInstance?.hide();
+                    }
+                } else {
+                    toast.error(response?.message);
+                }
+            });
+        } catch (error) {
+            console.error("Error cancelling agreement:", error);
+            toast.error("An error occurred. Please try again.");
+        }
+    };
+
     return (
         <>
+            <ToastContainer />
             <div
                 className="modal fade"
                 id="privilege-cancelled-modal"
                 tabIndex="-1"
                 aria-labelledby="privilege-cancelled-modalLabel"
                 aria-hidden="true"
+                ref={closeCancelModal}
             >
                 <div className="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
                     <div className="modal-content">
@@ -168,10 +209,36 @@ const PrivilegeCancelledModal = () => {
                         </div>
                         <div className="modal-footer justify-content-center ">
                             <button
+                                disabled={isPending}
+                                onClick={handleCancelAggriment}
                                 type="button"
-                                className="add-to-cart-link border-0 rounded-3 text-capitalize px-4"
+                                className={` ${
+                                    isPending ? "disabled-button" : ""
+                                } add-to-cart-link border-0 rounded-3 text-capitalize px-4`}
                             >
-                                Let's start shopping
+                                {isPending ? (
+                                    <div
+                                        style={{
+                                            height: "21px",
+                                            width: "90px",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <RotatingLines
+                                            visible={true}
+                                            height="18"
+                                            width="20"
+                                            color="#ffffff"
+                                            strokeWidth="5"
+                                            animationDuration="0.75"
+                                            ariaLabel="rotating-lines-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="w-25"
+                                        />
+                                    </div>
+                                ) : (
+                                    <span>Let's start shopping</span>
+                                )}
                             </button>
                         </div>
                     </div>
