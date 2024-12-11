@@ -4,7 +4,6 @@ import { useEffect, useState, useTransition } from "react";
 import WithdrawChart from "./WithdrawChart";
 import { useSession } from "next-auth/react";
 import { getAffiliateFinanceBalanceChart } from "@/app/services/affiliate-finance/getAffiliateFinanceBalanceChart";
-import NoDataFound from "../../NoDataFound";
 
 const WithdrawTopBanner = () => {
     const [chartInfo, setChartInfo] = useState({});
@@ -30,7 +29,6 @@ const WithdrawTopBanner = () => {
         }
     }, [status, session?.accessToken]);
 
-    const hasChartInfo = Object?.keys(chartInfo).length > 0;
 
     return (
         <>
@@ -48,17 +46,14 @@ const WithdrawTopBanner = () => {
                         {/* Balance Section */}
                         <div className="text-black">
                             <h2 className="fw-bold">
-                                ৳ {chartInfo?.total_withdrawable ?? "N/A"}
+                                ৳ {chartInfo?.total_withdrawable ?? 0 }
                             </h2>
                             <p className="fs-6">Balance</p>
                         </div>
 
                         {/* Chart or No Data Section */}
-                        {hasChartInfo ? (
                             <WithdrawChart chartInfo={chartInfo} />
-                        ) : (
-                            <NoDataFound />
-                        )}
+                        
                     </div>
                 )}
             </div>
