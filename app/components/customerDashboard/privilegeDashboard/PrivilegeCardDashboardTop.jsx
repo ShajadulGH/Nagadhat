@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import PrivilegeCardModal from "./PrivilegeCardModal";
+
 import PrivilegeCardProduct from "./PrivilegeCardProduct";
 import PrivilegeMainCard from "./PrivilegeMainCard";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -19,9 +19,6 @@ const PrivilegeCardDashboardTop = async () => {
                 />
                 <PrivilegeCardProduct />
             </div>
-
-            {/* <!--Privilege Main Card Details Btn Modal --> */}
-            <PrivilegeCardModal />
         </>
     );
 };
