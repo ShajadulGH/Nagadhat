@@ -68,7 +68,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         ))}
 
                     <div className="billing-btn-area">
-                        <TrackYourOrderBtn />
+                        <TrackYourOrderBtn orderSummary={orderSummary} />
                         <span className="d-none d-lg-block">
                             <DownloadInvoiceBtn orderSummary={orderSummary} />
                         </span>

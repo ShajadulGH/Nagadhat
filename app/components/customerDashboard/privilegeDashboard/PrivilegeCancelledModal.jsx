@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRef, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const PrivilegeCancelledModal = () => {
     const [isPending, startTransition] = useTransition();
@@ -23,13 +23,7 @@ const PrivilegeCancelledModal = () => {
 
                 if (response?.code === 200) {
                     toast.success(response?.message);
-                    if (closeCancelModal?.current) {
-                        document.activeElement?.blur();
-                        const modalInstance = bootstrap.Modal.getInstance(
-                            closeCancelModal.current
-                        );
-                        modalInstance?.hide();
-                    }
+                    closeModal();
                 } else {
                     toast.error(response?.message);
                 }
@@ -40,9 +34,18 @@ const PrivilegeCancelledModal = () => {
         }
     };
 
+    const closeModal = () => {
+        if (closeCancelModal?.current) {
+            document.activeElement?.blur();
+            const modalInstance = bootstrap.Modal.getInstance(
+                closeCancelModal.current
+            );
+            modalInstance?.hide();
+        }
+    };
+
     return (
         <>
-            <ToastContainer />
             <div
                 className="modal fade"
                 id="privilege-cancelled-modal"

@@ -1,9 +1,14 @@
-const TrackYourOrderBtn = () => {
+import Link from "next/link";
+
+const TrackYourOrderBtn = ({ orderSummary }) => {
     return (
         <>
-            <button className="add-to-cart-link border-0">
+            <Link
+                href={`/orderview?orderid=${orderSummary?.order_id}`}
+                className="add-to-cart-link border-0"
+            >
                 Track Your Order
-            </button>
+            </Link>
         </>
     );
 };
