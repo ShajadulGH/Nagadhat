@@ -130,7 +130,8 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                             privilegeCardInfo={privilegeCardInfo}
                             session={session}
                         />
-                        {privilegeCardInfo?.status === 2 && (
+                        {privilegeCardInfo?.product_name !==
+                            "Membership Card" && (
                             <button
                                 data-bs-toggle="modal"
                                 data-bs-target="#privilege-cancelled-modal"
