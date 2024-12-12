@@ -106,7 +106,7 @@ const ManageTakePhoto = () => {
                                     type="file"
                                     accept="image/*"
                                     name="photo"
-                                    capture
+                                    // capture
                                     id="photo"
                                     onChange={handleFileChange}
                                 />
