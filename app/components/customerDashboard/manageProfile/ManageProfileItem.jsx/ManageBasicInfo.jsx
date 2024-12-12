@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { getManageBasicInfo } from "@/app/services/getManageBasicInfo";
 import "react-toastify/dist/ReactToastify.css";
 import { postManageBasicInfo } from "@/app/services/postManageBasicInfo";
+import { toast } from "react-toastify";
 
 const ManageBasicInfo = () => {
     const [formData, setFormData] = useState({
@@ -128,6 +129,7 @@ const ManageBasicInfo = () => {
                                     id="username"
                                     value={formData.username}
                                     onChange={handleChange}
+                                    readOnly
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
@@ -144,11 +146,15 @@ const ManageBasicInfo = () => {
                                     id="mobile_number"
                                     value={formData.mobile_number}
                                     onChange={handleChange}
+                                    readOnly
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
                                 <label htmlFor="email" className="form-label">
                                     Email
+                                    <span className="text-danger fw-bold">
+                                        *
+                                    </span>
                                 </label>
                                 <input
                                     type="email"
@@ -157,6 +163,7 @@ const ManageBasicInfo = () => {
                                     id="email"
                                     value={formData.email}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
@@ -176,6 +183,7 @@ const ManageBasicInfo = () => {
                                     id="date_of_birth"
                                     value={formData.date_of_birth}
                                     onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
@@ -211,10 +219,11 @@ const ManageBasicInfo = () => {
                                     id="marital_status"
                                     value={formData.marital_status}
                                     onChange={handleChange}
+                                    required
                                 >
                                     <option value="">Select</option>
-                                    <option value="single">Single</option>
-                                    <option value="married">Married</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
                                 </select>
                             </div>
                             <div className="">

@@ -72,7 +72,7 @@ const ManageIDVerification = () => {
                 console.error("Update failed:", response);
                 toast.error(
                     response?.message ||
-                        "Failed to update ID Verification Info."
+                    "Failed to update ID Verification Info."
                 );
             }
         } catch (error) {
@@ -157,7 +157,10 @@ const ManageIDVerification = () => {
                                     onChange={handleFileChange}
                                 />
                             </div>
-                            <div className="">
+                            <span className="text-danger">
+                                * Please upload original picture, photocopy not allowed.
+                            </span>
+                            <div className="pt-3">
                                 <input
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"

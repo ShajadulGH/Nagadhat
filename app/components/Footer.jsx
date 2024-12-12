@@ -9,8 +9,8 @@ import Subscribe from "./Subscribe";
 
 function Footer() {
     const linkListsOptionOne = [
-        { title: "About Us", path: "#" },
-        { title: "FAQ", path: "#" },
+        { title: "About Us", path: "about-us" },
+        { title: "FAQ", path: "faq" },
         { title: "Support", path: "#" },
         { title: "Terms & Conditions", path: "#" },
         { title: "Quiz", path: "#" },
