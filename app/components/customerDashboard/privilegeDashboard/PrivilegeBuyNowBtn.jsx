@@ -85,7 +85,11 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
             <button
                 onClick={handlePrivilegeBuyNow}
                 className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                disabled={isPending || privilegeCardInfo?.status === 2}
+                disabled={
+                    isPending ||
+                    privilegeCardInfo?.status === 1 ||
+                    privilegeCardInfo?.status === 2
+                }
             >
                 {isPending ? (
                     <div
