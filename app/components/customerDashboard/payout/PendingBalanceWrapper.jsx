@@ -74,8 +74,7 @@ const PendingBalanceWrapper = () => {
                                                 className="text-end"
                                             >
                                                 <strong>
-                                                    Total: ৳{" "}
-                                                    {totalAmount.toFixed(2)}
+                                                    Total: ৳ {totalAmount}
                                                 </strong>
                                             </td>
                                         </tr>
