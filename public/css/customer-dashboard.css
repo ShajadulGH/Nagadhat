@@ -180,8 +180,8 @@
 .customer-dashboard-section .in-cart-area{
     background-size: cover;
     background-repeat: no-repeat;
-    min-height: 120px;
-    padding: 32px;
+    min-height: 150px;
+    padding: 15px;
     border-radius: 12px;
     color: var(--color-white);
 }
