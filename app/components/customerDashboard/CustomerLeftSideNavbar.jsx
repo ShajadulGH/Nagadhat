@@ -34,9 +34,6 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const { data: session, status } = useSession();
     const profilePicture = useSelector((state) => state.profile.profilePicture);
 
-    console.log(profilePicture);
-
-
     useEffect(() => {
         if (status === "authenticated") {
             const fetchUserDashboardInfo = async () => {
@@ -77,8 +74,6 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     } else {
         profilePic = `${NagadhatPublicUrl}/${isAffiliateUser?.profile_picture}`;
     }
-    console.log(`${NagadhatPublicUrl}/${profilePicture}` || profilePic || "/images/avatar-demo.png");
-
 
     return (
         <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column h-100 ">

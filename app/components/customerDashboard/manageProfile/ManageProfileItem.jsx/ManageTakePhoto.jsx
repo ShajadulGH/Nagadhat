@@ -44,7 +44,6 @@ const ManageTakePhoto = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!file) return;
-
         try {
             const result = await postManageProfilePicture(
                 file,
@@ -54,8 +53,6 @@ const ManageTakePhoto = () => {
             if (!result?.error) {
                 toast.success(result?.message);
                 setProfilePic(result);
-                console.log(result);
-
                 dispatch(setProfilePicture(result?.results));
             } else {
                 toast.error("Failed to update profile picture");
@@ -67,9 +64,6 @@ const ManageTakePhoto = () => {
             );
         }
     };
-
-    console.log({ file });
-
 
     return (
         <div className="accordion-item rounded border-0 mb-4">
