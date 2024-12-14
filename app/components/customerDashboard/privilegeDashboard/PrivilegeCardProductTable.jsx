@@ -65,9 +65,9 @@ const PrivilegeCardProductTable = ({
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
-    const closeModal = () => {
-        setProductDetail(null);
-    };
+    // const closeModal = () => {
+    //     setProductDetail(null);
+    // };
 
     return (
         <>
