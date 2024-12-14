@@ -4,10 +4,12 @@ import React from "react";
 import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
-import img from "@/public/images/placeholder--image.jpg"
+import img from "@/public/images/placeholder--image.jpg";
 
 function ProductCard({ item }) {
-    const image = item.product_thumbnail ? `${NagadhatPublicUrl}/${item.product_thumbnail}`: img ;
+    const image = item.product_thumbnail
+        ? `${NagadhatPublicUrl}/${item.product_thumbnail}`
+        : img;
     const {
         product_name: title,
         slug,
@@ -88,27 +90,43 @@ function ProductCard({ item }) {
                                         variant_item?.variations_default ===
                                         1 ? (
                                             <div key={variant_item.id}>
-                                                {parseInt(variant_item?.price?.discount_amount) > 0 ? (
+                                                {parseInt(
+                                                    variant_item?.price
+                                                        ?.discount_amount
+                                                ) > 0 ? (
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <strong>
-                                                            ট {variant_item?.price?.discounted_price}
+                                                            ট{" "}
+                                                            {
+                                                                variant_item
+                                                                    ?.price
+                                                                    ?.discounted_price
+                                                            }
                                                         </strong>
                                                         <strong className="text-secondary">
                                                             <del>
-                                                                ট {variant_item?.price?.regular_price}
+                                                                ট{" "}
+                                                                {
+                                                                    variant_item
+                                                                        ?.price
+                                                                        ?.regular_price
+                                                                }
                                                             </del>
                                                         </strong>
                                                     </div>
                                                 ) : (
                                                     <strong>
-                                                        ট {variant_item?.price?.regular_price}
+                                                        ট{" "}
+                                                        {
+                                                            variant_item?.price
+                                                                ?.regular_price
+                                                        }
                                                     </strong>
                                                 )}
                                             </div>
                                         ) : null
                                     )
-                                ) : 
-                                item?.price?.discount_status ? (
+                                ) : item?.price?.discount_status ? (
                                     <div className="d-flex align-items-center justify-content-between">
                                         <strong>
                                             ট {item?.price?.discounted_price}
@@ -130,12 +148,14 @@ function ProductCard({ item }) {
                             <AddToCartButton
                                 productInfo={item}
                                 quantity={1}
-                                selectedVariantProductInfo={selectedVariantProductInfo}
+                                selectedVariantProductInfo={
+                                    selectedVariantProductInfo
+                                }
                                 selectedVariants={selectedVariants}
                                 productPrice={productPrice}
                                 productStoke={productStoke}
                             />
-                            <Like />
+                            {/* <Like /> */}
                         </div>
                     </div>
                 </div>

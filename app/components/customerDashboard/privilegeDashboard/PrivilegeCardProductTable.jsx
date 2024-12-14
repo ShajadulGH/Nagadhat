@@ -65,13 +65,13 @@ const PrivilegeCardProductTable = ({
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
-    const closeModal = () => {
-        setProductDetail(null);
-    };
+    // const closeModal = () => {
+    //     setProductDetail(null);
+    // };
 
     return (
         <>
-            <div className="table-responsive px-4">
+            <div className="table-responsive px-3 px-md-4">
                 <table
                     className="table table-bordered border-secondary table-hover table-striped"
                     style={{ minWidth: "850px" }}

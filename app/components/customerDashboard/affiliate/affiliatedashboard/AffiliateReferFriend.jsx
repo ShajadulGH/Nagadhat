@@ -44,7 +44,7 @@ const AffiliateReferFriend = ({ affiliateData }) => {
                 <p>{referralLink}</p>
             </div>
             <CopyToClipboard text={referralLink} onCopy={handleCopy}>
-                <button className="affiliate-dashboard-refer-item focus-ring">
+                <button className="affiliate-dashboard-refer-item focus-ring text-black ">
                     {copied ? "Referral Link Copied!" : "Copy"}
                 </button>
             </CopyToClipboard>

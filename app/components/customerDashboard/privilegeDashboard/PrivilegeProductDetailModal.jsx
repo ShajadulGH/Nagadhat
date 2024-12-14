@@ -61,7 +61,7 @@ const PrivilegeProductDetailModal = ({ productInfo }) => {
                                             ৳ {productInfo?.purchases_price}
                                         </strong>
                                     </li>
-                                    <li className="pb-2 fs-6">Brand: Nestle</li>
+                                    <li className="pb-2 fs-6">Brand: {productInfo?.brand}</li>
                                     <li className="pb-2 fs-6">
                                         {productInfo?.products
                                             ?.short_description

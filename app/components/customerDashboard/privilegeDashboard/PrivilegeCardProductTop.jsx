@@ -13,7 +13,6 @@ const PrivilegeCardProductTop = ({
     const [searchValue, setSearchValue] = useState(searchTerm);
     const [categoryValue, setCategoryValue] = useState([]);
 
-
     const searchParam = useSearchParams();
     const router = useRouter();
 
@@ -23,7 +22,9 @@ const PrivilegeCardProductTop = ({
                 setSearchTerm(searchValue);
                 const newParams = new URLSearchParams(searchParam);
                 newParams.set("page", 1);
-                const newUrl = `${window.location.pathname}?${newParams.toString()}`;
+                const newUrl = `${
+                    window.location.pathname
+                }?${newParams.toString()}`;
                 router.push(newUrl);
             }, 500);
 
@@ -57,7 +58,7 @@ const PrivilegeCardProductTop = ({
     }, []);
 
     return (
-        <div className="row pt-4 pb-4 px-4">
+        <div className="row pt-4 pb-4 px-3 px-md-4">
             <div className="col-12">
                 <div className="d-flex align-items-center justify-content-end gap-2">
                     <div>
