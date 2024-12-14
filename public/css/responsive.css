@@ -344,6 +344,9 @@
 }
 
 @media (max-width: 767px) {
+    .customer-dashboard-order-history-title {
+        padding:15px
+    }
     .withdraw-top-section {
         padding: 15px !important;
     }
