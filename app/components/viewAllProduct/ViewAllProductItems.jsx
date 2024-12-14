@@ -97,23 +97,36 @@ const ViewAllProductitemss = ({ items }) => {
                                 items.variations?.map((variant_item) =>
                                     variant_item?.variations_default === 1 ? (
                                         <div key={variant_item.id}>
-                                            {parseInt(variant_item?.price?.discount_amount) > 0 ? (
+                                            {parseInt(
+                                                variant_item?.price
+                                                    ?.discount_amount
+                                            ) > 0 ? (
                                                 <div className="d-flex align-items-center justify-content-between">
                                                     <strong>
                                                         ট {""}
-                                                        {variant_item?.price?.discounted_price}
+                                                        {
+                                                            variant_item?.price
+                                                                ?.discounted_price
+                                                        }
                                                     </strong>
                                                     <strong className="text-secondary">
                                                         <del>
                                                             ট {""}
-                                                            {variant_item?.price?.regular_price}
+                                                            {
+                                                                variant_item
+                                                                    ?.price
+                                                                    ?.regular_price
+                                                            }
                                                         </del>
                                                     </strong>
                                                 </div>
                                             ) : (
                                                 <strong>
                                                     ট {""}
-                                                    {variant_item?.price?.regular_price}
+                                                    {
+                                                        variant_item?.price
+                                                            ?.regular_price
+                                                    }
                                                 </strong>
                                             )}
                                         </div>
@@ -142,13 +155,15 @@ const ViewAllProductitemss = ({ items }) => {
                             <AddToCartButton
                                 productInfo={items}
                                 quantity={1}
-                                selectedVariantProductInfo={selectedVariantProductInfo}
+                                selectedVariantProductInfo={
+                                    selectedVariantProductInfo
+                                }
                                 selectedVariants={selectedVariants}
                                 productPrice={productPrice}
                                 productStoke={productStoke}
                             />
                             <div className="add-to-cart-icon">
-                                <Like />
+                                {/* <Like /> */}
                             </div>
                         </div>
                     </div>
