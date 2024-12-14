@@ -11,7 +11,7 @@ const OTP = () => {
     const router = useRouter();
     let phone = searchParams.get("phone") ? searchParams.get("phone") : "";
     let forgetPassword = searchParams.get("forget_password") || "";
-    const [otp, setOtp] = useState("");
+    const [otp, setOtp] = useState("1234567");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
@@ -158,6 +158,7 @@ const OTP = () => {
                                     name="user-otp"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
+                                    defaultValue="1234567"
                                 />
                             </div>
                             <div>
