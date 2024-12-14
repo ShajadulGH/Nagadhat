@@ -79,7 +79,7 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
                         </button>
                         <Link
                             href="/privilege-card-shopping-list"
-                            className="btn btn-secondary"
+                            className=" btn-secondary border-0 add-to-cart-link"
                         >
                             View Cart
                         </Link>
