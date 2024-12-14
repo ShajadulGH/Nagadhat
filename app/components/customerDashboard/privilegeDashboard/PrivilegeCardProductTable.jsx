@@ -71,7 +71,7 @@ const PrivilegeCardProductTable = ({
 
     return (
         <>
-            <div className="table-responsive px-4">
+            <div className="table-responsive px-3 px-md-4">
                 <table
                     className="table table-bordered border-secondary table-hover table-striped"
                     style={{ minWidth: "850px" }}
