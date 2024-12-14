@@ -2,16 +2,20 @@
 
 import { getProfilePicture } from "@/app/services/getProfilePicture";
 import { postManageProfilePicture } from "@/app/services/postManageProfilePicture";
+import { setProfilePicture } from "@/app/store/slices/profileSlice";
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const ManageTakePhoto = () => {
-    const [profilePicture, setProfilePicture] = useState("");
+    const [profilePic, setProfilePic] = useState("");
     const [file, setFile] = useState(null);
     const { data: session, status } = useSession();
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -22,14 +26,14 @@ const ManageTakePhoto = () => {
                     );
                     const profilePictureResult =
                         profilePictureData?.results?.profile_picture || "";
-                    setProfilePicture(profilePictureResult);
+                    setProfilePic(profilePictureResult);
                 } catch (error) {
                     console.error("Error fetching profile picture:", error);
                 }
             };
             fetchProfilePicture();
         }
-    }, [session, status, profilePicture]);
+    }, [session, status, profilePic]);
 
     const handleFileChange = (event) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -49,7 +53,10 @@ const ManageTakePhoto = () => {
 
             if (!result?.error) {
                 toast.success(result?.message);
-                setProfilePicture(result);
+                setProfilePic(result);
+                console.log(result);
+
+                dispatch(setProfilePicture(result?.results));
             } else {
                 toast.error("Failed to update profile picture");
             }
@@ -60,6 +67,9 @@ const ManageTakePhoto = () => {
             );
         }
     };
+
+    console.log({ file });
+
 
     return (
         <div className="accordion-item rounded border-0 mb-4">
@@ -83,17 +93,17 @@ const ManageTakePhoto = () => {
                 <div className="accordion-body border-top">
                     <div className="customer-manage-profile-from-area">
                         <form onSubmit={handleSubmit}>
-                            {profilePicture && (
+                            {profilePic || file ? (
                                 <div className="mb-2">
                                     <Image
-                                        src={`${NagadhatPublicUrl}/${profilePicture}`}
+                                        src={file ? URL.createObjectURL(file) : `${NagadhatPublicUrl}/${profilePic}`}
                                         alt="Profile Picture"
                                         width={80}
                                         height={80}
                                         className="rounded-circle"
                                     />
                                 </div>
-                            )}
+                            ):""}
                             <div className="mb-3">
                                 <label htmlFor="photo" className="form-label">
                                     Uplod Your Photo
