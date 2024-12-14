@@ -2,6 +2,7 @@
 import Image from "next/image";
 import ClaimRewardModal from "./ClaimRewardModal";
 import { useState } from "react";
+import { NagadhatPublicUrl } from "@/app/utils";
 
 const RankRewardList = ({ rankList, setStatusChange }) => {
     const [selectedReward, setSelectedReward] = useState(null);
@@ -13,7 +14,7 @@ const RankRewardList = ({ rankList, setStatusChange }) => {
     const handleCloseModal = () => {
         setSelectedReward(null);
     };
-
+    
     return (
         <>
             <div className="table-responsive">
@@ -51,19 +52,18 @@ const RankRewardList = ({ rankList, setStatusChange }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {rankList &&
-                            rankList.length > 0 &&
-                            rankList.map((items, index) => (
+                        {
+                            rankList?.map((items, index) => (
                                 <tr key={index}>
                                     <td className="align-middle">
                                         {index + 1}
                                     </td>
                                     <td className="align-middle text-center">
                                         <Image
-                                            src="/images/men (1).png"
+                                            src={`${NagadhatPublicUrl}/${items?.logo}`}
                                             width={40}
                                             height={40}
-                                            alt="men (1).png"
+                                            alt={items?.level}
                                         />
                                     </td>
                                     <td className="align-middle text-center">
