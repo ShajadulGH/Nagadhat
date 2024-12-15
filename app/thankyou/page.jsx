@@ -3,12 +3,12 @@
 import { useEffect, useState, useTransition } from "react";
 import OrderSummaryLeft from "../components/ordersummary/OrderSummaryLeft";
 import OrderSummaryRight from "../components/ordersummary/OrderSummaryRight";
-import { getProductOrderSummery } from "../services/getProductOrderSummery";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import PrivateRoute from "../components/PrivateRoute/PrivateRoute";
 import DefaultLoader from "../components/defaultloader/DefaultLoader";
 import NoDataFound from "../components/NoDataFound";
+import { getThankYouSummery } from "../services/getThankYouSummery";
 
 const ThankYouPage = () => {
     const [orderSummary, setOrderSummary] = useState(null);
@@ -22,7 +22,7 @@ const ThankYouPage = () => {
             const fetchOrderSummary = async () => {
                 try {
                     startTransition(async () => {
-                        const orderData = await getProductOrderSummery(
+                        const orderData = await getThankYouSummery(
                             orderId,
                             session?.accessToken
                         );
