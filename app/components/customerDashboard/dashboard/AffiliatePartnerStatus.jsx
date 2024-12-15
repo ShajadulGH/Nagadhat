@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import LodingFixed from "../../LodingFixed";
 import { setAffiliateStatus } from "@/app/store/slices/affiliateSlice";
 import { useDispatch, useSelector } from "react-redux";
 

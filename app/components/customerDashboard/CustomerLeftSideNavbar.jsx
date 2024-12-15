@@ -25,7 +25,8 @@ import {
     FaTicket,
 } from "react-icons/fa6";
 import SignoutBtn from "../SignoutBtn";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfilePicture } from "@/app/store/slices/profileSlice";
 
 const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const currentPath = usePathname();
@@ -34,7 +35,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const { data: session, status } = useSession();
     const profilePicture = useSelector((state) => state.profile.profilePicture);
     const affiliateStatus = useSelector((state) => state.affiliate.status);
-
+    const dispatch = useDispatch();
     useEffect(() => {
         if (status === "authenticated") {
             const fetchUserDashboardInfo = async () => {
@@ -44,6 +45,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     );
                     const userDashboardResult = userDashboardInfo?.results;
                     setIsAffiliateUser(userDashboardResult);
+                    dispatch(setProfilePicture(userDashboardResult?.profile_picture));
                 } catch (error) {
                     console.error(
                         "Failed to fetch user dashboard info:",
