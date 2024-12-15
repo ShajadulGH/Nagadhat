@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { FaHeadset, FaListUl, FaUser } from "react-icons/fa6";
@@ -7,18 +7,21 @@ import { useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import CategoryHoverMenu from "./CategoryHoverMenu";
 import { usePathname } from "next/navigation";
+import { NagadhatPublicUrl } from "../utils";
+import Image from "next/image";
 
 const MobileButtonNav = () => {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const [isCategoryHoverMenu, setCategoryHoverMenu] = useState(false);
     const currentPath = usePathname();
-
+    const profilePicture = useSelector((state) => state.profile.profilePicture);
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
     );
 
     // Function to determine if a nav link is active
     const isActive = (path) => currentPath === path;
+ 
 
     return (
         <div className="position-fixed bottom-0 z-3 w-100 romove-in-invoice-page">
@@ -95,7 +98,19 @@ const MobileButtonNav = () => {
                                 isActive("/dashboard") ? "active-nav" : ""
                             }`}
                         >
-                            <FaUser />
+                            {
+                                profilePicture ? (
+                                    <Image
+                                        className="profile-picture-small rounded-circle"
+                                        src={`${NagadhatPublicUrl}/${profilePicture}`}
+                                        alt="Profile Picture"
+                                        height={24}
+                                        width={24}
+                                    />
+                                ) : (
+                                    <FaUser />
+                                )
+                            }
                             <span className="d-block fs-10 fw-600">
                                 Dashboard
                             </span>
@@ -107,7 +122,7 @@ const MobileButtonNav = () => {
                                 isActive("/login") ? "active-nav" : ""
                             }`}
                         >
-                            <FaUser />
+                            <FaUser/>
                             <span className="d-block fs-10 fw-600">Login</span>
                         </Link>
                     )}
