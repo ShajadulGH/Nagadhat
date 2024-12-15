@@ -33,6 +33,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const [isAffiliateUser, setIsAffiliateUser] = useState({});
     const { data: session, status } = useSession();
     const profilePicture = useSelector((state) => state.profile.profilePicture);
+    const affiliateStatus = useSelector((state) => state.affiliate.status);
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -71,8 +72,10 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     let profilePic;
     if (profilePicture) {
         profilePic = `${NagadhatPublicUrl}/${profilePicture}`;
-    } else {
+    } else if (isAffiliateUser?.profile_picture && !profilePicture) {
         profilePic = `${NagadhatPublicUrl}/${isAffiliateUser?.profile_picture}`;
+    }else{
+        profilePic = "/images/avatar-demo.png"
     }
 
     return (
@@ -82,7 +85,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     <div className="mb-3 customer-dashboard-profile-avatar">
                         <Image
                             className="rounded-circle"
-                            src={ profilePic || "/images/avatar-demo.png"}
+                            src={ profilePic}
                             alt="avatar-demo"
                             width={60}
                             height={60}
@@ -202,7 +205,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         </li>
 
                         {isAffiliateUser?.affiliate_user_status ==
-                            "Affiliate" && (
+                            "Affiliate" || affiliateStatus ?(
                                 <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                     <p
                                         className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "affiliate"
@@ -313,7 +316,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         </li>
                                     </ul>
                                 </li>
-                            )}
+                            ):""}
 
                         <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
