@@ -7,14 +7,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import LodingFixed from "../../LodingFixed";
+import { setAffiliateStatus } from "@/app/store/slices/affiliateSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
-    const [affiliateStatus, setAffiliateStatus] = useState(null);
+    // const [affiliateStatus, setAffiliateStatus] = useState(null);
+    const dispatch = useDispatch();
     const { data: session, status } = useSession();
+    const affiliateStatus = useSelector((state) => state.affiliate.status);
 
     useEffect(() => {
         if (userDashboard?.affiliate_user_status === "Affiliate") {
             setAffiliateStatus(1);
+            dispatch(setAffiliateStatus(1));
         }
     }, [userDashboard?.affiliate_user_status]);
 
@@ -27,7 +32,9 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
             const applyStatus = await getApplyForAffiliate(
                 session?.accessToken
             );
-            setAffiliateStatus(applyStatus?.results?.status);
+            const status = applyStatus?.results?.status;
+            setAffiliateStatus(status);
+            dispatch(setAffiliateStatus(status)); // Update Redux state
             if (applyStatus?.results?.status == 1) {
                 Swal.fire({
                     title: "Success!",

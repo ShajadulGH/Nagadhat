@@ -33,6 +33,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const [isAffiliateUser, setIsAffiliateUser] = useState({});
     const { data: session, status } = useSession();
     const profilePicture = useSelector((state) => state.profile.profilePicture);
+    const affiliateStatus = useSelector((state) => state.affiliate.status);
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -202,7 +203,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         </li>
 
                         {isAffiliateUser?.affiliate_user_status ==
-                            "Affiliate" && (
+                            "Affiliate" || affiliateStatus ?(
                                 <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                     <p
                                         className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "affiliate"
@@ -313,7 +314,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         </li>
                                     </ul>
                                 </li>
-                            )}
+                            ):""}
 
                         <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                             <p
