@@ -72,8 +72,10 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     let profilePic;
     if (profilePicture) {
         profilePic = `${NagadhatPublicUrl}/${profilePicture}`;
-    } else {
+    } else if (isAffiliateUser?.profile_picture && !profilePicture) {
         profilePic = `${NagadhatPublicUrl}/${isAffiliateUser?.profile_picture}`;
+    }else{
+        profilePic = "/images/avatar-demo.png"
     }
 
     return (
@@ -83,7 +85,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     <div className="mb-3 customer-dashboard-profile-avatar">
                         <Image
                             className="rounded-circle"
-                            src={ profilePic || "/images/avatar-demo.png"}
+                            src={ profilePic}
                             alt="avatar-demo"
                             width={60}
                             height={60}
