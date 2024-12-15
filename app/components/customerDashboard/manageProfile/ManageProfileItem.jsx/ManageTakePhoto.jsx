@@ -27,6 +27,7 @@ const ManageTakePhoto = () => {
                     const profilePictureResult =
                         profilePictureData?.results?.profile_picture || "";
                     setProfilePic(profilePictureResult);
+                    dispatch(setProfilePicture(profilePictureResult));
                 } catch (error) {
                     console.error("Error fetching profile picture:", error);
                 }
