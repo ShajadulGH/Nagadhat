@@ -56,19 +56,19 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
     const filteredPaymentOptions =
         orderSummary?.order_product_type !== "1"
             ? paymentOptions
-                .map((option) =>
-                    option.id === "Cash On Delivery"
-                        ? {
-                            id: "Cash On Delivery",
-                            src: "/images/Pay-Later.png",
-                            alt: "Pay later",
-                        }
-                        : option
-                )
-                .filter(
-                    (option) =>
-                        option.id !== "bkash" && option.id !== "sslcommerz"
-                )
+                  .map((option) =>
+                      option.id === "Cash On Delivery"
+                          ? {
+                                id: "Cash On Delivery",
+                                src: "/images/Pay-Later.png",
+                                alt: "Pay later",
+                            }
+                          : option
+                  )
+                  .filter(
+                      (option) =>
+                          option.id !== "bkash" && option.id !== "sslcommerz"
+                  )
             : paymentOptions;
 
     const handleOptionClick = (optionId) => {
@@ -98,13 +98,15 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                 break;
         }
     };
+    console.log("isTermsChecked===>", isTermsChecked);
+    console.log("selectedOption", selectedOption);
 
     return (
         <div className="col-lg-8">
             {isPending ? (
                 <DefaultLoader />
             ) : orderSummary?.payment_status === "Unpaid" ||
-                orderSummary?.payment_status === "Partial" ? (
+              orderSummary?.payment_status === "Partial" ? (
                 <>
                     <div className="pay-now-payment-option-bg bg-white">
                         <div className="pay-now-payment-option-title">
@@ -114,10 +116,11 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                             {filteredPaymentOptions.map((option) => (
                                 <div
                                     key={option.id}
-                                    className={`pay-now-payment-option-img-box rounded-3 ${selectedOption === option.id
+                                    className={`pay-now-payment-option-img-box rounded-3 ${
+                                        selectedOption === option.id
                                             ? "selected"
                                             : ""
-                                        }`}
+                                    }`}
                                     onClick={() => handleOptionClick(option.id)}
                                     style={{ cursor: "pointer" }}
                                 >
@@ -134,11 +137,18 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                         </div>
                     </div>
                     <div className="pay-now-terms-condition-area">
-                        <div className="pay-now-terms-condition">
+                        <div
+                            className={`mb-3 pay-now-terms-condition ${
+                                isTermsChecked === false &&
+                                selectedOption !== ""
+                                    ? "text-warning border-bottom border-warning px-2 fw-bold "
+                                    : ""
+                            }`}
+                        >
                             {errorMsg && !isTermsChecked && (
-                                <p className="text-danger pb-2">{errorMsg}</p>
+                                <p className="text-danger pb-2 ">{errorMsg}</p>
                             )}
-                            <div className="mb-3 form-check">
+                            <div className={` form-check `}>
                                 <input
                                     type="checkbox"
                                     className="form-check-input"
@@ -148,7 +158,7 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                                     }
                                 />
                                 <label
-                                    className="form-check-label"
+                                    className={`form-check-label`}
                                     htmlFor="exampleCheck1"
                                 >
                                     I agree to the terms and conditions, return
