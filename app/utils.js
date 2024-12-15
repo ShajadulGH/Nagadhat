@@ -1,6 +1,8 @@
 // For Live
+
 export const apiBaseUrl = "https://v3.nagadhat.com/api";
 export const NagadhatPublicUrl = "https://v3.nagadhat.com";
+
 // For Live staging way
 // export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
 // export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
