@@ -1,11 +1,11 @@
 // For Live
 
-export const apiBaseUrl = "https://v3.nagadhat.com/api";
-export const NagadhatPublicUrl = "https://v3.nagadhat.com";
+// exp ort const apiBaseUrl = "https://v3.nagadhat.com/api";
+// export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
 // For Live staging way
-// export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
-// export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
+export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
+export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
 
 // For Localhost 1 way
 // export const apiBaseUrl = "http://nagadhat-v3.test/api";
