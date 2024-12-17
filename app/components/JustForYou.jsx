@@ -7,16 +7,16 @@ import LoadMore from "./LoadMore";
 
 function JustForYou() {
     const [jfyProducts, setJfyProducts] = useState([]);
-    const [districtId, setDistrictId] = useState(null);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true); // Track if there are more products
     const observerRef = useRef(null);
-
-    useEffect(() => {
-        const initialDistrictId = localStorage.getItem("districtId");
-        setDistrictId(initialDistrictId ? parseInt(initialDistrictId) : 47);
-    }, []);
+    const [districtId, setDistrictId] = useState(() => {
+            if (typeof window !== "undefined") {
+                return localStorage.getItem("districtId") || 47;
+            }
+            return 47;
+        });
 
     useEffect(() => {
         const fetchProducts = async () => {

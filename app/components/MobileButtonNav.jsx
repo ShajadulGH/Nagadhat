@@ -22,7 +22,6 @@ const MobileButtonNav = () => {
     // Function to determine if a nav link is active
     const isActive = (path) => currentPath === path;
  
-
     return (
         <div className="position-fixed bottom-0 z-3 w-100 romove-in-invoice-page">
             <div
