@@ -121,7 +121,7 @@ const ChangePasswordForm = () => {
                                 onClick={() =>
                                     togglePasswordVisibility("current")
                                 }
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", zIndex: "6"}}
                             >
                                 {showCurrentPassword ? (
                                     <FaEyeSlash />
@@ -148,7 +148,7 @@ const ChangePasswordForm = () => {
                             <span
                                 className="password-view-icon"
                                 onClick={() => togglePasswordVisibility("new")}
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", zIndex: "6" }}
                             >
                                 {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
@@ -176,7 +176,7 @@ const ChangePasswordForm = () => {
                                 onClick={() =>
                                     togglePasswordVisibility("confirm")
                                 }
-                                style={{ cursor: "pointer" }}
+                                style={{ cursor: "pointer", zIndex: "6" }}
                             >
                                 {showConfirmPassword ? (
                                     <FaEyeSlash />
