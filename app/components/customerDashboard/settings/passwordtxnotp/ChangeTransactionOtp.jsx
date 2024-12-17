@@ -1,15 +1,44 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
+import { postManagePinOtp } from "@/app/services/affiliate/postManagePinOtp";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const ChangeTransactionOtp = () => {
     const [otpType, setOtpType] = useState("PIN"); // Default to PIN
     const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
+    const { data: session, status } = useSession();
+    const modalRef = useRef(null); // Reference for modal
 
     const handleOtpChange = (e) => {
         setOtpType(e.target.value);
     };
+
+    const handleManageOtpChange =async () =>{
+        try {
+            const response = await postManagePinOtp(session?.accessToken)
+            console.log(response);
+            console.log(session?.accessToken);  
+            if (response.code === 200) {
+                // bootstrap modal close and rediract "manage-otp"
+                const modalElement = modalRef.current;
+                if (modalElement) {
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    modalInstance.hide(); // Close modal
+                }
+                // Redirect to withdraw request page with withdrawal ID as parameter
+                route.push(`/finance-withdraw-request/${response.results.id}`);
+                
+            }else{
+                toast.error(response.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error);
+        }
+    }
     
     return (
         <div
@@ -98,7 +127,7 @@ const ChangeTransactionOtp = () => {
                     {otpType === "PIN" ? "Update PIN" : "Update OTP"}
                 </button>
             </div>
-            <TransactionOtpChoiceModal/>
+            <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} />
         </div>
     );
 };

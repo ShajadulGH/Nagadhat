@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TransactionOtpChoiceModal = () => {
+const TransactionOtpChoiceModal = ({handleManageOtpChange, modalRef}) => {
     return (
         <>
-            <div class="modal fade" id="TransactionOtp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TransactionOtpLabel" aria-hidden="true">
+            <div ref={modalRef}  class="modal fade" id="TransactionOtp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TransactionOtpLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -27,7 +27,7 @@ const TransactionOtpChoiceModal = () => {
                         </div>
                         <div class="modal-footer justify-content-between">
                             {/* <button type="button" class="add-to-cart-link border-0 bg-dark-subtle" data-bs-dismiss="modal">Close</button> */}
-                            <button type="button" class="add-to-cart-link border-0 w-100">Sand</button>
+                            <button onClick={handleManageOtpChange} type="button" class="add-to-cart-link border-0 w-100">Sand</button>
                         </div>
                     </div>
                 </div>
