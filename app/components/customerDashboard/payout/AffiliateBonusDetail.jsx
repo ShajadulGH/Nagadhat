@@ -5,6 +5,7 @@ const AffiliateBonusDetail = ({
     affiliateBonusData,
     serialNumber,
 }) => {
+    
     return (
         <div className="p-3">
             <div className="table-responsive">
