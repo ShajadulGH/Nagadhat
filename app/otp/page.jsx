@@ -1,23 +1,25 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { getOTPVerify } from "../services/getOTPVerify";
 import { getResendOTP } from "../services/getResendOTP";
 import { getBackRegistration } from "../services/getBackRegistration";
 import { useSearchParams, useRouter } from "next/navigation";
 import { postCheckForgetPassword } from "../services/forgetpassword/postCheckForgetPassword";
+import { RotatingLines } from "react-loader-spinner";
 
 const OTP = () => {
+    const [isPending, startTransition] = useTransition();
     const searchParams = useSearchParams();
     const router = useRouter();
     let phone = searchParams.get("phone") ? searchParams.get("phone") : "";
     let forgetPassword = searchParams.get("forget_password") || "";
+
     const [otp, setOtp] = useState("1234567");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
         async function verifyOTP() {
             if (!phone || !otp) {
                 setErrorMessage("Please provide required information");
@@ -28,41 +30,48 @@ const OTP = () => {
             }
 
             try {
-                const res = await getOTPVerify({
-                    phone: phone,
-                    otp: otp,
-                });
-
-                if (!res?.success) {
-                    setErrorMessage(res.message);
-                    return;
-                }
-
-                // Forget Password Checking
-                if (forgetPassword) {
-                    const forgetPasswordRes = await postCheckForgetPassword({
-                        phone,
-                        otp,
+                startTransition(async () => {
+                    const res = await getOTPVerify({
+                        phone: phone,
+                        otp: otp,
                     });
-
-                    if (forgetPasswordRes?.error) {
-                        setErrorMessage(forgetPasswordRes?.message);
-                    } else {
-                        const userId = forgetPasswordRes?.results?.user_id;
-                        router.push(`/setforgotpassword?user_id=${userId}`);
+                    if (!res?.success) {
+                        setErrorMessage(res.message);
+                        return;
                     }
-                } else {
-                    setSuccessMessage(res.message);
-                    router.push("/login");
-                }
-
-                // router.push("/login");
+                });
             } catch (error) {
                 alert("Something went wrong. Please try after sometime");
             }
         }
 
-        verifyOTP();
+        if (!forgetPassword) {
+            verifyOTP();
+        }
+
+        // Forget Password Checking
+        if (forgetPassword) {
+            try {
+                startTransition(async () => {
+                    const forgetRes = await postCheckForgetPassword({
+                        phone: forgetPassword,
+                        otp,
+                    });
+                    if (forgetRes?.code === 200) {
+                        setSuccessMessage(forgetRes?.message);
+                        const userId = forgetRes?.results?.user_id;
+                        router.push(`/set-forgot-password?user_id=${userId}`);
+                    } else {
+                        setErrorMessage(forgetRes.message);
+                    }
+                });
+            } catch (error) {
+                console.error("Error in Forget Password Check:", error);
+                setErrorMessage(
+                    "An error occurred while verifying forget password. Please try again."
+                );
+            }
+        }
     };
 
     const handleResendOTPSubmit = (e) => {
@@ -74,16 +83,16 @@ const OTP = () => {
             }
 
             try {
-                const res = await getResendOTP({
-                    phone: phone,
+                startTransition(async () => {
+                    const res = await getResendOTP({
+                        phone: phone,
+                    });
+                    if (!res?.success) {
+                        setErrorMessage(res.message);
+                        return;
+                    }
+                    setSuccessMessage(res.message);
                 });
-
-                if (!res?.success) {
-                    setErrorMessage(res.message);
-                    return;
-                }
-
-                setSuccessMessage(res.message);
             } catch (error) {
                 alert("Something went wrong. Please try after sometime");
             }
@@ -105,16 +114,17 @@ const OTP = () => {
             }
 
             try {
-                const res = await getBackRegistration({
-                    phone: phone,
+                startTransition(async () => {
+                    const res = await getBackRegistration({
+                        phone: phone,
+                    });
+
+                    if (!res?.success) {
+                        setErrorMessage(res.message);
+                        return;
+                    }
+                    router.push("/registration");
                 });
-
-                if (!res?.success) {
-                    setErrorMessage(res.message);
-                    return;
-                }
-
-                router.push("/registration");
             } catch (error) {
                 alert("Something went wrong. Please try after sometime");
             }
@@ -165,8 +175,31 @@ const OTP = () => {
                                 <button
                                     className="w-100 add-to-cart-link border-0"
                                     type="submit"
+                                    disabled={isPending}
                                 >
-                                    Verify
+                                    {isPending ? (
+                                        <div
+                                            style={{
+                                                height: "21px",
+                                                width: "300px",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <RotatingLines
+                                                visible={true}
+                                                height="18"
+                                                width="20"
+                                                color="#ffffff"
+                                                strokeWidth="5"
+                                                animationDuration="0.75"
+                                                ariaLabel="rotating-lines-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="w-25"
+                                            />
+                                        </div>
+                                    ) : (
+                                        "Verify"
+                                    )}
                                 </button>
                             </div>
                         </form>
@@ -176,12 +209,23 @@ const OTP = () => {
                             </p>
                             <div className=" d-flex justify-content-between align-items-center">
                                 <div>
-                                    <button
-                                        className="add-to-cart-link border-0"
-                                        onClick={handleBackSubmit}
-                                    >
-                                        Back
-                                    </button>
+                                    {forgetPassword === forgetPassword ? (
+                                        <button
+                                            className="add-to-cart-link border-0"
+                                            onClick={() =>
+                                                router.push("/forgotpassword")
+                                            }
+                                        >
+                                            Back
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="add-to-cart-link border-0"
+                                            onClick={handleBackSubmit}
+                                        >
+                                            Back
+                                        </button>
+                                    )}
                                 </div>
                                 <div className="resend-otp-timar">
                                     <button

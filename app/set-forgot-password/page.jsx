@@ -1,53 +1,62 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
-import { postForgetPasswordOtp } from "../services/forgetpassword/postForgetPasswordOtp";
+import { postResetForgetPassword } from "../services/forgetpassword/postResetForgetPassword";
 import { RotatingLines } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
-const Page = () => {
+const SetForgotPasswordPage = () => {
     const [isPending, startTransition] = useTransition();
-    const [otpMobileNumber, setOtpMobileNumber] = useState({
-        phone: "",
+    const [forgetPassword, setForgetPassword] = useState({
+        new_password: "",
+        confirm_password: "",
     });
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+    const searchParams = useSearchParams();
     const router = useRouter();
+    const userID = searchParams.get("user_id");
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setError("");
-        setSuccess("");
+    //Function for handle Password Change
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setForgetPassword((prev) => ({ ...prev, [name]: value }));
+    };
+
+    //Function for on Password Handle Change
+    const onPasswordHandleChange = async (e) => {
+        e.preventDefault();
+
+        if (forgetPassword.new_password !== forgetPassword.confirm_password) {
+            toast.error("Passwords do not match");
+            return;
+        }
+        if (!userID) {
+            toast.error("Invalid user ID");
+            return;
+        }
 
         try {
+            const changePassword = {
+                new_password: forgetPassword.new_password,
+                confirm_password: forgetPassword.confirm_password,
+                user_id: parseInt(userID, 10),
+            };
             startTransition(async () => {
-                const response = await postForgetPasswordOtp(
-                    otpMobileNumber.phone
-                );
-
-                if (response?.code === 200) {
-                    setSuccess(response?.message);
-                    router.push(
-                        `/otp?forget_password=${otpMobileNumber.phone}`
+                const response = await postResetForgetPassword(changePassword);
+                if (response.code === 200) {
+                    toast.success(
+                        response?.message || "Password updated successfully"
                     );
+                    router.push("/login");
                 } else {
-                    setError(
-                        response?.message ||
-                            "Failed to send OTP. Please try again."
+                    toast.error(
+                        response?.message || "Failed to update password"
                     );
                 }
             });
-        } catch (err) {
-            console.error("Error:", err);
-            setError("An error occurred. Please try again later.");
+        } catch (error) {
+            toast.error("An error occurred while updating password");
+            console.error("Error updating password:", error);
         }
-    };
-
-    const handleInputChange = (e) => {
-        setOtpMobileNumber({
-            ...otpMobileNumber,
-            phone: e.target.value,
-        });
     };
 
     return (
@@ -58,42 +67,46 @@ const Page = () => {
                         <div className="col-12">
                             <div className="users-registration-otp one-time-pass">
                                 <div className="users-registration-otp-title pb-1">
-                                    <h1>Forgot Password?</h1>
+                                    <h1>Set Forget Password</h1>
                                 </div>
                                 <form
-                                    onSubmit={handleSubmit}
+                                    onSubmit={onPasswordHandleChange}
                                     className="d-flex flex-column gap-3"
                                 >
                                     <div>
                                         <label
                                             className="form-label"
-                                            htmlFor="phone"
+                                            htmlFor="new_password"
                                         >
-                                            Mobile Number
+                                            Password
                                         </label>
                                         <input
-                                            type="text"
+                                            type="password"
                                             className="form-control"
-                                            id="phone"
                                             required
-                                            name="phone"
-                                            value={otpMobileNumber.phone}
-                                            onChange={handleInputChange}
-                                            placeholder="Please enter valid mobile number"
-                                            aria-label="Enter your mobile number"
+                                            name="new_password"
+                                            value={forgetPassword.new_password}
+                                            onChange={handlePasswordChange}
                                         />
                                     </div>
-                                    {error && (
-                                        <div className="alert alert-danger">
-                                            {error}
-                                        </div>
-                                    )}
-                                    {success && (
-                                        <div className="alert alert-success">
-                                            {success}
-                                        </div>
-                                    )}
-
+                                    <div className="pb-2">
+                                        <label
+                                            className="form-label"
+                                            htmlFor="confirm_password"
+                                        >
+                                            Confirm Password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            required
+                                            name="confirm_password"
+                                            value={
+                                                forgetPassword.confirm_password
+                                            }
+                                            onChange={handlePasswordChange}
+                                        />
+                                    </div>
                                     <div>
                                         <button
                                             className="w-100 add-to-cart-link border-0"
@@ -121,14 +134,11 @@ const Page = () => {
                                                     />
                                                 </div>
                                             ) : (
-                                                "Get Code"
+                                                "Submit"
                                             )}
                                         </button>
                                     </div>
                                 </form>
-                                <div className="pt-2">
-                                    <Link href="/login">Back</Link>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,4 +148,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default SetForgotPasswordPage;
