@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { postResetForgetPassword } from "../services/forgetpassword/postResetForgetPassword";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const SetForgotPasswordPage = () => {
     const [isPending, startTransition] = useTransition();
@@ -11,6 +12,13 @@ const SetForgotPasswordPage = () => {
         new_password: "",
         confirm_password: "",
     });
+
+    //   togglePasswordVisibility
+    const [passwordVisibility, setPasswordVisibility] = useState({
+        new_password: false,
+        confirm_password: false,
+    });
+
     const searchParams = useSearchParams();
     const router = useRouter();
     const userID = searchParams.get("user_id");
@@ -21,10 +29,22 @@ const SetForgotPasswordPage = () => {
         setForgetPassword((prev) => ({ ...prev, [name]: value }));
     };
 
+    // function for togglePasswordVisibility
+    const togglePasswordVisibility = (field) => {
+        setPasswordVisibility((prev) => ({
+            ...prev,
+            [field]: !prev[field],
+        }));
+    };
+
     //Function for on Password Handle Change
     const onPasswordHandleChange = async (e) => {
         e.preventDefault();
 
+        if (forgetPassword.new_password.length < 5) {
+            toast.error("Password must be at least 5 characters long");
+            return;
+        }
         if (forgetPassword.new_password !== forgetPassword.confirm_password) {
             toast.error("Passwords do not match");
             return;
@@ -78,16 +98,43 @@ const SetForgotPasswordPage = () => {
                                             className="form-label"
                                             htmlFor="new_password"
                                         >
-                                            Password
+                                            New Password
                                         </label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            required
-                                            name="new_password"
-                                            value={forgetPassword.new_password}
-                                            onChange={handlePasswordChange}
-                                        />
+                                        <div className="position-relative">
+                                            <input
+                                                type={
+                                                    passwordVisibility.new_password
+                                                        ? "text"
+                                                        : "password"
+                                                }
+                                                className="form-control"
+                                                required
+                                                name="new_password"
+                                                value={
+                                                    forgetPassword.new_password
+                                                }
+                                                onChange={handlePasswordChange}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
+                                                onClick={() =>
+                                                    togglePasswordVisibility(
+                                                        "new_password"
+                                                    )
+                                                }
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "#000",
+                                                }}
+                                            >
+                                                {passwordVisibility.new_password ? (
+                                                    <FaEyeSlash />
+                                                ) : (
+                                                    <FaEye />
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div className="pb-2">
                                         <label
@@ -96,16 +143,41 @@ const SetForgotPasswordPage = () => {
                                         >
                                             Confirm Password
                                         </label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            required
-                                            name="confirm_password"
-                                            value={
-                                                forgetPassword.confirm_password
-                                            }
-                                            onChange={handlePasswordChange}
-                                        />
+                                        <div className="position-relative">
+                                            <input
+                                                type={
+                                                    passwordVisibility.confirm_password
+                                                        ? "text"
+                                                        : "password"
+                                                }
+                                                className="form-control"
+                                                required
+                                                name="confirm_password"
+                                                value={
+                                                    forgetPassword.confirm_password
+                                                }
+                                                onChange={handlePasswordChange}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
+                                                onClick={() =>
+                                                    togglePasswordVisibility(
+                                                        "confirm_password"
+                                                    )
+                                                }
+                                                style={{
+                                                    textDecoration: "none",
+                                                    color: "#000",
+                                                }}
+                                            >
+                                                {passwordVisibility.confirm_password ? (
+                                                    <FaEyeSlash />
+                                                ) : (
+                                                    <FaEye />
+                                                )}
+                                            </button>
+                                        </div>
                                     </div>
                                     <div>
                                         <button

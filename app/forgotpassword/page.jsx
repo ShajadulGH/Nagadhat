@@ -69,7 +69,7 @@ const Page = () => {
                                             className="form-label"
                                             htmlFor="phone"
                                         >
-                                            Mobile Number
+                                            Mobile Number / (User Id)
                                         </label>
                                         <input
                                             type="text"
@@ -79,7 +79,7 @@ const Page = () => {
                                             name="phone"
                                             value={otpMobileNumber.phone}
                                             onChange={handleInputChange}
-                                            placeholder="Please enter valid mobile number"
+                                            placeholder="Please enter register mobile number"
                                             aria-label="Enter your mobile number"
                                         />
                                     </div>
