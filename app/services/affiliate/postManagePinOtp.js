@@ -2,7 +2,7 @@ import { apiBaseUrl } from "@/app/utils";
 
 
 export const postManagePinOtp = async(token)=>{
-    if (!token) {
+    if (!token) { 
         return null;
     }
     try {
