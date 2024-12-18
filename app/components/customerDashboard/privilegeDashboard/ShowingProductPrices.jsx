@@ -4,17 +4,13 @@ const ShowingProductPrices = ({ balanceAfterChoosing }) => {
             <div className="fs-5">
                 <p>
                     List Choice Balance: ৳ {""}
-                    {typeof balanceAfterChoosing?.list_shopping === "number"
-                        ? balanceAfterChoosing.list_shopping.toFixed(2)
-                        : "0.00"}
+                    {balanceAfterChoosing?.list_shopping || "0.00"}
                 </p>
             </div>
             <div className="fs-5">
                 <p>
                     Shopping Balance: ৳ {""}
-                    {typeof balanceAfterChoosing?.shopping_balance === "number"
-                        ? balanceAfterChoosing.shopping_balance.toFixed(2)
-                        : "0.00"}
+                    {balanceAfterChoosing?.shopping_balance || "0.00"}
                 </p>
             </div>
         </div>
