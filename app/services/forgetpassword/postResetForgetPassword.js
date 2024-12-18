@@ -1,6 +1,6 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const postResetForgetPassword = async (mobileNumber) => {
+export const postResetForgetPassword = async (changePassword) => {
     try {
         const response = await fetch(`${apiBaseUrl}/reset-forget-password`, {
             method: "POST",
@@ -8,7 +8,7 @@ export const postResetForgetPassword = async (mobileNumber) => {
                 "Content-Type": "application/json",
                 Accept: "application/json",
             },
-            body: JSON.stringify(mobileNumber),
+            body: JSON.stringify(changePassword),
         });
 
         return await response.json();
