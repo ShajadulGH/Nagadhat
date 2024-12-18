@@ -1,53 +1,94 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
 import { postManagePinOtp } from "@/app/services/affiliate/postManagePinOtp";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { getUserInfo } from "@/app/services/affiliate/getUserInfo";
 
 const ChangeTransactionOtp = () => {
-    const [otpType, setOtpType] = useState("PIN"); // Default to PIN
-    const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
-    const { data: session, status } = useSession();
-    const modalRef = useRef(null); // Reference for modal
+    const { data: session } = useSession();
+    const [otpType, setOtpType] = useState("pin");
+    const [pin, setPin] = useState("");
+    const [confirmPin, setConfirmPin] = useState("");
+    const [mobileNumber, setMobileNumber] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [status, setStatus] = useState(0);
+    const modalRef = useRef(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const getData = async () => {
+            const response = await getUserInfo(session.accessToken)
+            if (response.code === 200) {
+                setMobileNumber(response?.results?.phone)
+                setStatus(response?.results?.status)
+            }
+            console.log(response);
+        }
+        getData();
+
+    }, [session?.accessToken])
 
     const handleOtpChange = (e) => {
         setOtpType(e.target.value);
     };
 
-    const handleManageOtpChange =async () =>{
+    const handleManagePin = () => {
+        if (otpType === "pin" && !pin) {
+            toast.error("PIN is required");
+            return;
+        }
+        if (otpType === "mobile" && !mobileNumber) {
+            toast.error("Mobile number is required");
+            return;
+        }
+        if (confirmPin != pin) {
+            toast.error("PINs do not match. Please try again.");
+            return;
+        }
+        const modalElement = modalRef.current;
+        if (modalElement) {
+            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+            modalInstance.show(); // Show modal
+        }
+    };
+
+    const handleManageOtpChange = async () => {
+        if (otpType === "pin" && !pin) {
+            toast.error("PIN is required");
+            return;
+        }
         try {
-            const response = await postManagePinOtp(session?.accessToken)
-            console.log(response);
-            console.log(session?.accessToken);  
+            if (!session?.accessToken) {
+                toast.error("Session expired. Please log in again.");
+                return;
+            }
+            const response = await postManagePinOtp(session.accessToken);
             if (response.code === 200) {
-                // bootstrap modal close and rediract "manage-otp"
+                // toast.success(response.message);
                 const modalElement = modalRef.current;
                 if (modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
-                // Redirect to withdraw request page with withdrawal ID as parameter
-                route.push(`/finance-withdraw-request/${response.results.id}`);
-                
-            }else{
+                router.push(`/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}`);
+            } else {
                 toast.error(response.message);
             }
         } catch (error) {
-            console.log(error);
-            toast.error(error);
+            console.error(error);
+            toast.error("Failed to update OTP. Please try again.");
         }
-    }
-    
+    };
+
     return (
-        <div
-            className="tab-pane fade"
-            id="transaction-otp-pin"
-            role="tabpanel"
-        >
+        <div className="tab-pane fade" id="transaction-otp-pin" role="tabpanel">
             <div>
-                <div className="customer-setting-form-group ">
+                <div className="customer-setting-form-group">
                     <label className="form-label" htmlFor="otp">
                         OTP Type
                     </label>
@@ -58,21 +99,19 @@ const ChangeTransactionOtp = () => {
                         value={otpType}
                         onChange={handleOtpChange}
                     >
-                        <option value="PIN">PIN</option>
-                        <option value="Mobile OTP">Mobile OTP</option>
+                        <option value="pin">PIN</option>
+                        <option value="mobile">Mobile OTP</option>
                     </select>
                 </div>
 
-                {otpType === "PIN" && (
+                {otpType === "pin" && (
                     <div className="customer-setting-form-group">
-                        <label
-                            className="form-label"
-                            htmlFor="transactionPIN"
-                        >
+                        <label className="form-label" htmlFor="transactionPIN">
                             Transaction PIN
                         </label>
                         <div className="input-group">
                             <input
+                                onChange={(e) => setPin(e.target.value)}
                                 type={showPassword ? "text" : "password"}
                                 className="form-control"
                                 id="transactionPIN"
@@ -80,27 +119,41 @@ const ChangeTransactionOtp = () => {
                             />
                             <span
                                 className="password-view-icon"
-                                onClick={() =>
-                                    setShowPassword(!showPassword)
-                                }
+                                onClick={() => setShowPassword(!showPassword)}
                                 style={{ cursor: "pointer", zIndex: "6" }}
                             >
-                                {showPassword ? (
-                                    <FaEyeSlash />
-                                ) : (
-                                    <FaEye />
-                                )}
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                    </div>
+                )}
+                {otpType === "pin" && (
+                    <div className="customer-setting-form-group">
+                        <label className="form-label" htmlFor="transactionPIN">
+                            Confirm Transaction PIN
+                        </label>
+                        <div className="input-group">
+                            <input
+                                onChange={(e) => setConfirmPin(e.target.value)}
+                                type={showConfirmPassword ? "text" : "password"}
+                                className="form-control"
+                                id="transactionPIN"
+                                placeholder="Enter Confirm PIN Number"
+                            />
+                            <span
+                                className="password-view-icon"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{ cursor: "pointer", zIndex: "6" }}
+                            >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
                         </div>
                     </div>
                 )}
 
-                {otpType === "Mobile OTP" && (
+                {otpType === "mobile" && (
                     <div className="customer-setting-form-group">
-                        <label
-                            className="form-label"
-                            htmlFor="mobileNumber"
-                        >
+                        <label className="form-label" htmlFor="mobileNumber">
                             Mobile Number
                         </label>
                         <input
@@ -108,26 +161,25 @@ const ChangeTransactionOtp = () => {
                             className="form-control"
                             id="mobileNumber"
                             placeholder="Enter Mobile Number"
+                            onChange={(e) => setMobileNumber(e.target.value)}
+                            value={mobileNumber}
+                            readOnly
                         />
                     </div>
                 )}
 
                 <div className="pb-3">
-                    <small>
-                        If you change it once, then you can't change it
-                        again.
-                    </small>
+                    <small>If you change it once, then you can't change it again.</small>
                 </div>
                 <button
-                    type="submit"
+                    type="button"
                     className="add-to-cart-link border-0 mx-auto"
-                    data-bs-toggle="modal" 
-                    data-bs-target="#TransactionOtp"
+                    onClick={handleManagePin}
                 >
-                    {otpType === "PIN" ? "Update PIN" : "Update OTP"}
+                    {otpType === "pin" ? status ? "Reset PIN" : "Set PIN" : status ? "Reset OTP" : "Set OTP"}
                 </button>
             </div>
-            <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} />
+            <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} mobileNumber={mobileNumber} />
         </div>
     );
 };
