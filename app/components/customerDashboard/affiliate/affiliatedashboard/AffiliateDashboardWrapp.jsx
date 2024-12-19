@@ -6,22 +6,31 @@ import AffiliateDashboardChartAndData from "./AffiliateDashboardChartAndData";
 import { getAffiliateIncomeHistory } from "@/app/services/affiliate/getAffiliateIncomeHistory";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import { getAffiliateWithdrawHistory } from "@/app/services/affiliate/getAffiliateWithdrawHistory";
 
 const AffiliateDashboardWrapp = async () => {
     const session = await getServerSession(authOptions);
-
     if (!session?.accessToken) {
         return <div>Please log in to view your dashboard.</div>;
     }
 
     try {
         // Fetch affiliate dashboard data
-        const affiliateInfo = await getAffiliateHomeDashboard(session.accessToken);
+        const affiliateInfo = await getAffiliateHomeDashboard(
+            session?.accessToken
+        );
         const affiliateData = affiliateInfo?.results || {};
+        // Fetch income history data
+        const incomeHistory = await getAffiliateIncomeHistory(
+            session?.accessToken
+        );
+        const incomeHistoryInfo = incomeHistory?.results?.data || [];
 
         // Fetch income history data
-        const incomeHistory = await getAffiliateIncomeHistory(session.accessToken);
-        const incomeHistoryInfo = incomeHistory?.results?.data || [];
+        const withdrawInfo = await getAffiliateWithdrawHistory(
+            session?.accessToken
+        );
+        const withdrawHistoryInfo = withdrawInfo.results.data || [];
 
         return (
             <>
@@ -42,13 +51,17 @@ const AffiliateDashboardWrapp = async () => {
                         <AffiliateDashboardInfo affiliateData={affiliateData} />
                         <AffiliateDashboardChartAndData
                             incomeHistoryInfo={incomeHistoryInfo}
+                            withdrawHistoryInfo={withdrawHistoryInfo}
                         />
                     </div>
                 </div>
             </>
         );
     } catch (error) {
-        console.error("Failed to fetch dashboard or income history data:", error);
+        console.error(
+            "Failed to fetch dashboard or income history data:",
+            error
+        );
         return <div>Error loading dashboard data. Please try again later.</div>;
     }
 };

@@ -22,16 +22,15 @@ const ChangeTransactionOtp = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getUserInfo(session.accessToken)
+            const response = await getUserInfo(session.accessToken);
             if (response.code === 200) {
-                setMobileNumber(response?.results?.phone)
-                setStatus(response?.results?.status)
+                setMobileNumber(response?.results?.phone);
+                setStatus(response?.results?.status);
             }
             console.log(response);
-        }
+        };
         getData();
-
-    }, [session?.accessToken])
+    }, [session?.accessToken]);
 
     const handleOtpChange = (e) => {
         setOtpType(e.target.value);
@@ -52,7 +51,8 @@ const ChangeTransactionOtp = () => {
         }
         const modalElement = modalRef.current;
         if (modalElement) {
-            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+            const modalInstance =
+                bootstrap.Modal.getOrCreateInstance(modalElement);
             modalInstance.show(); // Show modal
         }
     };
@@ -72,10 +72,13 @@ const ChangeTransactionOtp = () => {
                 // toast.success(response.message);
                 const modalElement = modalRef.current;
                 if (modalElement) {
-                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                    const modalInstance =
+                        bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
-                router.push(`/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}`);
+                router.push(
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}`
+                );
             } else {
                 toast.error(response.message);
             }
@@ -142,10 +145,16 @@ const ChangeTransactionOtp = () => {
                             />
                             <span
                                 className="password-view-icon"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                }
                                 style={{ cursor: "pointer", zIndex: "6" }}
                             >
-                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                {showConfirmPassword ? (
+                                    <FaEyeSlash />
+                                ) : (
+                                    <FaEye />
+                                )}
                             </span>
                         </div>
                     </div>
@@ -169,17 +178,29 @@ const ChangeTransactionOtp = () => {
                 )}
 
                 <div className="pb-3">
-                    <small>If you change it once, then you can't change it again.</small>
+                    <small>
+                        If you change it once, then you can't change it again.
+                    </small>
                 </div>
                 <button
                     type="button"
                     className="add-to-cart-link border-0 mx-auto"
                     onClick={handleManagePin}
                 >
-                    {otpType === "pin" ? status ? "Reset PIN" : "Set PIN" : status ? "Reset OTP" : "Set OTP"}
+                    {otpType === "pin"
+                        ? status
+                            ? "Reset PIN"
+                            : "Set PIN"
+                        : status
+                        ? "Reset OTP"
+                        : "Set OTP"}
                 </button>
             </div>
-            <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} mobileNumber={mobileNumber} />
+            <TransactionOtpChoiceModal
+                handleManageOtpChange={handleManageOtpChange}
+                modalRef={modalRef}
+                mobileNumber={mobileNumber}
+            />
         </div>
     );
 };
