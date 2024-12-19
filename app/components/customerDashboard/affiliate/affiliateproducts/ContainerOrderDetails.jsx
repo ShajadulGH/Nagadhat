@@ -315,16 +315,23 @@ const ContainerOrderDetails = ({
                             <tbody>
                                 <tr>
                                     <td>Sub Total</td>
-                                    <td className="text-end">{totalPrice}৳</td>
+                                    <td className="text-end">
+                                        ৳ {""}
+                                        {totalPrice.toFixed(2)}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Discount</td>
-                                    <td className="text-end">{discount}৳</td>
+                                    <td className="text-end">
+                                        ৳ {""}
+                                        {discount.toFixed(2)}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
                                     <td className="text-end">
-                                        <strong>{finalTotal}৳</strong>
+                                        ৳ {""}
+                                        <strong>{finalTotal.toFixed(2)}</strong>
                                     </td>
                                 </tr>
                             </tbody>
