@@ -2,7 +2,10 @@ import React from "react";
 import ApexChart from "./ApexChart";
 import AffiliateDashboardBonusDataTable from "./AffiliateDashboardBonusDataTable";
 
-const AffiliateDashboardChartAndData = ({ incomeHistoryInfo }) => {
+const AffiliateDashboardChartAndData = ({
+    incomeHistoryInfo,
+    withdrawHistoryInfo,
+}) => {
     return (
         <>
             <div className="p-3">
@@ -17,6 +20,7 @@ const AffiliateDashboardChartAndData = ({ incomeHistoryInfo }) => {
                     <div className="col-lg-6">
                         <AffiliateDashboardBonusDataTable
                             incomeHistoryInfo={incomeHistoryInfo}
+                            withdrawHistoryInfo={withdrawHistoryInfo}
                         />
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import AffiliateDashboardChartAndData from "./AffiliateDashboardChartAndData";
 import { getAffiliateIncomeHistory } from "@/app/services/affiliate/getAffiliateIncomeHistory";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import { getAffiliateWithdrawHistory } from "@/app/services/affiliate/getAffiliateWithdrawHistory";
 
 const AffiliateDashboardWrapp = async () => {
     const session = await getServerSession(authOptions);
@@ -16,14 +17,20 @@ const AffiliateDashboardWrapp = async () => {
     try {
         // Fetch affiliate dashboard data
         const affiliateInfo = await getAffiliateHomeDashboard(
-            session.accessToken
+            session?.accessToken
         );
         const affiliateData = affiliateInfo?.results || {};
         // Fetch income history data
         const incomeHistory = await getAffiliateIncomeHistory(
-            session.accessToken
+            session?.accessToken
         );
         const incomeHistoryInfo = incomeHistory?.results?.data || [];
+
+        // Fetch income history data
+        const withdrawInfo = await getAffiliateWithdrawHistory(
+            session?.accessToken
+        );
+        const withdrawHistoryInfo = withdrawInfo.results.data || [];
 
         return (
             <>
@@ -44,6 +51,7 @@ const AffiliateDashboardWrapp = async () => {
                         <AffiliateDashboardInfo affiliateData={affiliateData} />
                         <AffiliateDashboardChartAndData
                             incomeHistoryInfo={incomeHistoryInfo}
+                            withdrawHistoryInfo={withdrawHistoryInfo}
                         />
                     </div>
                 </div>
