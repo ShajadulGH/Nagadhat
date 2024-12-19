@@ -3,10 +3,14 @@ import { apiBaseUrl } from "@/app/utils";
 
 export const postManagePinOtp = async(token)=>{
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (!token) { 
 =======
     if (!token) {
 >>>>>>> e134429 (updated)
+=======
+    if (!token) { 
+>>>>>>> c642eee (Manage Pin or Otp)
         return null;
     }
     try {
