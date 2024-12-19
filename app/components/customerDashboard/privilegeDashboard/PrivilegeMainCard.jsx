@@ -149,17 +149,16 @@ const PrivilegeMainCard = ({
                               "Membership Card" &&
                           privilegeCardInfo?.cancel_status === 1 ? (
                             <button className="btn btn-warning">
-                                In Review
+                                Cancel In Review
                             </button>
                         ) : (
-                            (privilegeCardInfo?.product_name !==
+                            privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
-                                privilegeCardInfo?.cancel_status !== 0) ||
-                            (privilegeCardInfo?.cancel_status !== 1 && (
+                            privilegeCardInfo?.cancel_status === 2 && (
                                 <button className="btn btn-warning">
-                                    Canceled
+                                    Refunded
                                 </button>
-                            ))
+                            )
                         )}
                     </div>
                 </div>
