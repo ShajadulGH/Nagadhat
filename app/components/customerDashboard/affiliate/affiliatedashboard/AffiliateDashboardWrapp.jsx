@@ -19,7 +19,6 @@ const AffiliateDashboardWrapp = async () => {
             session.accessToken
         );
         const affiliateData = affiliateInfo?.results || {};
-
         // Fetch income history data
         const incomeHistory = await getAffiliateIncomeHistory(
             session.accessToken
