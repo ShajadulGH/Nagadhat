@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import NoDataFound from "@/app/components/NoDataFound";
 
 const AffiliateDashboardBonusDataTable = ({
     incomeHistoryInfo,
-    withdrawHistoryInfo=incomeHistoryInfo,
+    withdrawHistoryInfo,
 }) => {
     const [activeTab, setActiveTab] = useState("income");
 
@@ -12,13 +12,17 @@ const AffiliateDashboardBonusDataTable = ({
         <div className="border rounded">
             <div className="tabs">
                 <button
-                    className={`tab-button ${activeTab === "income" ? "active" : ""}`}
+                    className={`tab-button ${
+                        activeTab === "income" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("income")}
                 >
                     Last Income History
                 </button>
                 <button
-                    className={`tab-button ${activeTab === "withdraw" ? "active" : ""}`}
+                    className={`tab-button ${
+                        activeTab === "withdraw" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("withdraw")}
                 >
                     Last Withdrawal History
@@ -36,20 +40,35 @@ const AffiliateDashboardBonusDataTable = ({
                                             <th scope="col">Sl</th>
                                             <th scope="col">From user</th>
                                             <th scope="col">Purpose</th>
-                                            <th scope="col">Amount</th>
+                                            <th
+                                                className=" text-end"
+                                                scope="col"
+                                            >
+                                                Amount
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {incomeHistoryInfo.map((item, index) => (
-                                            <tr key={index}>
-                                                <th scope="row">{index + 1}</th>
-                                                <td>
-                                                    {item?.user?.name || "No data found"}
-                                                </td>
-                                                <td>{item?.purpose || "No data found"}</td>
-                                                <td>৳ {item?.balance || "0"}</td>
-                                            </tr>
-                                        ))}
+                                        {incomeHistoryInfo.map(
+                                            (item, index) => (
+                                                <tr key={index}>
+                                                    <th scope="row">
+                                                        {index + 1}
+                                                    </th>
+                                                    <td>
+                                                        {item?.user?.name ||
+                                                            "No data found"}
+                                                    </td>
+                                                    <td>
+                                                        {item?.purpose ||
+                                                            "No data found"}
+                                                    </td>
+                                                    <td className=" text-end">
+                                                        ৳ {item?.balance || "0"}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -69,20 +88,37 @@ const AffiliateDashboardBonusDataTable = ({
                                     <thead>
                                         <tr>
                                             <th scope="col">Sl</th>
-                                            <th scope="col">Method</th>
-                                            <th scope="col">Amount</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Particular</th>
+                                            <th
+                                                className=" text-end"
+                                                scope="col"
+                                            >
+                                                Amount
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {withdrawHistoryInfo?.map((item, index) => (
-                                            <tr key={index}>
-                                                <th scope="row">{index + 1}</th>
-                                                <td>{item?.method || "No data found"}</td>
-                                                <td>৳ {item?.amount || "0"}</td>
-                                                <td>{item?.date || "No data found"}</td>
-                                            </tr>
-                                        ))}
+                                        {withdrawHistoryInfo?.map(
+                                            (item, index) => (
+                                                <tr key={index}>
+                                                    <th scope="row">
+                                                        {index + 1}
+                                                    </th>
+                                                    <td>
+                                                        {item?.date ||
+                                                            "No data found"}
+                                                    </td>
+                                                    <td>
+                                                        {item?.purpose ||
+                                                            "No data found"}
+                                                    </td>
+                                                    <td className=" text-end">
+                                                        ৳ {item?.balance || "0"}
+                                                    </td>
+                                                </tr>
+                                            )
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
