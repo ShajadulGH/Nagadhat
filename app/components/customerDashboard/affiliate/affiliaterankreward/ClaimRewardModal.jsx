@@ -120,8 +120,8 @@ const ClaimRewardModal = ({
                         ></button>
                     </div>
                     <div className="modal-body ">
-                        <div className="row gap-4">
-                            <div className="rewards-gif-image-item col">
+                        <div className="row">
+                            <div className="rewards-gif-image-item col-md-6">
                                 <div className="">
                                     <Image
                                         style={{
@@ -130,7 +130,7 @@ const ClaimRewardModal = ({
                                                     ? "pointer "
                                                     : "not-allowed",
                                         }}
-                                        width={350}
+                                        width={460}
                                         height={350}
                                         src={`/images/Taka.png`}
                                         alt={`${rewardDetails?.level}`}
@@ -138,16 +138,15 @@ const ClaimRewardModal = ({
                                             rewardDetails?.status === 1 &&
                                             handleRewardClaim("money", 1)
                                         }
+                                        className="img-fluid"
                                     />
                                 </div>
                             </div>
-                            <div className="rewards-gif-image-item col">
-                                <div
-                                    className="position-relative w-100"
-                                    style={{ height: "350px" }}
-                                >
+                            <div className="rewards-gif-image-item col-md-6">
+                                <div className="">
                                     <Image
-                                        fill
+                                        width={460}
+                                        height={350}
                                         src={rewardImageUrl}
                                         alt={`${rewardDetails?.level}`}
                                         onClick={() =>
@@ -160,6 +159,7 @@ const ClaimRewardModal = ({
                                                     ? "pointer "
                                                     : "not-allowed",
                                         }}
+                                        className="img-fluid"
                                     />
                                 </div>
                             </div>
