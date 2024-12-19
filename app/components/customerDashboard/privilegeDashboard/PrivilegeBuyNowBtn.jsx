@@ -5,10 +5,12 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
+import { useSession } from "next-auth/react";
 
-const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
+const PrivilegeBuyNowBtn = ({  privilegeCardInfo }) => {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
+    const { data: session } = useSession();
 
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -84,7 +86,7 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
         <>
             <button
                 onClick={handlePrivilegeBuyNow}
-                className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                 disabled={
                     isPending ||
                     privilegeCardInfo?.status === 1 ||
@@ -115,10 +117,8 @@ const PrivilegeBuyNowBtn = ({ session, privilegeCardInfo }) => {
                     <span>Buy Now</span>
                 ) : privilegeCardInfo?.status === 1 ? (
                     <span>In Review</span>
-                ) : privilegeCardInfo?.status === 2 ? (
-                    <span>Active</span>
                 ) : (
-                    <span>Unknown Status</span>
+                    privilegeCardInfo?.status === 2 && <span>Active</span>
                 )}
             </button>
         </>
