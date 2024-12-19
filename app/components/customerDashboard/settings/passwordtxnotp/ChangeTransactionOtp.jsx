@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
@@ -86,10 +87,20 @@ const ChangeTransactionOtp = () => {
 
     }, [session?.accessToken])
 >>>>>>> c642eee (Manage Pin or Otp)
+=======
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
+
+const ChangeTransactionOtp = () => {
+    const [otpType, setOtpType] = useState("PIN"); // Default to PIN
+    const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
+>>>>>>> 7764139 (updated)
 
     const handleOtpChange = (e) => {
         setOtpType(e.target.value);
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -220,6 +231,17 @@ const ChangeTransactionOtp = () => {
 =======
                 <div className="customer-setting-form-group">
 >>>>>>> c642eee (Manage Pin or Otp)
+=======
+    
+    return (
+        <div
+            className="tab-pane fade"
+            id="transaction-otp-pin"
+            role="tabpanel"
+        >
+            <div>
+                <div className="customer-setting-form-group ">
+>>>>>>> 7764139 (updated)
                     <label className="form-label" htmlFor="otp">
                         OTP Type
                     </label>
@@ -230,6 +252,7 @@ const ChangeTransactionOtp = () => {
                         value={otpType}
                         onChange={handleOtpChange}
                     >
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                         <option value="pin">PIN</option>
@@ -254,11 +277,27 @@ const ChangeTransactionOtp = () => {
                 {otpType === "pin" && (
                     <div className="customer-setting-form-group">
                         <label className="form-label" htmlFor="transactionPIN">
+=======
+                        <option value="PIN">PIN</option>
+                        <option value="Mobile OTP">Mobile OTP</option>
+                    </select>
+                </div>
+
+                {otpType === "PIN" && (
+                    <div className="customer-setting-form-group">
+                        <label
+                            className="form-label"
+                            htmlFor="transactionPIN"
+                        >
+>>>>>>> 7764139 (updated)
                             Transaction PIN
                         </label>
                         <div className="input-group">
                             <input
+<<<<<<< HEAD
                                 onChange={(e) => setPin(e.target.value)}
+=======
+>>>>>>> 7764139 (updated)
                                 type={showPassword ? "text" : "password"}
                                 className="form-control"
                                 id="transactionPIN"
@@ -266,14 +305,28 @@ const ChangeTransactionOtp = () => {
                             />
                             <span
                                 className="password-view-icon"
+<<<<<<< HEAD
                                 onClick={() => setShowPassword(!showPassword)}
                                 style={{ cursor: "pointer", zIndex: "6" }}
                             >
                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+=======
+                                onClick={() =>
+                                    setShowPassword(!showPassword)
+                                }
+                                style={{ cursor: "pointer", zIndex: "6" }}
+                            >
+                                {showPassword ? (
+                                    <FaEyeSlash />
+                                ) : (
+                                    <FaEye />
+                                )}
+>>>>>>> 7764139 (updated)
                             </span>
                         </div>
                     </div>
                 )}
+<<<<<<< HEAD
                 {otpType === "pin" && (
                     <div className="customer-setting-form-group">
                         <label className="form-label" htmlFor="transactionPIN">
@@ -349,6 +402,15 @@ const ChangeTransactionOtp = () => {
                 {otpType === "mobile" && (
                     <div className="customer-setting-form-group">
                         <label className="form-label" htmlFor="mobileNumber">
+=======
+
+                {otpType === "Mobile OTP" && (
+                    <div className="customer-setting-form-group">
+                        <label
+                            className="form-label"
+                            htmlFor="mobileNumber"
+                        >
+>>>>>>> 7764139 (updated)
                             Mobile Number
                         </label>
                         <input
@@ -356,6 +418,7 @@ const ChangeTransactionOtp = () => {
                             className="form-control"
                             id="mobileNumber"
                             placeholder="Enter Mobile Number"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                             onChange={(e) => setMobileNumber(e.target.value)}
@@ -368,11 +431,14 @@ const ChangeTransactionOtp = () => {
                             value={mobileNumber}
                             readOnly
 >>>>>>> c642eee (Manage Pin or Otp)
+=======
+>>>>>>> 7764139 (updated)
                         />
                     </div>
                 )}
 
                 <div className="pb-3">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                     <small>If you change it once, then you can't change it again.</small>
@@ -387,10 +453,13 @@ const ChangeTransactionOtp = () => {
             </div>
             <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} mobileNumber={mobileNumber} />
 =======
+=======
+>>>>>>> 7764139 (updated)
                     <small>
                         If you change it once, then you can't change it
                         again.
                     </small>
+<<<<<<< HEAD
 =======
                     <small>If you change it once, then you can't change it again.</small>
 >>>>>>> c642eee (Manage Pin or Otp)
@@ -413,6 +482,19 @@ const ChangeTransactionOtp = () => {
 =======
             <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} mobileNumber={mobileNumber} />
 >>>>>>> c642eee (Manage Pin or Otp)
+=======
+                </div>
+                <button
+                    type="submit"
+                    className="add-to-cart-link border-0 mx-auto"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#TransactionOtp"
+                >
+                    {otpType === "PIN" ? "Update PIN" : "Update OTP"}
+                </button>
+            </div>
+            <TransactionOtpChoiceModal/>
+>>>>>>> 7764139 (updated)
         </div>
     );
 };
