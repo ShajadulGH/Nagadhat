@@ -1,16 +1,7 @@
 import { apiBaseUrl } from "@/app/utils";
 
-
-export const postManagePinOtp = async(token)=>{
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if (!token) { 
-=======
+export const postManagePinOtp = async (token) => {
     if (!token) {
->>>>>>> e134429 (updated)
-=======
-    if (!token) { 
->>>>>>> c642eee (Manage Pin or Otp)
         return null;
     }
     try {
@@ -28,4 +19,4 @@ export const postManagePinOtp = async(token)=>{
         console.error("Error in sale on nagadhat:", error);
         throw error;
     }
-}
+};
