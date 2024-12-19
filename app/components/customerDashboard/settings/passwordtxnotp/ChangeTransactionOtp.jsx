@@ -1,5 +1,6 @@
 "use client";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
@@ -35,17 +36,29 @@ const ChangeTransactionOtp = () => {
     }, [session?.accessToken])
 =======
 import { useState } from "react";
+=======
+import { useRef, useState } from "react";
+>>>>>>> e134429 (updated)
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import TransactionOtpChoiceModal from "./TransactionOtpChoiceModal";
+import { postManagePinOtp } from "@/app/services/affiliate/postManagePinOtp";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 const ChangeTransactionOtp = () => {
     const [otpType, setOtpType] = useState("PIN"); // Default to PIN
     const [showPassword, setShowPassword] = useState(false); // Toggle for password visibility
+<<<<<<< HEAD
 >>>>>>> 88913d0 (updated)
+=======
+    const { data: session, status } = useSession();
+    const modalRef = useRef(null); // Reference for modal
+>>>>>>> e134429 (updated)
 
     const handleOtpChange = (e) => {
         setOtpType(e.target.value);
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     const handleManagePin = () => {
@@ -81,11 +94,22 @@ const ChangeTransactionOtp = () => {
             const response = await postManagePinOtp(session.accessToken);
             if (response.code === 200) {
                 // toast.success(response.message);
+=======
+
+    const handleManageOtpChange =async () =>{
+        try {
+            const response = await postManagePinOtp(session?.accessToken)
+            console.log(response);
+            console.log(session?.accessToken);  
+            if (response.code === 200) {
+                // bootstrap modal close and rediract "manage-otp"
+>>>>>>> e134429 (updated)
                 const modalElement = modalRef.current;
                 if (modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
+<<<<<<< HEAD
                 router.push(`/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}`);
             } else {
                 toast.error(response.message);
@@ -101,6 +125,19 @@ const ChangeTransactionOtp = () => {
             <div>
                 <div className="customer-setting-form-group">
 =======
+=======
+                // Redirect to withdraw request page with withdrawal ID as parameter
+                route.push(`/finance-withdraw-request/${response.results.id}`);
+                
+            }else{
+                toast.error(response.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error);
+        }
+    }
+>>>>>>> e134429 (updated)
     
     return (
         <div
@@ -268,8 +305,12 @@ const ChangeTransactionOtp = () => {
                     {otpType === "PIN" ? "Update PIN" : "Update OTP"}
                 </button>
             </div>
+<<<<<<< HEAD
             <TransactionOtpChoiceModal/>
 >>>>>>> 88913d0 (updated)
+=======
+            <TransactionOtpChoiceModal handleManageOtpChange={handleManageOtpChange} modalRef={modalRef} />
+>>>>>>> e134429 (updated)
         </div>
     );
 };

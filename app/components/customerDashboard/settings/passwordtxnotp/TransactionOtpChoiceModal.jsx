@@ -1,6 +1,7 @@
 import React from 'react'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const TransactionOtpChoiceModal = ({ handleManageOtpChange, modalRef, mobileNumber }) => {
     return (
         <>
@@ -41,9 +42,12 @@ const TransactionOtpChoiceModal = ({ handleManageOtpChange, modalRef, mobileNumb
                             <button onClick={handleManageOtpChange} type="button" className="add-to-cart-link border-0 w-100">Sand</button>
 =======
 const TransactionOtpChoiceModal = () => {
+=======
+const TransactionOtpChoiceModal = ({handleManageOtpChange, modalRef}) => {
+>>>>>>> e134429 (updated)
     return (
         <>
-            <div class="modal fade" id="TransactionOtp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TransactionOtpLabel" aria-hidden="true">
+            <div ref={modalRef}  class="modal fade" id="TransactionOtp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="TransactionOtpLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -67,8 +71,12 @@ const TransactionOtpChoiceModal = () => {
                         </div>
                         <div class="modal-footer justify-content-between">
                             {/* <button type="button" class="add-to-cart-link border-0 bg-dark-subtle" data-bs-dismiss="modal">Close</button> */}
+<<<<<<< HEAD
                             <button type="button" class="add-to-cart-link border-0 w-100">Sand</button>
 >>>>>>> 88913d0 (updated)
+=======
+                            <button onClick={handleManageOtpChange} type="button" class="add-to-cart-link border-0 w-100">Sand</button>
+>>>>>>> e134429 (updated)
                         </div>
                     </div>
                 </div>
