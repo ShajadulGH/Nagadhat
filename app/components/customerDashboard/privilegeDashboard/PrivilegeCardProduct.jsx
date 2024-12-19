@@ -21,7 +21,7 @@ const PrivilegeCardProduct = () => {
 
     // Handler to set price visibility for a specific product
 
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
 
     useEffect(() => {
         const page = searchParam.get("page");
@@ -64,7 +64,13 @@ const PrivilegeCardProduct = () => {
             };
             fetchPrivilegeProduct();
         }
-    }, [session?.accessToken, searchTerm, categoryFilter, rendaringCartPrice, currentPage]);
+    }, [
+        session?.accessToken,
+        searchTerm,
+        categoryFilter,
+        rendaringCartPrice,
+        currentPage,
+    ]);
 
     return (
         <>

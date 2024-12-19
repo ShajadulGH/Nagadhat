@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { postForgetPasswordOtp } from "../services/forgetpassword/postForgetPasswordOtp";
+import { RotatingLines } from "react-loader-spinner";
 
-const page = () => {
+const Page = () => {
+    const [isPending, startTransition] = useTransition();
     const [otpMobileNumber, setOtpMobileNumber] = useState({
-        user_phone: "",
+        phone: "",
     });
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -18,27 +20,33 @@ const page = () => {
         setSuccess("");
 
         try {
-            const response = await postForgetPasswordOtp(
-                otpMobileNumber.user_phone
-            );
-            if (response.error) {
-                setError(
-                    response.message || "Failed to send OTP. Please try again."
+            startTransition(async () => {
+                const response = await postForgetPasswordOtp(
+                    otpMobileNumber.phone
                 );
-            } else {
-                setSuccess("OTP sent successfully!");
-                router.push(
-                    `/otp?forget_password=${otpMobileNumber.user_phone}`
-                );
-            }
+
+                if (response?.code === 200) {
+                    setSuccess(response?.message);
+                    router.push(
+                        `/otp?forget_password=${otpMobileNumber.phone}`
+                    );
+                } else {
+                    setError(
+                        response?.message ||
+                            "Failed to send OTP. Please try again."
+                    );
+                }
+            });
         } catch (err) {
+            console.error("Error:", err);
             setError("An error occurred. Please try again later.");
         }
     };
+
     const handleInputChange = (e) => {
         setOtpMobileNumber({
             ...otpMobileNumber,
-            user_phone: e.target.value,
+            phone: e.target.value,
         });
     };
 
@@ -59,18 +67,20 @@ const page = () => {
                                     <div>
                                         <label
                                             className="form-label"
-                                            htmlFor="user_phone"
+                                            htmlFor="phone"
                                         >
-                                            Mobile Number
+                                            Mobile Number / (User Id)
                                         </label>
                                         <input
                                             type="text"
                                             className="form-control"
+                                            id="phone"
                                             required
-                                            name="user_phone"
-                                            value={otpMobileNumber.user_phone}
+                                            name="phone"
+                                            value={otpMobileNumber.phone}
                                             onChange={handleInputChange}
-                                            placeholder="Please enter valid Mobile number"
+                                            placeholder="Please enter register mobile number"
+                                            aria-label="Enter your mobile number"
                                         />
                                     </div>
                                     {error && (
@@ -88,8 +98,31 @@ const page = () => {
                                         <button
                                             className="w-100 add-to-cart-link border-0"
                                             type="submit"
+                                            disabled={isPending}
                                         >
-                                            Get Code
+                                            {isPending ? (
+                                                <div
+                                                    style={{
+                                                        height: "21px",
+                                                        width: "300px",
+                                                        textAlign: "center",
+                                                    }}
+                                                >
+                                                    <RotatingLines
+                                                        visible={true}
+                                                        height="18"
+                                                        width="20"
+                                                        color="#ffffff"
+                                                        strokeWidth="5"
+                                                        animationDuration="0.75"
+                                                        ariaLabel="rotating-lines-loading"
+                                                        wrapperStyle={{}}
+                                                        wrapperClass="w-25"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                "Get Code"
+                                            )}
                                         </button>
                                     </div>
                                 </form>
@@ -105,4 +138,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Page;

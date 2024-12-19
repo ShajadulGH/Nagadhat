@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { getProviders, signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
     const router = useRouter();
@@ -31,8 +32,15 @@ const Login = () => {
         password: "",
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrorMessage('')
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleLogin = async (e) => {
@@ -93,15 +101,28 @@ const Login = () => {
                                     >
                                         Password <span>*</span>
                                     </label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        id="password"
-                                        name="password"
-                                        required
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                    />
+                                    <div className="position-relative">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            className="form-control"
+                                            id="password"
+                                            name="password"
+                                            required
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
+                                            onClick={togglePasswordVisibility}
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#000",
+                                            }}
+                                        >
+                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="mb-3 form-check d-flex align-items-center justify-content-between ">
                                     <div className="inner-field">

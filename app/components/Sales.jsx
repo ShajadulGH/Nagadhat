@@ -14,14 +14,13 @@ import { getFlashSlaeShowOnHomePage } from "../services/getFlashSlaeShowOnHomePa
 function Sales() {
     const [flashSaleProductList, setFlashSaleProductList] = useState([]);
     const [flashSaleEndsTime, setFlashSaleEndsTime] = useState(null);
-    const [districtId, setDistrictId] = useState(null);
-
     const flashSaleArrow = flashSaleProductList?.length > 6 ? true : false;
-
-    useEffect(() => {
-        const initialDistrictId = localStorage.getItem("districtId");
-        setDistrictId(initialDistrictId ? parseInt(initialDistrictId) : 47);
-    }, []);
+    const [districtId, setDistrictId] = useState(() => {
+            if (typeof window !== "undefined") {
+                return localStorage.getItem("districtId") || 47;
+            }
+            return 47;
+        });
 
     useEffect(() => {
         async function fetchData() {

@@ -9,12 +9,18 @@ import { useEffect, useState } from "react";
 import { getPrivilegeCardShoppingChoiceDetail } from "@/app/services/privilegeCard/getPrivilegeCardShoppingChoiceDetail";
 import { getPrivilegeCardBalanceAfterChoose } from "@/app/services/privilegeCard/getPrivilegeCardBalanceAfterChoose";
 import PrivilegeCardModal from "./PrivilegeCardModal";
+import { useSession } from "next-auth/react";
 
-const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
+const PrivilegeMainCard = ({
+    privilegeCardInfo,
+    setCancelToggleStatus,
+    cancelToggleStatus,
+}) => {
     const [toggleStatte, setToggleStatte] = useState(false);
     const [choocingProductAmount, setChoocingProductAmount] = useState({});
     const [ownChoocingAmount, setOwnChoocingAmount] = useState({});
     const [balanceAfterChoosing, setBalanceAfterChoosing] = useState({});
+    const { data: session } = useSession();
 
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.front_image}`
@@ -128,10 +134,10 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
 
                         <PrivilegeBuyNowBtn
                             privilegeCardInfo={privilegeCardInfo}
-                            session={session}
                         />
                         {privilegeCardInfo?.product_name !==
-                            "Membership Card" && (
+                            "Membership Card" &&
+                        privilegeCardInfo?.cancel_status === 0 ? (
                             <button
                                 data-bs-toggle="modal"
                                 data-bs-target="#privilege-cancelled-modal"
@@ -139,6 +145,21 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
                             >
                                 Cancel
                             </button>
+                        ) : privilegeCardInfo?.product_name !==
+                              "Membership Card" &&
+                          privilegeCardInfo?.cancel_status === 1 ? (
+                            <button className="btn btn-warning">
+                                In Review
+                            </button>
+                        ) : (
+                            (privilegeCardInfo?.product_name !==
+                                "Membership Card" &&
+                                privilegeCardInfo?.cancel_status !== 0) ||
+                            (privilegeCardInfo?.cancel_status !== 1 && (
+                                <button className="btn btn-warning">
+                                    Canceled
+                                </button>
+                            ))
                         )}
                     </div>
                 </div>
@@ -147,7 +168,10 @@ const PrivilegeMainCard = ({ privilegeCardInfo, session }) => {
             {/* Privilege Details btn Modal */}
             <PrivilegeCardModal />
             {/* PrivilegeCancelled btn Modal */}
-            <PrivilegeCancelledModal />
+            <PrivilegeCancelledModal
+                cancelToggleStatus={cancelToggleStatus}
+                setCancelToggleStatus={setCancelToggleStatus}
+            />
 
             {privilegeCardInfo?.product_name !== "Membership Card" && (
                 <PrivilegeChooseOptionBtn

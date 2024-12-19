@@ -9,18 +9,21 @@ import { getServerSession } from "next-auth";
 
 const AffiliateDashboardWrapp = async () => {
     const session = await getServerSession(authOptions);
-
     if (!session?.accessToken) {
         return <div>Please log in to view your dashboard.</div>;
     }
 
     try {
         // Fetch affiliate dashboard data
-        const affiliateInfo = await getAffiliateHomeDashboard(session.accessToken);
+        const affiliateInfo = await getAffiliateHomeDashboard(
+            session.accessToken
+        );
         const affiliateData = affiliateInfo?.results || {};
 
         // Fetch income history data
-        const incomeHistory = await getAffiliateIncomeHistory(session.accessToken);
+        const incomeHistory = await getAffiliateIncomeHistory(
+            session.accessToken
+        );
         const incomeHistoryInfo = incomeHistory?.results?.data || [];
 
         return (
@@ -48,7 +51,10 @@ const AffiliateDashboardWrapp = async () => {
             </>
         );
     } catch (error) {
-        console.error("Failed to fetch dashboard or income history data:", error);
+        console.error(
+            "Failed to fetch dashboard or income history data:",
+            error
+        );
         return <div>Error loading dashboard data. Please try again later.</div>;
     }
 };

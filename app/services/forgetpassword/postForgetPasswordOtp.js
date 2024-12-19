@@ -1,6 +1,6 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const postForgetPasswordOtp = async (mobileNumber) => {
+export const postForgetPasswordOtp = async (phone) => {
     try {
         const response = await fetch(`${apiBaseUrl}/send-forget-password-otp`, {
             method: "POST",
@@ -8,7 +8,7 @@ export const postForgetPasswordOtp = async (mobileNumber) => {
                 "Content-Type": "application/json",
                 Accept: "application/json",
             },
-            body: JSON.stringify(mobileNumber),
+            body: JSON.stringify({ phone }),
         });
 
         return await response.json();
