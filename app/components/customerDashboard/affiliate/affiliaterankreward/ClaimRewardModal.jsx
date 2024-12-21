@@ -12,6 +12,7 @@ const ClaimRewardModal = ({
     handleClose,
     rewardDetails,
     setStatusChange,
+    statusChange,
 }) => {
     const [fadeEffect, setFadeEffect] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -67,16 +68,16 @@ const ClaimRewardModal = ({
                 session?.accessToken,
                 claimRewardData
             );
-
-            if (responseReward?.error) {
-                toast.error(
-                    responseReward?.message || "Failed to claim reward."
-                );
-            } else {
+            if (responseReward?.code === 200) {
                 toast.success(
                     responseReward?.message || "Reward claimed successfully!"
                 );
-                setStatusChange(responseReward);
+                setStatusChange(!statusChange);
+                closeModalWithFade();
+            } else {
+                toast.error(
+                    responseReward?.message || "Failed to claim reward."
+                );
             }
         } catch (error) {
             console.error("Error claiming reward", error);
@@ -127,17 +128,18 @@ const ClaimRewardModal = ({
                                         style={{
                                             cursor:
                                                 rewardDetails?.status === 1
-                                                    ? "pointer "
+                                                    ? "pointer"
                                                     : "not-allowed",
                                         }}
                                         width={460}
                                         height={350}
                                         src={`/images/Taka.png`}
                                         alt={`${rewardDetails?.level}`}
-                                        onClick={() =>
-                                            rewardDetails?.status === 1 &&
-                                            handleRewardClaim("money", 1)
-                                        }
+                                        onClick={() => {
+                                            if (rewardDetails?.status === 1) {
+                                                handleRewardClaim("money", 1);
+                                            }
+                                        }}
                                         className="img-fluid"
                                     />
                                 </div>
@@ -149,10 +151,11 @@ const ClaimRewardModal = ({
                                         height={350}
                                         src={rewardImageUrl}
                                         alt={`${rewardDetails?.level}`}
-                                        onClick={() =>
-                                            rewardDetails?.status === 1 &&
-                                            handleRewardClaim("prize", 2)
-                                        }
+                                        onClick={() => {
+                                            if (rewardDetails?.status === 1) {
+                                                handleRewardClaim("prize", 2);
+                                            }
+                                        }}
                                         style={{
                                             cursor:
                                                 rewardDetails?.status === 1
