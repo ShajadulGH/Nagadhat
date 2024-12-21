@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
 import { useSession } from "next-auth/react";
 
-const PrivilegeBuyNowBtn = ({  privilegeCardInfo }) => {
+const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
     const [isPending, startTransition] = useTransition();
     const router = useRouter();
     const { data: session } = useSession();
@@ -44,9 +44,8 @@ const PrivilegeBuyNowBtn = ({  privilegeCardInfo }) => {
                 {
                     product_id: privilegeCardInfo?.id,
                     product_quantity: 1,
-                    product_regular_price:
-                        privilegeCardInfo?.purchases_price || 0,
-                    product_unit_price: privilegeCardInfo?.purchases_price || 0,
+                    product_regular_price: privilegeCardInfo?.mrp_price || 0,
+                    product_unit_price: privilegeCardInfo?.mrp_price || 0,
                     product_variation_id: "",
                     product_shipping_charge: "",
                     product_discount_type: "",
@@ -84,7 +83,7 @@ const PrivilegeBuyNowBtn = ({  privilegeCardInfo }) => {
 
     return (
         <>
-            <button
+            {/* <button
                 onClick={handlePrivilegeBuyNow}
                 className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                 disabled={
@@ -120,7 +119,57 @@ const PrivilegeBuyNowBtn = ({  privilegeCardInfo }) => {
                 ) : (
                     privilegeCardInfo?.status === 2 && <span>Active</span>
                 )}
-            </button>
+            </button> */}
+
+            {privilegeCardInfo?.status === 0 && (
+                <button
+                    onClick={handlePrivilegeBuyNow}
+                    className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
+                    disabled={isPending}
+                >
+                    {isPending ? (
+                        <div
+                            style={{
+                                height: "21px",
+                                width: "70px",
+                                textAlign: "center",
+                            }}
+                        >
+                            <RotatingLines
+                                visible={true}
+                                height="18"
+                                width="20"
+                                color="#ffffff"
+                                strokeWidth="5"
+                                animationDuration="0.75"
+                                ariaLabel="rotating-lines-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="w-25"
+                            />
+                        </div>
+                    ) : (
+                        <span>Buy Now</span>
+                    )}
+                </button>
+            )}
+
+            {privilegeCardInfo?.status === 1 && (
+                <button
+                    className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
+                    disabled
+                >
+                    <span>In Review</span>
+                </button>
+            )}
+
+            {privilegeCardInfo?.status === 2 && (
+                <button
+                    className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
+                    disabled
+                >
+                    <span>Active</span>
+                </button>
+            )}
         </>
     );
 };
