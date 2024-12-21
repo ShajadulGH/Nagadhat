@@ -71,7 +71,6 @@ const OTP = () => {
                                     name="user-otp"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
-                                    defaultValue="1234567"
                                 />
                             </div>
                             <div>
