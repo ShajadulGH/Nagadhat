@@ -43,8 +43,7 @@ const PrivilegeCardProductTableBody = ({
     );
 
     const handleIncrementWithLimit = (purchase_quantity) => {
-        console.log("purchase_quantity", { purchase_quantity });
-
+  
         if (
             changeQuantity < purchase_quantity &&
             changePrice + total <= productCardLimit
