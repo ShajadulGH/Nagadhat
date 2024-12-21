@@ -15,7 +15,9 @@ const OrderSummaryLeft = ({ orderSummary }) => {
     const cashOnDelivery =
         orderSummary?.payment_gateway === 4 &&
         orderSummary?.order_product_type === "1";
-
+    const privilegeCard =
+        orderSummary?.payment_gateway === 4 &&
+        orderSummary?.order_product_type === "4";
     return (
         <>
             <div className="col-lg-5">
@@ -124,6 +126,14 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                                     Thank you for choosing NagadHat! <br />
                                     Committed to fulfilling your expectations.
                                 </p>
+                            </>
+                        )}
+                        {privilegeCard && (
+                            <>
+                                <h1>Thank You!</h1>
+                                <h4 className="mb-2">
+                                    Your order has been successfully received.
+                                </h4>
                             </>
                         )}
                     </div>

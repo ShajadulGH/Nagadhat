@@ -5,7 +5,7 @@ import { getPrivilegeCardProducts } from "@/app/services/privilegeCard/getPrivil
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-const PrivilegeCardShoppingListPage = async () => {
+const PrivilegeCardShoppingListPage = () => {
     const { data: session } = useSession();
     const [perCardLimit, setPerCardLimit] = useState(undefined);
 

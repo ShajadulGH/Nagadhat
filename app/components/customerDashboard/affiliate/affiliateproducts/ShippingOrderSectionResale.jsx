@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const ShippingOrderSectionResale = ({
     subTotal,
@@ -8,7 +8,8 @@ const ShippingOrderSectionResale = ({
     setIsTermsChecked,
     customerAddress,
     cartProduct,
-    shippingPrice
+    shippingPrice,
+    orderProductType,
 }) => {
     return (
         <>
@@ -31,7 +32,9 @@ const ShippingOrderSectionResale = ({
                             <div className="d-flex gap-2 flex-column border-top pt-3">
                                 <div className="d-flex gap-3 justify-content-between align-items-center shopping-price-area custom-shopping-price">
                                     <strong>Total</strong>
-                                    <p className="total-order-price">৳ {totalPrice}</p>
+                                    <p className="total-order-price">
+                                        ৳ {totalPrice}
+                                    </p>
                                 </div>
                             </div>
                             {/* <div className="d-flex gap-3 justify-content-between shopping-price-area custom-shopping-price">
@@ -45,7 +48,9 @@ const ShippingOrderSectionResale = ({
                         <div className="d-flex gap-2 flex-column border-bottom pb-3">
                             <div className="d-flex gap-3 justify-content-between align-items-center shopping-price-area custom-shopping-price">
                                 <strong>Grand Total</strong>
-                                <p className="total-order-price">৳ {totalPrice}</p>
+                                <p className="total-order-price">
+                                    ৳ {totalPrice}
+                                </p>
                             </div>
                         </div>
 
@@ -54,7 +59,9 @@ const ShippingOrderSectionResale = ({
                                 className="form-check-input"
                                 type="checkbox"
                                 id="terms-condition"
-                                onChange={() => setIsTermsChecked(!isTermsChecked)}
+                                onChange={() =>
+                                    setIsTermsChecked(!isTermsChecked)
+                                }
                             />
                             <label
                                 className="form-check-label"
@@ -76,26 +83,28 @@ const ShippingOrderSectionResale = ({
                                 style={{
                                     pointerEvents:
                                         customerAddress?.length > 0 &&
-                                            cartProduct?.length > 0 &&
-                                            isTermsChecked
+                                        cartProduct?.length > 0 &&
+                                        isTermsChecked
                                             ? "auto"
                                             : "none",
                                     opacity:
                                         customerAddress?.length > 0 &&
-                                            cartProduct?.length > 0 &&
-                                            isTermsChecked
+                                        cartProduct?.length > 0 &&
+                                        isTermsChecked
                                             ? 1
                                             : 0.5,
                                 }}
                             >
-                                Get Product Request
+                                {orderProductType === 4
+                                    ? "Place Order"
+                                    : "Get Product Request"}
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default ShippingOrderSectionResale;
