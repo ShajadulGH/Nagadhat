@@ -63,13 +63,7 @@ const TransactionOtpChoiceModal = ({
                             </p>
                         </div>
                         <div className="modal-footer">
-                            <button
-                                onClick={handleManageOtpChange}
-                                type="button"
-                                className="add-to-cart-link border-0 w-100"
-                            >
-                                Sand
-                            </button>
+                            <button onClick={handleManageOtpChange} type="button" className="add-to-cart-link border-0 w-100">Send</button>
                         </div>
                     </div>
                 </div>

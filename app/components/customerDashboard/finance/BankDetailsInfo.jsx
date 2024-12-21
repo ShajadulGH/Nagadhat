@@ -37,8 +37,7 @@ const BankDetailsInfo = () => {
                         account_number: bankData.account_number,
                         routing_number: bankData.routing_number
                     });
-                    setIsEditable(response.results.bank_edit === 3);
-                    
+                    setIsEditable(response.results.bank_edit < 3);
                 }
             } catch (error) {
                 console.error("Error fetching bank details", error);
