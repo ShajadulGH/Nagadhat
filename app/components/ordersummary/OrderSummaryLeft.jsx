@@ -15,7 +15,9 @@ const OrderSummaryLeft = ({ orderSummary }) => {
     const cashOnDelivery =
         orderSummary?.payment_gateway === 4 &&
         orderSummary?.order_product_type === "1";
-
+    const privilegeCard =
+        orderSummary?.payment_gateway === 4 &&
+        orderSummary?.order_product_type === "4";
     return (
         <>
             <div className="col-lg-5">
@@ -31,10 +33,10 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         {agent && (
                             <>
                                 <h1>Thank You!</h1>
-                                <h4>
+                                <h4 className="mb-2">
                                     Your order has been successfully received.
                                 </h4>
-                                <p>
+                                <p className="pb-2">
                                     The payment process is currently pending
                                     confirmation by the agent. Once the agent
                                     confirms the payment, your order will be
@@ -51,10 +53,10 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         {bank && (
                             <>
                                 <h1>Thank You!</h1>
-                                <h4>
+                                <h4 className="mb-2">
                                     Your order has been successfully received.
                                 </h4>
-                                <p>
+                                <p className="pb-2">
                                     You have chosen bank payment for your order.
                                     Our accounts department will verify your
                                     payment shortly. Once the payment is
@@ -71,10 +73,10 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         {bkash && (
                             <>
                                 <h1>Thank You!</h1>
-                                <h4>
+                                <h4 className="mb-2">
                                     Your order has been successfully received.
                                 </h4>
-                                <p>
+                                <p className="pb-2">
                                     We have confirmed your payment via bKash.
                                     Your order is now being processed and will
                                     be prepared for delivery shortly.
@@ -90,10 +92,10 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         {paylater && (
                             <>
                                 <h1>Thank You!</h1>
-                                <h4>
+                                <h4 className="mb-2">
                                     Your order has been successfully received.
                                 </h4>
-                                <p>
+                                <p className="pb-2">
                                     You have selected Pay Later as your payment
                                     method. Please complete the payment within
                                     the specified time frame following our
@@ -111,10 +113,10 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                         {cashOnDelivery && (
                             <>
                                 <h1>Thank You!</h1>
-                                <h4>
+                                <h4 className="mb-2">
                                     Your order has been successfully received.
                                 </h4>
-                                <p>
+                                <p className="pb-2">
                                     You have chosen Cash on Delivery as your
                                     payment method. Payment will be collected at
                                     the time of delivery, after which your order
@@ -124,6 +126,14 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                                     Thank you for choosing NagadHat! <br />
                                     Committed to fulfilling your expectations.
                                 </p>
+                            </>
+                        )}
+                        {privilegeCard && (
+                            <>
+                                <h1>Thank You!</h1>
+                                <h4 className="mb-2">
+                                    Your order has been successfully received.
+                                </h4>
                             </>
                         )}
                     </div>

@@ -12,6 +12,7 @@ const ClaimRewardModal = ({
     handleClose,
     rewardDetails,
     setStatusChange,
+    statusChange,
 }) => {
     const [fadeEffect, setFadeEffect] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -67,16 +68,16 @@ const ClaimRewardModal = ({
                 session?.accessToken,
                 claimRewardData
             );
-
-            if (responseReward?.error) {
-                toast.error(
-                    responseReward?.message || "Failed to claim reward."
-                );
-            } else {
+            if (responseReward?.code === 200) {
                 toast.success(
                     responseReward?.message || "Reward claimed successfully!"
                 );
-                setStatusChange(responseReward);
+                setStatusChange(!statusChange);
+                closeModalWithFade();
+            } else {
+                toast.error(
+                    responseReward?.message || "Failed to claim reward."
+                );
             }
         } catch (error) {
             console.error("Error claiming reward", error);
@@ -120,46 +121,48 @@ const ClaimRewardModal = ({
                         ></button>
                     </div>
                     <div className="modal-body ">
-                        <div className="row gap-4">
-                            <div className="rewards-gif-image-item col">
+                        <div className="row">
+                            <div className="rewards-gif-image-item col-md-6">
                                 <div className="">
                                     <Image
                                         style={{
                                             cursor:
                                                 rewardDetails?.status === 1
-                                                    ? "pointer "
+                                                    ? "pointer"
                                                     : "not-allowed",
                                         }}
-                                        width={350}
+                                        width={460}
                                         height={350}
                                         src={`/images/Taka.png`}
                                         alt={`${rewardDetails?.level}`}
-                                        onClick={() =>
-                                            rewardDetails?.status === 1 &&
-                                            handleRewardClaim("money", 1)
-                                        }
+                                        onClick={() => {
+                                            if (rewardDetails?.status === 1) {
+                                                handleRewardClaim("money", 1);
+                                            }
+                                        }}
+                                        className="img-fluid"
                                     />
                                 </div>
                             </div>
-                            <div className="rewards-gif-image-item col">
-                                <div
-                                    className="position-relative w-100"
-                                    style={{ height: "350px" }}
-                                >
+                            <div className="rewards-gif-image-item col-md-6">
+                                <div className="">
                                     <Image
-                                        fill
+                                        width={460}
+                                        height={350}
                                         src={rewardImageUrl}
                                         alt={`${rewardDetails?.level}`}
-                                        onClick={() =>
-                                            rewardDetails?.status === 1 &&
-                                            handleRewardClaim("prize", 2)
-                                        }
+                                        onClick={() => {
+                                            if (rewardDetails?.status === 1) {
+                                                handleRewardClaim("prize", 2);
+                                            }
+                                        }}
                                         style={{
                                             cursor:
                                                 rewardDetails?.status === 1
                                                     ? "pointer "
                                                     : "not-allowed",
                                         }}
+                                        className="img-fluid"
                                     />
                                 </div>
                             </div>

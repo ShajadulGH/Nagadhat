@@ -15,6 +15,7 @@ const PrivilegeMainCard = ({
     privilegeCardInfo,
     setCancelToggleStatus,
     cancelToggleStatus,
+    isPending,
 }) => {
     const [toggleStatte, setToggleStatte] = useState(false);
     const [choocingProductAmount, setChoocingProductAmount] = useState({});
@@ -94,76 +95,81 @@ const PrivilegeMainCard = ({
 
     return (
         <div className="customer-dashboard-order-history-title">
-            <div className="flipper-container-wrapp">
-                <div className="flipper-container">
-                    <div className="flip">
-                        <div className="front face">
-                            <Image
-                                src={frontImageUrl}
-                                alt="Privilege card front"
-                                layout="fill"
-                                objectFit="cover"
-                            />
-                        </div>
-                        <div className="back face">
-                            <Image
-                                src={backImageUrl}
-                                alt="Privilege card back"
-                                layout="fill"
-                                objectFit="cover"
-                            />
+            {isPending ? (
+                <h3 className=" text-center">Loading...</h3>
+            ) : (
+                <div className="flipper-container-wrapp">
+                    <div className="flipper-container">
+                        <div className="flip">
+                            <div className="front face">
+                                <Image
+                                    src={frontImageUrl}
+                                    alt="Privilege card front"
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
+                            </div>
+                            <div className="back face">
+                                <Image
+                                    src={backImageUrl}
+                                    alt="Privilege card back"
+                                    layout="fill"
+                                    objectFit="cover"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="px-3 py-3">
-                    <strong className="fs-5 pb-3">
-                        ৳ {privilegeCardInfo?.purchases_price || 0}
-                    </strong>
-                    <h6 className="fs-6">{privilegeCardInfo?.product_name}</h6>
-                    <div className="pt-2 d-flex align-items-center gap-2">
-                        {privilegeCardInfo?.status !== 2 && (
-                            <button
-                                type="button"
-                                className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exampl-Detailse-Modal"
-                            >
-                                Details
-                            </button>
-                        )}
-
-                        <PrivilegeBuyNowBtn
-                            privilegeCardInfo={privilegeCardInfo}
-                        />
-                        {privilegeCardInfo?.product_name !==
-                            "Membership Card" &&
-                        privilegeCardInfo?.cancel_status === 0 ? (
-                            <button
-                                data-bs-toggle="modal"
-                                data-bs-target="#privilege-cancelled-modal"
-                                className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
-                            >
-                                Cancel
-                            </button>
-                        ) : privilegeCardInfo?.product_name !==
-                              "Membership Card" &&
-                          privilegeCardInfo?.cancel_status === 1 ? (
-                            <button className="btn btn-warning">
-                                Cancel In Review
-                            </button>
-                        ) : (
-                            privilegeCardInfo?.product_name !==
-                                "Membership Card" &&
-                            privilegeCardInfo?.cancel_status === 2 && (
-                                <button className="btn btn-warning">
-                                    Refunded
+                    <div className="px-3 py-3">
+                        <strong className="fs-5 pb-3">
+                            ৳ {privilegeCardInfo?.mrp_price || 0}
+                        </strong>
+                        <h6 className="fs-6">
+                            {privilegeCardInfo?.product_name}
+                        </h6>
+                        <div className="pt-2 d-flex align-items-center gap-2">
+                            {privilegeCardInfo?.status !== 2 && (
+                                <button
+                                    type="button"
+                                    className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampl-Detailse-Modal"
+                                >
+                                    Details
                                 </button>
-                            )
-                        )}
+                            )}
+
+                            <PrivilegeBuyNowBtn
+                                privilegeCardInfo={privilegeCardInfo}
+                            />
+                            {privilegeCardInfo?.product_name !==
+                                "Membership Card" &&
+                            privilegeCardInfo?.cancel_status === 0 ? (
+                                <button
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#privilege-cancelled-modal"
+                                    className="border-0 rounded-3 text-capitalize add-to-cart-link bg-danger"
+                                >
+                                    Cancel
+                                </button>
+                            ) : privilegeCardInfo?.product_name !==
+                                  "Membership Card" &&
+                              privilegeCardInfo?.cancel_status === 1 ? (
+                                <button className="btn btn-warning">
+                                    Cancel In Review
+                                </button>
+                            ) : (
+                                privilegeCardInfo?.product_name !==
+                                    "Membership Card" &&
+                                privilegeCardInfo?.cancel_status === 2 && (
+                                    <button className="btn btn-warning">
+                                        Refunded
+                                    </button>
+                                )
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            )}
             {/* Privilege Details btn Modal */}
             <PrivilegeCardModal />
             {/* PrivilegeCancelled btn Modal */}
@@ -172,20 +178,22 @@ const PrivilegeMainCard = ({
                 setCancelToggleStatus={setCancelToggleStatus}
             />
 
-            {privilegeCardInfo?.product_name !== "Membership Card" && (
-                <PrivilegeChooseOptionBtn
-                    choocingProductAmount={choocingProductAmount}
-                    toggleStatte={toggleStatte}
-                    setToggleStatte={setToggleStatte}
-                    ownChoocingAmount={ownChoocingAmount}
-                />
-            )}
+            {privilegeCardInfo?.product_name !== "Membership Card" &&
+                !isPending && (
+                    <PrivilegeChooseOptionBtn
+                        choocingProductAmount={choocingProductAmount}
+                        toggleStatte={toggleStatte}
+                        setToggleStatte={setToggleStatte}
+                        ownChoocingAmount={ownChoocingAmount}
+                    />
+                )}
 
-            {privilegeCardInfo?.product_name !== "Membership Card" && (
-                <ShowingProductPrices
-                    balanceAfterChoosing={balanceAfterChoosing}
-                />
-            )}
+            {privilegeCardInfo?.product_name !== "Membership Card" &&
+                !isPending && (
+                    <ShowingProductPrices
+                        balanceAfterChoosing={balanceAfterChoosing}
+                    />
+                )}
         </div>
     );
 };

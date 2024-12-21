@@ -40,6 +40,7 @@ const PrivilegeCardDashboardTop = () => {
                     privilegeCardInfo={privilegeCardInfo}
                     cancelToggleStatus={cancelToggleStatus}
                     setCancelToggleStatus={setCancelToggleStatus}
+                    isPending={isPending}
                 />
                 <PrivilegeCardProduct />
             </div>

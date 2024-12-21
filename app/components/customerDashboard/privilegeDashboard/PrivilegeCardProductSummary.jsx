@@ -1,12 +1,27 @@
 "use client";
 
 import { addToCartSelectedProduct } from "@/app/services/postCartSelectedProducts";
+import { placeOrder } from "@/app/services/postPlaceOrder";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
 const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
+    const [outletId, setOutletId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("outletId") || 3;
+        }
+        return 3;
+    });
+    const [districtId, setDistrictId] = useState(() => {
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
+    console.log("privilegeCartItem===>", { privilegeCartItem });
+
     const router = useRouter();
 
     const netPrice = useMemo(
@@ -26,15 +41,70 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
     const deliveryCharge = 0;
     const subTotal = netPrice + totalDiscount + deliveryCharge;
 
+    // const handleCheckoutPrivilegeProduct = async () => {
+    //     try {
+    //         const cartIds = privilegeCartItem.map((cartItem) => ({
+    //             cart_id: cartItem?.cart_id,
+    //         }));
+    //         const response = await placeOrder(cartIds, token);
+    //         if (response?.code === 200) {
+    //             toast.success("Checkout successful!");
+    //             router.push("/shipping-page-resale/cart-product");
+    //         } else {
+    //             toast.error(
+    //                 "Checkout failed. Please try again.",
+    //                 response?.message
+    //             );
+    //             console.error("Checkout failed:", response?.message);
+    //         }
+    //     } catch (error) {
+    //         toast.error("An error occurred during checkout.");
+    //         console.error("Error during checkout:", error);
+    //     }
+    // };
+
     const handleCheckoutPrivilegeProduct = async () => {
         try {
-            const cartIds = privilegeCartItem.map((cartItem) => ({
-                cart_id: cartItem?.cart_id,
+            const cartItem = privilegeCartItem.map((product) => ({
+                product_id: product.product_id,
+                product_quantity: product.quantity,
+                product_regular_price: product.regular_price,
+                product_unit_price: product.price,
+                product_variation_id: product.product_variation_id || "",
+                product_shipping_charge: "", // You can add this if available
+                product_discount_type: product.discount_type || "",
+                product_discount_amount: product.discountPrice || "",
+                vendor_id: "",
+                thumbnail: product.product_thumbnail || "",
             }));
-            const response = await addToCartSelectedProduct(cartIds, token);
+            const orderData = {
+                outlet_id: outletId,
+                location_id: districtId,
+                shipping_address_id: "",
+                sub_total: subTotal || 0,
+                discount_amount: totalDiscount,
+                total_products_price: subTotal || 0,
+                total_delivery_charge: deliveryCharge,
+                grand_total: netPrice || 0,
+                delivery_note: "",
+                shipping_email: "",
+                outlet_pickup_point_id: "",
+                order_product_type: 4,
+                place_order_with: "place order with Privilege card",
+                cart_items: cartItem,
+            };
+            const response = await placeOrder(orderData, token);
+
             if (response?.code === 200) {
+                const order_id = response?.results?.order_id;
                 toast.success("Checkout successful!");
-                router.push("/shipping-page/cart-product");
+                if (order_id) {
+                    router.push(
+                        `/shipping-page-resale/${order_id}?order-type=${4}`
+                    );
+                } else {
+                    toast.error("Order ID not found. Please contact support.");
+                }
             } else {
                 toast.error(
                     "Checkout failed. Please try again.",
