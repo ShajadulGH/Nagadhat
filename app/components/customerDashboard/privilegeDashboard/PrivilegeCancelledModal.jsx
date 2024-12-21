@@ -6,7 +6,10 @@ import { useRef, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
-const PrivilegeCancelledModal = () => {
+const PrivilegeCancelledModal = ({
+    setCancelToggleStatus,
+    cancelToggleStatus,
+}) => {
     const [isPending, startTransition] = useTransition();
     const { data: session } = useSession();
     const closeCancelModal = useRef(null);
@@ -22,6 +25,7 @@ const PrivilegeCancelledModal = () => {
                 );
 
                 if (response?.code === 200) {
+                    setCancelToggleStatus(!cancelToggleStatus);
                     toast.success(response?.message);
                     closeModal();
                 } else {

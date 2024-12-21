@@ -4,7 +4,7 @@ import ClaimRewardModal from "./ClaimRewardModal";
 import { useState } from "react";
 import { NagadhatPublicUrl } from "@/app/utils";
 
-const RankRewardList = ({ rankList, setStatusChange }) => {
+const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
     const [selectedReward, setSelectedReward] = useState(null);
 
     const handleClaimReward = (item) => {
@@ -14,7 +14,7 @@ const RankRewardList = ({ rankList, setStatusChange }) => {
     const handleCloseModal = () => {
         setSelectedReward(null);
     };
-    
+
     return (
         <>
             <div className="table-responsive">
@@ -52,81 +52,77 @@ const RankRewardList = ({ rankList, setStatusChange }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            rankList?.map((items, index) => (
-                                <tr key={index}>
-                                    <td className="align-middle">
-                                        {index + 1}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        <Image
-                                            src={`${NagadhatPublicUrl}/${items?.logo}`}
-                                            width={40}
-                                            height={40}
-                                            alt={items?.level}
-                                        />
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.level}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.user_total_sales || 0} |{" "}
-                                        {items?.total_sales}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.user_direct_sales || 0} |{" "}
-                                        {items?.direct_sales}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.user_line_01_sales || 0} |{" "}
-                                        {items?.line_01_sales}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.user_line_02_sales || 0} |{" "}
-                                        {items?.line_02_sales}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.user_others_line || 0} |{" "}
-                                        {items?.others_line}
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        <button
-                                            onClick={() =>
-                                                handleClaimReward(items)
-                                            }
-                                            className="add-to-cart-link affiliate-rank-btn text-capitalize"
-                                            style={{
-                                                background:
-                                                    items?.status === 0
-                                                        ? "gray"
-                                                        : items?.status === 3
-                                                        ? "#D3D3D3"
-                                                        : "",
-                                                color:
-                                                    items?.status === 3
-                                                        ? "#000"
-                                                        : "",
-                                            }}
-                                        >
-                                            {items?.status === 0
-                                                ? "Rank Not Achieved"
-                                                : items?.status === 1
-                                                ? "Claim Reward"
-                                                : items?.status === 2
-                                                ? "Reward Claimed"
-                                                : items?.status === 3
-                                                ? "Claim Approved"
-                                                : ""}
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {rankList?.map((items, index) => (
+                            <tr key={index}>
+                                <td className="align-middle">{index + 1}</td>
+                                <td className="align-middle text-center">
+                                    <Image
+                                        src={`${NagadhatPublicUrl}/${items?.logo}`}
+                                        width={40}
+                                        height={40}
+                                        alt={items?.level}
+                                    />
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.level}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.user_total_sales || 0} |{" "}
+                                    {items?.total_sales}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.user_direct_sales || 0} |{" "}
+                                    {items?.direct_sales}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.user_line_01_sales || 0} |{" "}
+                                    {items?.line_01_sales}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.user_line_02_sales || 0} |{" "}
+                                    {items?.line_02_sales}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.user_others_line || 0} |{" "}
+                                    {items?.others_line}
+                                </td>
+                                <td className="align-middle text-center">
+                                    <button
+                                        onClick={() => handleClaimReward(items)}
+                                        className="add-to-cart-link affiliate-rank-btn text-capitalize"
+                                        style={{
+                                            background:
+                                                items?.status === 0
+                                                    ? "gray"
+                                                    : items?.status === 3
+                                                    ? "#D3D3D3"
+                                                    : "",
+                                            color:
+                                                items?.status === 3
+                                                    ? "#000"
+                                                    : "",
+                                        }}
+                                    >
+                                        {items?.status === 0
+                                            ? "Rank Not Achieved"
+                                            : items?.status === 1
+                                            ? "Claim Reward"
+                                            : items?.status === 2
+                                            ? "Reward Claimed"
+                                            : items?.status === 3
+                                            ? "Claim Approved"
+                                            : ""}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
             {selectedReward && (
                 <ClaimRewardModal
                     setStatusChange={setStatusChange}
+                    statusChange={statusChange}
                     show={!!selectedReward}
                     handleClose={handleCloseModal}
                     rewardDetails={selectedReward}

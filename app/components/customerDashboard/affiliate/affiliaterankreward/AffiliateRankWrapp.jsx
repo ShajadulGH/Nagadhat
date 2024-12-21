@@ -24,7 +24,6 @@ const AffiliateRankWrapp = () => {
                         getRanks(session.accessToken),
                         getAffiliateHomeDashboard(session.accessToken),
                     ]);
-
                     setRankList(rankInfo?.results || []);
                     setAffiliateData(affiliateInfo?.results || {});
                 } catch (error) {
@@ -52,12 +51,12 @@ const AffiliateRankWrapp = () => {
                 ) : (
                     <RankRewardTop affiliateData={affiliateData} />
                 )}
-
                 <div className="customer-dashboard-order-history px-2">
                     {rankList.length > 0 ? (
                         <RankRewardList
                             rankList={rankList}
                             setStatusChange={setStatusChange}
+                            statusChange={statusChange}
                         />
                     ) : (
                         !isLoading && (

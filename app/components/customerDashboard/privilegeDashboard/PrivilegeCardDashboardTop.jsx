@@ -1,21 +1,45 @@
-import { getServerSession } from "next-auth";
-
+"use client";
+import { useEffect, useState, useTransition } from "react";
 import PrivilegeCardProduct from "./PrivilegeCardProduct";
 import PrivilegeMainCard from "./PrivilegeMainCard";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getPrivilegeCardDetails } from "@/app/services/privilegeCard/getPrivilegeCardDetails";
+import { useSession } from "next-auth/react";
 
-const PrivilegeCardDashboardTop = async () => {
-    const session = await getServerSession(authOptions);
-    const privilegeCard = await getPrivilegeCardDetails(session?.accessToken);
-    const privilegeCardInfo = privilegeCard?.results || {};
+const PrivilegeCardDashboardTop = () => {
+    const [isPending, startTransition] = useTransition();
+    const [privilegeCardInfo, setPrivilegeCardInfo] = useState({});
+    const [cancelToggleStatus, setCancelToggleStatus] = useState(false);
+    const { data: session } = useSession();
+
+    useEffect(() => {
+        const fetchPrivilegeCardDetails = async () => {
+            if (session?.accessToken) {
+                try {
+                    startTransition(async () => {
+                        const privilegeCard = await getPrivilegeCardDetails(
+                            session?.accessToken
+                        );
+                        setPrivilegeCardInfo(privilegeCard?.results || {});
+                    });
+                } catch (error) {
+                    console.error(
+                        "Error fetching privilege card details:",
+                        error
+                    );
+                }
+            }
+        };
+
+        fetchPrivilegeCardDetails();
+    }, [session?.accessToken, cancelToggleStatus]);
 
     return (
         <>
             <div className="customer-dashboard-order-history-area">
                 <PrivilegeMainCard
                     privilegeCardInfo={privilegeCardInfo}
-                    session={session}
+                    cancelToggleStatus={cancelToggleStatus}
+                    setCancelToggleStatus={setCancelToggleStatus}
                 />
                 <PrivilegeCardProduct />
             </div>
