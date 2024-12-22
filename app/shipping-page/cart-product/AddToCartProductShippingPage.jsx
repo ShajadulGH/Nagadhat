@@ -114,7 +114,7 @@ const AddToCartProductShippingPage = () => {
         }
         const cartItems = cartProduct?.map((item) => ({
             product_id: item.product_id,
-            order_product_type: String(item.cart_product_type),
+            order_product_type: Number(item.cart_product_type),
             product_quantity: item.quantity,
             product_unit_price: item.price,
             product_variation_id: item.product_variation_id,
