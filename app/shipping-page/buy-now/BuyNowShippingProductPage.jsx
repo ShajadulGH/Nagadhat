@@ -18,7 +18,8 @@ const BuyNowShippingProductPage = () => {
     const [pickUpIdForOrder, setPickUpIdForOrder] = useState(null);
     const [shippingPrice, setShippingPrice] = useState(0);
     const [deliveryNote, setDeliveryNote] = useState("");
-    const [selectedDefaultAddressId, setSelectedDefaultAddressId] = useState(null);
+    const [selectedDefaultAddressId, setSelectedDefaultAddressId] =
+        useState(null);
     const [redirectPath, setRedirectPath] = useState("#");
     const [isTermsChecked, setIsTermsChecked] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -48,7 +49,9 @@ const BuyNowShippingProductPage = () => {
 
     useEffect(() => {
         // Set default address ID when customerAddress changes
-        const defaultAddress = customerAddress.find(address => address.set_default === 1);
+        const defaultAddress = customerAddress.find(
+            (address) => address.set_default === 1
+        );
         if (defaultAddress) {
             setSelectedDefaultAddressId(defaultAddress.id);
         }
@@ -61,9 +64,15 @@ const BuyNowShippingProductPage = () => {
         const fetchData = async () => {
             if (session) {
                 try {
-                    const data = await getCustomerAllShippingAddress(session?.accessToken);
+                    const data = await getCustomerAllShippingAddress(
+                        session?.accessToken
+                    );
                     setCustomerAddress(data.results || []);
-                    const defaultAddressInfo = findObjectWithKey(data.results, "set_default", 1);
+                    const defaultAddressInfo = findObjectWithKey(
+                        data.results,
+                        "set_default",
+                        1
+                    );
                     setSelectedDefaultAddressId(defaultAddressInfo?.id);
                 } catch (error) {
                     console.error("Error fetching data:", error);
@@ -83,7 +92,7 @@ const BuyNowShippingProductPage = () => {
             }
         }
     }, [session?.accessToken]);
-
+ 
     useEffect(() => {
         const buyNowData = async () => {
             if (typeof window !== "undefined") {
@@ -103,6 +112,7 @@ const BuyNowShippingProductPage = () => {
 
         const cartItems = cartProduct?.map((item) => ({
             product_id: item.product_id,
+            cart_product_type: item.cart_product_type,
             product_quantity: item.quantity,
             product_unit_price: item.price,
             product_variation_id: item.product_variation_id,
@@ -158,7 +168,12 @@ const BuyNowShippingProductPage = () => {
                                 setDeliveryNote={setDeliveryNote}
                                 customerAddress={customerAddress}
                                 setCustomerAddress={setCustomerAddress}
-                                selectedDefaultAddressId={selectedDefaultAddressId} setSelectedDefaultAddressId={setSelectedDefaultAddressId}
+                                selectedDefaultAddressId={
+                                    selectedDefaultAddressId
+                                }
+                                setSelectedDefaultAddressId={
+                                    setSelectedDefaultAddressId
+                                }
                                 cartProduct={cartProduct}
                             />
                             <ShippingProduct
