@@ -112,7 +112,7 @@ const BuyNowShippingProductPage = () => {
 
         const cartItems = cartProduct?.map((item) => ({
             product_id: item.product_id,
-            order_product_type: Number(item.cart_product_type),
+            cart_product_type: parseInt(item.cart_product_type),
             product_quantity: item.quantity,
             product_unit_price: item.price,
             product_variation_id: item.product_variation_id,
@@ -125,6 +125,7 @@ const BuyNowShippingProductPage = () => {
         }));
 
         const payload = {
+            order_product_type: parseInt(cartProduct[0].cart_product_type),
             outlet_id: outletId,
             location_id: districtId,
             shipping_address_id: selectedDefaultAddressId,

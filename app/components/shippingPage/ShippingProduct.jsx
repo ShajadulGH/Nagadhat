@@ -9,7 +9,7 @@ const ShippingProduct = ({ cartProduct, setTotalPrice, setSubTotal }) => {
         let regularPrice = 0;
         let totalPrice = 0;
 
-        cartProduct.forEach(item => {
+        cartProduct?.forEach(item => {
             const price = item.price * item.quantity;
             regularPrice += item.regular_price * item.quantity;
             totalPrice += price;
