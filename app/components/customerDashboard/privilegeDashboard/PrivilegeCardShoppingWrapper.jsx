@@ -12,7 +12,7 @@ const PrivilegeCardShoppingWrapper = ({ perCardLimit }) => {
     const [privilegeCartProduct, setPrivilegeCartProduct] = useState([]);
     const [rendaringPrice, setRendaringPrice] = useState(false);
 
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("outletId") || 3;
@@ -64,13 +64,16 @@ const PrivilegeCardShoppingWrapper = ({ perCardLimit }) => {
                         token={session?.accessToken}
                     />
                 ) : (
-                    <NoDataFound />
+                    !isPending && <NoDataFound />
                 )}
-
-                <PrivilegeCardShoppingSummary
-                    privilegeCartItem={privilegeCartProduct}
-                    token={session?.accessToken}
-                />
+                {!isPending && (
+                    <PrivilegeCardShoppingSummary
+                        privilegeCartItem={privilegeCartProduct}
+                        token={session?.accessToken}
+                        outletId={outletId}
+                        districtId={districtId}
+                    />
+                )}
             </div>
         </>
     );

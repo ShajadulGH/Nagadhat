@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
-const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
+const PrivilegeCardProductSummary = ({
+    privilegeCartItem,
+    token,
+    alreadyBuyResponse,
+}) => {
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("outletId") || 3;
@@ -20,10 +24,8 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
         }
         return 47;
     });
-    console.log("privilegeCartItem===>", { privilegeCartItem });
 
     const router = useRouter();
-
     const netPrice = useMemo(
         () => privilegeCartItem.reduce((acc, item) => acc + item.price, 0),
         [privilegeCartItem]
@@ -40,28 +42,6 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
 
     const deliveryCharge = 0;
     const subTotal = netPrice + totalDiscount + deliveryCharge;
-
-    // const handleCheckoutPrivilegeProduct = async () => {
-    //     try {
-    //         const cartIds = privilegeCartItem.map((cartItem) => ({
-    //             cart_id: cartItem?.cart_id,
-    //         }));
-    //         const response = await placeOrder(cartIds, token);
-    //         if (response?.code === 200) {
-    //             toast.success("Checkout successful!");
-    //             router.push("/shipping-page-resale/cart-product");
-    //         } else {
-    //             toast.error(
-    //                 "Checkout failed. Please try again.",
-    //                 response?.message
-    //             );
-    //             console.error("Checkout failed:", response?.message);
-    //         }
-    //     } catch (error) {
-    //         toast.error("An error occurred during checkout.");
-    //         console.error("Error during checkout:", error);
-    //     }
-    // };
 
     const handleCheckoutPrivilegeProduct = async () => {
         try {
@@ -125,19 +105,39 @@ const PrivilegeCardProductSummary = ({ privilegeCartItem, token }) => {
                     <ul className="table-bordered pb-4">
                         <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                             <span>Sub Total Amount:</span>
-                            <strong>৳ {subTotal.toFixed(2)}</strong>
+                            <strong>
+                                ৳{" "}
+                                {alreadyBuyResponse?.code === 402
+                                    ? "0.00"
+                                    : subTotal.toFixed(2)}
+                            </strong>
                         </li>
                         <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                             <span>Total Discount:</span>
-                            <strong>৳ {totalDiscount.toFixed(2)}</strong>
+                            <strong>
+                                ৳ {""}
+                                {alreadyBuyResponse?.code === 402
+                                    ? "0.00"
+                                    : totalDiscount.toFixed(2)}
+                            </strong>
                         </li>
                         <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                             <span>Delivery Charge:</span>
-                            <strong>৳ {deliveryCharge.toFixed(2)}</strong>
+                            <strong>
+                                ৳ {""}
+                                {alreadyBuyResponse?.code === 402
+                                    ? "0.00"
+                                    : deliveryCharge.toFixed(2)}
+                            </strong>
                         </li>
                         <li className="fs-6 pb-2 d-flex align-items-center justify-content-between">
                             <span>Net Total:</span>
-                            <strong>৳ {netPrice.toFixed(2)}</strong>
+                            <strong>
+                                ৳ {""}
+                                {alreadyBuyResponse?.code === 402
+                                    ? "0.00"
+                                    : netPrice.toFixed(2)}
+                            </strong>
                         </li>
                     </ul>
                     <div className="d-flex align-items-center justify-content-end gap-3">

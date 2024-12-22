@@ -12,7 +12,7 @@ const PrivilegeCardModal = () => {
                 <div className="modal-dialog  modal-dialog-scrollable modal-dialog-centered modal-xl">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5">Modal title</h1>
+                            <h1 className="modal-title fs-5">Card Details</h1>
                             <button
                                 type="button"
                                 className="btn-close"

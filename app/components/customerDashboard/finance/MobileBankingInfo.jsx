@@ -29,7 +29,7 @@ const MobileBankingInfo = () => {
                             rocket_number: data.rocket_number || "",
                             dbbl_agent_number: data.dbbl_agent_number || ""
                         });
-                        setIsEditable(data.mobile_edit < 3);
+                        setIsEditable(data.mobile_edit < 2);
                     }
                 }
             } catch (error) {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 
-const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
+const ResaleProductsInfo = ({ resaleProduct }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     return (
@@ -15,7 +15,7 @@ const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
                     <Link
                         href={`/resale-product-details/${product.id}/${tab}`}
                         className="flash-sale-content-bg nh-hover-box-shadow"
-                        >
+                    >
                         <div className="flash-sale-content-img image-hover-effect">
                             <Image
                                 height={200}
@@ -33,13 +33,17 @@ const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
                                 <p className="fpnh-resale-pricess">
                                     Price (MRP):{" "}
                                     <del className="fw-bold">
-                                        ৳ {product.resell_mrp_price * (product.min_quantity || 1)}
+                                        ৳{" "}
+                                        {product.resell_mrp_price *
+                                            (product.min_quantity || 1)}
                                     </del>
                                 </p>
                                 <p className="fpnh-resale-pricess">
                                     Price (Offer):{" "}
                                     <span className="fw-bold">
-                                        ৳ {product.resell_purchases_price * (product.min_quantity || 1)}
+                                        ৳{" "}
+                                        {product.resell_purchases_price *
+                                            (product.min_quantity || 1)}
                                     </span>
                                 </p>
                                 <p className="fpnh-resale-pricess">
@@ -57,9 +61,7 @@ const ResaleProductsInfo = ({ resaleProduct, outletId }) => {
                             </div>
                             <div className="add-to-cart-holder">
                                 <div className="add-to-cart-btn">
-                                    <ResaleBuyNowBtn
-                                        product={product}
-                                    />
+                                    <ResaleBuyNowBtn product={product} />
                                 </div>
                             </div>
                         </div>

@@ -10,8 +10,6 @@ import { getPrivilegeAddToCartProducts } from "@/app/services/privilegeCard/getP
 import PrivilegeProductDetailModal from "./PrivilegeProductDetailModal";
 import Pagination from "../../productCategory/Pagination";
 
-// const DEFAULT_QUANTITY = 1;
-
 const PrivilegeCardProductTable = ({
     productsData,
     setRendaringCartPrice,
@@ -19,6 +17,7 @@ const PrivilegeCardProductTable = ({
     productCardLimit,
     currentPage,
     lastPage,
+    alreadyBuyResponse,
 }) => {
     const [productDetail, setProductDetail] = useState(null);
     const [privilegeCartItem, setPrivilegeCartItem] = useState([]);
@@ -65,10 +64,6 @@ const PrivilegeCardProductTable = ({
         fetchPrivilegeCartProducts();
     }, [session?.accessToken, outletId, districtId, rendaringCartPrice]);
 
-    // const closeModal = () => {
-    //     setProductDetail(null);
-    // };
-
     return (
         <>
             <div className="table-responsive px-3 px-md-4">
@@ -114,6 +109,7 @@ const PrivilegeCardProductTable = ({
                 rendaringCartPrice={rendaringCartPrice}
                 privilegeCartItem={privilegeCartItem}
                 token={session.accessToken}
+                alreadyBuyResponse={alreadyBuyResponse}
             />
         </>
     );

@@ -127,7 +127,6 @@ export function shortenString(str, length) {
 // This function set recent view product id
 
 export function storeProductId(productId) {
-    console.log(productId);
     if (typeof localStorage === "undefined") {
         return;
     }

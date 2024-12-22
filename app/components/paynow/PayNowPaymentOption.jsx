@@ -98,8 +98,6 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                 break;
         }
     };
-    console.log("isTermsChecked===>", isTermsChecked);
-    console.log("selectedOption", selectedOption);
 
     return (
         <div className="col-lg-8">

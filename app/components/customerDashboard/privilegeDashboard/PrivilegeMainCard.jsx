@@ -46,7 +46,7 @@ const PrivilegeMainCard = ({
                 console.info(error);
             }
         };
-        if (session?.accessToken) {
+        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
             fetchingChooseListedProducts();
         }
     }, [session?.accessToken]);
@@ -69,7 +69,7 @@ const PrivilegeMainCard = ({
                 console.info(error);
             }
         };
-        if (session?.accessToken) {
+        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
             fetchingChooseOwnShopping();
         }
     }, [session?.accessToken]);
@@ -88,7 +88,7 @@ const PrivilegeMainCard = ({
                 console.info(error);
             }
         };
-        if (session?.accessToken) {
+        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
             fetchingBalanceAfterChoose();
         }
     }, [session?.accessToken, toggleStatte]);
@@ -127,16 +127,15 @@ const PrivilegeMainCard = ({
                             {privilegeCardInfo?.product_name}
                         </h6>
                         <div className="pt-2 d-flex align-items-center gap-2">
-                            {privilegeCardInfo?.status !== 2 && (
-                                <button
-                                    type="button"
-                                    className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#exampl-Detailse-Modal"
-                                >
-                                    Details
-                                </button>
-                            )}
+                            {/* {privilegeCardInfo?.status !== 2 && ()} */}
+                            <button
+                                type="button"
+                                className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampl-Detailse-Modal"
+                            >
+                                Details
+                            </button>
 
                             <PrivilegeBuyNowBtn
                                 privilegeCardInfo={privilegeCardInfo}
