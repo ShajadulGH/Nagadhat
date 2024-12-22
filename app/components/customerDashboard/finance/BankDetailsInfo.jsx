@@ -8,12 +8,12 @@ import { toast } from "react-toastify";
 
 const BankDetailsInfo = () => {
     const [bankInfo, setBankInfo] = useState({
-        account_holder_name: '',
-        bank_name: '',
-        districts_id: '',
-        bank_branch_name: '',
-        account_number: '',
-        routing_number: ''
+        account_holder_name: "",
+        bank_name: "",
+        districts_id: "",
+        bank_branch_name: "",
+        account_number: "",
+        routing_number: "",
     });
     const [districts, setDistricts] = useState([]); // Store all districts from API
     const [update, setUpdate] = useState(true);
@@ -24,7 +24,9 @@ const BankDetailsInfo = () => {
         const fetchBankInfo = async () => {
             try {
                 if (session?.accessToken) {
-                    const response = await getAffiliateFinanceBankInfo(session.accessToken);
+                    const response = await getAffiliateFinanceBankInfo(
+                        session.accessToken
+                    );
                     const bankData = response.results.data;
                     console.log(response);
 
@@ -35,9 +37,9 @@ const BankDetailsInfo = () => {
                         districts_id: bankData.district.id,
                         bank_branch_name: bankData.bank_branch_name,
                         account_number: bankData.account_number,
-                        routing_number: bankData.routing_number
+                        routing_number: bankData.routing_number,
                     });
-                    setIsEditable(response.results.bank_edit < 3);
+                    setIsEditable(response.results.bank_edit < 2);
                 }
             } catch (error) {
                 console.error("Error fetching bank details", error);
@@ -68,22 +70,25 @@ const BankDetailsInfo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Update bank details 
+        // Update bank details
         try {
-            const response = await updateAffiliateFinanceBankInfo(session.accessToken, bankInfo);
+            const response = await updateAffiliateFinanceBankInfo(
+                session.accessToken,
+                bankInfo
+            );
             if (response.code === 200) {
-                toast.success('Bank details updated successfully');
+                toast.success("Bank details updated successfully");
                 setUpdate(!update);
             } else {
                 toast.error(response.message);
-                console.error('Error updating bank details', response.message);
-            } 
+                console.error("Error updating bank details", response.message);
+            }
         } catch (error) {
             toast.error(error.message);
-            console.error('Error updating bank details', error);
+            console.error("Error updating bank details", error);
         }
     };
-    
+
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
             <h2 className="accordion-header">
@@ -107,8 +112,12 @@ const BankDetailsInfo = () => {
                     <div className="customer-manage-profile-from-area">
                         <form className="row" onSubmit={handleSubmit}>
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="account_holder_name" className="form-label">
-                                    Account Holder Name: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="account_holder_name"
+                                    className="form-label"
+                                >
+                                    Account Holder Name:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -124,8 +133,12 @@ const BankDetailsInfo = () => {
                             </div>
 
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="bank_name" className="form-label">
-                                    Bank Name: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="bank_name"
+                                    className="form-label"
+                                >
+                                    Bank Name:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -141,8 +154,12 @@ const BankDetailsInfo = () => {
                             </div>
 
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="districts_id" className="form-label">
-                                    District: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="districts_id"
+                                    className="form-label"
+                                >
+                                    District:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <select
                                     className="form-select district-list"
@@ -155,7 +172,10 @@ const BankDetailsInfo = () => {
                                 >
                                     <option value="">Select District</option>
                                     {districts.map((district) => (
-                                        <option key={district.id} value={district.id}>
+                                        <option
+                                            key={district.id}
+                                            value={district.id}
+                                        >
                                             {district.name}
                                         </option>
                                     ))}
@@ -163,8 +183,12 @@ const BankDetailsInfo = () => {
                             </div>
 
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="bank_branch_name" className="form-label">
-                                    Branch Name: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="bank_branch_name"
+                                    className="form-label"
+                                >
+                                    Branch Name:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -180,8 +204,12 @@ const BankDetailsInfo = () => {
                             </div>
 
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="account_number" className="form-label">
-                                    Account Number: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="account_number"
+                                    className="form-label"
+                                >
+                                    Account Number:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -197,8 +225,12 @@ const BankDetailsInfo = () => {
                             </div>
 
                             <div className="col-md-6 pb-3">
-                                <label htmlFor="routing_number" className="form-label">
-                                    Routing Number: <span style={{ color: "red" }}>*</span>
+                                <label
+                                    htmlFor="routing_number"
+                                    className="form-label"
+                                >
+                                    Routing Number:{" "}
+                                    <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
                                     type="number"
@@ -215,15 +247,17 @@ const BankDetailsInfo = () => {
 
                             <div className="pb-2">
                                 <span className="text-danger">
-                                    {isEditable ?
-                                        "* You can update this information only once time." :
-                                        "* You cannot update this information anymore."}
+                                    {isEditable
+                                        ? "* You can update this information only once time."
+                                        : "* You cannot update this information anymore."}
                                 </span>
                             </div>
 
                             <div className="">
                                 <input
-                                    className={`add-to-cart-link border-0 mx-auto ${!isEditable && "disabled-button"}`}
+                                    className={`add-to-cart-link border-0 mx-auto ${
+                                        !isEditable && "disabled-button"
+                                    }`}
                                     type="submit"
                                     value="Update Info"
                                     disabled={!isEditable}
