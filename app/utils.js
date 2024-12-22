@@ -1,10 +1,10 @@
 // For Live
-export const apiBaseUrl = "https://v3.nagadhat.com/api";
-export const NagadhatPublicUrl = "https://v3.nagadhat.com";
+// export const apiBaseUrl = "https://v3.nagadhat.com/api";
+// export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
 // For Live staging way
-// export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
-// export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
+export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
+export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
 
 // For Localhost 1 way
 // export const apiBaseUrl = "http://nagadhat-v3.test/api";
@@ -127,7 +127,6 @@ export function shortenString(str, length) {
 // This function set recent view product id
 
 export function storeProductId(productId) {
-    console.log(productId);
     if (typeof localStorage === "undefined") {
         return;
     }
