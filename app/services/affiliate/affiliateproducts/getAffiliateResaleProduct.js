@@ -1,9 +1,9 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getAffiliateResaleProduct = async (token, outletId, params = {}) => {
+export const getAffiliateResaleProduct = async (token, params = {}) => {
     try {
         const queryString = new URLSearchParams(params).toString();
-        const url = `${apiBaseUrl}/affiliate-fast-moving-products/${outletId}?${queryString}`;
+        const url = `${apiBaseUrl}/affiliate-fast-moving-products?${queryString}`;
 
         const response = await fetch(url, {
             method: "GET",

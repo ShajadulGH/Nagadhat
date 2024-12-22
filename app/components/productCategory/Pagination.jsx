@@ -95,7 +95,7 @@ const Pagination = ({ currentPage, lastPage }) => {
         <>
             {
                 lastPage > 1 ?
-                    (<div className="product-category-pagination-col d-flex justify-content-center align-items-center">
+                    (<div className="pt-4 product-category-pagination-col d-flex justify-content-center align-items-center">
                         <nav aria-label="Page navigation example">
                             <ul className="pagination align-items-center">
                                 <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>

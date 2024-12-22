@@ -14,7 +14,6 @@ import LodingFixed from "@/app/components/LodingFixed";
 const ResaleProducts = ({ isActive }) => {
     const [isGridView, setIsGridView] = useState(true);
     const [resaleProduct, setResaleProduct] = useState([]);
-    const [outletId, setOutletId] = useState(0);
     const [sortDuration, setSortDuration] = useState("");
     const [sortPrice, setSortPrice] = useState("");
     const [loading, setLoading] = useState(false);
@@ -45,12 +44,7 @@ const ResaleProducts = ({ isActive }) => {
     };
 
     useEffect(() => {
-        const initialOutletId = localStorage.getItem("outletId");
-        setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
-    }, []);
-
-    useEffect(() => {
-        if (status === "authenticated" && session?.accessToken && outletId) {
+        if (status === "authenticated" && session?.accessToken) {
             const fetchRetailProducts = async () => {
                 try {
                     setLoading(true);
@@ -61,15 +55,16 @@ const ResaleProducts = ({ isActive }) => {
                         limit: limit,
                     };
                     const resaleProductInfo = await getAffiliateResaleProduct(
-                        session.accessToken,
-                        outletId,
+                        session?.accessToken,
                         params
                     );
+
                     const resaleProductData =
                         resaleProductInfo?.results
                             ?.affiliate_fast_moving_products;
-                    setResaleProduct(resaleProductData);
-                    setLastPage(resaleProductData.last_page || 1);
+                    const resaleProductMain = resaleProductData?.data || [];
+                    setResaleProduct(resaleProductMain);
+                    setLastPage(resaleProductData?.last_page || 1);
                 } catch (error) {
                     console.error("Failed to fetch retail products:", error);
                 } finally {
@@ -78,14 +73,15 @@ const ResaleProducts = ({ isActive }) => {
             };
             fetchRetailProducts();
         }
-    }, [session.accessToken, outletId, sortDuration, sortPrice]);
+    }, [session?.accessToken, sortDuration, sortPrice]);
 
     return (
         <>
             {loading && <LodingFixed />}
             <div
-                className={`tab-pane fade ${isActive ? "show active" : ""
-                    } container-booking-body-tab`}
+                className={`tab-pane fade ${
+                    isActive ? "show active" : ""
+                } container-booking-body-tab`}
                 id="resale"
                 role="tabpanel"
             >
@@ -132,28 +128,27 @@ const ResaleProducts = ({ isActive }) => {
                     />
                 </div>
                 <Suspense fallback={<DefaultLoader />}>
-                    {
-                        resaleProduct.length > 0
-                            ?
-                            <>
-                                {isGridView ? (
-                                    <ResaleProductsInfo
-                                        resaleProduct={resaleProduct}
-                                        outletId={outletId}
-                                    />
-                                ) : (
-                                    <ResaleListViewProductInfo
-                                        resaleProduct={resaleProduct}
-                                        outletId={outletId}
-                                    />
-                                )}
-                            </>
-                            :
-                            !loading && <NoDataFound />
+                    {resaleProduct?.length > 0 ? (
+                        <>
+                            {isGridView ? (
+                                <ResaleProductsInfo
+                                    resaleProduct={resaleProduct}
+                                />
+                            ) : (
+                                <ResaleListViewProductInfo
+                                    resaleProduct={resaleProduct}
+                                />
+                            )}
+                        </>
+                    ) : (
+                        !loading && <NoDataFound />
+                    )}
 
-                    }
-
-                    <Pagination currentPage={currentPage} lastPage={lastPage} />
+                    <Pagination
+                        
+                        currentPage={currentPage}
+                        lastPage={lastPage}
+                    />
                 </Suspense>
             </div>
         </>
