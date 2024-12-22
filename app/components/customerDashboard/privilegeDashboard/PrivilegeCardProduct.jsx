@@ -14,6 +14,7 @@ const PrivilegeCardProduct = () => {
     const [productsData, setProductsData] = useState([]);
     const [productCardLimit, setProductCardLimit] = useState(null);
     const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
+    const [alreadyBuyResponse, setAlreadyBuyResponse] = useState({});
     const searchParam = useSearchParams();
     const [lastPage, setLastPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +46,7 @@ const PrivilegeCardProduct = () => {
                             session.accessToken,
                             params
                         );
+                        setAlreadyBuyResponse(response);
                         const cartLimitPrice = parseInt(
                             parseFloat("1000.00"),
                             10
@@ -88,6 +90,7 @@ const PrivilegeCardProduct = () => {
                 productCardLimit={productCardLimit}
                 currentPage={currentPage}
                 lastPage={lastPage}
+                alreadyBuyResponse={alreadyBuyResponse}
             />
         </>
     );
