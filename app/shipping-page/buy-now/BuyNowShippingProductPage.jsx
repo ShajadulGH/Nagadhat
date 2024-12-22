@@ -92,7 +92,7 @@ const BuyNowShippingProductPage = () => {
             }
         }
     }, [session?.accessToken]);
- 
+
     useEffect(() => {
         const buyNowData = async () => {
             if (typeof window !== "undefined") {
@@ -112,7 +112,7 @@ const BuyNowShippingProductPage = () => {
 
         const cartItems = cartProduct?.map((item) => ({
             product_id: item.product_id,
-            cart_product_type: item.cart_product_type,
+            order_product_type: String(item.cart_product_type),
             product_quantity: item.quantity,
             product_unit_price: item.price,
             product_variation_id: item.product_variation_id,
