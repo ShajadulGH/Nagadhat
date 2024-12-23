@@ -5,17 +5,17 @@ import { FaSignOutAlt } from "react-icons/fa";
 
 const SignoutBtn = () => {
     return (
-        <div
+        <span
             className="text-capitalize d-flex align-items-center"
             onClick={(e) => {
                 e.preventDefault();
-                signOut({ callbackUrl: '/' });
+                signOut({ callbackUrl: "/" });
             }}
             style={{ padding: "10px 28px" }}
         >
             <FaSignOutAlt className="nav-icon me-2" />
             Logout
-        </div>
+        </span>
     );
 };
 
