@@ -49,16 +49,16 @@ const FinanceTransactions = async ({ searchParams }) => {
                                     <td>{transaction.purpose}</td>
                                     <td className="text-end">
                                         {transaction.debit
-                                            ? "৳ " + transaction.debit
+                                            ? "৳ " + transaction.debit.toFixed(2)
                                             : "--"}
                                     </td>
                                     <td className="text-end">
                                         {transaction.credit
-                                            ? "৳ " + transaction.credit
+                                            ? "৳ " + transaction.credit.toFixed(2)
                                             : "--"}
                                     </td>
                                     <td className="text-end">
-                                        ৳ {transaction.balance}
+                                        ৳ {transaction.balance.toFixed(2)}
                                     </td>
                                     <td className="text-center">
                                         <span
