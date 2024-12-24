@@ -141,7 +141,7 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
                             <div className="form-group">
                                 <label className="form-label">
                                     Amount{" "}
-                                    <span className="primary-color">
+                                    <span className="praymary-color">
                                         (Balance: ৳ {mobileBankingInfo?.total_withdrawable?.toFixed(2) || "00"})
                                     </span>
                                 </label>

@@ -67,6 +67,8 @@ const TransferForm = () => {
                 const successModal = new bootstrap.Modal(modalElement);
                 successModal.show(); // Show the modal
                 setTransferRequestData(response?.results);
+                setTransfer('');
+                setEnteredAmount('');
             } else {
                 toast.error(response.message);
             }
