@@ -91,18 +91,18 @@ const TransferVerifyOTPModal = ({
                                                 </tr>
                                                 <tr>
                                                     <th>Amount :</th>
-                                                    <td>{transferRequestData?.amount}</td>
+                                                    <td>{parseInt(transferRequestData?.amount).toFixed(2)}</td>
                                                 </tr>
                                                 {transferRequestData?.charge ? (
                                                     <tr>
                                                         <th>Charge :</th>
-                                                        <td>{transferRequestData?.charge.toFixed(2)}</td>
+                                                        <td>{parseInt(transferRequestData?.charge).toFixed(2)}</td>
                                                     </tr>
                                                 ):""}
                                                 {transferRequestData?.payable ? (
                                                     <tr>
                                                         <th>Payable :</th>
-                                                        <td>{transferRequestData?.payable.toFixed(2)}</td>
+                                                        <td>{parseInt(transferRequestData?.payable).toFixed(2)}</td>
                                                     </tr>
                                                 ):""}
                                             </tbody>
