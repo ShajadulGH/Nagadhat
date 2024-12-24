@@ -8,14 +8,14 @@ import { postVerifyTransferOtpRequest } from "@/app/services/affiliate-finance/p
 import FinanceHistoryModalTable from "./FinanceHistoryModalTable";
 import Link from "next/link";
 
-const TransferForm = () => {
+const  TransferForm = () => {
     const [transfer, setTransfer] = useState("");
     const [amount, setAmount] = useState(0);
     const [charge, setCharge] = useState(0);
     const [payable, setPayable] = useState(0);
     const [transferDetails, setTransferDetails] = useState(null);
     const [transferRequestData, setTransferRequestData] = useState(null);
-    const [enteredAmount, setEnteredAmount] = useState(null);
+    const [enteredAmount, setEnteredAmount] = useState("");
 
     const { data: session, status } = useSession();
 
@@ -67,8 +67,6 @@ const TransferForm = () => {
                 const successModal = new bootstrap.Modal(modalElement);
                 successModal.show(); // Show the modal
                 setTransferRequestData(response?.results);
-                setTransfer('');
-                setEnteredAmount('');
             } else {
                 toast.error(response.message);
             }
@@ -122,7 +120,7 @@ const TransferForm = () => {
                             <span className="praymary-color">
                                 (Balance: {transfer === "C2S" ? transferDetails?.cash_balance : transferDetails?.shopping_balance})
                             </span>
-                        ):""}
+                        ) : ""}
                     </label>
                     <div className="input-group">
                         <div className="input-group-prepend">
@@ -148,7 +146,7 @@ const TransferForm = () => {
                 )}
                 {transfer === "C2S" && (
                     <p>7% service charge applicable when transferring from Cash Balance to Shopping Balance</p>
-                )} 
+                )}
                 <button
                     className={`w-100 add-to-cart-link border-0 mt-3 ${(transfer && amount) ? "" : "disabled-button"}`}
                     disabled={!(transfer && amount)}
@@ -157,7 +155,11 @@ const TransferForm = () => {
                     Continue
                 </button>
             </form>
-            <TransferVerifyOTPModal transferRequestData={transferRequestData} />
+            <TransferVerifyOTPModal
+                transferRequestData={transferRequestData}
+                setTransfer={setTransfer}
+                setEnteredAmount={setEnteredAmount}
+            />
             {/* Transactions section */}
             {
                 transferDetails?.transfer_history?.length > 0 && (
