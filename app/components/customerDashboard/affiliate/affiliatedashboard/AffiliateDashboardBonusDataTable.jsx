@@ -64,7 +64,7 @@ const AffiliateDashboardBonusDataTable = ({
                                                             "No data found"}
                                                     </td>
                                                     <td className=" text-end">
-                                                        ৳ {item?.balance || "0"}
+                                                        ৳ {item?.balance.toFixed(2) || "0.00"}
                                                     </td>
                                                 </tr>
                                             )
@@ -114,7 +114,7 @@ const AffiliateDashboardBonusDataTable = ({
                                                             "No data found"}
                                                     </td>
                                                     <td className=" text-end">
-                                                        ৳ {item?.balance || "0"}
+                                                        ৳ {item?.balance.toFixed(2) || "0"}
                                                     </td>
                                                 </tr>
                                             )
