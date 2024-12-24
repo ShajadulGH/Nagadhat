@@ -13,7 +13,6 @@ const FinanceWithdraw = ({ params }) => {
     const { data: session } = useSession();
     const { id } = params;
     const route = useRouter();
-    console.log("Withdraw Request Data:", withdrawRequestData);
     
     // Fetch withdraw details
     useEffect(() => {
