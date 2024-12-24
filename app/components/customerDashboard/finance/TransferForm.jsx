@@ -159,6 +159,7 @@ const  TransferForm = () => {
                 transferRequestData={transferRequestData}
                 setTransfer={setTransfer}
                 setEnteredAmount={setEnteredAmount}
+                setTransferDetails={setTransferDetails}
             />
             {/* Transactions section */}
             {
