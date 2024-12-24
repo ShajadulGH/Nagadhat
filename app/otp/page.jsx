@@ -38,6 +38,9 @@ const OTP = () => {
                     if (!res?.success) {
                         setErrorMessage(res.message);
                         return;
+                    }else{
+                        setSuccessMessage(res.message);
+                        router.push("/login");
                     }
                 });
             } catch (error) {
