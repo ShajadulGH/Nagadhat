@@ -90,13 +90,13 @@ const TransferVerifyOTPModal = ({ transferRequestData }) => {
                                                 {transferRequestData?.charge ? (
                                                     <tr>
                                                         <th>Charge :</th>
-                                                        <td>{transferRequestData?.charge}</td>
+                                                        <td>{transferRequestData?.charge.toFixed(2)}</td>
                                                     </tr>
                                                 ):""}
                                                 {transferRequestData?.payable ? (
                                                     <tr>
                                                         <th>Payable :</th>
-                                                        <td>{transferRequestData?.payable}</td>
+                                                        <td>{transferRequestData?.payable.toFixed(2)}</td>
                                                     </tr>
                                                 ):""}
                                             </tbody>
