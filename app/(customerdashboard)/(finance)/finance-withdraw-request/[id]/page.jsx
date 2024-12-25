@@ -38,8 +38,12 @@ const FinanceWithdraw = ({ params }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const otp = e.target.otp.value;
+        const data = {
+            otp,
+            otp_status: withdrawRequestData?.otp_status == 'mobile' ? 1 : 2
+        }
         try {
-            const request = await postOTPWithdrawVerification(session.accessToken, { otp })
+            const request = await postOTPWithdrawVerification(session.accessToken, data);
             if (request.code === 200) {
                 Swal.fire({
                     // position: "top-end",
@@ -124,7 +128,9 @@ const FinanceWithdraw = ({ params }) => {
                     </div>
                     <hr className="py-2" />
                     <label htmlFor="otp" className="form-label">
-                        Enter your transaction OTP to proceed. 
+                        {withdrawRequestData?.otp_status == 'mobile' ?
+                            'Enter your transaction OTP to proceed.' :
+                            'Enter your transaction PIN to proceed.'}
                         <span className="text-danger fs-5">*</span>
                     </label>
                     <form className="form" onSubmit={handleSubmit}>
@@ -134,7 +140,7 @@ const FinanceWithdraw = ({ params }) => {
                                 required
                                 className="form-control"
                                 name="otp"
-                                placeholder="OTP"
+                                placeholder={withdrawRequestData?.otp_status == 'mobile' ? 'OTP' : 'PIN'}
                             />
                             <button
                                 type="submit"

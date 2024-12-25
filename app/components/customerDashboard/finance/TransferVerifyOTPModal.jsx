@@ -5,7 +5,12 @@ import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-const TransferVerifyOTPModal = ({ transferRequestData }) => {
+const TransferVerifyOTPModal = ({
+    transferRequestData,
+    setTransfer,
+    setEnteredAmount,
+    setTransferDetails
+}) => {
     const [otp, setOtp] = useState('');
     const [isTermsChecked, setIsTermsChecked] = useState(false); // State to track checkbox
     const { data: session, status } = useSession();
@@ -27,7 +32,6 @@ const TransferVerifyOTPModal = ({ transferRequestData }) => {
 
         // API call to verify the OTP
         const response = await postVerifyTransferOtp(session?.accessToken, data)
-        console.log(response);
         if (response.code === 200) {
             // Close modal programmatically
             const modalElement = modalRef.current;
@@ -40,8 +44,11 @@ const TransferVerifyOTPModal = ({ transferRequestData }) => {
                 title: response.message,
                 showConfirmButton: false,
                 timer: 1500
-              });
-        }else{
+            });
+            setTransfer('');
+            setEnteredAmount('');
+            setTransferDetails(null);
+        } else {
             toast.error(response.message)
         }
     };
@@ -85,20 +92,20 @@ const TransferVerifyOTPModal = ({ transferRequestData }) => {
                                                 </tr>
                                                 <tr>
                                                     <th>Amount :</th>
-                                                    <td>{transferRequestData?.amount}</td>
+                                                    <td>{parseInt(transferRequestData?.amount).toFixed(2)}</td>
                                                 </tr>
                                                 {transferRequestData?.charge ? (
                                                     <tr>
                                                         <th>Charge :</th>
-                                                        <td>{transferRequestData?.charge}</td>
+                                                        <td>{parseInt(transferRequestData?.charge).toFixed(2)}</td>
                                                     </tr>
-                                                ):""}
+                                                ) : ""}
                                                 {transferRequestData?.payable ? (
                                                     <tr>
                                                         <th>Payable :</th>
-                                                        <td>{transferRequestData?.payable}</td>
+                                                        <td>{parseInt(transferRequestData?.payable).toFixed(2)}</td>
                                                     </tr>
-                                                ):""}
+                                                ) : ""}
                                             </tbody>
                                         </table>
                                     </div>
@@ -141,7 +148,7 @@ const TransferVerifyOTPModal = ({ transferRequestData }) => {
                                     <div className="modal-footer">
                                         <button
                                             type="submit"
-                                            className={`ms-auto add-to-cart-link border-0 ${!isTermsChecked ? "disabled-button":""}`}
+                                            className={`ms-auto add-to-cart-link border-0 ${!isTermsChecked ? "disabled-button" : ""}`}
                                             disabled={!isTermsChecked} // Disable button if terms are not checked
                                         >
                                             Submit
