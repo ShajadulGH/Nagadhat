@@ -72,6 +72,7 @@ const PrivilegeCardProduct = () => {
         categoryFilter,
         rendaringCartPrice,
         currentPage,
+        // alreadyBuyResponse,
     ]);
 
     return (

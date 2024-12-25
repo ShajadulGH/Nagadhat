@@ -46,7 +46,7 @@ const PrivilegeMainCard = ({
                 console.info(error);
             }
         };
-        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
+        if (session?.accessToken) {
             fetchingChooseListedProducts();
         }
     }, [session?.accessToken]);
@@ -69,7 +69,7 @@ const PrivilegeMainCard = ({
                 console.info(error);
             }
         };
-        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
+        if (session?.accessToken) {
             fetchingChooseOwnShopping();
         }
     }, [session?.accessToken]);
@@ -82,13 +82,14 @@ const PrivilegeMainCard = ({
                 const response = await getPrivilegeCardBalanceAfterChoose(
                     session?.accessToken
                 );
+
                 setBalanceAfterChoosing(response?.results);
             } catch (error) {
                 console.error("Error Fetching Balance After Choose", error);
                 console.info(error);
             }
         };
-        if (privilegeCardInfo?.status === 2 && session?.accessToken) {
+        if (session?.accessToken) {
             fetchingBalanceAfterChoose();
         }
     }, [session?.accessToken, toggleStatte]);
