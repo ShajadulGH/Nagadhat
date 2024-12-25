@@ -11,24 +11,17 @@ import { Suspense, useEffect, useState } from "react";
 const ResaleProductDetailsPage = ({ params }) => {
     const [productDetails, setProductDetails] = useState({});
     const [productGallery, setProductGallery] = useState([]);
-    const [outletId, setOutletId] = useState(0);
     const { data: session, status } = useSession();
-
     const productId = params.Id;
-    useEffect(() => {
-        const initialOutletId = localStorage.getItem("outletId");
-        setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
-    }, []);
 
     useEffect(() => {
-        if (status === "authenticated" && productId && outletId) {
+        if (status === "authenticated" && productId) {
             const fetchResaleProduct = async () => {
                 try {
                     const resaleProductInfo =
                         await getAffiliateResaleProductDetail(
                             session?.accessToken,
-                            productId,
-                            outletId
+                            productId
                         );
                     const resaleProductResult =
                         resaleProductInfo?.results || {};
@@ -44,7 +37,7 @@ const ResaleProductDetailsPage = ({ params }) => {
 
             fetchResaleProduct();
         }
-    }, [status, session?.accessToken, productId, outletId]);
+    }, [status, productId]);
 
     return (
         <>

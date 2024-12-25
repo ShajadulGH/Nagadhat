@@ -1,8 +1,8 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getAffiliateResaleProductDetail = async (token,productId,outletId) => {
+export const getAffiliateResaleProductDetail = async (token, productId) => {
     try {
-        const url = `${apiBaseUrl}/affiliate-resale-product-detail?product_id=${productId}&outlet_id=${outletId}`;
+        const url = `${apiBaseUrl}/affiliate-resale-product-detail?product_id=${productId}`;
         const response = await fetch(url, {
             method: "GET",
             headers: {
