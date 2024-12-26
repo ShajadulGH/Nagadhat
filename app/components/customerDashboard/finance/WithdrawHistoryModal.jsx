@@ -1,5 +1,6 @@
 "use client";
 import { getFinanceWithdrawHistoryById } from "@/app/services/affiliate-finance/getFinanceWithdrawHistoryById";
+import { NagadhatPublicUrl } from "@/app/utils";
 import { useEffect, useState, useTransition } from "react";
 
 const WithdrawHistoryModal = ({ selectedId, token }) => {
@@ -167,7 +168,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </th>
                                                 <td>
                                                     <a
-                                                        href={`/path-to-script-pics/${withdrawData.script_pic}`}
+                                                        href={`${NagadhatPublicUrl}/${withdrawData.script_pic}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >

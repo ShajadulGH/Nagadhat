@@ -112,15 +112,15 @@ const FinanceWithdraw = ({ params }) => {
                                 <tbody>
                                     <tr>
                                         <th>Amount :</th>
-                                        <td>{withdrawRequestData?.amount}</td>
+                                        <td>৳{" "}{withdrawRequestData?.amount}</td>
                                     </tr>
                                     <tr>
                                         <th>Charge :</th>
-                                        <td>{withdrawRequestData?.charge}</td>
+                                        <td>৳{" "}{withdrawRequestData?.charge}</td>
                                     </tr>
                                     <tr>
                                         <th>Payable :</th>
-                                        <td>{withdrawRequestData?.payable}</td>
+                                        <td>৳{" "}{withdrawRequestData?.payable}</td>
                                     </tr>
                                 </tbody>
                             </table>

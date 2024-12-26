@@ -337,7 +337,7 @@ const Registration = () => {
                                             type="radio"
                                             name="gender"
                                             id="gender1"
-                                            value="male"
+                                            value="Male"
                                             onChange={handleInputChange}
                                         />
                                         <label
@@ -353,7 +353,7 @@ const Registration = () => {
                                             type="radio"
                                             name="gender"
                                             id="gender2"
-                                            value="female"
+                                            value="Female"
                                             onChange={handleInputChange}
                                         />
                                         <label
