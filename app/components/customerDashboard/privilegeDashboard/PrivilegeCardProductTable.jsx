@@ -110,6 +110,7 @@ const PrivilegeCardProductTable = ({
                 privilegeCartItem={privilegeCartItem}
                 token={session.accessToken}
                 alreadyBuyResponse={alreadyBuyResponse}
+                productsData={productsData}
             />
         </>
     );

@@ -11,6 +11,7 @@ const PrivilegeCardProductSummary = ({
     privilegeCartItem,
     token,
     alreadyBuyResponse,
+    productsData,
 }) => {
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -24,6 +25,9 @@ const PrivilegeCardProductSummary = ({
         }
         return 47;
     });
+
+    const cartStatus = productsData?.map((product) => product.cart_status);
+    const hasStatusTwo = cartStatus?.includes(2);
 
     const router = useRouter();
     const netPrice = useMemo(
@@ -144,6 +148,10 @@ const PrivilegeCardProductSummary = ({
                         <button
                             onClick={handleCheckoutPrivilegeProduct}
                             className="border-0 add-to-cart-link"
+                            disabled={
+                                alreadyBuyResponse?.code !== 200 ||
+                                !hasStatusTwo
+                            }
                         >
                             Proceed to Checkout
                         </button>
