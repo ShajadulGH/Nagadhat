@@ -47,7 +47,10 @@ const TransferVerifyOTPModal = ({
             });
             setTransfer('');
             setEnteredAmount('');
+<<<<<<< HEAD
             setTransferDetails(null);
+=======
+>>>>>>> d617c40 (Transfer Form empty)
         } else {
             toast.error(response.message)
         }
