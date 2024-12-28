@@ -26,8 +26,9 @@ const PrivilegeCardProductSummary = ({
         return 47;
     });
 
-    const cartStatus = productsData?.map((product) => product.cart_status);
-    const hasStatusTwo = cartStatus?.includes(2);
+    const hasStatusTwo = productsData?.some(
+        (product) => product.cart_status === 2
+    );
 
     const router = useRouter();
     const netPrice = useMemo(
