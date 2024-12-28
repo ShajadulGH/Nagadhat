@@ -52,7 +52,7 @@ function ProductCard({ item }) {
                 ? item?.price?.discounted_price
                 : item?.price?.regular_price),
             (productPrice.discountPrice = item?.price?.discount_amount);
-        productStoke = item?.max_quantity ?? 0;
+        productStoke = item?.outlet_stock_quantity ?? 0;
     }
 
     const selectedVariants = [];
@@ -83,7 +83,7 @@ function ProductCard({ item }) {
                     </div>
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
-                            <h4>{truncateTitle(title, 40)}</h4>
+                            <h4>{truncateTitle(title, 36)}</h4>
                             <div>
                                 {item?.product_type === "variants" ? (
                                     item.variations?.map((variant_item) =>
