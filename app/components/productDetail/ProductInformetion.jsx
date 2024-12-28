@@ -117,12 +117,16 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 prices:
                     defaultProduct?.discount_amount > 0
                         ? defaultProduct?.discount_type === "percentage"
-                            ? defaultProduct?.mrp_price - (defaultProduct?.mrp_price * (defaultProduct?.discount_amount / 100))
-                            : defaultProduct?.mrp_price - defaultProduct?.discount_amount
+                            ? defaultProduct?.mrp_price -
+                              defaultProduct?.mrp_price *
+                                  (defaultProduct?.discount_amount / 100)
+                            : defaultProduct?.mrp_price -
+                              defaultProduct?.discount_amount
                         : defaultProduct?.mrp_price,
                 discountPrice:
                     defaultProduct?.discount_type === "percentage"
-                        ? defaultProduct?.mrp_price * (defaultProduct?.discount_amount / 100)
+                        ? defaultProduct?.mrp_price *
+                          (defaultProduct?.discount_amount / 100)
                         : defaultProduct?.discount_amount,
             });
             setProductGallery(defaultProduct?.gallery);
@@ -135,18 +139,17 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             // console.log("productInfo?.gallery");
             setProductPrice({
                 ...productPrice,
-                prices:
-                    productInfo?.price?.original?.results?.discount_status
-                        ? (productInfo?.price?.original?.results?.discounted_price)
-                        : (productInfo?.price?.original?.results?.regular_price),
-                discountPrice: productInfo?.price?.original?.results?.discount_amount,
+                prices: productInfo?.price?.original?.results?.discount_status
+                    ? productInfo?.price?.original?.results?.discounted_price
+                    : productInfo?.price?.original?.results?.regular_price,
+                discountPrice:
+                    productInfo?.price?.original?.results?.discount_amount,
             });
-            setProductStoke(
-                productInfo?.max_quantity === null
-                    ? 0
-                    : productInfo?.max_quantity
-            );
+            const productStock = productInfo?.max_quantity
+                ? Math.min(productInfo.outlet_product_quantity, productInfo.max_quantity)
+                : productInfo.outlet_product_quantity ?? 0;
 
+            setProductStoke(productStock);
             setProductGallery(productInfo?.gallery);
         }
     }
@@ -320,7 +323,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     if (selectedVariants.length == 1) {
                         if (
                             availableVariant[selectedKey] ===
-                            selectedVariantObject[selectedKey] &&
+                                selectedVariantObject[selectedKey] &&
                             !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
@@ -329,7 +332,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     if (selectedVariants.length > 1) {
                         if (
                             availableVariant[selectedKey] ===
-                            selectedVariantObject[selectedKey] &&
+                                selectedVariantObject[selectedKey] &&
                             !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
@@ -464,16 +467,21 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         if (selectedVariants.length > 0) {
             setProductPrice({
                 ...productPrice,
-                prices: bestMatch?.discount_amount > 0
-                    ? (bestMatch?.discount_type === "percentage"
-                        ? bestMatch?.discountPrice - (bestMatch?.discountPrice * (bestMatch?.discount_amount / 100))
-                        : bestMatch?.discountPrice - bestMatch?.discount_amount)
-                    : bestMatch?.discountPrice,
-                discountPrice: bestMatch?.discount_type === "percentage"
-                    ? bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
-                    : bestMatch?.discount_amount,
+                prices:
+                    bestMatch?.discount_amount > 0
+                        ? bestMatch?.discount_type === "percentage"
+                            ? bestMatch?.discountPrice -
+                              bestMatch?.discountPrice *
+                                  (bestMatch?.discount_amount / 100)
+                            : bestMatch?.discountPrice -
+                              bestMatch?.discount_amount
+                        : bestMatch?.discountPrice,
+                discountPrice:
+                    bestMatch?.discount_type === "percentage"
+                        ? bestMatch?.discountPrice *
+                          (bestMatch?.discount_amount / 100)
+                        : bestMatch?.discount_amount,
             });
-            
 
             setProductStoke(
                 bestMatch?.variation_max_quantity === null
@@ -484,8 +492,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             defaultVariation();
         }
     }, [selectedVariants]);
-    
-    
+
     return (
         <div className="col-md-6">
             <div className="product-details-content">
@@ -575,7 +582,10 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     </strong>
                     <del>
                         {parseInt(productPrice?.discountPrice) > 0 &&
-                            `৳ ${(parseInt(productPrice?.discountPrice) + parseInt(productPrice?.prices))}`}
+                            `৳ ${
+                                parseInt(productPrice?.discountPrice) +
+                                parseInt(productPrice?.prices)
+                            }`}
                     </del>
                 </div>
                 <div className="product-short-description-area">
@@ -645,20 +655,89 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                         <div key={index}>
                                             {item?.name ===
                                                 "variation_size" && (
+                                                <>
+                                                    <div className="product-details-variant-holder d-flex align-items-center mb-4">
+                                                        <p>Size:</p>
+                                                        {item?.variants?.map(
+                                                            (variant, inx) =>
+                                                                variant.selectAble ? (
+                                                                    <div
+                                                                        key={
+                                                                            inx
+                                                                        }
+                                                                        className={`product-details-variant-item ${
+                                                                            variant.selected
+                                                                                ? "variantAttributeActive"
+                                                                                : "variantAttributeUnitive"
+                                                                        }`}
+                                                                        onClick={() =>
+                                                                            handleVariations(
+                                                                                variant.value,
+                                                                                item.name
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <label>
+                                                                            {
+                                                                                variant?.value
+                                                                            }
+                                                                        </label>
+                                                                    </div>
+                                                                ) : (
+                                                                    <div
+                                                                        key={
+                                                                            inx
+                                                                        }
+                                                                        className={`product-details-variant-item`}
+                                                                        style={{
+                                                                            border: "2px solid #7B7B7B",
+                                                                            cursor: "not-allowed",
+                                                                            opacity: 0.3,
+                                                                        }}
+                                                                    >
+                                                                        <label>
+                                                                            {
+                                                                                variant?.value
+                                                                            }
+                                                                        </label>
+                                                                    </div>
+                                                                )
+                                                        )}
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {productAllVariants.length < 3 && (
+                            <div className="product-details-variant-area ">
+                                <div className="product-details-variant d-flex align-items-center justify-content-start">
+                                    {productAllVariants?.map((item, index) => {
+                                        return (
+                                            <div key={index}>
+                                                {item?.name ===
+                                                    "variation_weight" && (
                                                     <>
                                                         <div className="product-details-variant-holder d-flex align-items-center mb-4">
-                                                            <p>Size:</p>
+                                                            <p>Weight:</p>
                                                             {item?.variants?.map(
-                                                                (variant, inx) =>
+                                                                (
+                                                                    variant,
+                                                                    inx
+                                                                ) =>
                                                                     variant.selectAble ? (
                                                                         <div
                                                                             key={
                                                                                 inx
                                                                             }
-                                                                            className={`product-details-variant-item ${variant.selected
-                                                                                ? "variantAttributeActive"
-                                                                                : "variantAttributeUnitive"
-                                                                                }`}
+                                                                            className={`product-details-variant-item ${
+                                                                                variant.selected
+                                                                                    ? "variantAttributeActive"
+                                                                                    : "variantAttributeUnitive"
+                                                                            }`}
                                                                             onClick={() =>
                                                                                 handleVariations(
                                                                                     variant.value,
@@ -695,73 +774,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                         </div>
                                                     </>
                                                 )}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-
-                        {productAllVariants.length < 3 && (
-                            <div className="product-details-variant-area ">
-                                <div className="product-details-variant d-flex align-items-center justify-content-start">
-                                    {productAllVariants?.map((item, index) => {
-                                        return (
-                                            <div key={index}>
-                                                {item?.name ===
-                                                    "variation_weight" && (
-                                                        <>
-                                                            <div className="product-details-variant-holder d-flex align-items-center mb-4">
-                                                                <p>Weight:</p>
-                                                                {item?.variants?.map(
-                                                                    (
-                                                                        variant,
-                                                                        inx
-                                                                    ) =>
-                                                                        variant.selectAble ? (
-                                                                            <div
-                                                                                key={
-                                                                                    inx
-                                                                                }
-                                                                                className={`product-details-variant-item ${variant.selected
-                                                                                    ? "variantAttributeActive"
-                                                                                    : "variantAttributeUnitive"
-                                                                                    }`}
-                                                                                onClick={() =>
-                                                                                    handleVariations(
-                                                                                        variant.value,
-                                                                                        item.name
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                <label>
-                                                                                    {
-                                                                                        variant?.value
-                                                                                    }
-                                                                                </label>
-                                                                            </div>
-                                                                        ) : (
-                                                                            <div
-                                                                                key={
-                                                                                    inx
-                                                                                }
-                                                                                className={`product-details-variant-item`}
-                                                                                style={{
-                                                                                    border: "2px solid #7B7B7B",
-                                                                                    cursor: "not-allowed",
-                                                                                    opacity: 0.3,
-                                                                                }}
-                                                                            >
-                                                                                <label>
-                                                                                    {
-                                                                                        variant?.value
-                                                                                    }
-                                                                                </label>
-                                                                            </div>
-                                                                        )
-                                                                )}
-                                                            </div>
-                                                        </>
-                                                    )}
                                             </div>
                                         );
                                     })}

@@ -16,11 +16,11 @@ function Sales() {
     const [flashSaleEndsTime, setFlashSaleEndsTime] = useState(null);
     const flashSaleArrow = flashSaleProductList?.length > 6 ? true : false;
     const [districtId, setDistrictId] = useState(() => {
-            if (typeof window !== "undefined") {
-                return localStorage.getItem("districtId") || 47;
-            }
-            return 47;
-        });
+        if (typeof window !== "undefined") {
+            return localStorage.getItem("districtId") || 47;
+        }
+        return 47;
+    });
 
     useEffect(() => {
         async function fetchData() {
@@ -58,18 +58,27 @@ function Sales() {
             {
                 breakpoint: 1500,
                 settings: {
-                    slidesToShow: 4,
+                    slidesToShow: 5,
                     slidesToScroll: 2,
-                    arrows: flashSaleArrow,
+                    arrows: flashSaleProductList?.length > 5 ? true : false,
                     initialSlide: 0,
                 },
             },
             {
-                breakpoint: 1024,
+                breakpoint: 1199,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 2,
+                    arrows: flashSaleProductList?.length > 4 ? true : false,
+                    initialSlide: 0,
+                },
+            },
+            {
+                breakpoint: 991,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 2,
-                    arrows: flashSaleArrow,
+                    arrows: flashSaleProductList?.length > 3 ? true : false,
                     initialSlide: 0,
                 },
             },
@@ -78,7 +87,7 @@ function Sales() {
                 settings: {
                     slidesToShow: 2,
                     slidesToScroll: 2,
-                    arrows: flashSaleArrow,
+                    arrows: flashSaleProductList?.length > 2 ? true : false,
                     initialSlide: 0,
                 },
             },

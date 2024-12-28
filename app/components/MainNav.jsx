@@ -49,8 +49,8 @@ function MainNav({
                     districtId,
                     search
                 );
-
-                const searchResults = productData?.results?.just_for_you;
+                console.log(productData);
+                const searchResults = productData?.results;
 
                 if (searchResults) {
                     setSearchProduct(searchResults);
@@ -137,7 +137,7 @@ function MainNav({
                                 </button>
                             </div>
                             <div className="header-search-field">
-                                <form action="#">
+                                <form onSubmit={(e) => e.preventDefault()}>
                                     <div className="input-group align-items-center">
                                         <input
                                             type="text"

@@ -53,7 +53,7 @@ const ViewAllProductitemss = ({ items }) => {
             (productPrice.discountPrice =
                 items?.price?.discounted_price > 0 &&
                 items?.price?.regular_price);
-        productStoke = items?.max_quantity === null ? 0 : items?.max_quantity;
+        productStoke = items?.outlet_stock_quantity ?? 0;
     }
 
     const selectedVariants = [];

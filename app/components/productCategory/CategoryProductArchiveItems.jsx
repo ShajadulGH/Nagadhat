@@ -6,7 +6,7 @@ import Link from "next/link";
 import AddToCartButton from "../AddToCartButton";
 import { NagadhatPublicUrl } from "../../utils";
 import { useState } from "react";
-import img from "@/public/images/placeholder--image.jpg"
+import img from "@/public/images/placeholder--image.jpg";
 
 const CategoryProductArchiveItems = ({ productItem }) => {
     let imageUrl = null;
@@ -64,7 +64,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
             productItem?.price?.regular_price -
             productItem?.price?.discounted_price;
         productStoke =
-            productItem?.max_quantity === null ? 0 : productItem?.max_quantity;
+            productItem?.outlet_stock_quantity ?? 0;
     }
 
     const selectedVariants = [];
@@ -88,9 +88,7 @@ const CategoryProductArchiveItems = ({ productItem }) => {
 
     return (
         <div className="flash-sale-content-item">
-            <Link
-                href={`/products/${slug}?outlet_id=${outletId}`}
-            >
+            <Link href={`/products/${slug}?outlet_id=${outletId}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow">
                     <div className="product-category-image">
                         <div className="flash-sale-content-img image-hover-effect">
@@ -109,7 +107,10 @@ const CategoryProductArchiveItems = ({ productItem }) => {
                                 productItem.variations?.map((variant_item) =>
                                     variant_item?.variations_default === 1 ? (
                                         <div key={variant_item.id}>
-                                            {parseInt(variant_item?.price?.discount_amount) > 0 ? (
+                                            {parseInt(
+                                                variant_item?.price
+                                                    ?.discount_amount
+                                            ) > 0 ? (
                                                 <div className="d-flex align-items-center justify-content-between">
                                                     <strong>
                                                         ট {""}

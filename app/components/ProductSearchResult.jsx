@@ -4,18 +4,17 @@ import Image from "next/image";
 import { NagadhatPublicUrl } from "@/app/utils";
 
 const ProductSearchResult = ({ searchProduct, clearSearch }) => {
-    console.log(ProductSearchResult);
-
+    console.log("searchProduct", searchProduct);
     return (
         <div className="product-search-modal-area">
-            <div className="product-search-modal-content">
+            <div className="product-search-modal-content overflow-y-auto" style={{ maxHeight:"80vh" }}>
                 <div className="search-modal-title">
                     <h4>products</h4>
                 </div>
                 <div className="search-modal-info">
                     <ul className="similer-search-product-list">
                         {searchProduct &&
-                            searchProduct.map((product, index) => (
+                            searchProduct?.map((product, index) => (
                                 <li
                                     key={`${product?.product_name}-${product?.slug}-${index}`}
                                 >
