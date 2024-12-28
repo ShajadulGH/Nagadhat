@@ -153,13 +153,13 @@ const Login = () => {
                                 </button>
                             </form>
                             <div className="user-social-login mt-3">
-                                <label className="form-label">
+                                {/* <label className="form-label">
                                     Or Login With
-                                </label>
-                                <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center ">
+                                </label> */}
+                                {/* <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center "> */}
                                     {/* <SigninBtn provider="facebook" /> */}
-                                    <SigninBtn provider="google" />
-                                </div>
+                                    {/* <SigninBtn provider="google" /> */}
+                                {/* </div> */}
                                 <p className="text-center">
                                     New to Nagadhat?{" "}
                                     <Link href="/registration">
