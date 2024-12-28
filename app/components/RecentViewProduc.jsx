@@ -53,6 +53,15 @@ const RecentViewProduc = () => {
             {
                 breakpoint: 1500,
                 settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 2,
+                    arrows: true,
+                    initialSlide: 0,
+                },
+            },
+            {
+                breakpoint: 1199,
+                settings: {
                     slidesToShow: 4,
                     slidesToScroll: 2,
                     arrows: true,
@@ -60,7 +69,7 @@ const RecentViewProduc = () => {
                 },
             },
             {
-                breakpoint: 1024,
+                breakpoint: 991,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 2,

@@ -24,8 +24,8 @@
 
 @media (max-width: 1500px) {
     .flash-sale-content-area {
-        -ms-grid-columns: 1fr 15px 1fr 15px 1fr 15px 1fr;
-        grid-template-columns: repeat(4, 1fr);
+        -ms-grid-columns: 1fr 15px 1fr 15px 1fr 15px 1fr 15px 1fr;
+    grid-template-columns: repeat(5, 1fr);
         gap: 15px;
     }
 
@@ -293,13 +293,17 @@
     }
 
     .flash-sale-content-area {
-        -ms-grid-columns: 1fr 15px 1fr 15px 1fr;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 15px;
+        -ms-grid-columns: 1fr 15px 1fr 15px 1fr 15px 1fr;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 991px) {
+    .flash-sale-content-area {
+        -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
     .affiliate-page-substr {
         width: 75%;
     }
@@ -462,7 +466,6 @@
     .flash-sale-content-area {
         -ms-grid-columns: 1fr 10px 1fr;
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
     }
 
     .product-category-grid-area {
