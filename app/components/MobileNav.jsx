@@ -96,7 +96,7 @@ const MobileNav = () => {
     };
 
     return (
-        <div className="row mobile-nav-row-area">
+        <div className="row mobile-nav-row-area" ref={searchAreaRef}>
             <div className="col-md-12">
                 <div className="mobile-nav-col-area">
                     <div className="mobile-nav-holder d-flex align-items-center justify-content-between">
@@ -172,7 +172,7 @@ const MobileNav = () => {
                             }`}
                         ref={searchAreaRef}
                     >
-                        <form action="#">
+                        <form onSubmit={(e) => e.preventDefault()}>
                             <div className="mobile-popup-search-item">
                                 <input
                                     type="text"

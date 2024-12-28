@@ -137,7 +137,7 @@ function MainNav({
                                 </button>
                             </div>
                             <div className="header-search-field">
-                                <form action="#">
+                                <form onSubmit={(e) => e.preventDefault()}>
                                     <div className="input-group align-items-center">
                                         <input
                                             type="text"

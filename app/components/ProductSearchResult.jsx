@@ -4,11 +4,10 @@ import Image from "next/image";
 import { NagadhatPublicUrl } from "@/app/utils";
 
 const ProductSearchResult = ({ searchProduct, clearSearch }) => {
-    console.log(ProductSearchResult);
 
     return (
         <div className="product-search-modal-area">
-            <div className="product-search-modal-content">
+            <div className="product-search-modal-content overflow-y-scroll" style={{ height:"80vh" }}>
                 <div className="search-modal-title">
                     <h4>products</h4>
                 </div>
