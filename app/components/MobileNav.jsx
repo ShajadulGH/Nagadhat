@@ -172,7 +172,7 @@ const MobileNav = () => {
                             }`}
                         ref={searchAreaRef}
                     >
-                        <form action="#">
+                        <form onSubmit={(e) => e.preventDefault()}>
                             <div className="mobile-popup-search-item">
                                 <input
                                     type="text"

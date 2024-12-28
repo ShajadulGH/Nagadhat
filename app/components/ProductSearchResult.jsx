@@ -4,7 +4,6 @@ import Image from "next/image";
 import { NagadhatPublicUrl } from "@/app/utils";
 
 const ProductSearchResult = ({ searchProduct, clearSearch }) => {
-    console.log(ProductSearchResult);
 
     return (
         <div className="product-search-modal-area">
