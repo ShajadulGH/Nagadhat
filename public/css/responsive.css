@@ -126,6 +126,10 @@
 }
 
 @media (max-width: 1199px) {
+    .flash-sale-content-area {
+        -ms-grid-columns: 1fr 15px 1fr 15px 1fr 15px 1fr;
+        grid-template-columns: repeat(4, 1fr);
+    }
     .shopping-info-area {
         padding: 18px 10px;
     }
@@ -292,10 +296,7 @@
         padding-top: 50px;
     }
 
-    .flash-sale-content-area {
-        -ms-grid-columns: 1fr 15px 1fr 15px 1fr 15px 1fr;
-        grid-template-columns: repeat(4, 1fr);
-    }
+    
 }
 
 @media (max-width: 991px) {
