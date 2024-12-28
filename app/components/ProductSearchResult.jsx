@@ -8,7 +8,7 @@ const ProductSearchResult = ({ searchProduct, clearSearch }) => {
 
     return (
         <div className="product-search-modal-area">
-            <div className="product-search-modal-content">
+            <div className="product-search-modal-content overflow-y-scroll" style={{ height:"80vh" }}>
                 <div className="search-modal-title">
                     <h4>products</h4>
                 </div>
