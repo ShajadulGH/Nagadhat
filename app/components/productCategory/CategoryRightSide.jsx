@@ -27,8 +27,7 @@ const CategoryRightSide = ({
     categoryTotalMinPrice
 }) => {
     const categoryMainTitle = categoryTitle?.title;
-    let categoryProductLength = categoryByProduct?.length;
-
+    const categoryProductLength = categoryByProduct?.length;
     return (
         <section className="product-category-right-Side">
             <div className="category-right-Side">
@@ -64,9 +63,7 @@ const CategoryRightSide = ({
                     )}
                 </div>
                 {categoryProductLength > 0 ? (
-                    <CategoryProductArchive
-                        productArvhiveList={categoryByProduct}
-                    />
+                    <CategoryProductArchive productArvhiveList={categoryByProduct} />
                 ) : (
                     !loading &&
                     <NoDataFound />
