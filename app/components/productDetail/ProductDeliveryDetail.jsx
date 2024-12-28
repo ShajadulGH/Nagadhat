@@ -460,7 +460,7 @@ const ProductDeliveryDetail = ({ productInfo }) => {
                             <h5>Sold By</h5>{" "}
                         </div>
                     </div>
-                    <p>Imran Fashion House</p>
+                    <p>{productInfo?.brand?.title}</p>
                 </div>
             </div>
         </div>
