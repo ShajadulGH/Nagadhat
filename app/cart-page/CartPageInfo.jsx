@@ -427,10 +427,13 @@ const CartPage = () => {
             } else {
                 const updatedUsers = checkedProductCard.map(
                     (checkCard, index) => {
+                        if (checkCard.quantity >= checkCard.productStoke){
+                            toast.error("Product out of stock")
+                        }
                         if (index === indexId) {
                             return {
                                 ...checkCard,
-                                quantity: checkCard.quantity + 1,
+                                quantity:checkCard.quantity < checkCard.productStoke ? checkCard.quantity + 1 : checkCard.quantity,
                             };
                         }
                         return checkCard;
