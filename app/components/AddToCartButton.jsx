@@ -175,6 +175,7 @@ function AddToCartButton({
                                     toast.error(productAdded.message);
                                 }
                             } else {
+                                addToCartInfo.productStoke = productStoke;
                                 addToCartInLocalStorage(addToCartInfo);
                                 const addToCartProduct = addToCartProductList();
                                 toast.success("Add To Cart Success");
@@ -248,6 +249,7 @@ function AddToCartButton({
                                 toast.error(productAdded.message);
                             }
                         } else {
+                            addToCartInfo.productStoke = productStoke;
                             addToCartInLocalStorage(addToCartInfo);
                             const addToCartProduct = addToCartProductList();
                             toast.success("Add To Cart Success");

@@ -49,8 +49,8 @@ function MainNav({
                     districtId,
                     search
                 );
-
-                const searchResults = productData?.results?.just_for_you;
+                console.log(productData);
+                const searchResults = productData?.results;
 
                 if (searchResults) {
                     setSearchProduct(searchResults);
