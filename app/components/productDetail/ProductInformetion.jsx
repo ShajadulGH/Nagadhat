@@ -145,7 +145,11 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 discountPrice:
                     productInfo?.price?.original?.results?.discount_amount,
             });
-            setProductStoke(productInfo?.outlet_product_quantity ?? 0);
+            const productStock = productInfo?.max_quantity
+                ? Math.min(productInfo.outlet_product_quantity, productInfo.max_quantity)
+                : productInfo.outlet_product_quantity ?? 0;
+
+            setProductStoke(productStock);
             setProductGallery(productInfo?.gallery);
         }
     }
