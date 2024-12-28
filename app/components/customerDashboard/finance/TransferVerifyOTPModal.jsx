@@ -5,12 +5,7 @@ import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-const TransferVerifyOTPModal = ({
-    transferRequestData,
-    setTransfer,
-    setEnteredAmount,
-    setTransferDetails
-}) => {
+const TransferVerifyOTPModal = ({ transferRequestData }) => {
     const [otp, setOtp] = useState('');
     const [isTermsChecked, setIsTermsChecked] = useState(false); // State to track checkbox
     const { data: session, status } = useSession();
@@ -44,11 +39,8 @@ const TransferVerifyOTPModal = ({
                 title: response.message,
                 showConfirmButton: false,
                 timer: 1500
-            });
-            setTransfer('');
-            setEnteredAmount('');
-            setTransferDetails(null);
-        } else {
+              });
+        }else{
             toast.error(response.message)
         }
     };
