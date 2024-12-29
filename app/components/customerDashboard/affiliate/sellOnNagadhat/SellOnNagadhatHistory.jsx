@@ -6,7 +6,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
     return (
         <div>
             <div className="table-responsive pt-4">
-                <table className="table table-responsive-md table-hover">
+                <table className="table table-responsive-md table-hover" style={{ minWidth:"1000px" }}>
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -33,7 +33,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                                     <td>{item?.completed_months || "N/A"}</td>
                                     <td>৳ {item?.order_value || "N/A"} </td>
                                     <td>৳ {item?.mrp_value || "N/A"} </td>
-                                    <td>{item?.monthly_bonus || "N/A"}</td>
+                                    <td>{item?.monthly_bonus.toFixed(2) || "N/A"}</td>
                                     <td>
                                         {item?.is_instalment === 1 ? (
                                             <>
@@ -48,7 +48,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                                         )}
                                     </td>
                                     <td>
-                                        {item?.is_instalment === 0 ? (
+                                        {item?.active_status === 0 ? (
                                             <span className="text-primary">
                                                 Active
                                             </span>
@@ -64,7 +64,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                                         <Link
                                             // href="/affiliat-sell-on-nagadhat/id"
                                             href={`/affiliate-buyback-policy-details/${item?.id}`}
-                                            className="btn"
+                                            className="btn btn-success"
                                         >
                                             View
                                         </Link>

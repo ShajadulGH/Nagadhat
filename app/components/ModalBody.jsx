@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DivisionList from "./DivisionList";
 import DistrictList from "./DistrictList";
 
@@ -7,6 +7,8 @@ const ModalBody = () => {
     const [divisionId, setDivisionId] = useState("");
     const [districtId, setDistrictId] = useState("");
     const [outletId, setOutletId] = useState("");
+    const [currentLocation, setCurrentLocation] = useState("Dhaka");
+
     const handleDivisionChange = (e) => {
         setDivisionId(e.target.value);
     };
@@ -18,6 +20,10 @@ const ModalBody = () => {
         let currentUrl = window.location.origin;
         window.location.href = `${currentUrl}/?divisionId=${divisionId}&districtId=${districtId}`;
     }
+    useEffect(()=>{
+        const currentLocation = localStorage.getItem("location") ;
+        setCurrentLocation(currentLocation);
+    },[divisionId,districtId])
 
     return (
         <div className="modal-body">
@@ -32,7 +38,7 @@ const ModalBody = () => {
             )}
 
             <span>
-                Current Location: Dhaka City, Dhaka, Dhaka, Dhaka, Bangladesh
+                Current Location: {currentLocation}, Bangladesh
             </span>
             <strong>
                 <small>*</small> remember, reseting your location will also

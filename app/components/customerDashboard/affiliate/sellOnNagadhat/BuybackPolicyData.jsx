@@ -80,7 +80,7 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                                 </tr>
                                 <tr>
                                     <td>Monthly Return:</td>
-                                    <td>৳ {saleOnDetails?.monthly_bonus}</td>
+                                    <td>৳ {saleOnDetails?.monthly_bonus.toFixed(2)}</td>
                                 </tr>
                                 <tr>
                                     <td>Total Returned:</td>

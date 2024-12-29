@@ -1,12 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useSession } from "next-auth/react";
 import { getManageBasicInfo } from "@/app/services/getManageBasicInfo";
 import "react-toastify/dist/ReactToastify.css";
 import { postManageBasicInfo } from "@/app/services/postManageBasicInfo";
 import { toast } from "react-toastify";
+import { RotatingLines } from "react-loader-spinner";
 
 const ManageBasicInfo = () => {
+    const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState({
         username: "",
         mobile_number: "",
@@ -41,7 +43,7 @@ const ManageBasicInfo = () => {
             };
             fetchManageBasicInfoData();
         }
-    }, [status, session]);
+    }, [status, session?.accessToken]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -59,24 +61,29 @@ const ManageBasicInfo = () => {
             !formData.username ||
             !formData.mobile_number ||
             !formData.date_of_birth ||
-            !formData.marital_status
+            !formData.marital_status ||
+            !formData.email
         ) {
             toast.error("Please fill out all  fields.");
             return;
         }
 
         try {
-            const response = await postManageBasicInfo(
-                formData,
-                session?.accessToken
-            );
+            startTransition(async () => {
+                const response = await postManageBasicInfo(
+                    formData,
+                    session?.accessToken
+                );
 
-            if (!response?.error) {
-                toast.success(response?.message);
-            } else {
-                console.error("Update failed:", response);
-                toast.error(response.message || "Failed to update profile.");
-            }
+                if (!response?.error) {
+                    toast.success(response?.message);
+                } else {
+                    console.error("Update failed:", response);
+                    toast.error(
+                        response.message || "Failed to update profile."
+                    );
+                }
+            });
         } catch (error) {
             console.error("Error during update:", error);
             toast.error(
@@ -84,14 +91,6 @@ const ManageBasicInfo = () => {
             );
         }
     };
-
-    if (status === "loading") {
-        return (
-            <div className=" d-flex align-items-center justify-content-center vh-100">
-                <h1 className="text-center">Loading... </h1>;
-            </div>
-        );
-    }
 
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
@@ -227,11 +226,41 @@ const ManageBasicInfo = () => {
                                 </select>
                             </div>
                             <div className="">
-                                <input
+                                <button
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
-                                    value="Update Profile"
-                                />
+                                    disabled={isPending}
+                                    style={{
+                                        cursosEvents: isPending
+                                            ? "none"
+                                            : "pointer",
+                                        opacity: isPending ? "0.5" : "1",
+                                    }}
+                                >
+                                    {isPending ? (
+                                        <div
+                                            style={{
+                                                height: "21px",
+                                                width: "96px",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <RotatingLines
+                                                visible={true}
+                                                height="18"
+                                                width="20"
+                                                color="#ffffff"
+                                                strokeWidth="5"
+                                                animationDuration="0.75"
+                                                ariaLabel="rotating-lines-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="w-25"
+                                            />
+                                        </div>
+                                    ) : (
+                                        "Update Profile"
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>

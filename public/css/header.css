@@ -182,6 +182,7 @@ header {
     width: 100%;
     background: transparent;
     font-size: 13px;
+    color: #000;
 }
 
 .district-modal-area .modal-header h2 {
