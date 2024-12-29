@@ -394,7 +394,7 @@ function AddToCartButton({
                             "ADD TO CART"
                         )
                     ) : (
-                        "Stoke Out"
+                        "Stock Out"
                     )
                 ) : (
                     title
