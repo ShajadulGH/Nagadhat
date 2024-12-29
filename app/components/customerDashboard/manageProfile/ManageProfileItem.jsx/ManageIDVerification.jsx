@@ -5,14 +5,19 @@ import { postManageIdVerificationInfo } from "@/app/services/postManageIdVerific
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
 const ManageIDVerification = () => {
+    const [isPending, startTransition] = useTransition();
     const [idVerification, setIdVerification] = useState({
         nid_no: "",
-        nid_front: null,
+        nid_front: "",
     });
+
+    
+    
 
     const { data: session, status } = useSession();
 
@@ -30,7 +35,7 @@ const ManageIDVerification = () => {
             };
             fetchNidVerification();
         }
-    }, [session, status]);
+    }, [session?.accessToken, status]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -46,6 +51,8 @@ const ManageIDVerification = () => {
                 ...prevData,
                 nid_front: event.target.files[0],
             }));
+        }else {
+            toast.error("No file selected. Please choose a valid image file.");
         }
     };
 
@@ -58,23 +65,26 @@ const ManageIDVerification = () => {
         }
 
         try {
-            const response = await postManageIdVerificationInfo(
-                idVerification,
-                session?.accessToken
-            );
-            if (!response?.error) {
-                setIdVerification({
-                    nid_no: response?.results?.nid_no || "",
-                    nid_front: response?.results.nid_front || "",
-                });
-                toast.success(response?.message);
-            } else {
-                console.error("Update failed:", response);
-                toast.error(
-                    response?.message ||
-                    "Failed to update ID Verification Info."
+            startTransition(async () => {
+                const response = await postManageIdVerificationInfo(
+                    idVerification,
+                    session?.accessToken
                 );
-            }
+
+                if (!response?.error) {
+                    setIdVerification({
+                        nid_no: response?.results?.nid_no || "",
+                        nid_front: response?.results.nid_front || "",
+                    });
+                    toast.success(response?.message);
+                } else {
+                    console.error("Update failed:", response?.message);
+                    toast.error(
+                        response?.message ||
+                            "Failed to update ID Verification Info."
+                    );
+                }
+            });
         } catch (error) {
             console.error("Error during update:", error);
             toast.error(
@@ -82,14 +92,6 @@ const ManageIDVerification = () => {
             );
         }
     };
-
-    if (status === "loading") {
-        return (
-            <div className=" d-flex align-items-center justify-content-center vh-100">
-                <h1 className="text-center">Loading... </h1>;
-            </div>
-        );
-    }
 
     return (
         <div className="accordion-item border-0 rounded mb-4">
@@ -158,14 +160,45 @@ const ManageIDVerification = () => {
                                 />
                             </div>
                             <span className="text-danger">
-                                * Please upload original picture, photocopy not allowed.
+                                * Please upload original picture, photocopy not
+                                allowed.
                             </span>
                             <div className="pt-3">
-                                <input
+                                <button
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
-                                    value="Update Info"
-                                />
+                                    disabled={isPending}
+                                    style={{
+                                        cursosEvents: isPending
+                                            ? "none"
+                                            : "pointer",
+                                        opacity: isPending ? "0.5" : "1",
+                                    }}
+                                >
+                                    {isPending ? (
+                                        <div
+                                            style={{
+                                                height: "21px",
+                                                width: "96px",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <RotatingLines
+                                                visible={true}
+                                                height="18"
+                                                width="20"
+                                                color="#ffffff"
+                                                strokeWidth="5"
+                                                animationDuration="0.75"
+                                                ariaLabel="rotating-lines-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="w-25"
+                                            />
+                                        </div>
+                                    ) : (
+                                        "Update Info"
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>
