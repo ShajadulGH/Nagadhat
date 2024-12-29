@@ -39,7 +39,7 @@ const ReviewCard = () => {
                                 <HiOutlineStar />
                             </span>
                         </div>
-                        <p className="small text-muted mt-1">- 20-25-2025</p>
+                        {/* <p className="small text-muted mt-1">- 20-25-2025</p> */}
                     </div>
                     <div className="d-flex gap-1 align-items-center mt-2">
                         <h4 className="h6 text-muted fw-semibold">

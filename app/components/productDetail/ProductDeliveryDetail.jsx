@@ -12,6 +12,8 @@ import { fetchShippingDistricts } from "@/app/services/getShippingDistricts";
 import { fetchShippingUpazilla } from "@/app/services/getShippingUpazilla";
 
 const ProductDeliveryDetail = ({ productInfo }) => {
+    const [brandName, setBrandName] = useState(productInfo?.brand?.title);
+
     const [locationPopUp, setLocationPopUp] = useState(false);
     const [options, setOptions] = useState([]);
     const searchParams = useSearchParams();
@@ -460,7 +462,7 @@ const ProductDeliveryDetail = ({ productInfo }) => {
                             <h5>Sold By</h5>{" "}
                         </div>
                     </div>
-                    <p>{productInfo?.brand?.title}</p>
+                    <p>{brandName}</p>
                 </div>
             </div>
         </div>

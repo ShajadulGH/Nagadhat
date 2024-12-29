@@ -779,6 +779,11 @@
 }
 
 .questionAnsContainer {
-    height: 400px;
-    overflow-y: auto;
+
+    border-bottom: 1px solid var(--color-D6D6D6);
+    padding-bottom: 12px;
+}
+.questionAnsContainer:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }

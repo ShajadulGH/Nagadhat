@@ -1,5 +1,5 @@
 // components/ProductQuestions.js
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { MdAddToPhotos } from "react-icons/md";
 import { RiMessage2Line } from "react-icons/ri";
@@ -10,10 +10,12 @@ import withReactContent from "sweetalert2-react-content";
 import QuestionCard from "../QuestionCard";
 import { getQuestionAndAns } from "@/app/services/getQuestionAndAns";
 import { apiBaseUrl } from "@/app/utils";
+import { useSession } from "next-auth/react";
 
 const ProductQuestions = ({ productInfo }) => {
     const [userQuestion, setUserQuestion] = useState("");
     const [questionResponse, setQuestionResponse] = useState([]);
+    const { data: session } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,6 +45,7 @@ const ProductQuestions = ({ productInfo }) => {
                 });
             }
             const MySwal = withReactContent(Swal);
+            setUserQuestion("");
             MySwal.fire({
                 title: <p>Your Answer Send Successfully</p>,
                 icon: "success",
@@ -143,16 +146,18 @@ const ProductQuestions = ({ productInfo }) => {
                     </div>
                 </div>
             </div>
-            <div>
-                <p className="mt-5 text-secondary">
-                    Login or Register to ask questions to seller
-                </p>
-            </div>
+            {!session?.accessToken && (
+                <div>
+                    <p className="mt-3 text-secondary">
+                        Login or Register to ask questions to seller
+                    </p>
+                </div>
+            )}
 
             {questionResponse?.length ? (
                 questionResponse?.map((info, index) => (
                     <div className="questionAnsContainer">
-                        <div className="mt-5">
+                        <div className="mt-3">
                             <QuestionCard
                                 message={info?.question}
                                 author={info?.user_id}
