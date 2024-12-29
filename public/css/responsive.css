@@ -631,5 +631,13 @@
         top: 20%;
         transform: translateY(-20%);
     }
+    .dropdown-content {
+        left: -100%;
+    }
+}
+@media (max-width: 340px) {
+    .dropdown-content {
+        transform: translateX(-15%);
+    }
 }
 
