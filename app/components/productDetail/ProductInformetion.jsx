@@ -829,6 +829,9 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                         </div>
 
                         <div className="product-details-add-cart-area d-flex align-items-center">
+                        {
+                                    productStoke > 0 ?
+                            (<>
                             <div className="product-details-add-cart">
                                 <AddToCartButton
                                     title="BUY NOW"
@@ -867,6 +870,22 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     productStoke={productStoke}
                                 />
                             </div>
+                            </>):(
+                                <div className="product-details-add-cart">
+                                <button
+                                    type="button"
+                                    className="add-to-cart-link border-0"
+                                    disabled
+                                    style={{
+                                        pointerEvents: productStoke > 0 ? "auto" : "none",
+                                        opacity: productStoke > 0 ? 1 : 0.5,
+                                        width: "300px",
+                                    }}
+                                >
+                                    Out of Stock
+                                </button>
+                                </div>
+                            )}
                         </div>
                     </form>
                 </div>
