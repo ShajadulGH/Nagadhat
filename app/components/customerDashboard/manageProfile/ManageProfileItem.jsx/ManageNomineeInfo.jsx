@@ -3,10 +3,12 @@
 import { getManageNomineeInfo } from "@/app/services/getManageNomineeInfo";
 import { postManageNomineeInfo } from "@/app/services/postManageNomineeInfo";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
 const ManageNomineeInfo = () => {
+    const [isPending, startTransition] = useTransition();
     const [nomineInfo, setNomineInfo] = useState({
         nominee_name: "",
         nominee_mobile_number: "",
@@ -55,20 +57,26 @@ const ManageNomineeInfo = () => {
             toast.error("Please fill out all  fields.");
             return;
         }
+        if (nomineInfo.nominee_mobile_number.length !== 11) {
+            toast.error("Nominee mobile number must be exactly 11 digits.");
+            return;
+        }
 
         try {
-            const response = await postManageNomineeInfo(
-                nomineInfo,
-                session?.accessToken
-            );
-            if (!response?.error) {
-                toast.success(response?.message);
-            } else {
-                console.error("Update failed:", response);
-                toast.error(
-                    response?.message || "Failed to update Nominee Info."
+            startTransition(async () => {
+                const response = await postManageNomineeInfo(
+                    nomineInfo,
+                    session?.accessToken
                 );
-            }
+                if (!response?.error) {
+                    toast.success(response?.message);
+                } else {
+                    console.error("Update failed:", response);
+                    toast.error(
+                        response?.message || "Failed to update Nominee Info."
+                    );
+                }
+            });
         } catch (error) {
             console.error("Error during update:", error);
             toast.error(
@@ -170,11 +178,41 @@ const ManageNomineeInfo = () => {
                                 />
                             </div>
                             <div className="">
-                                <input
+                                <button
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
-                                    value="Update Info"
-                                />
+                                    disabled={isPending}
+                                    style={{
+                                        cursosEvents: isPending
+                                            ? "none"
+                                            : "pointer",
+                                        opacity: isPending ? "0.5" : "1",
+                                    }}
+                                >
+                                    {isPending ? (
+                                        <div
+                                            style={{
+                                                height: "21px",
+                                                width: "96px",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <RotatingLines
+                                                visible={true}
+                                                height="18"
+                                                width="20"
+                                                color="#ffffff"
+                                                strokeWidth="5"
+                                                animationDuration="0.75"
+                                                ariaLabel="rotating-lines-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="w-25"
+                                            />
+                                        </div>
+                                    ) : (
+                                        "Update Info"
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>

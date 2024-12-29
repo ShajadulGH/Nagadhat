@@ -6,16 +6,17 @@ import { setProfilePicture } from "@/app/store/slices/profileSlice";
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const ManageTakePhoto = () => {
+    const [isPending, startTransition] = useTransition();
     const [profilePic, setProfilePic] = useState("");
     const [file, setFile] = useState(null);
     const { data: session, status } = useSession();
     const dispatch = useDispatch();
-
 
     useEffect(() => {
         if (status === "authenticated") {
@@ -34,7 +35,7 @@ const ManageTakePhoto = () => {
             };
             fetchProfilePicture();
         }
-    }, [session, status, profilePic]);
+    }, [session?.accessToken, status, profilePic]);
 
     const handleFileChange = (event) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -44,20 +45,25 @@ const ManageTakePhoto = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!file) return;
+        if (!file) {
+            toast.error("Please select a file.");
+            return;
+        }
         try {
-            const result = await postManageProfilePicture(
-                file,
-                session.accessToken
-            );
+            startTransition(async () => {
+                const result = await postManageProfilePicture(
+                    file,
+                    session.accessToken
+                );
 
-            if (!result?.error) {
-                toast.success(result?.message);
-                setProfilePic(result);
-                dispatch(setProfilePicture(result?.results));
-            } else {
-                toast.error("Failed to update profile picture");
-            }
+                if (!result?.error) {
+                    toast.success(result?.message);
+                    setProfilePic(result);
+                    dispatch(setProfilePicture(result?.results));
+                } else {
+                    toast.error("Failed to update profile picture");
+                }
+            });
         } catch (error) {
             console.error("Error updating profile picture:", error);
             toast.error(
@@ -91,14 +97,20 @@ const ManageTakePhoto = () => {
                             {profilePic || file ? (
                                 <div className="mb-2">
                                     <Image
-                                        src={file ? URL.createObjectURL(file) : `${NagadhatPublicUrl}/${profilePic}`}
+                                        src={
+                                            file
+                                                ? URL.createObjectURL(file)
+                                                : `${NagadhatPublicUrl}/${profilePic}`
+                                        }
                                         alt="Profile Picture"
                                         width={80}
                                         height={80}
                                         className="rounded-circle"
                                     />
                                 </div>
-                            ):""}
+                            ) : (
+                                ""
+                            )}
                             <div className="mb-3">
                                 <label htmlFor="photo" className="form-label">
                                     Uplod Your Photo
@@ -117,11 +129,41 @@ const ManageTakePhoto = () => {
                                 />
                             </div>
                             <div>
-                                <input
+                                <button
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
-                                    value="Update Profile Picture"
-                                />
+                                    disabled={isPending}
+                                    style={{
+                                        cursosEvents: isPending
+                                            ? "none"
+                                            : "pointer",
+                                        opacity: isPending ? "0.5" : "1",
+                                    }}
+                                >
+                                    {isPending ? (
+                                        <div
+                                            style={{
+                                                height: "21px",
+                                                width: "96px",
+                                                textAlign: "center",
+                                            }}
+                                        >
+                                            <RotatingLines
+                                                visible={true}
+                                                height="18"
+                                                width="20"
+                                                color="#ffffff"
+                                                strokeWidth="5"
+                                                animationDuration="0.75"
+                                                ariaLabel="rotating-lines-loading"
+                                                wrapperStyle={{}}
+                                                wrapperClass="w-25"
+                                            />
+                                        </div>
+                                    ) : (
+                                        "Update Profile Picture"
+                                    )}
+                                </button>
                             </div>
                         </form>
                     </div>
