@@ -476,12 +476,12 @@ const Registration = () => {
                                 </button>
                             </form>
                             <div className="user-social-login mt-3">
-                                <label className="form-label">
+                                {/* <label className="form-label">
                                     Or Sign Up With
-                                </label>
-                                <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center ">
+                                </label> */}
+                                {/* <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center "> */}
                                     {/* <button>Sign in with Facebook</button> */}
-                                    <button>
+                                    {/* <button>
                                         {" "}
                                         <Image
                                             width={25}
@@ -490,8 +490,8 @@ const Registration = () => {
                                             src="/images/google-img.png"
                                         ></Image>{" "}
                                         Sign Up with Google
-                                    </button>
-                                </div>
+                                    </button> */}
+                                {/* </div> */}
                                 <p className="form-label">
                                     <Link href="/"> Back to home</Link>
                                 </p>

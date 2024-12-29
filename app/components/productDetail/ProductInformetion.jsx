@@ -497,7 +497,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         <div className="col-md-6">
             <div className="product-details-content">
                 <h1>{productInfo?.product_name}</h1>
-                <div className="product-details-rating-area d-flex align-items-center justify-content-between flex-wrap">
+                <div className="product-details-rating-area d-flex align-items-center justify-content-end flex-wrap">
                     <div className="product-details-rating-item d-flex align-items-center">
                         <div className="rating-star d-flex align-items-center">
                             <div className="rating-star-image">
@@ -545,7 +545,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                             <p>10 Ratings</p>
                         </div>
                     </div>
-                    <div className="product-details-rating-item d-flex align-items-center">
+                    {/* <div className="product-details-rating-item d-flex align-items-center">
                         <div className="product-Sold-img">
                             <Image
                                 className="img-fluid"
@@ -572,7 +572,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                         <div className="product-Sold">
                             <p>{productInfo?.number_of_viewed} Viewed</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="product-details-price-area d-flex align-items-center">
                     <strong>

@@ -44,7 +44,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                                 </p>
                                 <p>
                                     Thank you for choosing us!<br></br>
-                                    NagadHaat - Committed to fulfilling your
+                                    NagadHat - Committed to fulfilling your
                                     expectations.
                                 </p>
                             </>
