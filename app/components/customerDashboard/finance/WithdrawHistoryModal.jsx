@@ -55,7 +55,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                             {withdrawData ? (
                                 <table className="table table-bordered table-hover">
                                     <tbody>
-                                        {withdrawData.withdraw_method && (
+                                        {withdrawData?.withdraw_method && (
                                             <tr>
                                                 <th scope="row">
                                                     Withdraw Method:
@@ -67,7 +67,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.withdraw_by && (
+                                        {withdrawData?.withdraw_by && (
                                             <tr>
                                                 <th scope="row">
                                                     Withdraw By:
@@ -77,7 +77,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.billing_method && (
+                                        {withdrawData?.billing_method && (
                                             <tr>
                                                 <th scope="row">
                                                     Billing Method:
@@ -89,7 +89,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.account_number && (
+                                        {withdrawData?.account_number && (
                                             <tr>
                                                 <th scope="row">
                                                     Account number:
@@ -101,21 +101,19 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.amount && (
+                                        {withdrawData?.amount && (
                                             <tr>
                                                 <th scope="row">Amount:</th>
                                                 <td>
-                                                    ৳ {""}
-                                                    {withdrawData.amount}
+                                                    ৳ {withdrawData.amount}
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.charge && (
+                                        {withdrawData?.charge && (
                                             <tr>
                                                 <th scope="row">Charge:</th>
                                                 <td>
-                                                    ৳ {""}
-                                                    {withdrawData.charge}
+                                                    ৳ {withdrawData.charge}
                                                 </td>
                                             </tr>
                                         )}
@@ -123,32 +121,31 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                             <tr>
                                                 <th scope="row">Payable:</th>
                                                 <td>
-                                                    ৳ {""}
-                                                    {withdrawData.payable}
+                                                    ৳ {withdrawData?.payable}
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.request_on && (
+                                        {withdrawData?.request_on && (
                                             <tr>
                                                 <th scope="row">
                                                     Requested On:
                                                 </th>
                                                 <td>
-                                                    {withdrawData.request_on}
+                                                    {withdrawData?.request_on}
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.update_on && (
+                                        {withdrawData?.update_on && (
                                             <tr>
                                                 <th scope="row">
                                                     Completed Date:
                                                 </th>
                                                 <td>
-                                                    {withdrawData.update_on}
+                                                    {withdrawData?.update_on}
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.transection_id && (
+                                        {withdrawData?.transection_id && (
                                             <tr>
                                                 <th scope="row">
                                                     Transaction Id:
@@ -160,15 +157,14 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </td>
                                             </tr>
                                         )}
-                                        {withdrawData.script_pic !==
-                                            "Not Attached" && (
+                                        {withdrawData?.script_pic && (
                                             <tr>
                                                 <th scope="row">
                                                     Payment Script:
                                                 </th>
                                                 <td>
                                                     <a
-                                                        href={`${NagadhatPublicUrl}/${withdrawData.script_pic}`}
+                                                        href={`${NagadhatPublicUrl}/${withdrawData?.script_pic}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >

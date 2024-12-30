@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const WithdrawHistoryBtn = ({ item, token }) => {
     const [selectedId, setSelectedId] = useState(null);
+    console.log("item", item);
     return (
         <>
             <td className="text-center">
