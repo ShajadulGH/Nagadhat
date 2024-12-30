@@ -147,5 +147,7 @@ p {
     .invoice-section.order-invoice-section-area {
         padding-top: 0 !important;
     }
-
+    .invoice-download-btn-section {
+        display: none;
+    }
 }

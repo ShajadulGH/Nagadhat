@@ -8,6 +8,7 @@ import { useEffect, useState, useTransition } from "react";
 import { getSaleOnNagadhatOrderDetails } from "@/app/services/affiliate/getSaleOnNagadhatOrderDetails";
 import LodingFixed from "@/app/components/LodingFixed";
 import NoDataFound from "@/app/components/NoDataFound";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const BuybackPolicyWrapper = ({ params }) => {
     const saleOnId = params.proId;
@@ -60,10 +61,11 @@ const BuybackPolicyWrapper = ({ params }) => {
                     style={{ borderTop: "1px solid #d8d8d8" }}
                 >
                     <Link
-                        href={`/affiliat-sell-on-nagadhat`}
+                        href={`/affiliate-sell-on-nagadhat`}
                         className="btn btn-danger"
                     >
-                        Go Back
+                        <RiArrowGoBackFill />
+                        {""} Go Back
                     </Link>
                 </div>
             </div>

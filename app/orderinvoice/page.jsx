@@ -47,12 +47,8 @@ const OrderInvoicePage = () => {
                     );
                 }
             };
-
-            Promise.all([fetchOrderInvoice(), fetchOrderPaymentHistory()]).then(
-                () => {
-                    window.print();
-                }
-            );
+            fetchOrderInvoice()
+            fetchOrderPaymentHistory()
         }
     }, [session, status]);
 

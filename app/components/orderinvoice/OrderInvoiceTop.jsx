@@ -7,6 +7,18 @@ import { FaGlobe } from "react-icons/fa";
 const OrderInvoiceTop = () => {
     return (
         <>
+            <div className="row invoice-download-btn-section">
+                <div className="col-12">
+                    <div className="invoice-download-btn text-end py-3">
+                        <button className="btn btn-success ms-2" onClick={() => window.print()}>
+                            Download Invoice
+                        </button>
+                        <button className="btn btn-primary ms-2" onClick={() => window.print()}>
+                            Print Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div className="row">
                 <div className="invoice-contact-info col-6 fs-6">
                     <div className="d-flex align-items-start gap-2 font-xs fw-semibold">
