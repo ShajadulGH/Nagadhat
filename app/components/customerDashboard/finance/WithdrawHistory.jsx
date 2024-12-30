@@ -59,9 +59,13 @@ const WithdrawHistory = async ({ searchParams }) => {
                                     </td>
                                     <td
                                         className={
-                                            item.status === "Completed"
-                                                ? "paid"
-                                                : "pending"
+                                            item?.status ==="Completed"
+                                                ? "text-success"
+                                                : item?.status === "Rejected"
+                                                ? "text-danger"
+                                                : item?.status === "Refund"
+                                                ? "text-primary"
+                                                : "text-warning"
                                         }
                                         style={{ textAlign: "center" }}
                                     >

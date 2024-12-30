@@ -99,7 +99,15 @@ const PrivilegeMainCard = ({
             {isPending ? (
                 <h3 className=" text-center">Loading...</h3>
             ) : (
-                <div className="flipper-container-wrapp">
+                <div
+                    className="flipper-container-wrapp"
+                    style={{
+                        marginBottom:
+                            privilegeCardInfo?.rebate_status === 0
+                                ? "30px"
+                                : "",
+                    }}
+                >
                     <div className="flipper-container">
                         <div className="flip">
                             <div className="front face">
@@ -179,6 +187,7 @@ const PrivilegeMainCard = ({
             />
 
             {privilegeCardInfo?.product_name !== "Membership Card" &&
+                privilegeCardInfo?.rebate_status === 1 &&
                 !isPending && (
                     <PrivilegeChooseOptionBtn
                         choocingProductAmount={choocingProductAmount}
