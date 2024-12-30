@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 const FinanceTransactions = async ({ searchParams }) => {
     // get server session
     const session = await getServerSession(authOptions);
-    const currentPage = parseInt(searchParams.page) || 1;
+    const currentPage = parseInt(searchParams?.page) || 1;
     const limit = 20; //Per Page Category
 
     // fetch affiliate finance transfer history data
@@ -41,35 +41,40 @@ const FinanceTransactions = async ({ searchParams }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {transactions.length > 0 ? (
-                            transactions.map((transaction, index) => (
-                                <tr key={transaction.id}>
+                        {transactions?.length > 0 ? (
+                            transactions?.map((transaction, index) => (
+                                <tr key={transaction?.id}>
                                     <td>{index + 1 + serialNumber}</td>
-                                    <td>{transaction.date_time}</td>
-                                    <td>{transaction.purpose}</td>
+                                    <td>{transaction?.date_time}</td>
+                                    <td>{transaction?.purpose}</td>
                                     <td className="text-end">
-                                        {transaction.debit
-                                            ? "৳ " + transaction.debit.toFixed(2)
+                                        {transaction?.debit
+                                            ? "৳ " + transaction?.debit.toFixed(2)
                                             : "--"}
                                     </td>
                                     <td className="text-end">
-                                        {transaction.credit
-                                            ? "৳ " + transaction.credit.toFixed(2)
+                                        {transaction?.credit
+                                            ? "৳ " + transaction?.credit.toFixed(2)
                                             : "--"}
                                     </td>
                                     <td className="text-end">
-                                        ৳ {transaction.balance.toFixed(2)}
+                                        {transaction?.balance && (
+                                            "৳ " + transaction?.balance
+                                        )}
                                     </td>
                                     <td className="text-center">
                                         <span
                                             className={
-                                                transaction.status ===
-                                                "Completed"
+                                                transaction?.status ==="Completed"
                                                     ? "text-success"
+                                                    : transaction?.status === "Rejected"
+                                                    ? "text-danger"
+                                                    : transaction?.status === "Refund"
+                                                    ? "text-primary"
                                                     : "text-warning"
                                             }
                                         >
-                                            {transaction.status}
+                                            {transaction?.status}
                                         </span>
                                     </td>
                                 </tr>

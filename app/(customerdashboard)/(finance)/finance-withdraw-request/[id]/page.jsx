@@ -47,7 +47,7 @@ const FinanceWithdraw = ({ params }) => {
                 Swal.fire({
                     // position: "top-end",
                     icon: "success",
-                    title: "Your OTP Varifaticon Success",
+                    title: "Withdraw request send successfully.",
                     showConfirmButton: true,
                     timer: 2000
                 });
