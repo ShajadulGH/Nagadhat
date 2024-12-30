@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 const SaleOnNagadhatLeft = ({ responseData }) => {
+    console.log(responseData);
+
     return (
         <div className="col-lg-5">
             <div className="order-billing-info">
@@ -27,17 +29,15 @@ const SaleOnNagadhatLeft = ({ responseData }) => {
                     <p>
                         Nagadhat Bangladesh Limited <br />
                         Commitment to Fulfilling Expectations
-                        <br />
-                        for sale on nagadhat
                     </p>
                 </div>
 
                 <div className="billing-btn-area">
                     <Link
-                        href={`/affiliate-buyback-policy-details/${responseData?.id}`}
-                        className="add-to-cart-link border-0"
+                        href={`/buyback-policy-agreement/${responseData?.order_id}`}
+                        className="add-to-cart-link border-0 text-capitalize"
                     >
-                        Track Your Sale On Nagadhat
+                        Download Agreement
                     </Link>
                 </div>
             </div>
