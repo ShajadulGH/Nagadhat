@@ -14,7 +14,7 @@ import LodingFixed from "../../LodingFixed";
 import NoDataFound from "../../NoDataFound";
 import { postSaleOnNagadhat } from "@/app/services/affiliate/postSaleOnNagadhat";
 import { useRouter } from "next/navigation";
-import {toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const SaleOnNagadhatModal = ({ resaleOrderID }) => {
     const [isPending, startTransition] = useTransition();
@@ -28,7 +28,6 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
 
     const { data: session, status } = useSession();
     const router = useRouter();
-
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
             const fetchSaleOnNagadhatData = async () => {
@@ -112,10 +111,13 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                 saleOnData,
                 session?.accessToken
             );
+            let saleOnNagadhatId = response?.results?.id;
             if (!response?.error) {
                 const modal = bootstrap.Modal.getInstance(modalRef.current);
                 if (modal) modal.hide();
-                router.push(`/thankyou?orderId=${resaleOrderID}`);
+                router.push(
+                    `/thank-you-for-sale-on-nagadhat?saleonid=${saleOnNagadhatId}`
+                );
             } else {
                 toast.error(
                     response?.message || "Failed to process the sale agreement."
