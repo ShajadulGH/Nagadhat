@@ -8,6 +8,7 @@ export const getUserDashboard = async (token) => {
                 Accept: "application/json",
                 Authorization: `Bearer ${token}`,
             },
+            cache: "no-store",
         });
         return await response.json();
     } catch (error) {
