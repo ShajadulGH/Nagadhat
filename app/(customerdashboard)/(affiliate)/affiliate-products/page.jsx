@@ -1,9 +1,12 @@
- import AffiliateProductWrapper from "@/app/components/customerDashboard/affiliate/affiliateproducts/AffiliateProductWrapper";
+import AffiliateProductWrapper from "@/app/components/customerDashboard/affiliate/affiliateproducts/AffiliateProductWrapper";
+import AffiliateRoute from "@/app/components/PrivateRoute/AffiliateRoute";
 
 const AffiliateProductslinkPage = () => {
     return (
         <>
-            <AffiliateProductWrapper />
+            <AffiliateRoute>
+                <AffiliateProductWrapper />
+            </AffiliateRoute>
         </>
     );
 };

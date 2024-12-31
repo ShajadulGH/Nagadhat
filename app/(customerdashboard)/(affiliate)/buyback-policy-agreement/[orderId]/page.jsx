@@ -1,10 +1,13 @@
 import SellOnNgadhatDetailWrapp from "@/app/components/customerDashboard/affiliate/saleonnagadhatdetail/SellOnNgadhatDetailWrapp";
+import AffiliateRoute from "@/app/components/PrivateRoute/AffiliateRoute";
 
-const page = ({ params  }) => {
+const page = ({ params }) => {
     const orderId = params.orderId;
     return (
         <>
-            <SellOnNgadhatDetailWrapp orderId={orderId} />
+            <AffiliateRoute>
+                <SellOnNgadhatDetailWrapp orderId={orderId} />
+            </AffiliateRoute>
         </>
     );
 };

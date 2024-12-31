@@ -1,9 +1,12 @@
 import AffiliateDashboardWrapp from "@/app/components/customerDashboard/affiliate/affiliatedashboard/AffiliateDashboardWrapp";
+import AffiliateRoute from "@/app/components/PrivateRoute/AffiliateRoute";
 
 const AffiliateDashboardPage = () => {
     return (
         <>
-            <AffiliateDashboardWrapp />
+            <AffiliateRoute>
+                <AffiliateDashboardWrapp />
+            </AffiliateRoute>
         </>
     );
 };
