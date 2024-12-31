@@ -30,10 +30,9 @@ const PendingBalanceWrapper = () => {
         }
     }, [session?.accessToken]);
 
-    const totalAmount = pendingBalance.reduce(
-        (sum, item) => sum + item.amount,
-        0
-    );
+    const totalAmount = Array.isArray(pendingBalance)
+        ? pendingBalance.reduce((sum, item) => sum + item.amount, 0)
+        : 0;
 
     return (
         <div className="customer-dashboard-order-history-area h-100 pb-4">
@@ -59,9 +58,9 @@ const PendingBalanceWrapper = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {pendingBalance.length > 0 ? (
+                                {pendingBalance?.length > 0 ? (
                                     <>
-                                        {pendingBalance.map((item, index) => (
+                                        {pendingBalance?.map((item, index) => (
                                             <PendingBalanceLists
                                                 key={index}
                                                 item={item}
