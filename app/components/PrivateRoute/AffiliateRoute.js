@@ -14,7 +14,6 @@ const AffiliateRoute = async ({ children }) => {
     if (response?.results?.affiliate_user_status === "General") {
         redirect(`/dashboard`);
     }
- 
     return (
         <>
             {session ? children : <DefaultLoader />}
