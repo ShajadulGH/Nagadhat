@@ -15,16 +15,14 @@ const Login = () => {
 
     useEffect(() => {
         async function fetchData() {
-            if (
-                session != undefined &&
-                fromPath &&
-                typeof fromPath === "string"
-            ) {
+            if (typeof fromPath === "string" && status === "authenticated") {
                 router?.push(fromPath);
+            } else if (status === "authenticated") {
+               router?.push("/dashboard"); 
             }
         }
         fetchData();
-    }, [session?.user?.email]);
+    }, [session?.user, status]);
 
     const [errorMessage, setErrorMessage] = useState("");
     const [formData, setFormData] = useState({
