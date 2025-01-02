@@ -59,15 +59,14 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             </td>
                             <td className="text-end">
                                 ৳{" "}
-                                {(member.affiliate_user?.team_total_resell_amount + member?.affiliate_user?.team_total_container_amount ).toFixed(
-                                    2
-                                ) || 0}
+                                {(
+                                    parseInt(member.affiliate_user?.team_total_resell_amount || 0) +
+                                    parseInt(member.affiliate_user?.team_total_container_amount || 0)
+                                ).toLocaleString()}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
-                                {member.affiliate_user?.team_total_retail_amount.toFixed(
-                                    2
-                                ) || 0}
+                                {member.affiliate_user?.team_total_retail_amount.toFixed(2) || 0}
                             </td>
                             <td className="text-center">
                                 {member.affiliate_user?.refer_count || 0}
@@ -104,8 +103,8 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_retail_amount
                                     ? teamGrandTotal?.grand_total_retail_amount.toFixed(
-                                          2
-                                      )
+                                        2
+                                    )
                                     : 0}
                             </strong>
                         </td>
