@@ -15,9 +15,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
             member.affiliate_user !== null
     );
     const displayMembers = [...generalMembers, ...affiliateMembers];
-
-    console.log("displayMembers", displayMembers);
-
+    
     return (
         <div className="table-responsive">
             <table className="table table-hover" style={{ minWidth: "950px" }}>
@@ -54,8 +52,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 </Link>
                             </td>
                             <td>
-                                {member?.user_customer_rank_tree?.placement_user
-                                    ?.name || ""}
+                                {member?.user_customer_rank_tree?.placement_user?.name || ""}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
@@ -75,11 +72,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 {member.affiliate_user?.total_team_members || 0}
                             </td>
                             <td>{member.affiliate_user_status}</td>
-                            <td
-                                className={
-                                    member.status === 1 ? "paid" : "text-danger"
-                                }
-                            >
+                            <td className={member.status === 1 ? "paid" : "text-danger"}>
                                 {member.status === 1 ? (
                                     <FaCircleCheck />
                                 ) : (
