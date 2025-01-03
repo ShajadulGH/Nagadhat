@@ -52,8 +52,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 </Link>
                             </td>
                             <td>
-                                {member?.user_customer_rank_tree?.placement_user
-                                    ?.name || ""}
+                                {member?.user_customer_rank_tree?.placement_user?.name || ""}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
@@ -64,7 +63,10 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             </td>
                             <td className="text-end">
                                 ৳{" "}
-                                {member.affiliate_user?.team_total_retail_amount.toFixed(2) || 0}
+                                {(
+                                    parseInt(member.affiliate_user?.team_total_retail_amount || 0) +
+                                    parseInt(member.affiliate_user?.team_total_privilege_card_amount || 0)
+                                ).toLocaleString()}
                             </td>
                             <td className="text-center">
                                 {member.affiliate_user?.refer_count || 0}
@@ -77,7 +79,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 {member.affiliate_user?.status ? (
                                     <FaCircleCheck />
                                 ) : (
-                                    <FaBan />
+                                    <FaBan className="text-danger" />
                                 )}
                             </td>
                         </tr>
