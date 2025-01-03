@@ -50,6 +50,7 @@ const page = ({ params }) => {
                     shipping_address_id: selectedDefaultAddressId,
                     outlet_pickup_point_id: pickUpIdForOrder,
                     delivery_note: deliveryNote,
+                    order_product_type: orderProductType,
                 };
                 const response = await updateResalePlaceOrder(
                     session.accessToken,
