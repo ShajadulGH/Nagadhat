@@ -40,7 +40,7 @@ const PrivilegeAddToCard = ({
             discountPrice:
                 (productsData?.mrp_price - productsData?.purchases_price) *
                 quantity,
-            price: totalAmount,
+            price: productsData?.purchases_price,
             outlet_id: outletId,
             product_thumbnail: productsData?.product_thumbnail,
             quantity: quantity,
