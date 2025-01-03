@@ -16,8 +16,6 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
     );
     const displayMembers = [...generalMembers, ...affiliateMembers];
 
-    console.log("displayMembers", displayMembers);
-
     return (
         <div className="table-responsive">
             <table className="table table-hover" style={{ minWidth: "950px" }}>
@@ -60,13 +58,21 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <td className="text-end">
                                 ৳{" "}
                                 {(
-                                    parseInt(member.affiliate_user?.team_total_resell_amount || 0) +
-                                    parseInt(member.affiliate_user?.team_total_container_amount || 0)
+                                    parseInt(
+                                        member.affiliate_user
+                                            ?.team_total_resell_amount || 0
+                                    ) +
+                                    parseInt(
+                                        member.affiliate_user
+                                            ?.team_total_container_amount || 0
+                                    )
                                 ).toLocaleString()}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
-                                {member.affiliate_user?.team_total_retail_amount.toFixed(2) || 0}
+                                {member.affiliate_user?.team_total_retail_amount.toFixed(
+                                    2
+                                ) || 0}
                             </td>
                             <td className="text-center">
                                 {member.affiliate_user?.refer_count || 0}
@@ -75,11 +81,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 {member.affiliate_user?.total_team_members || 0}
                             </td>
                             <td>{member.affiliate_user_status}</td>
-                            <td
-                                className={
-                                    member.status === 1 ? "paid" : "text-danger"
-                                }
-                            >
+                            <td className={member.status === 1 ? "paid" : "text-danger"}>
                                 {member.status === 1 ? (
                                     <FaCircleCheck />
                                 ) : (
@@ -94,7 +96,9 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <strong>
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
@@ -103,8 +107,8 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_retail_amount
                                     ? teamGrandTotal?.grand_total_retail_amount.toFixed(
-                                        2
-                                    )
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
