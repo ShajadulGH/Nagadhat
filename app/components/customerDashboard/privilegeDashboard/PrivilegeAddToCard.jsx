@@ -41,11 +41,7 @@ const PrivilegeAddToCard = ({
             discountPrice:
                 (productsData?.mrp_price - productsData?.purchases_price) *
                 quantity,
-<<<<<<< HEAD
             price: productsData?.purchases_price*quantity,
-=======
-            price: productsData?.purchases_price,
->>>>>>> 097be51 (Refactor MyTeamList for improved readability and formatting; update button text in ShippingOrderSectionResale; adjust price calculation in PrivilegeAddToCard; modify API base URLs in utils; update start script in package.json)
             outlet_id: outletId,
             product_thumbnail: productsData?.product_thumbnail,
             quantity: quantity,
