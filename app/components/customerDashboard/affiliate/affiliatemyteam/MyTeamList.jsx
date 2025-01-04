@@ -15,7 +15,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
             member.affiliate_user !== null
     );
     const displayMembers = [...generalMembers, ...affiliateMembers];
-
+    
     return (
         <div className="table-responsive">
             <table className="table table-hover" style={{ minWidth: "950px" }}>
