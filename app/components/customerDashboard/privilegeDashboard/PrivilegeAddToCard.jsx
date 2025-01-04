@@ -22,6 +22,7 @@ const PrivilegeAddToCard = ({
         return 3;
     });
 
+
     const [districtId, setDistrictId] = useState(() => {
         if (typeof window !== "undefined") {
             return localStorage.getItem("districtId") || 47;
@@ -40,7 +41,7 @@ const PrivilegeAddToCard = ({
             discountPrice:
                 (productsData?.mrp_price - productsData?.purchases_price) *
                 quantity,
-            price: totalAmount,
+            price: productsData?.purchases_price*quantity,
             outlet_id: outletId,
             product_thumbnail: productsData?.product_thumbnail,
             quantity: quantity,

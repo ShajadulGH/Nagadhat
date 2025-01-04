@@ -96,7 +96,7 @@ const ShippingOrderSectionResale = ({
                                 }}
                             >
                                 {orderProductType === 4
-                                    ? "Place Order"
+                                    ? "Continue"
                                     : "Get Product Request"}
                             </button>
                         </div>
