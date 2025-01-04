@@ -44,6 +44,7 @@ const CustomerRightsids = ({
             toast.error("An error occurred while canceling the order.");
         }
     };
+    const serialNumber = (currentPage - 1) * 20;
 
     return (
         <>
@@ -57,6 +58,7 @@ const CustomerRightsids = ({
                         <table className="table">
                             <thead>
                                 <tr>
+                                    <th>SL</th>
                                     <th scope="col">Invoice ID</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Grand Total</th>
@@ -79,24 +81,14 @@ const CustomerRightsids = ({
                                         } = orderItem;
                                         return (
                                             <tr key={index}>
+                                                <td>{index + 1 + serialNumber}</td>
                                                 <td>{invoice_id}</td>
                                                 <td>{order_date}</td>
-                                                <td>{grand_total}</td>
-
-                                                <td
-                                                    className={`${
-                                                        order_status ===
-                                                        "Canceled"
-                                                            ? "text-danger fw-bolder"
-                                                            : ""
-                                                    }`}
-                                                >
-                                                    {order_status ===
-                                                        "Processing" &&
-                                                    (orderItem?.order_product_type ===
-                                                        "2" ||
-                                                        orderItem?.order_product_type ===
-                                                            "3") ? (
+                                                <td className="text-end">৳ {grand_total}</td>
+                                                <td className={`${order_status ==="Canceled" ? "text-danger fw-bolder": "" }`}>
+                                                    {order_status === "Processing" &&
+                                                    (orderItem?.order_product_type ===  "2" ||
+                                                        orderItem?.order_product_type === "3") ? (
                                                         <div className="dropdown">
                                                             <button
                                                                 className="btn text-success border-0 dropdown-toggle ps-0"
@@ -104,8 +96,7 @@ const CustomerRightsids = ({
                                                                 data-bs-toggle="dropdown"
                                                                 aria-expanded="false"
                                                             >
-                                                                {order_status ||
-                                                                    "Processing"}
+                                                                {order_status || "Processing"}
                                                             </button>
                                                             <ul className="dropdown-menu">
                                                                 <li>
@@ -113,8 +104,7 @@ const CustomerRightsids = ({
                                                                         className="dropdown-item"
                                                                         href={`/shipping-page-resale/${order_id}`}
                                                                     >
-                                                                        Get
-                                                                        Product
+                                                                        Get Product
                                                                     </Link>
                                                                 </li>
                                                                 <li>
@@ -123,37 +113,22 @@ const CustomerRightsids = ({
                                                                         className="dropdown-item"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#sale-on-nagadhat-modal"
-                                                                        onClick={() =>
-                                                                            setResaleOrderID(
-                                                                                order_id
-                                                                            )
-                                                                        }
+                                                                        onClick={() =>setResaleOrderID(order_id)}
                                                                     >
-                                                                        Sale on
-                                                                        Nagadhat
+                                                                        Sale on Nagadhat
                                                                     </button>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     ) : (
-                                                        order_status ||
-                                                        "Pending"
+                                                        order_status || "Pending"
                                                     )}
                                                 </td>
 
-                                                <td
-                                                    className={`paid ${
-                                                        payment_status ===
-                                                        "Under Review"
-                                                            ? "text-warning"
-                                                            : ""
-                                                    }`}
-                                                >
-                                                    {order_status !==
-                                                        "Canceled" &&
+                                                <td className={`paid ${ payment_status === "Under Review" ? "text-warning" : "" }`}>
+                                                    {order_status !== "Canceled" &&
                                                     payment_status !== "Paid" &&
-                                                    payment_status !==
-                                                        "Under Review" ? (
+                                                    payment_status !== "Under Review" ? (
                                                         <>
                                                             {payment_status}
                                                             <Link
@@ -176,9 +151,7 @@ const CustomerRightsids = ({
                                                         >
                                                             <Link
                                                                 href={`/orderview?orderid=${order_id}`}
-                                                                style={{
-                                                                    color: "white",
-                                                                }}
+                                                                style={{ color: "white"}}
                                                             >
                                                                 <FaEye />
                                                             </Link>
@@ -186,9 +159,7 @@ const CustomerRightsids = ({
                                                         <button title="Order invoice">
                                                             <Link
                                                                 href={`/orderinvoice?orderId=${order_id}`}
-                                                                style={{
-                                                                    color: "white",
-                                                                }}
+                                                                style={{ color: "white"}}
                                                             >
                                                                 <FaDownload />
                                                             </Link>
@@ -212,21 +183,13 @@ const CustomerRightsids = ({
                                                                 <FaXmark />
                                                             </button>
                                                         )} */}
-                                                        {payment_status !==
-                                                            "Paid" &&
-                                                            payment_status !==
-                                                                "Under Review" &&
-                                                            order_status !==
-                                                                "Processing" &&
-                                                            order_status !==
-                                                                "Canceled" && (
+                                                        {payment_status !== "Paid" &&
+                                                            payment_status !== "Under Review" &&
+                                                            order_status !== "Processing" &&
+                                                            order_status !== "Canceled" && (
                                                                 <button
                                                                     title="Order Cancel"
-                                                                    onClick={() =>
-                                                                        handleOrderCanceled(
-                                                                            order_id
-                                                                        )
-                                                                    }
+                                                                    onClick={() => handleOrderCanceled( order_id )}
                                                                 >
                                                                     <FaXmark />
                                                                 </button>
