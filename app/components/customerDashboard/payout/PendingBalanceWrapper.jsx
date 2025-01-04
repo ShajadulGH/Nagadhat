@@ -5,21 +5,40 @@ import { useEffect, useState, useTransition } from "react";
 import { getAffiliatePendingBalance } from "@/app/services/affiliatepayout/getAffiliatePendingBalance";
 import LodingFixed from "../../LodingFixed";
 import NoDataFound from "../../NoDataFound";
+import { useSearchParams } from "next/navigation";
+import Pagination from "../../productCategory/Pagination";
 
 const PendingBalanceWrapper = () => {
     const [pendingBalance, setPendingBalance] = useState([]);
     const [isPending, startTransition] = useTransition();
     const { data: session } = useSession();
+    const [lastPage, setLastPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+        const page = searchParams.get("page");
+        if (page && page !== currentPage) {
+            setCurrentPage(parseInt(page));
+        }
+    }, [searchParams, currentPage]);
+    const limit = 20; //Per Page Category
 
     useEffect(() => {
         if (session?.accessToken) {
             const fetchPendingBalance = async () => {
+                const params = {
+                    page: currentPage,
+                    limit,
+                };
                 try {
                     startTransition(async () => {
                         const response = await getAffiliatePendingBalance(
-                            session?.accessToken
+                            session?.accessToken,
+                            params
                         );
-                        const results = response?.results || [];
+                        const results = response?.results?.data || [];
+                        setLastPage(response?.results?.last_page);
                         setPendingBalance(results);
                     });
                 } catch (error) {
@@ -28,7 +47,7 @@ const PendingBalanceWrapper = () => {
             };
             fetchPendingBalance();
         }
-    }, [session?.accessToken]);
+    }, [session?.accessToken, currentPage]);
 
     const totalAmount = Array.isArray(pendingBalance)
         ? pendingBalance.reduce((sum, item) => sum + item.amount, 0)
@@ -90,6 +109,10 @@ const PendingBalanceWrapper = () => {
                     </div>
                 )}
             </div>
+            <Pagination
+                currentPage={currentPage}
+                lastPage={lastPage}
+            />
         </div>
     );
 };
