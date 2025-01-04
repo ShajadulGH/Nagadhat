@@ -15,13 +15,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
             member.affiliate_user !== null
     );
     const displayMembers = [...generalMembers, ...affiliateMembers];
-<<<<<<< HEAD
-
-    console.log(displayMembers);
-
-=======
     
->>>>>>> c28143f (Refactor MyTeamList component to remove unnecessary console log and streamline JSX formatting)
     return (
         <div className="table-responsive">
             <table className="table table-hover" style={{ minWidth: "950px" }}>
