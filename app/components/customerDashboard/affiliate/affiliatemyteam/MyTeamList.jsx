@@ -52,7 +52,8 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 </Link>
                             </td>
                             <td>
-                                {member?.user_customer_rank_tree?.placement_user?.name || ""}
+                                {member?.user_customer_rank_tree?.placement_user
+                                    ?.name || ""}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
