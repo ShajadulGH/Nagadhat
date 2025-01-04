@@ -69,7 +69,7 @@ const PrivilegeCardProductTableBody = ({
     const handleProductClick = (proItem) => {
         setProductDetail(proItem);
     };
-
+    
     return (
         <>
             <tr key={id}>
