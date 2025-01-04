@@ -52,13 +52,20 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 </Link>
                             </td>
                             <td>
-                                {member?.user_customer_rank_tree?.placement_user?.name || ""}
+                                {member?.user_customer_rank_tree?.placement_user
+                                    ?.name || ""}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
                                 {(
-                                    parseInt(member.affiliate_user?.team_total_resell_amount || 0) +
-                                    parseInt(member.affiliate_user?.team_total_container_amount || 0)
+                                    parseInt(
+                                        member.affiliate_user
+                                            ?.team_total_resell_amount || 0
+                                    ) +
+                                    parseInt(
+                                        member.affiliate_user
+                                            ?.team_total_container_amount || 0
+                                    )
                                 ).toLocaleString()}
                             </td>
                             <td className="text-end">
@@ -90,7 +97,9 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <strong>
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
@@ -99,8 +108,8 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_retail_amount
                                     ? teamGrandTotal?.grand_total_retail_amount.toFixed(
-                                        2
-                                    )
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
