@@ -10,6 +10,7 @@ import DashboardTopInfo from "./DashboardTopInfo";
 import AffiliatePartnerStatus from "./AffiliatePartnerStatus";
 import { getUserDashboard } from "@/app/services/userdashboard/getUserDashboard";
 import { deleteShippingAddress } from "@/app/services/userdashboard/deleteShippingAddress";
+import { toast} from "react-toastify";
 
 const CustomerDashboardRightSide = () => {
     const [menuStates, setMenuStates] = useState({});
@@ -123,11 +124,11 @@ const CustomerDashboardRightSide = () => {
                 session?.accessToken
             );
             if (response) {
-                toast(response.message);
+                toast.success(response.message);
             }
         } catch (error) {
             console.error("Failed to update shipping address:", error);
-            toast(error.message);
+            toast.error(error.message);
         }
     };
 
@@ -153,6 +154,7 @@ const CustomerDashboardRightSide = () => {
 
     return (
         <>
+
             <div className="customer-dashboard-section">
                 <DashboardTopInfo userDashboard={userDashboard} />
                 <div className="d-flex gap-3 flex-column flex-md-row">
