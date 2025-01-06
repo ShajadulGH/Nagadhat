@@ -104,7 +104,7 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
             {isPending ? (
                 <DefaultLoader />
             ) : orderSummary?.payment_status === "Unpaid" ||
-              orderSummary?.payment_status === "Partial" ? (
+              orderSummary?.payment_status === "Partial Paid" ? (
                 <>
                     <div className="pay-now-payment-option-bg bg-white">
                         <div className="pay-now-payment-option-title">
