@@ -95,7 +95,9 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <strong>
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(
+                                          2
+                                      )
                                     : 0}
                             </strong>
                         </td>
