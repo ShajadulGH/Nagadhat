@@ -127,8 +127,8 @@ const CustomerRightsids = ({
 
                                                 <td className={`paid ${ payment_status === "Under Review" ? "text-warning" : "" }`}>
                                                     {order_status !== "Canceled" &&
-                                                    payment_status !== "Paid" &&
-                                                    payment_status !== "Under Review" && order_status !== "Refund" ? (
+                                                    payment_status === "Unpaid" ||
+                                                    payment_status === "Partial Paid"  ? (
                                                         <>
                                                             {payment_status}
                                                             <Link
@@ -164,29 +164,9 @@ const CustomerRightsids = ({
                                                                 <FaDownload />
                                                             </Link>
                                                         </button>
-                                                        {/* {order_status ==
-                                                            "Paid" ||
-                                                        order_status ==
-                                                            "Processing" ||
-                                                        order_status ==
-                                                            "Canceled" ? (
-                                                            " "
-                                                        ) : (
-                                                            <button
-                                                                title="Order Cancel"
-                                                                onClick={() =>
-                                                                    handleOrderCanceled(
-                                                                        order_id
-                                                                    )
-                                                                }
-                                                            >
-                                                                <FaXmark />
-                                                            </button>
-                                                        )} */}
-                                                        {payment_status !== "Paid" &&
-                                                            payment_status !== "Under Review" &&
-                                                            order_status !== "Processing" &&
-                                                            order_status !== "Canceled" && order_status !== "Refund" && (
+                                                        {payment_status === "Unpaid" && 
+                                                            order_status === "New Order" &&
+                                                             (
                                                                 <button
                                                                     title="Order Cancel"
                                                                     onClick={() => handleOrderCanceled( order_id )}
