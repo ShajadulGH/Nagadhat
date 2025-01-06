@@ -128,7 +128,7 @@ const CustomerRightsids = ({
                                                 <td className={`paid ${ payment_status === "Under Review" ? "text-warning" : "" }`}>
                                                     {order_status !== "Canceled" &&
                                                     payment_status !== "Paid" &&
-                                                    payment_status !== "Under Review" ? (
+                                                    payment_status !== "Under Review" && order_status !== "Refund" ? (
                                                         <>
                                                             {payment_status}
                                                             <Link
@@ -186,7 +186,7 @@ const CustomerRightsids = ({
                                                         {payment_status !== "Paid" &&
                                                             payment_status !== "Under Review" &&
                                                             order_status !== "Processing" &&
-                                                            order_status !== "Canceled" && (
+                                                            order_status !== "Canceled" && order_status !== "Refund" && (
                                                                 <button
                                                                     title="Order Cancel"
                                                                     onClick={() => handleOrderCanceled( order_id )}
