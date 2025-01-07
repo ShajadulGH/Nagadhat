@@ -32,7 +32,7 @@ const PrivilegeCardProductSummary = ({
 
     const router = useRouter();
     const netPrice = useMemo(
-        () => privilegeCartItem.reduce((acc, item) => acc + item.price, 0),
+        () => privilegeCartItem.reduce((acc, item) => acc + item.price* item?.quantity, 0),
         [privilegeCartItem]
     );
 
