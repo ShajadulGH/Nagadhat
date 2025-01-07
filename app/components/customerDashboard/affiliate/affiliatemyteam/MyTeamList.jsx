@@ -15,9 +15,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
             member.affiliate_user !== null
     );
     const displayMembers = [...generalMembers, ...affiliateMembers];
-
-    console.log("displayMembers", displayMembers);
-
+    
     return (
         <div className="table-responsive">
             <table className="table table-hover" style={{ minWidth: "950px" }}>
@@ -54,8 +52,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                                 </Link>
                             </td>
                             <td>
-                                {member?.user_customer_rank_tree?.placement_user
-                                    ?.name || ""}
+                                {member?.user_customer_rank_tree?.placement_user?.name || ""}
                             </td>
                             <td className="text-end">
                                 ৳{" "}
@@ -95,9 +92,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                             <strong>
                                 Total ৳{" "}
                                 {teamGrandTotal?.grand_total_resell_amount
-                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(
-                                          2
-                                      )
+                                    ? teamGrandTotal?.grand_total_resell_amount.toFixed(2)
                                     : 0}
                             </strong>
                         </td>
