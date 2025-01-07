@@ -28,17 +28,15 @@ const PrivilegeCardProductTableBody = ({
     } = item;
 
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
-    const [changePrice, setChangePrice] = useState(
-        purchases_price * changeQuantity
-    );
+    const [changePrice, setChangePrice] = useState(purchases_price * changeQuantity);
 
     const imageUrl = product_thumbnail
         ? `${NagadhatPublicUrl}/${product_thumbnail}`
         : "/images/placeholder--image.jpg";
     const totalAmount = purchases_price * changeQuantity;
-
-    const total = useMemo(
-        () => privilegeCartItem.reduce((acc, item) => acc + item.price, 0),
+    
+    const netPrice = useMemo(
+        () => privilegeCartItem.reduce((acc, item) => acc + item.purchase_price * item?.quantity, 0),
         [privilegeCartItem]
     );
 
@@ -46,7 +44,7 @@ const PrivilegeCardProductTableBody = ({
   
         if (
             changeQuantity < purchase_quantity &&
-            changePrice + total <= productCardLimit
+            (changePrice + netPrice) <= productCardLimit
         ) {
             setChangeQuantity((prev) => prev + 1);
         } else {
@@ -69,6 +67,10 @@ const PrivilegeCardProductTableBody = ({
     const handleProductClick = (proItem) => {
         setProductDetail(proItem);
     };
+    
+    let cartItem = privilegeCartItem.find(
+        (cartPrice) => cartPrice.product_id === id
+    );
     
     return (
         <>
@@ -144,9 +146,10 @@ const PrivilegeCardProductTableBody = ({
                     </span>
                 </td>
                 <td>
-                    {privilegeCartItem.find(
-                        (cartPrice) => cartPrice.product_id === id
-                    )?.price || ""}
+                    {
+                        cartItem?.price &&
+                        cartItem?.price * cartItem?.quantity
+                    }
                 </td>
                 <td>
                     {cart_status === 1 ? (
@@ -157,7 +160,7 @@ const PrivilegeCardProductTableBody = ({
                             productsData={item}
                             quantity={changeQuantity}
                             isButtonDisable={
-                                changePrice + total <= productCardLimit
+                               ( changePrice + netPrice) <= productCardLimit
                             }
                         />
                     ) : (
