@@ -122,50 +122,96 @@ const ClaimRewardModal = ({
                     </div>
                     <div className="modal-body ">
                         <div className="row">
-                            <div className="rewards-gif-image-item col-md-6">
-                                <div className="">
-                                    <Image
-                                        style={{
-                                            cursor:
-                                                rewardDetails?.status === 1
-                                                    ? "pointer"
-                                                    : "not-allowed",
-                                        }}
-                                        width={460}
-                                        height={350}
-                                        src={`/images/Taka.png`}
-                                        alt={`${rewardDetails?.level}`}
-                                        onClick={() => {
-                                            if (rewardDetails?.status === 1) {
-                                                handleRewardClaim("money", 1);
-                                            }
-                                        }}
-                                        className="img-fluid"
-                                    />
+                            {rewardDetails?.rewards_money === 0 ? (
+                                <div className="rewards-gif-image-item col-md-12">
+                                    <div className="">
+                                        <Image
+                                            width={770}
+                                            height={350}
+                                            src={rewardImageUrl}
+                                            alt={`${rewardDetails?.level}`}
+                                            onClick={() => {
+                                                if (
+                                                    rewardDetails?.status === 1
+                                                ) {
+                                                    handleRewardClaim(
+                                                        "prize",
+                                                        2
+                                                    );
+                                                }
+                                            }}
+                                            style={{
+                                                cursor:
+                                                    rewardDetails?.status === 1
+                                                        ? "pointer "
+                                                        : "not-allowed",
+                                            }}
+                                            className="img-fluid"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="rewards-gif-image-item col-md-6">
-                                <div className="">
-                                    <Image
-                                        width={460}
-                                        height={350}
-                                        src={rewardImageUrl}
-                                        alt={`${rewardDetails?.level}`}
-                                        onClick={() => {
-                                            if (rewardDetails?.status === 1) {
-                                                handleRewardClaim("prize", 2);
-                                            }
-                                        }}
-                                        style={{
-                                            cursor:
-                                                rewardDetails?.status === 1
-                                                    ? "pointer "
-                                                    : "not-allowed",
-                                        }}
-                                        className="img-fluid"
-                                    />
-                                </div>
-                            </div>
+                            ) : (
+                                <>
+                                    <div className="rewards-gif-image-item col-md-6">
+                                        <div className="">
+                                            <Image
+                                                style={{
+                                                    cursor:
+                                                        rewardDetails?.status ===
+                                                        1
+                                                            ? "pointer"
+                                                            : "not-allowed",
+                                                }}
+                                                width={460}
+                                                height={350}
+                                                src={`/images/Taka.png`}
+                                                alt={`${rewardDetails?.level}`}
+                                                onClick={() => {
+                                                    if (
+                                                        rewardDetails?.status ===
+                                                        1
+                                                    ) {
+                                                        handleRewardClaim(
+                                                            "money",
+                                                            1
+                                                        );
+                                                    }
+                                                }}
+                                                className="img-fluid"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="rewards-gif-image-item col-md-6">
+                                        <div className="">
+                                            <Image
+                                                width={460}
+                                                height={350}
+                                                src={rewardImageUrl}
+                                                alt={`${rewardDetails?.level}`}
+                                                onClick={() => {
+                                                    if (
+                                                        rewardDetails?.status ===
+                                                        1
+                                                    ) {
+                                                        handleRewardClaim(
+                                                            "prize",
+                                                            2
+                                                        );
+                                                    }
+                                                }}
+                                                style={{
+                                                    cursor:
+                                                        rewardDetails?.status ===
+                                                        1
+                                                            ? "pointer "
+                                                            : "not-allowed",
+                                                }}
+                                                className="img-fluid"
+                                            />
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                     <div className="modal-footer d-flex align-items-center justify-content-between">
