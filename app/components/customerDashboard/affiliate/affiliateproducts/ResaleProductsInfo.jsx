@@ -23,6 +23,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                 src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
                                 className="img-fluid h-100 w-100"
                                 alt={product.product_name}
+                                style={{ objectFit: "cover",aspectRatio: "1/1" }}
                             />
                         </div>
                         <div className="flash-sale-content-info text-hover-effect">
