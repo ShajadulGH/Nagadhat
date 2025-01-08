@@ -180,6 +180,7 @@ const MobileNav = () => {
                                     placeholder="Search in Nagadhat..."
                                     className="form-control"
                                     aria-label="Search in Nagadhat"
+                                    value={search}
                                     onChange={handleSearchChange}
                                 />
                                 <div className="mobile-popup-search-back-arrow">

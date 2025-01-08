@@ -95,7 +95,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     </div>
                     <h2>
                         {authSessionData?.user?.name}
-                        <span>®</span>
+                        {/* <span>®</span> */}
                     </h2>
                     <p>{authSessionData?.phone}</p>
                 </div>

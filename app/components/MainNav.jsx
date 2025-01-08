@@ -84,7 +84,7 @@ function MainNav({
                 !searchResultRef.current.contains(event.target)
             ) {
                 setSearchProduct([]);
-                setSearch();
+                setSearch("");
             }
         };
         if (typeof window !== "undefined") {
@@ -143,6 +143,7 @@ function MainNav({
                                             type="text"
                                             className="form-control"
                                             name="search"
+                                            value={search}
                                             placeholder="Search in Nagad Hat..."
                                             onChange={handleSearchChange}
                                         />
@@ -295,6 +296,7 @@ function MainNav({
                                                     type="text"
                                                     className="form-control"
                                                     name="search"
+                                                    value={search}
                                                     placeholder="Search in Nagad Hat..."
                                                     onChange={
                                                         handleSearchChange

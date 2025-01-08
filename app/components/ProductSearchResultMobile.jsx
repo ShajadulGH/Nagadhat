@@ -4,7 +4,7 @@ import Image from "next/image";
 import { NagadhatPublicUrl } from "../utils";
 
 const ProductSearchResultMobile = ({ searchProduct, clearSearch }) => {
-    console.log("searchProduct", searchProduct);
+ 
     return (
         <div className="product-search-modal-area">
             <div className="product-search-modal-content overflow-y-auto" style={{ maxHeight:"80vh" }}>
