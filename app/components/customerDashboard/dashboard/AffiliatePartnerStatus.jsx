@@ -14,13 +14,12 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
     const dispatch = useDispatch();
     const { data: session, status } = useSession();
     const affiliateStatus = useSelector((state) => state.affiliate.status);
-
+    console.log("affiliateStatus", affiliateStatus);
     useEffect(() => {
-        if (userDashboard?.affiliate_user_status === "Affiliate") {
-            setAffiliateStatus(1);
-            dispatch(setAffiliateStatus(1));
-        }
-    }, [userDashboard?.affiliate_user_status]);
+        setAffiliateStatus(userDashboard?.status);
+        dispatch(setAffiliateStatus(userDashboard?.status));
+    }, [userDashboard?.status]);
+    console.log(userDashboard);
 
     const fetchApplyAffiliate = async () => {
         if (!session?.accessToken) {
@@ -94,7 +93,7 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
 
                 {isPending ? (
                     <h3>Loading...</h3>
-                ) : affiliateStatus !== 1 ? (
+                ) : affiliateStatus == 0 ? (
                     <div className="affiliate-status-title">
                         <h4 className="mb-4">
                             Status: <span>Not Active</span>
@@ -111,11 +110,15 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
                             </Link>
                         </div>
                     </div>
-                ) : (
+                ) : affiliateStatus == 1 ? (
                     <h4 className="mb-4">
                         Status: <span>Active</span>
                     </h4>
-                )}
+                ) : affiliateStatus == 2 ? (
+                    <h4 className="mb-4">
+                        Status: <span className="text-danger">Suspend</span>
+                    </h4>
+                ) : null}
             </div>
         </div>
     );
