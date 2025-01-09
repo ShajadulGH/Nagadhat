@@ -10,7 +10,7 @@ export const getServiceCategoryWithDiscountPartner = async (token) => {
                 Accept: "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            next: { revalidate: 100 },
+            next: { revalidate: 10 },
         });
 
         return await response.json();

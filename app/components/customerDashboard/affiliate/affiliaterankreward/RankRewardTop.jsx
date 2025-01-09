@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const RankRewardTop = ({ affiliateData }) => {
     let imageUrl;
-    if (affiliateData?.profile_picture) {
-        imageUrl = `${NagadhatPublicUrl}/${affiliateData?.profile_picture}`;
+    if (affiliateData?.rank_logo) {
+        imageUrl = `${NagadhatPublicUrl}/${affiliateData?.rank_logo}`;
     }
     return (
         <>
