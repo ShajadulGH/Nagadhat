@@ -151,6 +151,16 @@ const PrivilegeMainCard = ({
                             />
                             {privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
+                                privilegeCardInfo?.cancel_status === 0 && (
+                                    <span
+                                        
+                                        className="add-to-cart-link border-0 rounded-3 text-capitalize"
+                                    >
+                                        Active
+                                    </span>
+                                )}
+                            {privilegeCardInfo?.product_name !==
+                                "Membership Card" &&
                             privilegeCardInfo?.cancel_status === 0 ? (
                                 <button
                                     data-bs-toggle="modal"
