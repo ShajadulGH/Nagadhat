@@ -83,77 +83,40 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
 
     return (
         <>
-            {/* <button
-                onClick={handlePrivilegeBuyNow}
-                className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
-                disabled={
-                    isPending ||
-                    privilegeCardInfo?.status === 1 ||
-                    privilegeCardInfo?.status === 2
-                }
-            >
-                {isPending ? (
-                    <div
-                        style={{
-                            height: "21px",
-                            width: "70px",
-                            textAlign: "center",
-                        }}
+            {privilegeCardInfo?.product_name === "Membership Card" &&
+                privilegeCardInfo?.status === 0 && (
+                    <button
+                        onClick={handlePrivilegeBuyNow}
+                        className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
+                        disabled={isPending}
                     >
-                        <RotatingLines
-                            visible={true}
-                            height="18"
-                            width="20"
-                            color="#ffffff"
-                            strokeWidth="5"
-                            animationDuration="0.75"
-                            ariaLabel="rotating-lines-loading"
-                            wrapperStyle={{}}
-                            wrapperClass="w-25"
-                        />
-                    </div>
-                ) : privilegeCardInfo?.status === 0 ? (
-                    <span>Buy Now</span>
-                ) : privilegeCardInfo?.status === 1 ? (
-                    <span>In Review</span>
-                ) : (
-                    privilegeCardInfo?.status === 2 && <span>Active</span>
+                        {isPending ? (
+                            <div
+                                style={{
+                                    height: "21px",
+                                    width: "70px",
+                                    textAlign: "center",
+                                }}
+                            >
+                                <RotatingLines
+                                    visible={true}
+                                    height="18"
+                                    width="20"
+                                    color="#ffffff"
+                                    strokeWidth="5"
+                                    animationDuration="0.75"
+                                    ariaLabel="rotating-lines-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass="w-25"
+                                />
+                            </div>
+                        ) : (
+                            <span>Buy Now</span>
+                        )}
+                    </button>
                 )}
-            </button> */}
 
-            {privilegeCardInfo?.status === 0 && (
-                <button
-                    onClick={handlePrivilegeBuyNow}
-                    className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
-                    disabled={isPending}
-                >
-                    {isPending ? (
-                        <div
-                            style={{
-                                height: "21px",
-                                width: "70px",
-                                textAlign: "center",
-                            }}
-                        >
-                            <RotatingLines
-                                visible={true}
-                                height="18"
-                                width="20"
-                                color="#ffffff"
-                                strokeWidth="5"
-                                animationDuration="0.75"
-                                ariaLabel="rotating-lines-loading"
-                                wrapperStyle={{}}
-                                wrapperClass="w-25"
-                            />
-                        </div>
-                    ) : (
-                        <span>Buy Now</span>
-                    )}
-                </button>
-            )}
-
-            {privilegeCardInfo?.status === 1 && (
+            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 1 && (
                 <button
                     className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                     disabled
