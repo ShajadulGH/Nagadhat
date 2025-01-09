@@ -12,7 +12,7 @@ export const getProductByCategory = async (outletId, slug, option={} ) => {
             }
 
             const response = await fetch(CategoryRootApi, {
-                next: { revalidate: 100 },
+                next: { revalidate: 10 },
             });
             return await response.json();
         }

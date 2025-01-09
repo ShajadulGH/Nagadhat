@@ -2,7 +2,7 @@ import {apiBaseUrl} from '../utils';
 
 export const getCategoryMobile = async () => {
     try {
-        const response = await fetch(`${apiBaseUrl}/all-category-mobile`, { next: { revalidate: 60 } });
+        const response = await fetch(`${apiBaseUrl}/all-category-mobile`, { next: { revalidate: 10 } });
         const data = await response.json();
         return data?.results;
     } catch (error) {
