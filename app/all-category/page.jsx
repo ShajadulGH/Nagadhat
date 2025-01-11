@@ -16,8 +16,8 @@ const AllCategoryPage = async ({ searchParams }) => {
     const limit = 24; //Per Page Category
 
     const categoryData = await getHomeCategory(page, limit);
-    viewCategoryData = categoryData.data;
-    lastPage = categoryData.last_page;
+    viewCategoryData = categoryData?.data;
+    lastPage = categoryData?.last_page;
     if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner_image) {
         bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner_image}`;
     }
