@@ -26,8 +26,8 @@ const AllCategoryPage = async ({ searchParams }) => {
         <div className="container view-all-product-container">
             <ViewAllBanner imageUrl={bannerUrl} />
             <ViewAllCategoryTitle title="Categories" />
-            <ViewAllCategories isCategory={true} viewCategoryData={viewCategoryData} />
-            <div className="view-all-product-pagination-area ">
+            <div className='view-all-product-area'>
+                <ViewAllCategories isCategory={true} viewCategoryData={viewCategoryData} />
                 <Pagination
                     currentPage={page}
                     lastPage={lastPage}

@@ -34,9 +34,10 @@ const AllFlashSalesProductPage = async ({ searchParams }) => {
                 flashSaleEndData={flashSaleEndData}
             />
 
-            <ViewAllProduct viewProductData={viewProductData} loading={false} />
+            
 
-            <div className="pb-5">
+            <div className="view-all-product-area" >
+                <ViewAllProduct viewProductData={viewProductData} loading={false} />
                 <Pagination
                     currentPage={page}
                     lastPage={lastPage}
