@@ -10,6 +10,18 @@ import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
 
 const Registration = () => {
+    return (
+        <>
+            <div className="container">
+                <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "60vh" }}
+                >
+                    <h1>Registration is not possible at this time.</h1>
+                </div>
+            </div>
+        </>
+    );
     const [toggleSponsored, setToggleSponsored] = useState("self");
     const [affiliateSignup, setAffiliateSignup] = useState([]);
     const [selectedChildName, setSelectedChildName] = useState("");
@@ -57,9 +69,15 @@ const Registration = () => {
             referrer_id:
                 parseInt(referral) || parseInt(referralId) || referrerID || 0,
             placement_user_id: parseInt(selectedPlacementChildId) || 0,
-            dropdown_child_user_id : parseInt(selectedPlacementId) || 0,
+            dropdown_child_user_id: parseInt(selectedPlacementId) || 0,
         }));
-    }, [selectedPlacementChildId, referralId, referral, referrerID, selectedPlacementId]);
+    }, [
+        selectedPlacementChildId,
+        referralId,
+        referral,
+        referrerID,
+        selectedPlacementId,
+    ]);
 
     useEffect(() => {
         // console.log("formData========>", { formData });
@@ -115,13 +133,16 @@ const Registration = () => {
                 dropdown_child_user_id: "",
             }));
             fetchAffiliateNewSignup();
-        }else{
+        } else {
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 referrer_id:
-                    parseInt(referral) || parseInt(referralId) || referrerID || 0,
+                    parseInt(referral) ||
+                    parseInt(referralId) ||
+                    referrerID ||
+                    0,
                 placement_user_id: parseInt(selectedPlacementChildId) || 0,
-                dropdown_child_user_id : parseInt(selectedPlacementId) || 0,
+                dropdown_child_user_id: parseInt(selectedPlacementId) || 0,
             }));
         }
     }, [toggleSponsored]);
@@ -158,11 +179,14 @@ const Registration = () => {
                     //     router.push(`/otp?phone=${formData.phone}`);
                     //     return;
                     // }
-                    
-                    if (res.message == "Referrer User Not Found! Please try another Referrer.") {
+
+                    if (
+                        res.message ==
+                        "Referrer User Not Found! Please try another Referrer."
+                    ) {
                         localStorage.removeItem("referrerID");
                         formData.referrer_id = "";
-                    } 
+                    }
                     // else if (res.message == "Validation Error.") {
                     //     setErrorMessage(res.data.phone[0]);
                     //     return;
@@ -225,8 +249,8 @@ const Registration = () => {
         );
 
         setSelectedPlacementChildId(selectedUser?.child?.id);
-        setSelectedPlacementId(selectedUser?.id)
-    }
+        setSelectedPlacementId(selectedUser?.id);
+    };
 
     return (
         <div className="container">
@@ -413,7 +437,9 @@ const Registration = () => {
                                             className="form-select"
                                             aria-label="Default select example"
                                             id="placement"
-                                            onChange={(e) => handleSetPlacemnt(e)}
+                                            onChange={(e) =>
+                                                handleSetPlacemnt(e)
+                                            }
                                         >
                                             <option>Select</option>
 
@@ -480,8 +506,8 @@ const Registration = () => {
                                     Or Sign Up With
                                 </label> */}
                                 {/* <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center "> */}
-                                    {/* <button>Sign in with Facebook</button> */}
-                                    {/* <button>
+                                {/* <button>Sign in with Facebook</button> */}
+                                {/* <button>
                                         {" "}
                                         <Image
                                             width={25}
