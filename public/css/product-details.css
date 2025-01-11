@@ -9,7 +9,7 @@
     padding: 25px 20px;
     position: relative;
     width: 100%;
-    height: 460px;
+    aspect-ratio: 1/1;
 }
 
 .product-details-info-img img {
@@ -55,7 +55,7 @@
 }
 
 .product-multiple-photo-item img {
-    object-fit: contain;
+    object-fit: scale-down !important;
     border-radius: 10px;
 }
 

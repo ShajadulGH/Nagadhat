@@ -68,7 +68,7 @@ const CategoryRightSide = ({
                     !loading &&
                     <NoDataFound />
                 )}
-                <div className=" pt-4">
+                <div className="">
                     <Pagination currentPage={currentPage} lastPage={lastPage} />
                 </div>
             </div>
