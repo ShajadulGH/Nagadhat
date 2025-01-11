@@ -56,10 +56,13 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        if (formData.username != "01739245723") {
+        
+        const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986"];
+        if (!allowedNumbers.includes(formData.username)) {
             toast.error("Our site is currently under maintenance. We’ll be back soon!");
             return;
         }
+
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
             return;

@@ -160,10 +160,12 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formData.phone != "01739245723") {
-            alert("Our site is currently under maintenance. We’ll be back soon!");
+        const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986"];
+        if (!allowedNumbers.includes(formData.phone)) {
+            toast.error("Our site is currently under maintenance. We’ll be back soon!");
             return;
         }
+
         async function createUser() {
             const isValidInput = valideateInput(formData);
             if (!isValidInput) {
