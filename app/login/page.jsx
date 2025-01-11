@@ -6,20 +6,21 @@ import { getProviders, signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const Login = () => {
-    return (
-        <>
-            <div className="container">
-                <div
-                    className="d-flex justify-content-center align-items-center"
-                    style={{ height: "60vh" }}
-                >
-                    <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
-                </div>
-            </div>
-        </>
-    );
+    // return (
+    //     <>
+    //         <div className="container">
+    //             <div
+    //                 className="d-flex justify-content-center align-items-center"
+    //                 style={{ height: "60vh" }}
+    //             >
+    //                 <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
+    //             </div>
+    //         </div>
+    //     </>
+    // );
     const router = useRouter();
     const { status, data: session } = useSession();
     const searchParams = useSearchParams();
@@ -55,7 +56,10 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
+        if (formData.username != "01739245723") {
+            toast.error("Our site is currently under maintenance. We’ll be back soon!");
+            return;
+        }
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
             return;
