@@ -233,8 +233,6 @@ export default function RootLayout({ children, slug, option }) {
                 strategy="afterInteractive"
                 src="/js/bootstrap.bundle.min.js"
             />
-            <Script src="/js/jquery.min.js" />
-            <Script src="/js/custom.js" />
 
             <body>
                 <Suspense>

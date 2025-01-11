@@ -16,8 +16,8 @@ const AllCategoryPage = async ({ searchParams }) => {
     const limit = 24; //Per Page Category
 
     const categoryData = await getHomeCategory(page, limit);
-    viewCategoryData = categoryData.data;
-    lastPage = categoryData.last_page;
+    viewCategoryData = categoryData?.data;
+    lastPage = categoryData?.last_page;
     if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner_image) {
         bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner_image}`;
     }
@@ -26,8 +26,8 @@ const AllCategoryPage = async ({ searchParams }) => {
         <div className="container view-all-product-container">
             <ViewAllBanner imageUrl={bannerUrl} />
             <ViewAllCategoryTitle title="Categories" />
-            <ViewAllCategories isCategory={true} viewCategoryData={viewCategoryData} />
-            <div className="view-all-product-pagination-area ">
+            <div className='view-all-product-area'>
+                <ViewAllCategories isCategory={true} viewCategoryData={viewCategoryData} />
                 <Pagination
                     currentPage={page}
                     lastPage={lastPage}

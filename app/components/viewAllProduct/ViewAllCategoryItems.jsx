@@ -1,13 +1,12 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 import Link from "next/link";
+import img from "@/public/images/placeholder--image.jpg";
 
 const ViewAllCategoryItems = ({ items, isCategory }) => {
-    let imageUrl = "/images/flash-img1.jpg";
     const { title, slug: path, logo } = items;
-    if (logo) {
-        imageUrl = `${NagadhatPublicUrl}/${logo}`;
-    }
+    const imageUrl = logo ? `${NagadhatPublicUrl}/${logo}` : img;
+    
     return (
         <div className="nh-categories-item">
             {isCategory ? (
