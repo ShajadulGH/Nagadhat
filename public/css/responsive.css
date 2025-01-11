@@ -349,6 +349,17 @@
 }
 
 @media (max-width: 767px) {
+    .flash-sale-area,
+    .nh-categories-area,
+    .nagadhat-partner-area {
+        padding: 30px 0;
+    }
+    .nh-just-for-you {
+        padding-top: 30px;
+    }
+    .view-all-product-area {
+        padding-bottom: 30px;
+    }
     .customer-dashboard-order-history-title {
         padding:15px
     }
@@ -411,7 +422,6 @@
 
     .product-details-info-img {
         padding: 15px;
-        height: 350px;
     }
 
     .tab-panel-info-image-area {

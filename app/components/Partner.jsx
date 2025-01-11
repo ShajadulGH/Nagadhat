@@ -46,25 +46,19 @@ function Partner() {
             }
           },
           {
-            breakpoint: 600,
+            breakpoint: 767,
             settings: {
-              slidesToShow: 4,
+              slidesToShow: 2,
               slidesToScroll: 1,
               initialSlide: 2
             }
           },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1
-            }
-          }
+         
         ]
       };
 
     return (
-        <section className="nagadhat-partner-area">
+        <section className="nagadhat-partner-area ">
             <div className="container">
                 <div className="row g-2 g-lg-3">
                     <Slider {...settings}>
