@@ -20,6 +20,10 @@ const nextConfig = {
                 hostname: "127.0.0.1",
                 port: "8000", // Specify port if required
             },
+            {
+                protocol: "https",
+                hostname: "beta.nagadhat.com.bd",
+            },
         ],
     },
     // async headers() {
