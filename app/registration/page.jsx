@@ -8,6 +8,7 @@ import { registerUser } from "../services/registerUser";
 import { validatePhoneNumber } from "../services/validatePhoneNumber";
 import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
+import { toast } from "react-toastify";
 
 const Registration = () => {
     // return (
