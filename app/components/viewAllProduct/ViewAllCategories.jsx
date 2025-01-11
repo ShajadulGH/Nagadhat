@@ -1,6 +1,6 @@
 import ViewAllCategoryItems from "./ViewAllCategoryItems";
 
-const ViewAllCategories = ({ viewCategoryData }) => {
+const ViewAllCategories = ({ viewCategoryData,isCategory }) => {
     return (
         <div className="row nh-categories-row view-all-product-area">
             <div className="col-md-12">
@@ -10,6 +10,7 @@ const ViewAllCategories = ({ viewCategoryData }) => {
                             <ViewAllCategoryItems
                                 key={categoryItem.id}
                                 items={categoryItem}
+                                isCategory={isCategory}
                             />
                         );
                     })}
