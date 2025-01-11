@@ -10,18 +10,18 @@ import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
 
 const Registration = () => {
-    return (
-        <>
-            <div className="container">
-                <div
-                    className="d-flex justify-content-center align-items-center"
-                    style={{ height: "60vh" }}
-                >
-                    <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
-                </div>
-            </div>
-        </>
-    );
+    // return (
+    //     <>
+    //         <div className="container">
+    //             <div
+    //                 className="d-flex justify-content-center align-items-center"
+    //                 style={{ height: "60vh" }}
+    //             >
+    //                 <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
+    //             </div>
+    //         </div>
+    //     </>
+    // );
     const [toggleSponsored, setToggleSponsored] = useState("self");
     const [affiliateSignup, setAffiliateSignup] = useState([]);
     const [selectedChildName, setSelectedChildName] = useState("");
@@ -160,7 +160,10 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        if (formData.phone != "01739245723") {
+            alert("Our site is currently under maintenance. We’ll be back soon!");
+            return;
+        }
         async function createUser() {
             const isValidInput = valideateInput(formData);
             if (!isValidInput) {
