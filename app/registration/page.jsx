@@ -17,7 +17,7 @@ const Registration = () => {
                     className="d-flex justify-content-center align-items-center"
                     style={{ height: "60vh" }}
                 >
-                    <h1>Registration is not possible at this time.</h1>
+                    <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
                 </div>
             </div>
         </>
