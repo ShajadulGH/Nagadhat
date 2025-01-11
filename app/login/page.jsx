@@ -8,6 +8,18 @@ import { useSession } from "next-auth/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
+    return (
+        <>
+            <div className="container">
+                <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "60vh" }}
+                >
+                    <h1>Login is not possible at this time.</h1>
+                </div>
+            </div>
+        </>
+    );
     const router = useRouter();
     const { status, data: session } = useSession();
     const searchParams = useSearchParams();
@@ -18,7 +30,7 @@ const Login = () => {
             if (typeof fromPath === "string" && status === "authenticated") {
                 router?.push(fromPath);
             } else if (status === "authenticated") {
-               router?.push("/dashboard"); 
+                router?.push("/dashboard");
             }
         }
         fetchData();
@@ -34,7 +46,7 @@ const Login = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        setErrorMessage('')
+        setErrorMessage("");
     };
 
     const togglePasswordVisibility = () => {
@@ -101,7 +113,11 @@ const Login = () => {
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={showPassword ? "text" : "password"}
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             className="form-control"
                                             id="password"
                                             name="password"
@@ -118,7 +134,11 @@ const Login = () => {
                                                 color: "#000",
                                             }}
                                         >
-                                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                            {showPassword ? (
+                                                <FaEyeSlash />
+                                            ) : (
+                                                <FaEye />
+                                            )}
                                         </button>
                                     </div>
                                 </div>
@@ -155,8 +175,8 @@ const Login = () => {
                                     Or Login With
                                 </label> */}
                                 {/* <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center "> */}
-                                    {/* <SigninBtn provider="facebook" /> */}
-                                    {/* <SigninBtn provider="google" /> */}
+                                {/* <SigninBtn provider="facebook" /> */}
+                                {/* <SigninBtn provider="google" /> */}
                                 {/* </div> */}
                                 <p className="text-center">
                                     New to Nagadhat?{" "}
