@@ -96,10 +96,10 @@ function Sales() {
 
     return (
         <>
-            {flashSaleProductList?.length > 0 &&
-                new Date(flashSaleEndsTime?.end_time).getTime() > Date.now() &&
-                flashSaleEndsTime?.status &&
-                flashSaleEndsTime?.show_on_home && (
+            {flashSaleProductList?.length > 0 && new Date(flashSaleEndsTime?.end_time).getTime() > Date.now() && flashSaleEndsTime?.status &&
+                flashSaleEndsTime?.show_on_home  ?
+                
+                 (
                     <section className={`flash-sale-area `}>
                         <div className="container">
                             <SectionTitle
@@ -136,7 +136,7 @@ function Sales() {
                             </div>
                         </div>
                     </section>
-                )}
+                ):""}
         </>
     );
 }

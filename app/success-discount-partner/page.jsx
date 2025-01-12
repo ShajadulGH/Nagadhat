@@ -35,8 +35,8 @@ const PartnerPage = async ({searchParams}) => {
                                     Mirpur Road, Dhaka-1207.</p>
                                 <p>
                                     Call on{' '}
-                                    <a href="tel:+8801906198502" className="text-danger">
-                                        01906198502
+                                    <a href="tel:09647444444" className="text-danger">
+                                    09647 444 444
                                     </a>{' '}
                                     for more details.
                                 </p>
