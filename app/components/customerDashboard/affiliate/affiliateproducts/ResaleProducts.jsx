@@ -73,7 +73,7 @@ const ResaleProducts = ({ isActive }) => {
             };
             fetchRetailProducts();
         }
-    }, [session?.accessToken, sortDuration, sortPrice]);
+    }, [session?.accessToken, sortDuration, sortPrice,currentPage]);
 
     return (
         <>

@@ -5,10 +5,10 @@ import ViewAllProduct from "../components/viewAllProduct/ViewAllProduct";
 import { getHomeJustForYouProduct } from "../services/getHomeJustForYouProduct";
 import Pagination from "../components/productCategory/Pagination";
 import RecentViewProduc from "../components/RecentViewProduc";
+import  bannerUrl from "@/public/images/banner/Just For You-01.webp"
 
 const AllJustForYouProductPage = async ({ searchParams }) => {
     let viewProductData = [];
-    let bannerUrl = "/images/fashion.jpg";
     let lastPage = 1;
     const page = parseInt(searchParams?.page) || 1;
     const districtId = searchParams?.districtId || 47;
