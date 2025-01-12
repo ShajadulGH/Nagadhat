@@ -5,11 +5,12 @@ import ViewAllProduct from "../components/viewAllProduct/ViewAllProduct";
 import { getHomeFlashSalesProduct } from "../services/getHomeFlashSalesProduct";
 import Pagination from "../components/productCategory/Pagination";
 import RecentViewProduc from "../components/RecentViewProduc";
+import  bannerUrl from "@/public/images/banner/Flash Sale-01.webp"
 
 const AllFlashSalesProductPage = async ({ searchParams }) => {
     let viewProductData = [];
     let flashSaleEndData = null;
-    let bannerUrl = "/images/fashion.jpg";
+    
     let lastPage = 1;
     const page = parseInt(searchParams?.page) || 1;
     const districtId = searchParams?.districtId || 1;
