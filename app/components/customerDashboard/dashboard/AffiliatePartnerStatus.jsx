@@ -78,7 +78,7 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
             >
                 <Link
                     className="customer-dashboard-affiliate-badge"
-                    href="/affiliatedashboard"
+                    href="/affiliate-dashboard"
                 >
                     <Image
                         src="/images/affiliate-badge.gif"
@@ -109,8 +109,8 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
                         </div>
                     </div>
                 ) : affiliateStatus == 1 ? (
-                    <h4 className="mb-4">
-                        Status: <span>Active</span>
+                    <h4 className="mb-4 d-flex align-items-center gap-3">
+                        <span>Status:</span> <Link href="/affiliate-dashboard" className="add-to-cart-link text-capitalize font-width-medium">Active</Link>
                     </h4>
                 ) : affiliateStatus == 2 ? (
                     <h4 className="mb-4">
