@@ -46,7 +46,7 @@ function Footer() {
                             <div className="col-md-6 footer-widget text-white">
                                 <QuickLinks title="Contact Info" >
                                     <div className="footer-widget-address">
-                                        <FooterAddress icon="/images/call-footer.svg" title="Call Us" subtitle="01906198502" />
+                                        <FooterAddress icon="/images/call-footer.svg" title="Call Us" subtitle="09647 444 444" />
                                         <FooterAddress icon="/images/location-footer.svg" title="Address" subtitle="Khaja Super Market, 2nd to 7th Floor, Kallyanpur  Bus Stop, Mirpur Road, Dhaka-1207." />
                                     </div>
                                 </QuickLinks>
