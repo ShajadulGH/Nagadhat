@@ -136,7 +136,7 @@ const CartPage = () => {
                         cart_id,
                         session?.accessToken
                     );
-                    console.log(deleteProduct);
+                    // console.log(deleteProduct);
                     
                     const updatedCartProducts = await fetchCartProducts(
                         session?.accessToken,

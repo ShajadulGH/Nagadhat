@@ -65,7 +65,6 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
 
         try {
             const response = await postWithdrawMobileBanking(session?.accessToken, data);
-            console.log("Withdrawal successful", response);
             if (response.code === 200) {
                 // Close modal programmatically
                 const modalElement = modalRef.current;

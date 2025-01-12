@@ -14,8 +14,8 @@ const MainSliderItems = ({ sliderItem }) => {
         btn_link: path,
     } = sliderItem;
     return (
-        <div className="hero-slider-item">
-            <div className="hero-slider-photo">
+        <div className="hero-slider-item w-100">
+            <div className="hero-slider-photo w-100">
                 <Image
                     src={imageurl}
                     alt={altText || "Image"}

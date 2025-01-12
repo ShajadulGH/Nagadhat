@@ -15,9 +15,6 @@ const GoogleProfile = () => {
     const router = useRouter();
     const { status, data: session } = useSession();
 
-    // console.log('=>>> google profile page session status', status)
-    // console.log('=>>> google profile page session data', session)
-
     const [formData, setFormData] = useState({
         name: session?.user?.name || "",
         phone: "",
@@ -36,7 +33,6 @@ const GoogleProfile = () => {
     useEffect(() => {
         async function fetchData() {
             if (session != undefined) {
-                // console.log("=>>> fetch data...", session);
                 if (googleImage) {
                     const data = await checkUserExistByGoogleLogin(formData2);
                     if (
@@ -45,10 +41,6 @@ const GoogleProfile = () => {
                             data?.account_provider == "google")
                     ) {
                         setLoading(true);
-                        console.log(
-                            "=>>> redirect to dashboard",
-                            data?.message
-                        );
                         router.push(`/dashboard`);
                     }
                 }
@@ -62,12 +54,8 @@ const GoogleProfile = () => {
         });
     }, [session?.user?.email]);
 
-    // console.log("=>>> formdata before input changes", formData);
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-
-        // console.log("=>>> formdata after input changes", formData);
     };
 
     const handleRegistration = async (e) => {
@@ -86,11 +74,7 @@ const GoogleProfile = () => {
         }
 
         try {
-            // console.log("=>>> formdata before form submit", formData);
-
             const res = await googleNewUser(formData);
-
-            // console.log("=>>> res", res);
 
             if (res?.success != true) {
                 alert(res.message);

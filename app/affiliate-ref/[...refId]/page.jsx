@@ -5,7 +5,6 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const RefProduct = ({ params }) => {
     const { refId } = params;
-    console.log("params", { params });
 
     const [userId, slug] = refId;
     const router = useRouter();

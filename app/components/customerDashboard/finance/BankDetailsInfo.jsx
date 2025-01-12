@@ -28,7 +28,6 @@ const BankDetailsInfo = () => {
                         session.accessToken
                     );
                     const bankData = response.results.data;
-                    console.log(response);
 
                     // Prefill the form with the data received from the API
                     setBankInfo({
