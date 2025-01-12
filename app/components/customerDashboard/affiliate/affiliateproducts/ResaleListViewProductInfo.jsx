@@ -35,6 +35,7 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                         style={{
                                             height: "100px",
                                             width: "80px",
+                                            overflow:"hidden"
                                         }}
                                     >
                                             <Image

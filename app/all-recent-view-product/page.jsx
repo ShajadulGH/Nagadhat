@@ -5,10 +5,10 @@ import ViewAllBanner from "../components/viewAllProduct/ViewAllBanner";
 import ViewAllCategoryTitle from "../components/viewAllProduct/ViewAllCategoryTitle";
 import ViewAllProduct from "../components/viewAllProduct/ViewAllProduct";
 import { getRecentViewProductsById } from "../services/getRecentViewProductsById";
+import  bannerUrl from "@/public/images/banner/Recent View Products-01.webp"
 
 const ViewAllProductPage = () => {
     const [viewProductData, setViewProductData] = useState([]);
-    const [bannerUrl, setBannerUrl] = useState("/images/fashion.jpg");
     const [outletId, setOutletId] = useState(0);
     const [loading, setLoading] = useState(false);
 
