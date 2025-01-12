@@ -5,26 +5,25 @@ import DefaultLoader from "../defaultloader/DefaultLoader";
 
 const ViewAllProduct = ({ viewProductData, loading }) => {
     return (
-        <Suspense fallback={<DefaultLoader />}>
+        <>
+            {loading && <DefaultLoader />}
             <div className="row just-for-random-product">
                 <div className="col-md-12">
                     {viewProductData?.length > 0 ? (
                         <div className="flash-sale-content-area">
-                            {
-                                viewProductData?.map((viewProductItem) => (
-                                    <ViewAllProductItems
-                                        key={viewProductItem.id}
-                                        items={viewProductItem}
-                                    />
-                                ))
-                            }
+                            {viewProductData?.map((viewProductItem) => (
+                                <ViewAllProductItems
+                                    key={viewProductItem.id}
+                                    items={viewProductItem}
+                                />
+                            ))}
                         </div>
                     ) : (
                         !loading && <NoDataFound />
                     )}
                 </div>
             </div>
-        </Suspense>
+        </>
     );
 };
 

@@ -14,7 +14,7 @@ const FooterAddress = ({ icon, title, subtitle }) => {
                 </div>
                 <div className="footer-widget-address-info">
                     <strong>{title}</strong>
-                    <p>{subtitle}</p>
+                    <p className="w-100">{subtitle}</p>
                 </div>
             </div>
         </>

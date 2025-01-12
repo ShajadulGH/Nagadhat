@@ -46,10 +46,10 @@ function MiniNav() {
                         <ul className="d-flex align-items-center">
                             <li>
                                 <a
-                                    href="tel:+01906198502"
+                                    href="tel:09647444444"
                                     className=" text-white text-capitalize"
                                 >
-                                    <FaPhone className="pe-1"/> 01906198502
+                                    <FaPhone className="pe-1"/> 09647 444 444
                                 </a>
                             </li>
                         </ul>
