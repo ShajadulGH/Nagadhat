@@ -49,7 +49,7 @@ function MainNav({
                     districtId,
                     search
                 );
-                console.log(productData);
+                // console.log(productData);
                 const searchResults = productData?.results;
 
                 if (searchResults) {

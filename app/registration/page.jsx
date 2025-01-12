@@ -11,18 +11,6 @@ import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSign
 import { toast } from "react-toastify";
 
 const Registration = () => {
-    // return (
-    //     <>
-    //         <div className="container">
-    //             <div
-    //                 className="d-flex justify-content-center align-items-center"
-    //                 style={{ height: "60vh" }}
-    //             >
-    //                 <h1>Our site is currently under maintenance. We’ll be back soon!</h1>
-    //             </div>
-    //         </div>
-    //     </>
-    // );
     const [toggleSponsored, setToggleSponsored] = useState("self");
     const [affiliateSignup, setAffiliateSignup] = useState([]);
     const [selectedChildName, setSelectedChildName] = useState("");
@@ -81,8 +69,6 @@ const Registration = () => {
     ]);
 
     useEffect(() => {
-        // console.log("formData========>", { formData });
-        // console.log("referrerID========>", { referrerID });
     }, [formData, referrerID]);
 
     const handleInputChange = (e) => {
@@ -161,12 +147,6 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986"];
-        if (!allowedNumbers.includes(formData.phone)) {
-            toast.error("Our site is currently under maintenance. We’ll be back soon!");
-            return;
-        }
-
         async function createUser() {
             const isValidInput = valideateInput(formData);
             if (!isValidInput) {
