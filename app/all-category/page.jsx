@@ -7,20 +7,20 @@ import { getHomeCategory } from "../services/getHomeCategory";
 import { NagadhatPublicUrl } from "../utils";
 import Pagination from "../components/productCategory/Pagination";
 import RecentViewProduc from "../components/RecentViewProduc";
+import  bannerUrl from "@/public/images/banner/Categories-01.webp"
 
 const AllCategoryPage = async ({ searchParams }) => {
     const page = parseInt(searchParams.page) || 1;
     let viewCategoryData = [];
-    let bannerUrl = "/images/fashion.jpg";
     let lastPage = 1;
-    const limit = 24; //Per Page Category
+    const limit = 24; 
 
     const categoryData = await getHomeCategory(page, limit);
     viewCategoryData = categoryData?.data;
     lastPage = categoryData?.last_page;
-    if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner_image) {
-        bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner_image}`;
-    }
+    // if (viewCategoryData?.length >= 1 && viewCategoryData[0].banner_image) {
+    //     bannerUrl = `${NagadhatPublicUrl}/${viewCategoryData[0].banner_image}`;
+    // }
 
     return (
         <div className="container view-all-product-container">
