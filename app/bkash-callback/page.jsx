@@ -25,7 +25,7 @@ const BkashCallBack = () => {
                 toast.error("Payment failed, try again")
                 const data = { orderID, paymentID }
                 const paymentCancel = await postCancelPaymentWithBkash(data);
-                console.log(paymentCancel);
+                // console.log(paymentCancel);
                 router.push(`/paynow?orderId=${orderID}`); // Redirect to the home page if payment failed or ID is missing
             }
         };

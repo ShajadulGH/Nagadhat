@@ -4,7 +4,6 @@ export const getPrivilegeCardWalletStatement = async (token, params = {}) => {
     if (!token) return null;
     try {
         const queryParams = new URLSearchParams(params).toString();
-        console.log(queryParams);
         
         const url = queryParams
             ? `${apiBaseUrl}/privilege-card-wallet-statement?${queryParams}`

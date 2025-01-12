@@ -14,12 +14,10 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
     const dispatch = useDispatch();
     const { data: session, status } = useSession();
     const affiliateStatus = useSelector((state) => state.affiliate.status);
-    console.log("affiliateStatus", affiliateStatus);
     useEffect(() => {
         setAffiliateStatus(userDashboard?.status);
         dispatch(setAffiliateStatus(userDashboard?.status));
     }, [userDashboard?.status]);
-    console.log(userDashboard);
 
     const fetchApplyAffiliate = async () => {
         if (!session?.accessToken) {

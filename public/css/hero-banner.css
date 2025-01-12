@@ -151,8 +151,8 @@
     width:100%;
     position: relative;
 }
-.hero-slider-photo img {
-    object-fit: fill;
+.hero-slider-photo img{
+    object-fit: cover !important;
     aspect-ratio: 2/1;
 }
 

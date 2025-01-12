@@ -18,7 +18,6 @@ export const getAffiliateFinanceAgents = async (token) => {
 
         return await response.json();
     } catch (error) {
-        console.log(error);
         console.error(error);
         console.info(error);
         return null;

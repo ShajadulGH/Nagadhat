@@ -27,7 +27,6 @@ const ChangeTransactionOtp = () => {
                 setMobileNumber(response?.results?.phone);
                 setStatus(response?.results?.status);
             }
-            console.log(response);
         };
         getData();
     }, [session?.accessToken]);
