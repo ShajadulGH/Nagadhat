@@ -10,7 +10,6 @@ const CompanyBankInfoLeft = async () => {
     const bankList = await getBankLists();
     const bankListData = bankList?.results?.banks || [];
     const firstBankDetails = bankListData.length > 0 ? bankListData[1] : null;
-    console.log({ firstBankDetails });
 
     return (
         <>

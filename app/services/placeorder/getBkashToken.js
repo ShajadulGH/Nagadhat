@@ -13,7 +13,6 @@ export const getBkashToken = async () => {
         // Try response as text if it's not JSON
         const data = await response.text();
 
-        console.log("Token data:", data); // Check what you're getting
         return data;
     } catch (error) {
         console.error("Error in Payment Bkash token:", error);

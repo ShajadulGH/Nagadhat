@@ -7,8 +7,6 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
     const [withdrawData, setWithdrawData] = useState({});
     const [isPending, startTransition] = useTransition();
 
-    console.log("withdrawData", withdrawData);
-
     useEffect(() => {
         if (selectedId && token) {
             startTransition(async () => {
@@ -18,7 +16,6 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                         selectedId
                     );
                     setWithdrawData(response?.results || {});
-                    console.log("Withdraw Data:", response);
                 } catch (err) {
                     console.error("Failed to load withdraw history:", err);
                 }

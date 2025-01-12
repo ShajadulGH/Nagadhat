@@ -11,7 +11,7 @@ function getRequestPath() {
             const requestPage = localStorage.getItem("requestPage");
 
             // Debugging: Check if the value is correctly retrieved
-            console.log("Retrieved requestPage:", requestPage);
+            // console.log("Retrieved requestPage:", requestPage);
 
             // If the value exists, parse it; otherwise, default to "/dashboard"
             const requestRoute = requestPage
@@ -19,7 +19,7 @@ function getRequestPath() {
                 : "/dashboard";
 
             // Debugging: Check the parsed value
-            console.log("Parsed requestRoute:", requestRoute);
+            // console.log("Parsed requestRoute:", requestRoute);
 
             return requestRoute;
         } catch (error) {

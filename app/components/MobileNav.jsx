@@ -72,7 +72,6 @@ const MobileNav = () => {
                     districtId,
                     search
                 );
-                console.log(productData);
                 const searchResults = productData?.results;
 
                 if (searchResults) {
