@@ -14,7 +14,7 @@ const OTP = () => {
     let phone = searchParams.get("phone") ? searchParams.get("phone") : "";
     let forgetPassword = searchParams.get("forget_password") || "";
 
-    const [otp, setOtp] = useState("");
+    const [otp, setOtp] = useState(searchParams.get("otp") ?? "");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
