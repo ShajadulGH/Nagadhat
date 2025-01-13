@@ -59,6 +59,7 @@ const MobileCategory = () => {
                 setCategoryMenuOption(data || []);
                 setRootCategory(data || []);
                 // await getProductInThisCategory(data[0]?.slug);
+                setCategoryChild(data[0]?.child_categories)
             } catch (error) {
                 console.error("Failed to fetch category:", error);
             }
