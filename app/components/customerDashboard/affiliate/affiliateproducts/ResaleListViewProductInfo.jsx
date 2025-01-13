@@ -80,7 +80,7 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                     <p className="fpnh-resale-pricess">
                                         Duration:{" "}
                                         <span className="fw-bold">
-                                            {`After ${product.fast_moving_duration} Months`}
+                                            {`${product.is_instalment ? "In" : "After" } ${product.fast_moving_duration} Months`}
                                         </span>
                                     </p>
                                 </div>
