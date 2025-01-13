@@ -39,7 +39,7 @@ const ApexChart = () => {
 
     const labels = chartData.map((item) => {
         const date = new Date(item?.name);
-        return !isNaN(date.getTime()) ? date.toISOString() : item?.name;
+        return !isNaN(date.getTime()) ? date.toLocaleString() : item?.name;
     });
 
     const isValidDate = labels.every((label) => {
