@@ -8,6 +8,8 @@ import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 const ResaleProductsInfo = ({ resaleProduct }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
+    console.log(resaleProduct);
+    
     return (
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
             {resaleProduct?.map((product) => (
@@ -56,7 +58,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                 <p className="fpnh-resale-pricess">
                                     Duration:{" "}
                                     <span className="fw-bold">
-                                        {`After ${product.fast_moving_duration} Months`}
+                                        {`${product.is_instalment ? "In" : "After" } ${product.fast_moving_duration} Months`}
                                     </span>
                                 </p>
                             </div>
