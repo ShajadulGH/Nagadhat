@@ -10,22 +10,22 @@ function Partner() {
     const partnerStore = [
         {
             path: "https://nagadhat.com.bd",
-            imageUrl: "/images/nagadhat.jpg",
+            imageUrl: "/images/partner/Pocket Slider-01.webp",
             altText: "nagadhat image",
         },
         {
             path: "https://paikarihat.nagadhat.com",
-            imageUrl: "/images/paikarihat.svg",
+            imageUrl: "/images/partner/Pocket Slider-02.webp",
             altText: "paikarihat image",
         },
         {
             path: "#",
-            imageUrl: "/images/properties.svg",
+            imageUrl: "/images/partner/Pocket Slider-03.webp",
             altText: "properties image",
         },
         {
             path: "#",
-            imageUrl: "/images/promise.svg",
+            imageUrl: "/images/partner/Pocket Slider-04.webp",
             altText: "promise image",
         },
     ];
