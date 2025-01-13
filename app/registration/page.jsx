@@ -164,7 +164,6 @@ const Registration = () => {
 
             try {
                 const res = await registerUser(formData);
-
                 if (res?.success != true) {
                     // if (res.message == "Phone Already Exists! You do not verify your OTP OT Delete Customer API Call!") {
                     //     router.push(`/otp?phone=${formData.phone}`);
@@ -182,15 +181,15 @@ const Registration = () => {
                     //     setErrorMessage(res.data.phone[0]);
                     //     return;
                     // }
-                    alert(res.message);
+                    toast.warning(res.message);
                     return;
                 }
 
                 localStorage.removeItem("referrerID");
                 localStorage.setItem("userEmail", formData.email);
-                router.push(`/otp?phone=${formData.phone}`);
+                router.push(`/otp?phone=${formData.phone}&otp=${res.data.otp}`);
             } catch (error) {
-                alert("Something went wrong. Please try after sometime");
+                toast.error("Something went wrong. Please try after sometime");
             }
         }
 
