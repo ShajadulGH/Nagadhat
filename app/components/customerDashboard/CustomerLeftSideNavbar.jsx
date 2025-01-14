@@ -613,7 +613,7 @@ onClick={toggleSidebar}
                                         Password & TXN OTP
                                     </Link>
                                 </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
+                                {/* <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
                                         className={`${isActive(
@@ -627,7 +627,7 @@ onClick={toggleSidebar}
                                         <span className="dropdown-item-circle"></span>
                                         Shipping Address
                                     </Link>
-                                </li>
+                                </li> */}
                             </ul>
                         </li>
 

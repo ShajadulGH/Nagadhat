@@ -7,7 +7,6 @@ import PasswordTopNav from "./PasswordTopNav";
 const PasswordTxnOtpRight = () => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "password";
-    console.log("tab====>", tab);
 
     return (
         <>
