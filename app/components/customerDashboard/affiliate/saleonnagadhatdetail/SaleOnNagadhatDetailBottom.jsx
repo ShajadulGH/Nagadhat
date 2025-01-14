@@ -44,7 +44,7 @@ const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData, headalePrint }) => {
             </div>
             <div className="sale-on-agreement-print d-flex align-items-center justify-content-center gap-3 pb-4">
                 <button
-                    onClick={() => window.print()}
+                    onClick={headalePrint}
                     className="btn btn-dark"
                     download
                 >
