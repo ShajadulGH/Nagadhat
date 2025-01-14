@@ -146,9 +146,9 @@ const PrivilegeMainCard = ({
                                 Details
                             </button>
 
-                            <PrivilegeBuyNowBtn
+                            {/* <PrivilegeBuyNowBtn
                                 privilegeCardInfo={privilegeCardInfo}
-                            />
+                            /> */}
                             {privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
                                 privilegeCardInfo?.cancel_status === 0 && (
