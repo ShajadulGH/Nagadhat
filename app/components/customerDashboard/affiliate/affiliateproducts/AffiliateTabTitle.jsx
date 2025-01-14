@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 export const AffiliateTabTitle = () => {
     const searchParams = useSearchParams();
-    const tab = searchParams.get("tab") || "retails-tab"; 
+    const tab = searchParams.get("tab") || "retails-tab";
 
     useEffect(() => {
         const tabElement = document.getElementById(tab);
@@ -33,16 +33,16 @@ export const AffiliateTabTitle = () => {
                     <li className="nav-item">
                         <button
                             className={`nav-link ${
-                                tab === "retails-tab" ? "active" : ""
+                                tab === "resale-tab" ? "active" : ""
                             } rounded-0`}
-                            id="retails-tab"
+                            id="resale-tab"
                             data-bs-toggle="tab"
-                            data-bs-target="#retails"
+                            data-bs-target="#resale"
                             type="button"
                             role="tab"
-                            onClick={() => handleTabClick("retails-tab")}
+                            onClick={() => handleTabClick("resale-tab")}
                         >
-                            Retails
+                            FPNH (Resale)
                         </button>
                     </li>
                     <li className="nav-item">
@@ -65,19 +65,20 @@ export const AffiliateTabTitle = () => {
                     <li className="nav-item">
                         <button
                             className={`nav-link ${
-                                tab === "resale-tab" ? "active" : ""
+                                tab === "retails-tab" ? "active" : ""
                             } rounded-0`}
-                            id="resale-tab"
+                            id="retails-tab"
                             data-bs-toggle="tab"
-                            data-bs-target="#resale"
+                            data-bs-target="#retails"
                             type="button"
                             role="tab"
-                            onClick={() => handleTabClick("resale-tab")}
+                            onClick={() => handleTabClick("retails-tab")}
                         >
-                            FPNH (Resale)
+                            Retails
                         </button>
                     </li>
-                    <li className="nav-item">
+
+                    {/* <li className="nav-item">
                         <button
                             className={`nav-link ${
                                 tab === "properties-tab" ? "active" : ""
@@ -91,7 +92,7 @@ export const AffiliateTabTitle = () => {
                         >
                             Properties
                         </button>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </>

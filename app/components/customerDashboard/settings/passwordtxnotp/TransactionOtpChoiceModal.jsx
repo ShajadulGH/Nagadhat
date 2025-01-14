@@ -13,7 +13,7 @@ const TransactionOtpChoiceModal = ({
                 id="TransactionOtp"
                 data-bs-backdrop="static"
                 data-bs-keyboard="false"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="TransactionOtpLabel"
                 aria-hidden="true"
             >
@@ -40,11 +40,11 @@ const TransactionOtpChoiceModal = ({
                                     type="radio"
                                     name="flexRadioDefault"
                                     id="flexRadioDefault1"
-                                    checked
+                                    defaultChecked
                                 />
                                 <label
                                     className="form-check-label"
-                                    for="flexRadioDefault1"
+                                    htmlFor="flexRadioDefault1"
                                 >
                                     Phone - {mobileNumber}
                                 </label>

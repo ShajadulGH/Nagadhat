@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({ isActive }) => {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -94,7 +94,7 @@ const ChangePasswordForm = () => {
     return (
         <>
             <div
-                className="tab-pane fade show active"
+                className={`tab-pane fade ${isActive ? "show active" : ""}`}
                 id="change-password"
                 role="tabpanel"
             >
@@ -121,7 +121,7 @@ const ChangePasswordForm = () => {
                                 onClick={() =>
                                     togglePasswordVisibility("current")
                                 }
-                                style={{ cursor: "pointer", zIndex: "6"}}
+                                style={{ cursor: "pointer", zIndex: "6" }}
                             >
                                 {showCurrentPassword ? (
                                     <FaEyeSlash />
