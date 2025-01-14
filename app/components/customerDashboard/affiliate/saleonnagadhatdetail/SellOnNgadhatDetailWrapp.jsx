@@ -35,6 +35,17 @@ const SellOnNgadhatDetailWrapp = ({ orderId }) => {
 
     const saleOnLength =
         saleOnNagadhatData && Object.keys(saleOnNagadhatData).length > 0;
+    
+    const headalePrint = () => {
+        // print only the customer-dashboard-order-history-area
+        const printContents = document.querySelector(
+            ".customer-dashboard-order-history-area"
+        ).innerHTML;
+        const originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
 
     return (
         <>
@@ -58,6 +69,7 @@ const SellOnNgadhatDetailWrapp = ({ orderId }) => {
                         />
                         <SaleOnNagadhatDetailBottom
                             saleOnNagadhatData={saleOnNagadhatData}
+                            headalePrint={headalePrint}
                         />
                     </>
                 ) : (
