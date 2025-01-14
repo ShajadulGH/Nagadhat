@@ -13,7 +13,7 @@ const SaleOnNagadhatDetailPay = ({ saleOnNagadhatData }) => {
                         <thead>
                             <tr>
                                 <th scope="col fs-6">SL</th>
-                                <th scope="col fs-6">Date</th>
+                                <th scope="col fs-6" style={{width: "160px"}}>Date</th>
                                 <th scope="col fs-6">
                                     Depositing Amount in the Personal Wallet
                                 </th>
