@@ -75,6 +75,7 @@ const Page = ({ params }) => {
     };
 
     const teamListInfo = teamData?.data || [];
+    const serialNumber = (currentPage - 1) * 20;
 
     return (
         <>
@@ -112,6 +113,7 @@ const Page = ({ params }) => {
                         <MyTeamList
                             teamListInfo={teamListInfo}
                             teamGrandTotal={teamGrandTotal}
+                            serialNumber={serialNumber}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
