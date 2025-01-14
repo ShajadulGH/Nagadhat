@@ -588,7 +588,7 @@ onClick={toggleSidebar}
                             >
                                 {/* <FaCreditCard className="nav-icon me-2" /> */}
                                 <IoMdOptions className="nav-icon me-2" />
-                                Others
+                                Settings
                                 <FaAngleRight
                                     className={`dropdown ${activeDropdown === "others"
                                         ? "rotate"
@@ -613,21 +613,21 @@ onClick={toggleSidebar}
                                         Password & TXN OTP
                                     </Link>
                                 </li>
-                                {/* <li className="dropdown-item customer-dashboard-dropdown-item">
+                                <li className="dropdown-item customer-dashboard-dropdown-item">
                                     <Link
                                         onClick={toggleSidebar}
                                         className={`${isActive(
-                                            "/others-customer-shipping-address"
+                                            "/others-change-password"
                                         )
                                             ? "activ-link"
                                             : ""
                                             } nav-link customer-dashboard-nav-link`}
-                                        href="/others-customer-shipping-address"
+                                        href="/others-change-password"
                                     >
                                         <span className="dropdown-item-circle"></span>
-                                        Shipping Address
+                                        Change Password
                                     </Link>
-                                </li> */}
+                                </li>
                             </ul>
                         </li>
 
