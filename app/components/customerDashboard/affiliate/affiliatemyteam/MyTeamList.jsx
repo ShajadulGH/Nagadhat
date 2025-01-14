@@ -2,7 +2,7 @@ import { FaCircleCheck, FaRegistered } from "react-icons/fa6";
 import { FaBan } from "react-icons/fa";
 import Link from "next/link";
 
-const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
+const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
     // Filter members based on the conditions
     const generalMembers = teamListInfo.filter(
         (member) =>
@@ -40,7 +40,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal }) => {
                 <tbody>
                     {displayMembers?.map((member, index) => (
                         <tr key={member.id}>
-                            <td scope="row">{index + 1}</td>
+                            <td scope="row">{index + 1 + serialNumber}</td>
                             <td>{member?.username}</td>
                             <td>
                                 <Link
