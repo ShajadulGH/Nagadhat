@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import QRCode from "react-qr-code";
-const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData }) => {
+const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData, headalePrint }) => {
     return (
         <>
             <div className="saleon-nagadhat-detail-bottom d-flex gap-4 justify-content-between px-4 pt-0 pb-5">
@@ -52,7 +52,7 @@ const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData }) => {
                 </button>
                 <button
                     className="btn btn-success"
-                    onClick={() => window.print()}
+                    onClick={headalePrint}
                 >
                     Print
                 </button>
