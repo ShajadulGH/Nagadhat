@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { getUserInfo } from "@/app/services/affiliate/getUserInfo";
 
-const ChangeTransactionOtp = () => {
+const ChangeTransactionOtp = ({ isActive }) => {
     const { data: session } = useSession();
     const [otpType, setOtpType] = useState("pin");
     const [pin, setPin] = useState("");
@@ -88,7 +88,11 @@ const ChangeTransactionOtp = () => {
     };
 
     return (
-        <div className="tab-pane fade" id="transaction-otp-pin" role="tabpanel">
+        <div
+            className={`tab-pane fade ${isActive ? "show active" : ""}`}
+            id="transaction-otp-pin"
+            role="tabpanel"
+        >
             <div>
                 <div className="customer-setting-form-group">
                     <label className="form-label" htmlFor="otp">

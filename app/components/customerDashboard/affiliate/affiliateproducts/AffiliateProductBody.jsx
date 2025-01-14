@@ -22,13 +22,13 @@ const AffiliateProductBody = () => {
                 {tab === "resale-tab" && (
                     <ResaleProducts isActive={tab === "resale-tab"} />
                 )}
-                {tab === "properties-tab" && (
+                {/* {tab === "properties-tab" && (
                     <div className="p-5">
                         <h1 className="text-center">
                             Properties content goes here.
                         </h1>
                     </div>
-                )}
+                )} */}
             </div>
         </>
     );
