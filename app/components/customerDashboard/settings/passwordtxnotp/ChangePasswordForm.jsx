@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const ChangePasswordForm = ({ isActive }) => {
+const ChangePasswordForm = () => {
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -93,11 +93,7 @@ const ChangePasswordForm = ({ isActive }) => {
 
     return (
         <>
-            <div
-                className={`tab-pane fade ${isActive ? "show active" : ""}`}
-                id="change-password"
-                role="tabpanel"
-            >
+            <div className={`tab-pane fade show active`}>
                 <form onSubmit={passwordUpdateHandle}>
                     <div className="customer-setting-form-group">
                         <label
