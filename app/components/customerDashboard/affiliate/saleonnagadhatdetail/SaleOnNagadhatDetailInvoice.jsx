@@ -26,14 +26,14 @@ const SaleOnNagadhatDetailInvoice = ({ saleOnNagadhatData }) => {
                                     {saleOnNagadhatData?.order_time || "N/A"})
                                 </td>
                                 <td>
-                                    {saleOnNagadhatData?.total_mrp || "N/A"}
+                                ৳ {saleOnNagadhatData?.total_mrp || "N/A"}
                                 </td>
                                 <td>
-                                    {saleOnNagadhatData?.discount_amount ||
+                                ৳ {saleOnNagadhatData?.discount_amount ||
                                         "N/A"}
                                 </td>
                                 <td className=" text-end">
-                                    {saleOnNagadhatData?.total_tp || "N/A"}
+                                ৳ {saleOnNagadhatData?.total_tp || "N/A"}
                                 </td>
                             </tr>
 
@@ -43,7 +43,7 @@ const SaleOnNagadhatDetailInvoice = ({ saleOnNagadhatData }) => {
                                 </td>
                                 <td className=" text-end">
                                     <strong>
-                                        {saleOnNagadhatData?.total_tp || "N/A"}
+                                    ৳ {saleOnNagadhatData?.total_tp || "N/A"}
                                     </strong>
                                 </td>
                             </tr>
