@@ -911,7 +911,7 @@ const CartPage = () => {
                     </div>
 
                     <div className="col-lg-3">
-                        <div className="row promo-code-section">
+                        {/* <div className="row promo-code-section">
                             <div className="col-12">
                                 <div className="d-flex gap-3 align-items-center">
                                     <div className="discount-code-img">
@@ -938,8 +938,8 @@ const CartPage = () => {
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row shopping-section">
+                        </div> */}
+                        <div className="row shopping-section pt-0">
                             <div className="col-12">
                                 <div className="shopping-info-area">
                                     <h3 className="shopping-title">
