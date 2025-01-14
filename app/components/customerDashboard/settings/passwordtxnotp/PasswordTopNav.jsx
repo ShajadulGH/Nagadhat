@@ -9,11 +9,11 @@ const PasswordTopNav = () => {
     const [activeTab, setActiveTab] = useState(currentTab);
 
     useEffect(() => {
-        setActiveTab(currentTab); // Sync with URL
+        setActiveTab(currentTab);
     }, [currentTab]);
 
     const handleTabClick = (tabId) => {
-        setActiveTab(tabId); // Update state
+        setActiveTab(tabId);
         const newSearchParams = new URLSearchParams(searchParams.toString());
         newSearchParams.set("tab", tabId);
         router.push(
