@@ -6,7 +6,12 @@ const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData, headalePrint }) => {
         <>
             <div className="saleon-nagadhat-detail-bottom d-flex gap-4 justify-content-between px-4 pt-0 pb-5">
                 <div className="">
-                    <h4 className=" fs-4">প্রথম পক্ষ</h4>
+                    <h4 className="mb-4 fs-4">প্রথম পক্ষ</h4>
+                    <p>
+                        <strong className="fs-5">
+                            {saleOnNagadhatData?.first_name || "N/A"}
+                        </strong>
+                    </p>
                     <div className="pt-2 pb-4">
                         <QRCode
                             size={256}
@@ -15,14 +20,10 @@ const SaleOnNagadhatDetailBottom = ({ saleOnNagadhatData, headalePrint }) => {
                                 maxWidth: "100px",
                                 width: "100%",
                             }}
-                            value={`Name: ${saleOnNagadhatData?.first_name} , Phone: ${saleOnNagadhatData?.phone} , Address: ${saleOnNagadhatData?.address} , NID: ${saleOnNagadhatData?.nid_no},  Agreement Date: ${saleOnNagadhatData?.agreement_date_qr},  IP: ${saleOnNagadhatData?.ip_address}, Device: ${saleOnNagadhatData?.device}, Browser: ${saleOnNagadhatData?.browser}, Ip Address: ${saleOnNagadhatData?.browsing_address}`}
+                            value={`Name: ${saleOnNagadhatData?.first_name} ,\nPhone: ${saleOnNagadhatData?.phone} ,\nAddress: ${saleOnNagadhatData?.address} ,\nNID: ${saleOnNagadhatData?.nid_no},\nAgreement Date: ${saleOnNagadhatData?.agreement_date_qr},\nIP: ${saleOnNagadhatData?.ip_address},\nDevice: ${saleOnNagadhatData?.device},\nBrowser: ${saleOnNagadhatData?.browser},\nIp Address: ${saleOnNagadhatData?.browsing_address}`}
                         />
                     </div>
-                    <p>
-                        <strong className="fs-5">
-                            {saleOnNagadhatData?.first_name || "N/A"}
-                        </strong>
-                    </p>
+                    
                 </div>
                 <div className="">
                     <div className="pb-2">
