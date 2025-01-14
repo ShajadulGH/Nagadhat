@@ -30,6 +30,7 @@ const AffiliateTeamWrapp = () => {
 
     const limit = 20; //Per Page Category
 
+
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
             const fetchTeamData = async () => {
@@ -71,6 +72,8 @@ const AffiliateTeamWrapp = () => {
     };
 
     const teamListInfo = teamData?.data || [];
+    const serialNumber = (currentPage - 1) * 20;
+    
 
     return (
         <>
@@ -96,6 +99,7 @@ const AffiliateTeamWrapp = () => {
                         <MyTeamList
                             teamListInfo={teamListInfo}
                             teamGrandTotal={teamGrandTotal}
+                            serialNumber={serialNumber}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
