@@ -11,7 +11,7 @@ const SaleOnNagadhatDetailNomini = ({ saleOnNagadhatData }) => {
                         বিক্রয় করার জন্য দ্বিতীয় পক্ষের নিকট পাঠাবে। দ্বিতীয়
                         পক্ষ উপরোল্লিখত ইনভয়েজটির মাধ্যমে ক্রয়কৃত{" "}
                         <strong>
-                            {" "}
+                        ৳{" "}
                             {saleOnNagadhatData?.total_tp || "N/A"}{" "}
                         </strong>{" "}
                         টাকার পণ্যসমূহ রিসেল/পুনঃবিক্রয় করে বিক্রয়কৃত অর্থ
