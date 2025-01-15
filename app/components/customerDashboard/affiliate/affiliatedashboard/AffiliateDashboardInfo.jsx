@@ -77,13 +77,13 @@ const AffiliateDashboardInfo = ({ affiliateData }) => {
                         <div className="d-flex flex-column w-100">
                             <div className="flex-1 pb-2 border-bottom">
                                 <h4 className="mb-1">
-                                    ট {total_earning || "0"}
+                                    ট {total_earning?.toFixed(2) || "0"}
                                 </h4>
                                 <p className="opacity-75">Total Earning</p>
                             </div>
                             <div className="flex-1 pt-3">
                                 <h4 className="mb-1">
-                                    ট {earning_limit || "0"}
+                                    ট {earning_limit?.toFixed(2) || "0"}
                                 </h4>
                                 <p className="opacity-75">Earning Limit</p>
                             </div>
