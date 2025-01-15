@@ -16,9 +16,6 @@ const ManageIDVerification = () => {
         nid_front: "",
     });
 
-    
-    
-
     const { data: session, status } = useSession();
 
     useEffect(() => {

@@ -35,7 +35,7 @@ const ManageNomineeInfo = () => {
             };
             fetchNomineeData();
         }
-    }, [session, status]);
+    }, [session.accessToken]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
