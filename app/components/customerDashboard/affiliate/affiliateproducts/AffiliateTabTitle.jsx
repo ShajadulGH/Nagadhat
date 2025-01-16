@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 export const AffiliateTabTitle = () => {
     const searchParams = useSearchParams();
-    const tab = searchParams.get("tab") || "retails-tab";
+    const tab = searchParams.get("tab") || "resale-tab";
 
     useEffect(() => {
         const tabElement = document.getElementById(tab);

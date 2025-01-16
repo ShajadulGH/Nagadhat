@@ -70,7 +70,7 @@ const ResaleAddToCartBtn = ({ product }) => {
                         length: quantityTotal,
                     })
                 );
-                toast.success(productAdded.message);
+                toast.success("Cart Added ");
             } else {
                 toast.error(productAdded.message,);
             }
