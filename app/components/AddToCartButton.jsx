@@ -170,7 +170,7 @@ function AddToCartButton({
                                             length: quantityTotal,
                                         })
                                     );
-                                    toast.success(productAdded.message);
+                                    toast.success("Cart Added");
                                 } else {
                                     toast.error(productAdded.message);
                                 }
@@ -244,7 +244,7 @@ function AddToCartButton({
                                         length: quantityTotal,
                                     })
                                 );
-                                toast.success(productAdded.message);
+                                toast.success("Cart Added");
                             } else {
                                 toast.error(productAdded.message);
                             }
