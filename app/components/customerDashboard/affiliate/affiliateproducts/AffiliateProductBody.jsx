@@ -7,7 +7,7 @@ import ResaleProducts from "./ResaleProducts";
 
 const AffiliateProductBody = () => {
     const searchParams = useSearchParams();
-    const tab = searchParams.get("tab") || "retails-tab";
+    const tab = searchParams.get("tab") || "resale-tab";
     return (
         <>
             <div className="tab-content container-booking-body">
