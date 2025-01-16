@@ -9,7 +9,7 @@ const SaleOnNagadhatBottom = ({ saleOnNagadhatData }) => {
                     ১. এই চুক্তির আওতায় প্রথম পক্ষ তার ক্রয়কৃত পণ্যসমূহ
                     বিক্রয় করার জন্য দ্বিতীয় পক্ষের নিকট পাঠাবে। দ্বিতীয় পক্ষ
                     উপরোল্লিখত ইনভয়েজটির মাধ্যমে ক্রয়কৃত{" "}
-                    <strong>{saleOnNagadhatData?.total_tp || "N/A"}</strong>{" "}
+                    <strong>৳ {""}{saleOnNagadhatData?.total_tp || "N/A"}</strong>{" "}
                     টাকার পণ্যসমূহ রিসেল/পুনঃবিক্রয় করে বিক্রয়কৃত অর্থ
                     উপরোল্লিখিত শিডিউল মোট{" "}
                     <strong> {saleOnNagadhatData?.duration || "N/A"} </strong>
@@ -30,7 +30,7 @@ const SaleOnNagadhatBottom = ({ saleOnNagadhatData }) => {
                 </p>
             </div>
             <div className="pb-4">
-                <p className="fs-6 lh-lg">
+                <p className="fs-6 lh-lg ">
                     <strong className="bg-success px-3 text-white py-2 rounded-2 me-2">
                         চুক্তির মেয়াদঃ
                     </strong>
