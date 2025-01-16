@@ -37,7 +37,7 @@ const SaleOnNagadhatDetailNomini = ({ saleOnNagadhatData }) => {
                     </p>
                 </div>
                 <div className="pb-4">
-                    <p className="fs-6 lh-lg">
+                    <p className="fs-6 lh-lg chukti-mead">
                         <strong className="bg-success px-3 text-white py-2 rounded-2 me-2">
                             চুক্তির মেয়াদঃ {""}
                         </strong>

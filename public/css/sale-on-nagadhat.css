@@ -10,9 +10,13 @@
         padding: 0;
         box-sizing: border-box;
     }
+    p {
+        line-height: 2.2;
+        font-size: 25px !important;
+    }
     @page {
         margin: 0 !important; 
-        padding: 20px 20px !important;
+        padding: 20px 10px !important;
         /* padding-top: 20px !important; */
         width: 100% !important;
     }
@@ -38,7 +42,7 @@
         margin-bottom: 5px;
     }
     .resal-top-areass .text-center .mb-4 {
-        margin-bottom: 5px !important;
+        margin-bottom: 10px !important;
     }
     .resal-top-areass .pb-4 {
         padding-bottom: 6px !important;
@@ -51,10 +55,22 @@
         padding-right: 15px !important;
     }
     .resale-bottom-areass .pb-4 {
-        padding-bottom: 6px !important;
+        padding-bottom: 10px !important;
     }
     .saleon-nagadhat-detail-bottom {
         padding: 15px !important;
+    }
+  .chukti-mead {
+        padding-bottom: 10px !important;
+    }
+    /* .resale-invoice-areass .agreement-table th {
+        font-size: 22px;
+    } */
+     .digitale-market-table table tbody td {
+        font-size: 15px;
+     }
+    .resale-invoice-areass .agreement-table tbody td {
+        font-size: 15px;
     }
     
 }
