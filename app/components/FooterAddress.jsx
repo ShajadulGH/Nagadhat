@@ -12,7 +12,7 @@ const FooterAddress = ({ icon, title, subtitle }) => {
                         alt={title}
                     />
                 </div>
-                <div className="footer-widget-address-info w-100">
+                <div className="footer-widget-address-info w-100 ">
                     <strong>{title}</strong>
                     <p className="w-100">{subtitle}</p>
                 </div>
