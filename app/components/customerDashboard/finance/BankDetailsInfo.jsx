@@ -211,7 +211,7 @@ const BankDetailsInfo = () => {
                                     <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="account_number"
                                     className="form-control"
                                     id="account_number"
@@ -232,7 +232,7 @@ const BankDetailsInfo = () => {
                                     <span style={{ color: "red" }}>*</span>
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="routing_number"
                                     className="form-control"
                                     id="routing_number"

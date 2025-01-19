@@ -92,7 +92,7 @@ const MobileBankingInfo = () => {
                                     Bkash:
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="bkash_number"
                                     className="form-control"
                                     id="bkash_number"
@@ -107,7 +107,7 @@ const MobileBankingInfo = () => {
                                     Nagad:
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="nagad_number"
                                     className="form-control"
                                     id="nagad_number"
@@ -122,7 +122,7 @@ const MobileBankingInfo = () => {
                                     Rocket:
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="rocket_number"
                                     className="form-control"
                                     id="rocket_number"
@@ -137,7 +137,7 @@ const MobileBankingInfo = () => {
                                     DBBL Agent Banking:
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     name="dbbl_agent_number"
                                     className="form-control"
                                     id="agent_banking"
