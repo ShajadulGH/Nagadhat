@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getLoginToken } from "../../../services/getLoginToken";
+import { getMagicToken } from "../../../services/getMagicToken";
 import { checkUserExistByGoogleLogin } from "@/app/services/checkUserExistByGoogleLogin";
 import { googleLoginAPI } from "@/app/services/googleLogin";
 function getRequestPath() {
@@ -61,6 +62,46 @@ export const authOptions = {
 
                     if (res.error) {
                         throw new Error("Email or Password is not correct");
+                    }
+
+                    if (res.user) {
+                        const user = {
+                            id: res?.user?.id,
+                            name: res?.user?.name,
+                            email: res?.user?.email,
+                        };
+
+                        // Example accessToken and expiresIn, replace with actual token logic
+                        const accessToken = res?.user?.accessToken;
+                        // const expiresIn = 3600; // Token expiration time in seconds
+                        const expiresIn = res?.user?.expiresIn;
+
+                        const phone = res?.user?.phone;
+
+                        return { ...user, accessToken, expiresIn, phone };
+                    }
+                    return null;
+                } catch (error) {
+                    console.error("Authorization error:", error);
+                    throw new Error(error.message);
+                }
+            },
+        }),
+        CredentialsProvider({
+            id: "magic",
+            name: "Magic",
+            credentials: {
+                username: { label: "token", type: "text" },
+            },
+            async authorize(credentials, req) {
+                if (credentials === null) return null;
+                try {
+                    const res = await getMagicToken({
+                        token: credentials?.token,
+                    });
+
+                    if (res.error) {
+                        throw new Error("Email or Username is not correct");
                     }
 
                     if (res.user) {
