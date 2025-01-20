@@ -10,7 +10,7 @@
         padding: 0;
         box-sizing: border-box;
     }
-    p {
+    .main-sale-on-sections p {
         line-height: 2.2;
         font-size: 25px !important;
     }

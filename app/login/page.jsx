@@ -7,13 +7,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
-
     const router = useRouter();
     const { status, data: session } = useSession();
     const searchParams = useSearchParams();
     const fromPath = searchParams.get("from");
+    const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -50,6 +51,11 @@ const Login = () => {
         //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
         //     return;
         // }
+        if (!isCaptchaVerified) {
+            toast.error("Please complete the reCAPTCHA verification.");
+            return;
+        }
+
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
             return;
@@ -66,6 +72,12 @@ const Login = () => {
             return;
         }
         router.push("/dashboard");
+    };
+
+    const handleCaptchaChange = (value) => {
+        if (value) {
+            setIsCaptchaVerified(true); // Set verified if reCAPTCHA is completed
+        }
     };
 
     return (
@@ -155,6 +167,12 @@ const Login = () => {
                                             Forgot Password ?
                                         </Link>
                                     </div>
+                                </div>
+                                <div className="pb-3 w-100 custom-login-recaptcha">
+                                    <ReCAPTCHA
+                                        sitekey="6LdQNb0qAAAAAJOm9zR2y47VY9A42nUjycP8Y0xN"
+                                        onChange={handleCaptchaChange}
+                                    />
                                 </div>
                                 <button
                                     type="submit"

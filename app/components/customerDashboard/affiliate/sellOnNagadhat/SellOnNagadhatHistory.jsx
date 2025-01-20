@@ -6,7 +6,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
     return (
         <div>
             <div className="table-responsive pt-4">
-                <table className="table table-responsive-md table-hover" style={{ minWidth:"1000px" }}>
+                <table className="table table-responsive-md table-hover" style={{ minWidth:"980px" }}>
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -26,15 +26,15 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                         {sellOnData?.map((item, index) => {
                             return (
                                 <tr key={item?.id}>
-                                    <td>{index + 1}</td>
-                                    <td>{item?.package_invoice || "N/A"}</td>
-                                    <td>{item?.start_date || "N/A"}</td>
-                                    <td>{item?.duration || "N/A"} </td>
-                                    <td>{item?.completed_months || "N/A"}</td>
-                                    <td>৳ {item?.order_value || "N/A"} </td>
-                                    <td>৳ {item?.mrp_value || "N/A"} </td>
-                                    <td>{item?.monthly_bonus.toFixed(2) || "N/A"}</td>
-                                    <td>
+                                    <td style={{ verticalAlign:"middle" }}>{index + 1}</td>
+                                    <td style={{ verticalAlign:"middle" }}>{item?.package_invoice || "N/A"}</td>
+                                    <td style={{ verticalAlign:"middle" }}>{item?.start_date || "N/A"}</td>
+                                    <td style={{ verticalAlign:"middle" }}>{item?.duration || "N/A"} </td>
+                                    <td style={{ verticalAlign:"middle" }}>{item?.completed_months || "N/A"}</td>
+                                    <td style={{ verticalAlign:"middle" }}>৳ {item?.order_value || "N/A"} </td>
+                                    <td style={{ verticalAlign:"middle" }}>৳ {item?.mrp_value || "N/A"} </td>
+                                    <td style={{ verticalAlign:"middle" }}>৳ {item?.monthly_bonus.toFixed(2) || "N/A"}</td>
+                                    <td style={{ verticalAlign:"middle" }}>
                                         {item?.is_instalment === 1 ? (
                                             <>
                                                 <FaCheckCircle className="text-success" />
@@ -47,7 +47,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                                             </>
                                         )}
                                     </td>
-                                    <td>
+                                    <td style={{ verticalAlign:"middle" }}>
                                         {item?.active_status === 0 ? (
                                             <span className="text-primary">
                                                 Active
@@ -60,7 +60,7 @@ const SellOnNagadhatHistory = ({ sellOnData }) => {
                                             </>
                                         )}
                                     </td>
-                                    <td>
+                                    <td style={{ verticalAlign:"middle" }}>
                                         <Link
                                             // href="/affiliat-sell-on-nagadhat/id"
                                             href={`/affiliate-buyback-policy-details/${item?.id}`}
