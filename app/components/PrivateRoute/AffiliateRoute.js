@@ -11,7 +11,8 @@ const AffiliateRoute = async ({ children }) => {
     }
 
     const response = await getUserDashboard(session.accessToken);
-    if (response?.results?.affiliate_user_status === "General") {
+    
+    if (response?.results?.status != 1) {
         redirect(`/dashboard`);
     }
     return (
