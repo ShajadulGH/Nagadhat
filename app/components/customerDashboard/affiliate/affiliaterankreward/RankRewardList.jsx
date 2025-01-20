@@ -94,12 +94,18 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             background:
                                                 items?.status === 0
                                                     ? "gray"
+                                                    : items?.status === 2
+                                                    ? "yellow"
                                                     : items?.status === 3
                                                     ? "#D3D3D3"
+                                                    : items?.status === 4
+                                                    ? "red"
                                                     : "",
                                             color:
                                                 items?.status === 3
                                                     ? "#000"
+                                                    : items?.status === 4
+                                                    ? "#fff"
                                                     : "",
                                         }}
                                     >
@@ -111,6 +117,8 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             ? "Reward Claimed"
                                             : items?.status === 3
                                             ? "Claim Approved"
+                                            : items?.status === 4
+                                            ? "Rejected"
                                             : ""}
                                     </button>
                                 </td>

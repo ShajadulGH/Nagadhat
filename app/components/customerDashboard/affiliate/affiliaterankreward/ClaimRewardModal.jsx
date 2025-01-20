@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ClaimRewardModal = ({
     show,
@@ -44,48 +45,62 @@ const ClaimRewardModal = ({
     if (!visible) return null;
 
     const handleRewardClaim = async (rewardType, Id) => {
-        if (rewardDetails?.status !== 1) {
-            toast.error("This reward cannot be claimed");
-            return;
-        }
 
-        if (!session?.accessToken) {
-            toast.warn("You must be logged in to claim rewards.");
-            return;
-        }
-
-        const claimRewardData = {
-            rankings_levels_id: rewardDetails?.id,
-            reward_id: Id,
-            reward_type: rewardType,
-            reward_value: rewardDetails?.rewards_money,
-            reward_status: 0,
-            reason: "",
-        };
-
-        try {
-            const responseReward = await postAffiliateRankRewards(
-                session?.accessToken,
-                claimRewardData
-            );
-            if (responseReward?.code === 200) {
-                toast.success(
-                    responseReward?.message || "Reward claimed successfully!"
-                );
-                setStatusChange(!statusChange);
-                closeModalWithFade();
-            } else {
-                toast.error(
-                    responseReward?.message || "Failed to claim reward."
-                );
+        Swal.fire({
+            title: "Are you sure?",
+            text: `You want to claim for ${rewardType == "money" ? rewardDetails?.rewards_money + " Taka " : rewardDetails?.rewards_prize } !`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#44BC9D",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm!"
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                if (rewardDetails?.status !== 1) {
+                    toast.error("This reward cannot be claimed");
+                    return;
+                }
+        
+                if (!session?.accessToken) {
+                    toast.warn("You must be logged in to claim rewards.");
+                    return;
+                }
+        
+                const claimRewardData = {
+                    rankings_levels_id: rewardDetails?.id,
+                    reward_id: Id,
+                    reward_type: rewardType,
+                    reward_value: rewardDetails?.rewards_money,
+                    reward_status: 0,
+                    reason: "",
+                };
+        
+                try {
+                    const responseReward = await postAffiliateRankRewards(
+                        session?.accessToken,
+                        claimRewardData
+                    );
+                    if (responseReward?.code === 200) {
+                        toast.success(
+                            responseReward?.message || "Reward claimed successfully!"
+                        );
+                        setStatusChange(!statusChange);
+                        closeModalWithFade();
+                    } else {
+                        toast.error(
+                            responseReward?.message || "Failed to claim reward."
+                        );
+                    }
+                } catch (error) {
+                    console.error("Error claiming reward", error);
+                    toast.error(
+                        "An error occurred while claiming the reward. Please try again."
+                    );
+                }
             }
-        } catch (error) {
-            console.error("Error claiming reward", error);
-            toast.error(
-                "An error occurred while claiming the reward. Please try again."
-            );
-        }
+          });
     };
+
     const rewardImageUrl = rewardDetails?.reward_image
         ? `${NagadhatPublicUrl}/${encodeURIComponent(
               rewardDetails.reward_image
