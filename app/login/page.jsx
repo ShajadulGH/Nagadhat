@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
 
@@ -69,6 +70,10 @@ const Login = () => {
         }
         router.push("/dashboard");
     };
+
+    // const onChange =()=>{
+
+    // }
 
     return (
         <div className="container">
@@ -158,6 +163,13 @@ const Login = () => {
                                         </Link>
                                     </div>
                                 </div>
+                                {/* <div className="pb-3 w-100">
+                                    <ReCAPTCHA
+                                        sitekey="6LesGb0qAAAAAGCJ5BvzNGM9z9x_Gtz00DXMFIpW"
+                                        onChange={onChange}
+                                        style={{ width:"100%" }}
+                                    />
+                                </div> */}
                                 <button
                                     type="submit"
                                     className="btn btn-primary"
