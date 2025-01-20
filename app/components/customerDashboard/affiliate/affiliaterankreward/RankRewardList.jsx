@@ -119,7 +119,7 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             : items?.status === 3
                                             ? "Claim Approved"
                                             : items?.status === 4
-                                            ? "Claim Rejected"
+                                            ? "Rejected"
                                             : ""}
                                     </button>
                                 </td>
