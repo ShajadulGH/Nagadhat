@@ -3,20 +3,26 @@ import mobileBanking from "@/public/images/mobile-banking.png";
 import bank from "@/public/images/bank.png";
 import Image from "next/image";
 
-const FinancePaymentMethod = () => {
+const FinancePaymentMethod = ({financeAgentInfo}) => {
     return (
         <>
             <div className="p-3">
                 <div className="row">
-                    <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#agentModel">
-                        <Image height={200} width={500} src={agent} className="img-fluid" alt="Agent Withdrawal" />
-                    </div>
-                    <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#mobileBankingModal">
-                        <Image src={mobileBanking} height={200} width={500} className="img-fluid" alt="Mobile Banking Withdrawal" />
-                    </div>
-                    <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#bankModal">
-                        <Image src={bank} height={200} width={500} alt="Bank Withdrawal" className="img-fluid" />
-                    </div>
+                    {financeAgentInfo?.can_agent_withdraw ? (
+                        <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#agentModel">
+                            <Image height={200} width={500} src={agent} className="img-fluid" alt="Agent Withdrawal" />
+                        </div>
+                    ):''}
+                    {financeAgentInfo?.can_mobile_withdraw ? (
+                        <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#mobileBankingModal">
+                            <Image height={200} width={500} src={mobileBanking} className="img-fluid" alt="Mobile Banking Withdrawal" />
+                        </div>
+                    ):''}
+                    {financeAgentInfo?.can_bank_withdraw ? (
+                        <div className="col-sm-4 p-0" type="button" data-bs-toggle="modal" data-bs-target="#bankModal">
+                            <Image height={200} width={500} src={bank} className="img-fluid" alt="Bank Withdrawal" />
+                        </div>
+                    ):''}
                 </div>
             </div>
         </>
