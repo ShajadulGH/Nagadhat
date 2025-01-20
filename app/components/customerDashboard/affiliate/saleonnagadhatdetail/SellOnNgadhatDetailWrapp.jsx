@@ -39,7 +39,7 @@ const SellOnNgadhatDetailWrapp = ({ orderId }) => {
     const headalePrint = () => {
      
         const printContents = document.querySelector(
-            ".customer-dashboard-order-history-area"
+            ".main-sale-on-sections"
         ).innerHTML;
         const originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
