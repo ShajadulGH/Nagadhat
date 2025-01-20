@@ -89,23 +89,30 @@ const WithdrawWrapper = () => {
                     <WithdrawTopBanner />
 
                     {/* Withdrawal Payment Method*/}
-                    <FinancePaymentMethod />
+                    <FinancePaymentMethod financeAgentInfo={financeAgentInfo} />
 
                     {/* Modal 1: Agent Withdrawal */}
-                    <AgentWithdrawalModal
-                        financeAgentInfo={financeAgentInfo}
-                        mobileBankingList={mobileBankingList}
-                        bankTransferData={bankTransferInfo}
-                    />
+                    {financeAgentInfo?.can_agent_withdraw ? (
+                        <AgentWithdrawalModal
+                            financeAgentInfo={financeAgentInfo}
+                            mobileBankingList={mobileBankingList}
+                            bankTransferData={bankTransferInfo}
+                        />
+                    ):""}
 
                     {/* Modal 2: Mobile Banking */}
-                    <MobileBankingModal
-                        mobileBankingInfo={mobileBankingInfo}
-                        financeAgentInfo={financeAgentInfo}
-                    />
+                    {financeAgentInfo?.can_mobile_withdraw ? (
+                        <MobileBankingModal
+                            mobileBankingInfo={mobileBankingInfo}
+                            financeAgentInfo={financeAgentInfo}
+                        />
+                    ):""}
 
                     {/* Modal 3: Bank */}
-                    <BankWithdrawalModal bankTransferInfo={bankTransferInfo} />
+                    {financeAgentInfo?.can_bank_withdraw ? (
+                        <BankWithdrawalModal bankTransferInfo={bankTransferInfo} />
+                    ):""}
+
                     <LastFiveWithdrawHistory />
                 </div>
             </div>

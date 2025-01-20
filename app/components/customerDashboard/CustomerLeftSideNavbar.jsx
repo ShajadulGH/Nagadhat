@@ -36,6 +36,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
     const profilePicture = useSelector((state) => state.profile.profilePicture);
     const affiliateStatus = useSelector((state) => state.affiliate.status);
     const dispatch = useDispatch();
+    
     useEffect(() => {
         if (status === "authenticated") {
             const fetchUserDashboardInfo = async () => {
@@ -76,7 +77,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
         profilePic = `${NagadhatPublicUrl}/${profilePicture}`;
     } else if (isAffiliateUser?.profile_picture && !profilePicture) {
         profilePic = `${NagadhatPublicUrl}/${isAffiliateUser?.profile_picture}`;
-    }else{
+    } else {
         profilePic = "/images/avatar-demo.png"
     }
 
@@ -87,7 +88,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                     <div className="mb-3 customer-dashboard-profile-avatar">
                         <Image
                             className="rounded-circle"
-                            src={ profilePic}
+                            src={profilePic}
                             alt="avatar-demo"
                             width={60}
                             height={60}
@@ -206,8 +207,8 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </ul>
                         </li>
 
-                        {isAffiliateUser?.affiliate_user_status ==
-                            "Affiliate" || affiliateStatus ?(
+                        {affiliateStatus == 1 ? (
+                            <>
                                 <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                     <p
                                         className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "affiliate"
@@ -318,230 +319,230 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                                         </li>
                                     </ul>
                                 </li>
-                            ):""}
+                                <li className="nav-item customer-dashboard-nav-item parent-nav-item">
+                                    <p
+                                        className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "payout"
+                                            ? "activ-link"
+                                            : ""
+                                            }`}
+                                        onClick={() => toggleDropdown("payout")}
+                                    >
+                                        <FaBangladeshiTakaSign className="nav-icon me-2" />
+                                        Payout
+                                        <FaAngleRight
+                                            className={`dropdown ${activeDropdown === "payout"
+                                                ? "rotate"
+                                                : ""
+                                                }`}
+                                        />
+                                    </p>
+                                    <ul
+                                        className={`dropdown-conteiner ${activeDropdown === "payout" ? "show" : ""
+                                            }`}
+                                    >
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-affiliate-bonus")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-affiliate-bonus"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Affiliate Bonus
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-resale-bonus")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-resale-bonus"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Resell Bonus
+                                            </Link>
+                                        </li>
 
-                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
-                            <p
-                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "payout"
-                                    ? "activ-link"
-                                    : ""
-                                    }`}
-                                onClick={() => toggleDropdown("payout")}
-                            >
-                                <FaBangladeshiTakaSign className="nav-icon me-2" />
-                                Payout
-                                <FaAngleRight
-                                    className={`dropdown ${activeDropdown === "payout"
-                                        ? "rotate"
-                                        : ""
-                                        }`}
-                                />
-                            </p>
-                            <ul
-                                className={`dropdown-conteiner ${activeDropdown === "payout" ? "show" : ""
-                                    }`}
-                            >
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-affiliate-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-affiliate-bonus"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Affiliate Bonus
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-resale-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-resale-bonus"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Resell Bonus
-                                    </Link>
-                                </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-generation-bonus")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-generation-bonus"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Generation Bonus
+                                            </Link>
+                                        </li>
 
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-generation-bonus")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-generation-bonus"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Generation Bonus
-                                    </Link>
-                                </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-pending-balance")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-pending-balance"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Pending Balance
+                                            </Link>
+                                        </li>
 
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-pending-balance")
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-rank-&-reward")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-rank-&-reward"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Rank & Reward
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/payout-salary")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/payout-salary"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Salary
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li className="nav-item customer-dashboard-nav-item parent-nav-item">
+                                    <p
+                                        className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "finance"
                                             ? "activ-link"
                                             : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-pending-balance"
+                                            }`}
+                                        onClick={() => toggleDropdown("finance")}
                                     >
-                                        <span className="dropdown-item-circle"></span>
-                                        Pending Balance
-                                    </Link>
-                                </li>
-
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-rank-&-reward")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-rank-&-reward"
+                                        <FaMoneyBillTransfer className="nav-icon me-2" />
+                                        Finance
+                                        <FaAngleRight
+                                            className={`dropdown ${activeDropdown === "finance"
+                                                ? "rotate"
+                                                : ""
+                                                }`}
+                                        />
+                                    </p>
+                                    <ul
+                                        className={`dropdown-conteiner ${activeDropdown === "finance" ? "show" : ""
+                                            }`}
                                     >
-                                        <span className="dropdown-item-circle"></span>
-                                        Rank & Reward
-                                    </Link>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/finance-transactions")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-transactions"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Transactions
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/finance-transfer")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-transfer"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Transfer
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive(
+                                                    "/finance-transfer-history"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-transfer-history"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Transfer History
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/finance-withdraw")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-withdraw"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Withdraw
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive(
+                                                    "/finance-withdraw-history"
+                                                )
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-withdraw-history"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Withdraw History
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/finance-my-bank-details")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-my-bank-details"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                My Payment Information
+                                            </Link>
+                                        </li>
+                                        <li className="dropdown-item customer-dashboard-dropdown-item">
+                                            <Link
+                                                onClick={toggleSidebar}
+                                                className={`${isActive("/finance-bank-info")
+                                                    ? "activ-link"
+                                                    : ""
+                                                    } nav-link customer-dashboard-nav-link`}
+                                                href="/finance-bank-info"
+                                            >
+                                                <span className="dropdown-item-circle"></span>
+                                                Company Bank Information
+                                            </Link>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/payout-salary")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/payout-salary"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Salary
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="nav-item customer-dashboard-nav-item parent-nav-item">
-                            <p
-                                className={`nav-link customer-dashboard-nav-link dropdown-btn ${activeDropdown === "finance"
-                                    ? "activ-link"
-                                    : ""
-                                    }`}
-                                onClick={() => toggleDropdown("finance")}
-                            >
-                                <FaMoneyBillTransfer className="nav-icon me-2" />
-                                Finance
-                                <FaAngleRight
-                                    className={`dropdown ${activeDropdown === "finance"
-                                        ? "rotate"
-                                        : ""
-                                        }`}
-                                />
-                            </p>
-                            <ul
-                                className={`dropdown-conteiner ${activeDropdown === "finance" ? "show" : ""
-                                    }`}
-                            >
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/finance-transactions")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-transactions"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Transactions
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/finance-transfer")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-transfer"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Transfer
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive(
-                                            "/finance-transfer-history"
-                                        )
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-transfer-history"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Transfer History
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/finance-withdraw")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-withdraw"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Withdraw
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive(
-                                            "/finance-withdraw-history"
-                                        )
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-withdraw-history"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Withdraw History
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/finance-my-bank-details")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-my-bank-details"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        My Payment Information
-                                    </Link>
-                                </li>
-                                <li className="dropdown-item customer-dashboard-dropdown-item">
-                                    <Link
-                                        onClick={toggleSidebar}
-                                        className={`${isActive("/finance-bank-info")
-                                            ? "activ-link"
-                                            : ""
-                                            } nav-link customer-dashboard-nav-link`}
-                                        href="/finance-bank-info"
-                                    >
-                                        <span className="dropdown-item-circle"></span>
-                                        Company Bank Information
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
+                            </>
+                        ) : ""}
 
                         {/* <li className="nav-item customer-dashboard-nav-item">
                         <Link
