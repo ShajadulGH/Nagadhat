@@ -9,6 +9,7 @@ import { validatePhoneNumber } from "../services/validatePhoneNumber";
 import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
 import { toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Registration = () => {
     const [toggleSponsored, setToggleSponsored] = useState("self");
@@ -16,6 +17,7 @@ const Registration = () => {
     const [selectedChildName, setSelectedChildName] = useState("");
     const [selectedPlacementChildId, setSelectedPlacementChildId] = useState(0);
     const [selectedPlacementId, setSelectedPlacementId] = useState(0);
+    const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const referralId = searchParams.get("id");
@@ -68,8 +70,7 @@ const Registration = () => {
         selectedPlacementId,
     ]);
 
-    useEffect(() => {
-    }, [formData, referrerID]);
+    useEffect(() => {}, [formData, referrerID]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -147,12 +148,16 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!isCaptchaVerified) {
+            toast.error("Please complete the reCAPTCHA verification.");
+            return;
+        }
         // const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986","01761115624"];
         // if (!allowedNumbers.includes(formData.phone)) {
         //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
         //     return;
         // }
-        
+
         async function createUser() {
             const isValidInput = valideateInput(formData);
             if (!isValidInput) {
@@ -241,6 +246,11 @@ const Registration = () => {
 
         setSelectedPlacementChildId(selectedUser?.child?.id);
         setSelectedPlacementId(selectedUser?.id);
+    };
+    const handleCaptchaChange = (value) => {
+        if (value) {
+            setIsCaptchaVerified(true); // Set verified if reCAPTCHA is completed
+        }
     };
 
     return (
@@ -452,7 +462,7 @@ const Registration = () => {
                                     </div>
                                 )}
                                 {selectedChildName && (
-                                    <p className="pb-2 text-capitalize">
+                                    <p className="pb-2 text-capitalize text-danger fw-bold">
                                         {selectedChildName?.name} (
                                         {selectedChildName?.username})
                                     </p>
@@ -484,6 +494,12 @@ const Registration = () => {
                                         * Referer: {session?.user?.name}
                                     </p>
                                 )}
+                                <div className="pb-3 w-100 custom-login-recaptcha">
+                                    <ReCAPTCHA
+                                        sitekey="6LdQNb0qAAAAAJOm9zR2y47VY9A42nUjycP8Y0xN"
+                                        onChange={handleCaptchaChange}
+                                    />
+                                </div>
 
                                 <button
                                     type="submit"
