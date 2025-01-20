@@ -106,7 +106,8 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     ? "#000"
                                                     : items?.status === 4
                                                     ? "#fff"
-                                                    : "",
+                                                    :items?.status === 2
+                                                    ? "#000": "",
                                         }}
                                     >
                                         {items?.status === 0
