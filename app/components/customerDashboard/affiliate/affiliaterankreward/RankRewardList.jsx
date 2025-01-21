@@ -3,6 +3,7 @@ import Image from "next/image";
 import ClaimRewardModal from "./ClaimRewardModal";
 import { useState } from "react";
 import { NagadhatPublicUrl } from "@/app/utils";
+import { FaCheckCircle } from "react-icons/fa";
 
 const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
     const [selectedReward, setSelectedReward] = useState(null);
@@ -67,24 +68,69 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                     {items?.level}
                                 </td>
                                 <td className="align-middle text-center">
-                                    {items?.user_total_sales || 0} |{" "}
-                                    {items?.total_sales}
+                                    <div className="d-flex align-items-center">
+                                        <span className="w-auto">
+                                            {items?.user_total_sales || 0} |{" "}
+                                            {items?.total_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_total_sales >= items?.total_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center  ">
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_direct_sales || 0} |{" "}
+                                            {items?.direct_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_direct_sales >= items?.direct_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td className="align-middle text-center">
-                                    {items?.user_direct_sales || 0} |{" "}
-                                    {items?.direct_sales}
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_line_01_sales || 0} |{" "}
+                                            {items?.line_01_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_line_01_sales >= items?.line_01_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td className="align-middle text-center">
-                                    {items?.user_line_01_sales || 0} |{" "}
-                                    {items?.line_01_sales}
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_line_02_sales || 0} |{" "}
+                                            {items?.line_02_sales}
+                                        </span>
+                                        <span>
+                                            { index !=0 && index!=1 && items?.user_line_02_sales >= items?.line_02_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td className="align-middle text-center">
-                                    {items?.user_line_02_sales || 0} |{" "}
-                                    {items?.line_02_sales}
-                                </td>
-                                <td className="align-middle text-center">
-                                    {items?.user_others_line || 0} |{" "}
-                                    {items?.others_line}
+                                <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_others_line || 0} |{" "}
+                                            {items?.others_line}
+                                        </span>
+                                        <span>
+                                            {items?.user_others_line >= items?.others_line && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
                                 </td>
                                 <td className="align-middle text-center">
                                     <button
@@ -106,8 +152,9 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     ? "#000"
                                                     : items?.status === 4
                                                     ? "#fff"
-                                                    :items?.status === 2
-                                                    ? "#000": "",
+                                                    : items?.status === 2
+                                                    ? "#000"
+                                                    : "",
                                         }}
                                     >
                                         {items?.status === 0
