@@ -19,11 +19,12 @@ const AgentWithdrawalModal = ({
     const [charge, setCharge] = useState(0);
     const [payable, setPayable] = useState(0);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const { data: session } = useSession();
     const route = useRouter();
-    const modalRef = useRef(null); // Reference for modal
+    const modalRef = useRef(null);
 
-    const maxAmount = parseInt(financeAgentInfo?.total_withdrawable) || 0; // Get max withdrawable amount
+    const maxAmount = parseInt(financeAgentInfo?.total_withdrawable) || 0;
 
     const handleAmountChange = (e) => {
         const inputAmount = parseFloat(e.target.value);
@@ -36,24 +37,19 @@ const AgentWithdrawalModal = ({
             return;
         }
 
-        // If the input amount exceeds the maximum, reset to max value
         if (inputAmount > maxAmount) {
             setAmount(maxAmount);
         } else {
             setAmount(inputAmount);
         }
 
-        const chargeAmount = (inputAmount > maxAmount ? maxAmount : inputAmount) * 0.1; // 10% charge
+        const chargeAmount = (inputAmount > maxAmount ? maxAmount : inputAmount) * 0.1;
         const payableAmount = (inputAmount > maxAmount ? maxAmount : inputAmount) - chargeAmount;
 
         setCharge(chargeAmount);
         setPayable(payableAmount);
 
-        // Disable button if amount is less than minimum, exceeds balance, or agent is not selected
-        if (inputAmount < 500 ||
-            inputAmount > maxAmount ||
-            !agentId
-        ) {
+        if (inputAmount < 500 || inputAmount > maxAmount || !agentId) {
             setIsButtonDisabled(true);
         } else {
             setIsButtonDisabled(false);
@@ -61,15 +57,16 @@ const AgentWithdrawalModal = ({
     };
 
     useEffect(() => {
-        // Disable button if amount is less than minimum, exceeds balance, or agent is not selected
         if (amount < 500 || amount > maxAmount || !agentId || !agentWithdrawMethod) {
             setIsButtonDisabled(true);
         } else {
             setIsButtonDisabled(false);
         }
-    }, [amount, agentId, agentWithdrawMethod])
+    }, [amount, agentId, agentWithdrawMethod]);
 
     const handleWithdrawRequest = async () => {
+        setIsLoading(true); // Start loading
+
         let selectedAccount = null;
         if (agentWithdrawMethod == 3) {
             selectedAccount = bankTransferData.account_number;
@@ -92,20 +89,19 @@ const AgentWithdrawalModal = ({
         try {
             const response = await postAgentWithdraw(session?.accessToken, data);
             if (response.code === 200) {
-                // Close modal programmatically
                 const modalElement = modalRef.current;
                 if (modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                    modalInstance.hide(); // Close modal
+                    modalInstance.hide();
                 }
-                // Redirect to withdraw request page with withdrawal ID as parameter
                 route.push(`/finance-withdraw-request/${response.results.id}`);
             } else {
-                toast.error(response.message)
-                console.log("Withdrawal error", response);
+                toast.error(response.message);
             }
         } catch (error) {
             console.error("Error while withdrawing:", error);
+        } finally {
+            setIsLoading(false); // Stop loading
         }
     };
 
@@ -116,7 +112,7 @@ const AgentWithdrawalModal = ({
             tabIndex="-1"
             aria-labelledby="agentModalLabel"
             aria-hidden="true"
-            ref={modalRef} // Attach ref here
+            ref={modalRef}
         >
             <div className="modal-dialog modal-lg modal-dialog-centered">
                 <div className="modal-content">
@@ -133,7 +129,7 @@ const AgentWithdrawalModal = ({
                     </div>
                     <div className="modal-body">
                         <div className="container d-flex gap-3 flex-column">
-                            <div className="text-center">
+                        <div className="text-center">
                                 <Image
                                     height={200}
                                     width={300}
@@ -273,11 +269,11 @@ const AgentWithdrawalModal = ({
 
                             <button
                                 onClick={handleWithdrawRequest}
-                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled ? 'disabled-button' : ''}`}
+                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled || isLoading ? 'disabled-button' : ''}`}
                                 type="submit"
-                                disabled={isButtonDisabled}
+                                disabled={isButtonDisabled || isLoading}
                             >
-                                Continue
+                                {isLoading ? 'Processing...' : 'Continue'}
                             </button>
 
                             <div>

@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 const FinanceWithdraw = ({ params }) => {
     const [withdrawRequestData, setWithdrawRequestData] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const { data: session } = useSession();
     const { id } = params;
     const route = useRouter();
@@ -35,6 +36,7 @@ const FinanceWithdraw = ({ params }) => {
     }, [session?.accessToken, id]);
 
     const handleSubmit = async (e) => {
+        setIsLoading(true);
         e.preventDefault();
         const otp = e.target.otp.value;
         const data = {
@@ -59,7 +61,7 @@ const FinanceWithdraw = ({ params }) => {
         } catch (error) {
             console.log("PIN request error:", error);
             toast.error(error.message)
-        }
+        } finally { setIsLoading(false) }
     };
 
     return (
@@ -144,8 +146,9 @@ const FinanceWithdraw = ({ params }) => {
                             <button
                                 type="submit"
                                 className="ms-auto add-to-cart-link border-0"
+                                disabled={isLoading}
                             >
-                                Continue
+                                {isLoading ? 'Processing...' : 'Continue'}
                             </button>
                         </div>
                     </form>
