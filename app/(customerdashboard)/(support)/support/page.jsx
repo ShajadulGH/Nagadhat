@@ -23,7 +23,7 @@ const SupportPage = () => {
             </div>
             <div className="px-4 py-4">
                 <div className="table-responsive ">
-                    <table class="table table-striped table-hover">
+                    <table className="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">SL</th>
