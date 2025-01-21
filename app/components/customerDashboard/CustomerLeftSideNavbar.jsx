@@ -56,13 +56,15 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
             };
             fetchUserDashboardInfo();
         }
-    }, [status, session]);
+    }, [session?.accessToken, affiliateStatus]);
 
     const toggleDropdown = (dropdown) => {
         setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
     };
 
     const isActive = (href) => currentPath === href;
+
+    console.log("isAffiliateUser", isAffiliateUser)
 
     useEffect(() => {
         const firstPartOfPath = currentPath.split("-")[0]; // Get the first part of currentPath
@@ -207,7 +209,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </ul>
                         </li>
 
-                        {affiliateStatus == 1 ? (
+                        { isAffiliateUser?.status == 1 ? (
                             <>
                                 <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                     <p
