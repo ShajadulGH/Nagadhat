@@ -13,6 +13,7 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
     const [charge, setCharge] = useState(0);
     const [payable, setPayable] = useState(0);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const { data: session } = useSession();
     const route = useRouter();
     const modalRef = useRef(null); // Reference for modal
@@ -20,6 +21,7 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
     const maxAmount = parseInt(mobileBankingInfo?.total_withdrawable) || 0; // Get max withdrawable amount
 
     const handleAmountChange = (e) => {
+
         const inputAmount = parseFloat(e.target.value);
 
         if (isNaN(inputAmount) || inputAmount <= 0) {
@@ -54,6 +56,7 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
     }, [amount, mobileBanking]);
 
     const handleWithdrawRequest = async () => {
+        setIsLoading(true);
         const selectedAccount = mobileBankingInfo?.data?.find(item => item.name == mobileBanking)?.account_number;
 
         const data = {
@@ -80,6 +83,8 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
             }
         } catch (error) {
             console.error("Error while withdrawing:", error);
+        }finally{
+            setIsLoading(false);
         }
     };
 
@@ -173,10 +178,10 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
 
                             <button
                                 onClick={handleWithdrawRequest}
-                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled ? 'disabled-button' : ''}`}
-                                disabled={isButtonDisabled}
+                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled || isLoading ? 'disabled-button' : ''}`}
+                                disabled={isButtonDisabled || isLoading}
                             >
-                                Continue
+                                {isLoading ? 'Processing...' : 'Continue'}
                             </button>
 
                             <div>
