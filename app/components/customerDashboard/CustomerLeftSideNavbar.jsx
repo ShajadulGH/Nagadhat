@@ -56,7 +56,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
             };
             fetchUserDashboardInfo();
         }
-    }, [status, session]);
+    }, [session?.accessToken, affiliateStatus]);
 
     const toggleDropdown = (dropdown) => {
         setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
@@ -207,7 +207,7 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                             </ul>
                         </li>
 
-                        {affiliateStatus == 1 ? (
+                        { isAffiliateUser?.status == 1 ? (
                             <>
                                 <li className="nav-item customer-dashboard-nav-item parent-nav-item">
                                     <p
