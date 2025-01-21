@@ -13,6 +13,7 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
     const [charge, setCharge] = useState(0);
     const [payable, setPayable] = useState(0);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const { data: session } = useSession();
     const route = useRouter();
     const modalRef = useRef(null); // Reference for modal
@@ -51,6 +52,7 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
     }, [amount, bank])
 
     const handleWithdrawRequest = async () => {
+        setIsLoading(true);
         const data = {
             bank_id: bankTransferInfo?.bank_id,
             billing_method: "Bank",
@@ -75,6 +77,8 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
             }
         } catch (error) {
             console.error("Error while withdrawing:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -170,10 +174,10 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
 
                             <button
                                 onClick={handleWithdrawRequest}
-                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled ? 'disabled-button' : ''}`}
-                                disabled={isButtonDisabled}
+                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled || isLoading ? 'disabled-button' : ''}`}
+                                disabled={isButtonDisabled || isLoading}
                             >
-                                Continue
+                                {isLoading ? 'Processing...' : 'Continue'}
                             </button>
 
                             <div>
