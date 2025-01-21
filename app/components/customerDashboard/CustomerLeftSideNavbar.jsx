@@ -64,8 +64,6 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
 
     const isActive = (href) => currentPath === href;
 
-    console.log("isAffiliateUser", isAffiliateUser)
-
     useEffect(() => {
         const firstPartOfPath = currentPath.split("-")[0]; // Get the first part of currentPath
         const sanitizedPath = firstPartOfPath.startsWith("/")
