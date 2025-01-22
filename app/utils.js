@@ -1,8 +1,8 @@
-// For Live
+// For Live staging - production
 // export const apiBaseUrl = "https://v3.nagadhat.com/api";
 // export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
-// For Live beta
+// For Live beta - production
 export const apiBaseUrl = "https://beta.nagadhat.com.bd/api";
 export const NagadhatPublicUrl = "https://beta.nagadhat.com.bd";
 
