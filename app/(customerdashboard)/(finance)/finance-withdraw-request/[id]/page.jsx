@@ -41,7 +41,7 @@ const FinanceWithdraw = ({ params }) => {
         const otp = e.target.otp.value;
         const data = {
             otp,
-            otp_status: withdrawRequestData?.otp_status == 'mobile' ? 1 : 2
+            otp_status: withdrawRequestData?.otp_status
         }
         try {
             const request = await postOTPWithdrawVerification(session.accessToken, data);
