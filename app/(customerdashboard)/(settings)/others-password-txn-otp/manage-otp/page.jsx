@@ -23,7 +23,7 @@ const OTP = () => {
         }
         try {
             const res = await getVerifyOTP({
-                otp_type: otpType,
+                otp_type: otpType == "pin" ? 2 : 1,
                 otp,
                 pin: otpType == "pin" ? pin : ""
             }, session?.accessToken);
