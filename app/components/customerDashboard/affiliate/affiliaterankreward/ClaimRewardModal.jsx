@@ -61,7 +61,10 @@ const ClaimRewardModal = ({
             confirmButtonText: "Yes, Confirm!",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                if (rewardDetails?.status !== 1) {
+                if (
+                    rewardDetails?.status !== 1 &&
+                    rewardDetails?.status !== 4
+                ) {
                     toast.error("This reward cannot be claimed");
                     return;
                 }
@@ -137,7 +140,7 @@ const ClaimRewardModal = ({
                 onMouseDown={handleOutsideClick}
             >
                 <div
-                    className="modal-dialog modal-dialog-centered modal-lg"
+                    className="modal-dialog modal-dialog-centered "
                     role="document"
                 >
                     <div className="modal-content">
@@ -158,15 +161,17 @@ const ClaimRewardModal = ({
                                     <div className="rewards-gif-image-item col-md-12">
                                         <div className="">
                                             <Image
-                                                className="img-fluid"
-                                                width={770}
-                                                height={250}
+                                                className="img-fluid m-auto d-block"
+                                                width={300}
+                                                height={120}
                                                 src={rewardImageUrl}
                                                 alt={`${rewardDetails?.level}`}
                                                 onClick={() => {
                                                     if (
-                                                        rewardDetails?.status ===
-                                                            1 &&
+                                                        (rewardDetails?.status ===
+                                                            1 ||
+                                                            rewardDetails?.status ===
+                                                                4) &&
                                                         !isPending
                                                     ) {
                                                         handleRewardClaim(
@@ -177,35 +182,61 @@ const ClaimRewardModal = ({
                                                 }}
                                                 style={{
                                                     cursor:
-                                                        rewardDetails?.status ===
-                                                            1 && !isPending
+                                                        (rewardDetails?.status ===
+                                                            1 ||
+                                                            rewardDetails?.status ===
+                                                                4) &&
+                                                        !isPending
                                                             ? "pointer "
                                                             : "not-allowed",
+                                                    objectFit: "scale-down",
                                                 }}
                                             />
                                         </div>
                                     </div>
+                                ) : rewardDetails.status === 2 ? (
+                                    <h5 className="lh-sm text-danger">
+                                        Your reward claim request has been
+                                        received. Please wait for admin
+                                        approval. You will be notified once your
+                                        reward is approved. Thank you for your
+                                        patience!
+                                    </h5>
+                                ) : rewardDetails.status === 3 ? (
+                                    <h5 className="lh-sm  text-success">
+                                        Congratulations! Your claim has been
+                                        successfully approved. You can now
+                                        proceed with the next steps. Thank you
+                                        for your patience and trust in our
+                                        services!
+                                    </h5>
                                 ) : (
                                     <>
                                         <div className="rewards-gif-image-item col-md-12">
                                             <div className="">
                                                 <Image
+                                                    className="img-fluid m-auto d-block"
                                                     style={{
                                                         cursor:
-                                                            rewardDetails?.status ===
-                                                                1 && !isPending
+                                                            (rewardDetails?.status ===
+                                                                1 ||
+                                                                rewardDetails?.status ===
+                                                                    4) &&
+                                                            !isPending
                                                                 ? "pointer"
                                                                 : "not-allowed",
+                                                        objectFit: "scale-down",
                                                     }}
-                                                    className="img-fluid"
-                                                    width={770}
-                                                    height={250}
+                                                    width={300}
+                                                    height={120}
                                                     src={`/images/Taka.png`}
                                                     alt={`${rewardDetails?.level}`}
                                                     onClick={() => {
                                                         if (
-                                                            rewardDetails?.status ===
-                                                                1 &&
+                                                            (rewardDetails?.status ===
+                                                                1 ||
+                                                                rewardDetails?.status ===
+                                                                    4) &&
                                                             !isPending
                                                         ) {
                                                             handleRewardClaim(
