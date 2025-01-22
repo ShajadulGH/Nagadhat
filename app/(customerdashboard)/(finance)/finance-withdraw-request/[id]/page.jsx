@@ -129,7 +129,7 @@ const FinanceWithdraw = ({ params }) => {
                     </div>
                     <hr className="py-2" />
                     <label htmlFor="otp" className="form-label">
-                        {withdrawRequestData?.otp_status == 'mobile' ?
+                        {withdrawRequestData?.otp_status == 1 ?
                             'Enter your transaction OTP to proceed.' :
                             'Enter your transaction PIN to proceed.'}
                         <span className="text-danger fs-5">*</span>
