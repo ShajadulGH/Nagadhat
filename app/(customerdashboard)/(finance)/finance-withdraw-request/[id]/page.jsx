@@ -141,6 +141,7 @@ const FinanceWithdraw = ({ params }) => {
                                 required
                                 className="form-control"
                                 name="otp"
+                                defaultValue={withdrawRequestData?.otp}
                                 placeholder={withdrawRequestData?.otp_status == 'mobile' ? 'OTP' : 'PIN'}
                             />
                             <button

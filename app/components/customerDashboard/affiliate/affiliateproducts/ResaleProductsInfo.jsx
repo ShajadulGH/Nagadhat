@@ -8,10 +8,9 @@ import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 const ResaleProductsInfo = ({ resaleProduct }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
-    console.log(resaleProduct);
     
     return (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
+        <div className="row row-cols-2 row-cols-md-3 row-cols-xxl-4 g-2 g-md-3">
             {resaleProduct?.map((product) => (
                 <div key={product.id} className="flash-sale-content-item col">
                     <Link

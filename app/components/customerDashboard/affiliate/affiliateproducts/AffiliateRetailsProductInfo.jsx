@@ -16,7 +16,7 @@ const AffiliateRetailsProductInfo = ({
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     return (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
+        <div className="row row-cols-2 row-cols-md-3 row-cols-xxl-4 g-2 g-md-3">
             {retailProduct?.length > 0 ? (
                 retailProduct?.map((product) => {
                     const imageUrl = `${NagadhatPublicUrl}/${product?.product_thumbnail}`;
