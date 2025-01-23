@@ -194,6 +194,13 @@ const ClaimRewardModal = ({
                                             />
                                         </div>
                                     </div>
+                                ) : rewardDetails.status === 0 ? (
+                                    <h5 className="lh-sm text-danger">
+                                        Your current rank has not been achieved
+                                        yet. Keep pushing forward—we believe in
+                                        your potential! Stay consistent, and
+                                        success will follow soon.
+                                    </h5>
                                 ) : rewardDetails.status === 2 ? (
                                     <h5 className="lh-sm text-danger">
                                         Your reward claim request has been
