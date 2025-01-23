@@ -157,7 +157,7 @@ const ClaimRewardModal = ({
                         </div>
                         <div className="modal-body ">
                             <div className="row">
-                                {rewardDetails?.rewards_money === 0 ? (
+                                {rewardDetails?.rewards_money === 0 && rewardDetails?.status !== 0 ? (
                                     <div className="rewards-gif-image-item col-md-12">
                                         <div className="">
                                             <Image

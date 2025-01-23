@@ -143,6 +143,7 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                     <button
                                         onClick={() => {
                                             if (
+                                                items?.status === 0 ||
                                                 items?.status === 1 ||
                                                 items?.status === 4
                                             ) {
@@ -168,6 +169,7 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     ? "#000"
                                                     : "",
                                             cursor:
+                                                items?.status === 0 ||
                                                 items?.status === 1 ||
                                                 items?.status === 4
                                                     ? "pointer"

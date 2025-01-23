@@ -298,8 +298,20 @@
 
     
 }
-
+.product-copy-main-info-mobile {
+    display: none;
+}
 @media (max-width: 991px) {
+    .product-copy-main-info-desktop {
+        display: none;
+    }
+    .product-copy-main-info-mobile {
+        display: block;
+    }
+    .product-copy-main-info-mobile-holder .product-copy-main-info-mobile,
+    .product-copy-main-info-mobile-holder .custom-flex-grow-1 {
+        flex: 6;
+    }
     .flash-sale-content-area {
         -ms-grid-columns: 1fr 10px 1fr 10px 1fr;
         grid-template-columns: repeat(3, 1fr);

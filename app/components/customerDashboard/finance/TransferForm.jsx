@@ -8,7 +8,7 @@ import { postVerifyTransferOtpRequest } from "@/app/services/affiliate-finance/p
 import FinanceHistoryModalTable from "./FinanceHistoryModalTable";
 import Link from "next/link";
 
-const  TransferForm = () => {
+const TransferForm = () => {
     const [transfer, setTransfer] = useState("");
     const [amount, setAmount] = useState(0);
     const [charge, setCharge] = useState(0);
@@ -24,16 +24,23 @@ const  TransferForm = () => {
         const selectedTransfer = e.target.value;
         setTransfer(selectedTransfer);
         // get transfer details
-        const transferResponse = await postaffiliateFundTransfer(session?.accessToken, selectedTransfer);
+        const transferResponse = await postaffiliateFundTransfer(
+            session?.accessToken,
+            selectedTransfer
+        );
         setTransferDetails(transferResponse?.results);
     };
 
     useEffect(() => {
         // Check if entered amount exceeds balance
-        const availableBalance = transfer === "C2S" ? transferDetails?.cash_balance : transferDetails?.shopping_balance;
+        const availableBalance =
+            transfer === "C2S"
+                ? transferDetails?.cash_balance
+                : transferDetails?.shopping_balance;
         if (enteredAmount > availableBalance) {
             toast.error("Entered amount exceeds available balance");
-            setEnteredAmount(availableBalance)
+            // setEnteredAmount(availableBalance)
+            setEnteredAmount(availableBalance > 0 ? availableBalance : "");
         } else {
             setAmount(enteredAmount);
         }
@@ -51,8 +58,10 @@ const  TransferForm = () => {
     const handleTransferRequest = async (e) => {
         e.preventDefault();
         const data = {
-            transfer_form: transfer === "S2C" ? "Shopping balance" : "Cash balance",
-            transfer_to: transfer === "C2S" ? "Shopping balance" : "Cash balance",
+            transfer_form:
+                transfer === "S2C" ? "Shopping balance" : "Cash balance",
+            transfer_to:
+                transfer === "C2S" ? "Shopping balance" : "Cash balance",
             transfer_type: transfer,
             amount,
             charge,
@@ -60,7 +69,10 @@ const  TransferForm = () => {
         };
 
         try {
-            const response = await postVerifyTransferOtpRequest(session.accessToken, data);
+            const response = await postVerifyTransferOtpRequest(
+                session.accessToken,
+                data
+            );
             if (response.code === 200) {
                 // Open Bootstrap modal
                 const modalElement = document.getElementById("successModal");
@@ -75,6 +87,13 @@ const  TransferForm = () => {
             console.error("Error while making transfer request:", error);
         }
     };
+
+    const isButtonDisabled =
+    !transfer ||
+    !enteredAmount ||
+    (transfer === "C2S" && (transferDetails?.cash_balance <= 0 || enteredAmount > transferDetails?.cash_balance)) ||
+    (transfer === "S2C" &&
+      (transferDetails?.shopping_balance <= 0 || enteredAmount > transferDetails?.shopping_balance));
 
     return (
         <>
@@ -118,9 +137,15 @@ const  TransferForm = () => {
                         Amount:
                         {transfer ? (
                             <span className="praymary-color">
-                                (Balance: {transfer === "C2S" ? transferDetails?.cash_balance : transferDetails?.shopping_balance})
+                                (Balance:{" "}
+                                {transfer === "C2S"
+                                    ? transferDetails?.cash_balance
+                                    : transferDetails?.shopping_balance}
+                                )
                             </span>
-                        ) : ""}
+                        ) : (
+                            ""
+                        )}
                     </label>
                     <div className="input-group">
                         <div className="input-group-prepend">
@@ -134,22 +159,38 @@ const  TransferForm = () => {
                             placeholder="Enter Amount"
                             value={enteredAmount}
                             onChange={(e) => setEnteredAmount(e.target.value)}
+                            disabled={
+                                !transfer ||
+                                (transfer === "C2S" &&
+                                    transferDetails?.cash_balance <= 0) ||
+                                (transfer === "S2C" &&
+                                    transferDetails?.shopping_balance <= 0)
+                            }
                         />
                     </div>
                 </div>
                 {transfer === "C2S" && amount && (
                     <div className="form-group paySheet">
                         <p className="mb-0">Amount: {amount}</p>
-                        <p className="mb-0">Charge: {Number(charge || 0).toFixed(2)}</p>
-                        <p className="mb-0">Payable: {Number(payable || 0).toFixed(2)}</p>
+                        <p className="mb-0">
+                            Charge: {Number(charge || 0).toFixed(2)}
+                        </p>
+                        <p className="mb-0">
+                            Payable: {Number(payable || 0).toFixed(2)}
+                        </p>
                     </div>
                 )}
                 {transfer === "C2S" && (
-                    <p>7% service charge applicable when transferring from Cash Balance to Shopping Balance</p>
+                    <p>
+                        7% service charge applicable when transferring from Cash
+                        Balance to Shopping Balance
+                    </p>
                 )}
                 <button
-                    className={`w-100 add-to-cart-link border-0 mt-3 ${(transfer && amount) ? "" : "disabled-button"}`}
-                    disabled={!(transfer && amount)}
+                    className={`w-100 add-to-cart-link border-0 mt-3 ${
+                        transfer && amount ? "" : "disabled-button"
+                    }`}
+                    disabled={isButtonDisabled}
                     onClick={handleTransferRequest}
                 >
                     Continue
@@ -162,15 +203,20 @@ const  TransferForm = () => {
                 setTransferDetails={setTransferDetails}
             />
             {/* Transactions section */}
-            {
-                transferDetails?.transfer_history?.length > 0 && (
-                    <div className="mt-3">
-                        <h4>Transaction History</h4>
-                        <FinanceHistoryModalTable data={transferDetails?.transfer_history} />
-                        <Link className="load-more-btn text-center" href={"/finance-transfer-history"}>View all ...</Link>
-                    </div>
-                )
-            }
+            {transferDetails?.transfer_history?.length > 0 && (
+                <div className="mt-3">
+                    <h4>Transaction History</h4>
+                    <FinanceHistoryModalTable
+                        data={transferDetails?.transfer_history}
+                    />
+                    <Link
+                        className="load-more-btn text-center"
+                        href={"/finance-transfer-history"}
+                    >
+                        View all ...
+                    </Link>
+                </div>
+            )}
         </>
     );
 };
