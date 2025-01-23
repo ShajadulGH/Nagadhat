@@ -26,30 +26,31 @@ export const AffiliateTabTitle = () => {
         <>
             <div className="customer-setting-header tab-header border-0">
                 <ul
-                    className="nav nav-pills d-flex tab-continer"
+                    className="nav nav-pills d-flex tab-continer gap-2"
                     id="myTab"
                     role="tablist"
                 >
                     <li className="nav-item">
                         <button
                             className={`nav-link ${
-                                tab === "resale-tab" ? "active" : ""
-                            } rounded-0`}
+                                tab === "resale-tab" ? "active" : " "
+                            } rounded-3`}
                             id="resale-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#resale"
                             type="button"
                             role="tab"
                             onClick={() => handleTabClick("resale-tab")}
+                            style={{ border:"1px solid #44bc9d" }}
                         >
-                            FPNH (Resale)
+                            FBNH (Resell)
                         </button>
                     </li>
                     <li className="nav-item">
                         <button
                             className={`nav-link ${
                                 tab === "container-booking-tab" ? "active" : ""
-                            } rounded-0 border-start-0 border-end-0`}
+                            } rounded-3 `}
                             id="container-booking-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#container-booking"
@@ -58,6 +59,7 @@ export const AffiliateTabTitle = () => {
                             onClick={() =>
                                 handleTabClick("container-booking-tab")
                             }
+                            style={{ border:"1px solid #44bc9d" }}
                         >
                             Container Booking
                         </button>
@@ -66,13 +68,14 @@ export const AffiliateTabTitle = () => {
                         <button
                             className={`nav-link ${
                                 tab === "retails-tab" ? "active" : ""
-                            } rounded-0`}
+                            } rounded-3 `}
                             id="retails-tab"
                             data-bs-toggle="tab"
                             data-bs-target="#retails"
                             type="button"
                             role="tab"
                             onClick={() => handleTabClick("retails-tab")}
+                            style={{ border:"1px solid #44bc9d" }}
                         >
                             Retails
                         </button>
