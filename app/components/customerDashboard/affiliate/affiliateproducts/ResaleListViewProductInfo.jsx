@@ -58,7 +58,7 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                         >
                                             {truncateTitle(
                                                 product.product_name,
-                                                60
+                                                40
                                             )}
                                         </h4>
                                         <div className="resell-list-view-info-mobile">
