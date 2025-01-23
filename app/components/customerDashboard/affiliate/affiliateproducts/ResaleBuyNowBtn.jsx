@@ -113,7 +113,7 @@ const ResaleBuyNowBtn = ({ product }) => {
                             />
                         </div>
                     ) : (
-                        "BUY NOW"
+                        "ORDER NOW"
                     )
                 }
             </button>

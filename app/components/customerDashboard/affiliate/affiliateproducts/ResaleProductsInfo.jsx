@@ -33,7 +33,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                             </h4>
                             <div className="category-product-price d-flex flex-column justify-content-between">
                                 <p className="fpnh-resale-pricess">
-                                    Price (MRP):{" "}
+                                    MRP :{" "}
                                     <del className="fw-bold">
                                         ৳{" "}
                                         {product.resell_mrp_price *
@@ -41,7 +41,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                     </del>
                                 </p>
                                 <p className="fpnh-resale-pricess">
-                                    Price (Offer):{" "}
+                                    TP :{" "}
                                     <span className="fw-bold">
                                         ৳{" "}
                                         {product.resell_purchases_price *
@@ -49,7 +49,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                     </span>
                                 </p>
                                 <p className="fpnh-resale-pricess">
-                                    Minimum Quantity:{" "}
+                                    Min Qty :{" "}
                                     <span className="fw-bold">
                                         {product.min_quantity || "N/A"}
                                     </span>
