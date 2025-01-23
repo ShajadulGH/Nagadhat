@@ -141,7 +141,14 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                 </td>
                                 <td className="align-middle text-center">
                                     <button
-                                        onClick={() => handleClaimReward(items)}
+                                        onClick={() => {
+                                            if (
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                            ) {
+                                                handleClaimReward(items);
+                                            }
+                                        }}
                                         className="add-to-cart-link affiliate-rank-btn text-capitalize"
                                         style={{
                                             background:
@@ -151,8 +158,6 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     ? "yellow"
                                                     : items?.status === 3
                                                     ? "#0089B9"
-                                                    : items?.status === 4
-                                                    ? "red"
                                                     : "",
                                             color:
                                                 items?.status === 3
@@ -162,6 +167,11 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     : items?.status === 2
                                                     ? "#000"
                                                     : "",
+                                            cursor:
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                                    ? "pointer"
+                                                    : "auto",
                                         }}
                                     >
                                         {items?.status === 0 ? (
@@ -173,7 +183,7 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                         ) : items?.status === 3 ? (
                                             <strong>Claim Approved</strong>
                                         ) : items?.status === 4 ? (
-                                            "Claim Rejected"
+                                            "Claim Reward"
                                         ) : (
                                             ""
                                         )}
