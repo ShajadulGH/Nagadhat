@@ -347,8 +347,47 @@
         grid-template-columns: repeat(1, 1fr);
     }
 }
-
+.resell-list-view-info-mobile {
+    display: none;
+}
 @media (max-width: 767px) {
+    .resell-list-view-info-desktop {
+        display: none
+    }
+    .resell-list-view-info-mobile {
+        display: block;
+    }
+    .resell-list-view-info-mobile-holder h4 {
+        min-width: auto !important;
+        max-width: none !important;
+        flex: none !important;
+        word-wrap: break-word !important;
+        margin-bottom: 5px !important;
+    }
+    .resell-list-view-info-mobile-area {
+        min-width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 !important;
+        align-items: center;
+    }
+    .add-to-cart-btn.resell-order-now-mobile {
+        padding-top: 10px;
+    }
+    .add-to-cart-btn.resell-order-now-mobile .category-product-add-btn {
+        width: 100% !important;
+        max-width: 165px !important;
+    }
+    .resell-list-view-info-mobile-section .affiliate-product-list-item {
+        padding: 15px 10px !important;
+    }
+    .resell-list-view-info-mobile-area .mb-0.image-div {
+        width: 120px !important;
+        flex-basis: 120px !important;
+        object-fit: scale-down;
+    }
+    .resell-list-view-info-mobile-section {
+        min-width: 100% !important
+    }
     .flash-sale-area,
     .nh-categories-area,
     .nagadhat-partner-area {
@@ -583,9 +622,9 @@
     }
 
     .add-to-cart-link {
-        padding: 6px 8px;
+        padding: 10px 8px;
         font-size: 12px;
-        padding-bottom: 4px;
+        padding-bottom: 8px;
     }
 
     .product-details-variant-holder {
@@ -606,6 +645,16 @@
     }
     .product-search-modal-area {
         z-index: 1090 !important;
+    }
+    .modal-dialog.modal-dialog-scrollable.custom-withdrawHistory {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+    .container-booking-body-tab{
+        padding: 7px;
+    }
+    .customer-setting-header {
+        padding: 15px;
     }
 }
 
