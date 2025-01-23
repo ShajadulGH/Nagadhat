@@ -607,6 +607,10 @@
     .product-search-modal-area {
         z-index: 1090 !important;
     }
+    .modal-dialog.modal-dialog-scrollable.custom-withdrawHistory {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
 }
 
 @media (max-width: 450px) {
