@@ -46,15 +46,15 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        // const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986","01761115624"];
-        // if (!allowedNumbers.includes(formData.username)) {
-        //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
-        //     return;
-        // }
-        // if (!isCaptchaVerified) {
-        //     toast.error("Please complete the reCAPTCHA verification.");
-        //     return;
-        // }
+        const allowedNumbers = ["01739245723", "01680572792", "01833966995", "01775282986","01761115624"];
+        if (!allowedNumbers.includes(formData.username)) {
+            toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
+            return;
+        }
+        if (!isCaptchaVerified) {
+            toast.error("Please complete the reCAPTCHA verification.");
+            return;
+        }
 
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
