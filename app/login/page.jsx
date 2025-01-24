@@ -51,10 +51,10 @@ const Login = () => {
             toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
             return;
         }
-        if (!isCaptchaVerified) {
-            toast.error("Please complete the reCAPTCHA verification.");
-            return;
-        }
+        // if (!isCaptchaVerified) {
+        //     toast.error("Please complete the reCAPTCHA verification.");
+        //     return;
+        // }
 
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
