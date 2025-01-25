@@ -12,7 +12,7 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
         <>
             <div className="table-responsive-xl">
                 <div
-                    className="d-flex flex-column gap-3 "
+                    className="d-flex flex-column gap-3 resell-list-view-info-mobile-section"
                     style={{ minWidth: "640px" }}
                 >
                     {resaleProduct?.map((product) => (
@@ -23,7 +23,7 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                         >
                             <div className="flash-sale-content-info text-hover-effect d-flex gap-3 justify-content-between align-items-center">
                                 <div
-                                    className="d-flex gap-3"
+                                    className="d-flex gap-3  resell-list-view-info-mobile-area"
                                     style={{
                                         minWidth: "200px",
                                         maxWidth: "360px",
@@ -31,48 +31,104 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                     }}
                                 >
                                     <div
-                                        className="mb-0"
+                                        className="mb-0 image-div"
                                         style={{
                                             height: "100px",
                                             width: "80px",
-                                            overflow:"hidden"
+                                            overflow: "hidden",
                                         }}
                                     >
-                                            <Image
-                                                height={100}
-                                                width={80}
-                                                src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
-                                                className="img-fluid"
-                                                alt={product.product_name}
-                                            />
+                                        <Image
+                                            height={150}
+                                            width={120}
+                                            src={`${NagadhatPublicUrl}/${product.product_thumbnail}`}
+                                            className="img-fluid"
+                                            alt={product.product_name}
+                                        />
                                     </div>
-                                    <h4
-                                        title={product.product_name}
-                                        style={{
-                                            minWidth: "120px",
-                                            maxWidth: "280px",
-                                            flex: "1",
-                                            marginBottom:"0"
-                                        }}
-                                    >
-                                        {truncateTitle(product.product_name, 80)}
-                                    </h4>
+                                    <div className="d-flex flex-column resell-list-view-info-mobile-holder">
+                                        <h4
+                                            title={product.product_name}
+                                            style={{
+                                                minWidth: "120px",
+                                                maxWidth: "280px",
+                                                flex: "1",
+                                                marginBottom: "0",
+                                            }}
+                                        >
+                                            {truncateTitle(
+                                                product.product_name,
+                                                40
+                                            )}
+                                        </h4>
+                                        <div className="resell-list-view-info-mobile">
+                                            <div className="category-product-price ">
+                                                <p className="fpnh-resale-pricess">
+                                                    MRP :{" "}
+                                                    <del className="fw-bold">
+                                                        ৳{" "}
+                                                        {product.resell_mrp_price *
+                                                            (product.min_quantity ||
+                                                                1)}
+                                                    </del>
+                                                </p>
+                                                <p className="fpnh-resale-pricess">
+                                                    TP :{" "}
+                                                    <span className="fw-bold">
+                                                        ৳{" "}
+                                                        {product.resell_purchases_price *
+                                                            (product.min_quantity ||
+                                                                1)}
+                                                    </span>
+                                                </p>
+                                                <p className="fpnh-resale-pricess">
+                                                    Min Qty :{" "}
+                                                    <span className="fw-bold">
+                                                        {product.min_quantity ||
+                                                            "N/A"}
+                                                    </span>
+                                                </p>
+                                                <p className="fpnh-resale-pricess">
+                                                    Duration:{" "}
+                                                    <span className="fw-bold">
+                                                        {`${
+                                                            product.is_instalment
+                                                                ? "In"
+                                                                : "After"
+                                                        } ${
+                                                            product.fast_moving_duration
+                                                        } Months`}
+                                                    </span>
+                                                </p>
+                                                <div className="add-to-cart-btn resell-order-now-mobile">
+                                                    <ResaleBuyNowBtn
+                                                        product={product}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="category-product-price">
+
+                                <div className="category-product-price resell-list-view-info-desktop">
                                     <p className="fpnh-resale-pricess">
-                                        Price (MRP):{" "}
+                                        MRP :{" "}
                                         <del className="fw-bold">
-                                            ৳ {product.resell_mrp_price * (product.min_quantity || 1)}
+                                            ৳{" "}
+                                            {product.resell_mrp_price *
+                                                (product.min_quantity || 1)}
                                         </del>
                                     </p>
                                     <p className="fpnh-resale-pricess">
-                                        Price (Offer):{" "}
+                                        TP :{" "}
                                         <span className="fw-bold">
-                                            ৳ {product.resell_purchases_price * (product.min_quantity || 1)}
+                                            ৳{" "}
+                                            {product.resell_purchases_price *
+                                                (product.min_quantity || 1)}
                                         </span>
                                     </p>
                                     <p className="fpnh-resale-pricess">
-                                        Minimum Quantity:{" "}
+                                        Min Qty :{" "}
                                         <span className="fw-bold">
                                             {product.min_quantity || "N/A"}
                                         </span>
@@ -80,15 +136,19 @@ const ResaleListViewProductInfo = ({ resaleProduct }) => {
                                     <p className="fpnh-resale-pricess">
                                         Duration:{" "}
                                         <span className="fw-bold">
-                                            {`${product.is_instalment ? "In" : "After" } ${product.fast_moving_duration} Months`}
+                                            {`${
+                                                product.is_instalment
+                                                    ? "In"
+                                                    : "After"
+                                            } ${
+                                                product.fast_moving_duration
+                                            } Months`}
                                         </span>
                                     </p>
                                 </div>
-                                <div className="add-to-cart-holder">
+                                <div className="add-to-cart-holder resell-list-view-info-desktop">
                                     <div className="add-to-cart-btn">
-                                        <ResaleBuyNowBtn
-                                            product={product}
-                                        />
+                                        <ResaleBuyNowBtn product={product} />
                                     </div>
                                 </div>
                             </div>

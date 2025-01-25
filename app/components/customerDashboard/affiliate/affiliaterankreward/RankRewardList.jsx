@@ -74,7 +74,8 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             {items?.total_sales}
                                         </span>
                                         <span>
-                                            {items?.user_total_sales >= items?.total_sales && (
+                                            {items?.user_total_sales >=
+                                                items?.total_sales && (
                                                 <FaCheckCircle className="praymary-color" />
                                             )}
                                         </span>
@@ -87,7 +88,8 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             {items?.direct_sales}
                                         </span>
                                         <span>
-                                            {items?.user_direct_sales >= items?.direct_sales && (
+                                            {items?.user_direct_sales >=
+                                                items?.direct_sales && (
                                                 <FaCheckCircle className="praymary-color" />
                                             )}
                                         </span>
@@ -100,7 +102,8 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             {items?.line_01_sales}
                                         </span>
                                         <span>
-                                            {items?.user_line_01_sales >= items?.line_01_sales && (
+                                            {items?.user_line_01_sales >=
+                                                items?.line_01_sales && (
                                                 <FaCheckCircle className="praymary-color" />
                                             )}
                                         </span>
@@ -113,20 +116,24 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                             {items?.line_02_sales}
                                         </span>
                                         <span>
-                                            { index !=0 && index!=1 && items?.user_line_02_sales >= items?.line_02_sales && (
-                                                <FaCheckCircle className="praymary-color" />
-                                            )}
+                                            {index != 0 &&
+                                                index != 1 &&
+                                                items?.user_line_02_sales >=
+                                                    items?.line_02_sales && (
+                                                    <FaCheckCircle className="praymary-color" />
+                                                )}
                                         </span>
                                     </div>
                                 </td>
                                 <td className="align-middle text-center">
-                                <div className="d-flex align-items-center">
+                                    <div className="d-flex align-items-center">
                                         <span>
                                             {items?.user_others_line || 0} |{" "}
                                             {items?.others_line}
                                         </span>
                                         <span>
-                                            {items?.user_others_line >= items?.others_line && (
+                                            {items?.user_others_line >=
+                                                items?.others_line && (
                                                 <FaCheckCircle className="praymary-color" />
                                             )}
                                         </span>
@@ -134,7 +141,15 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                 </td>
                                 <td className="align-middle text-center">
                                     <button
-                                        onClick={() => handleClaimReward(items)}
+                                        onClick={() => {
+                                            if (
+                                                items?.status === 0 ||
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                            ) {
+                                                handleClaimReward(items);
+                                            }
+                                        }}
                                         className="add-to-cart-link affiliate-rank-btn text-capitalize"
                                         style={{
                                             background:
@@ -143,31 +158,37 @@ const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
                                                     : items?.status === 2
                                                     ? "yellow"
                                                     : items?.status === 3
-                                                    ? "#D3D3D3"
-                                                    : items?.status === 4
-                                                    ? "red"
+                                                    ? "#0089B9"
                                                     : "",
                                             color:
                                                 items?.status === 3
-                                                    ? "#000"
+                                                    ? "#fff"
                                                     : items?.status === 4
                                                     ? "#fff"
                                                     : items?.status === 2
                                                     ? "#000"
                                                     : "",
+                                            cursor:
+                                                items?.status === 0 ||
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                                    ? "pointer"
+                                                    : "auto",
                                         }}
                                     >
-                                        {items?.status === 0
-                                            ? "Rank Not Achieved"
-                                            : items?.status === 1
-                                            ? "Claim Reward"
-                                            : items?.status === 2
-                                            ? "Reward Claimed"
-                                            : items?.status === 3
-                                            ? "Claim Approved"
-                                            : items?.status === 4
-                                            ? "Rejected"
-                                            : ""}
+                                        {items?.status === 0 ? (
+                                            "Rank Not Achieved"
+                                        ) : items?.status === 1 ? (
+                                            "Claim Reward"
+                                        ) : items?.status === 2 ? (
+                                            "Reward Claimed"
+                                        ) : items?.status === 3 ? (
+                                            <strong>Claim Approved</strong>
+                                        ) : items?.status === 4 ? (
+                                            "Claim Reward"
+                                        ) : (
+                                            ""
+                                        )}
                                     </button>
                                 </td>
                             </tr>

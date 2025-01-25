@@ -41,7 +41,7 @@ const FinanceWithdraw = ({ params }) => {
         const otp = e.target.otp.value;
         const data = {
             otp,
-            otp_status: withdrawRequestData?.otp_status == 'mobile' ? 1 : 2
+            otp_status: withdrawRequestData?.otp_status
         }
         try {
             const request = await postOTPWithdrawVerification(session.accessToken, data);
@@ -129,7 +129,7 @@ const FinanceWithdraw = ({ params }) => {
                     </div>
                     <hr className="py-2" />
                     <label htmlFor="otp" className="form-label">
-                        {withdrawRequestData?.otp_status == 'mobile' ?
+                        {withdrawRequestData?.otp_status == 1 ?
                             'Enter your transaction OTP to proceed.' :
                             'Enter your transaction PIN to proceed.'}
                         <span className="text-danger fs-5">*</span>
@@ -141,6 +141,7 @@ const FinanceWithdraw = ({ params }) => {
                                 required
                                 className="form-control"
                                 name="otp"
+                                defaultValue={withdrawRequestData?.otp}
                                 placeholder={withdrawRequestData?.otp_status == 'mobile' ? 'OTP' : 'PIN'}
                             />
                             <button

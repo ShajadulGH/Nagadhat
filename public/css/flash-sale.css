@@ -52,6 +52,7 @@
     font-weight: 700;
     margin-bottom: 10px;
     letter-spacing: -0.14px;
+    word-break: break-all;
 }
 
 .flash-sale-content-info h4 a {

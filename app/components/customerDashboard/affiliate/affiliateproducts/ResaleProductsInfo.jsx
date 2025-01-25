@@ -8,10 +8,9 @@ import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 const ResaleProductsInfo = ({ resaleProduct }) => {
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
-    console.log(resaleProduct);
     
     return (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xxl-4 g-3">
+        <div className="row row-cols-2 row-cols-md-3 row-cols-xxl-4 g-2 g-md-3">
             {resaleProduct?.map((product) => (
                 <div key={product.id} className="flash-sale-content-item col">
                     <Link
@@ -34,7 +33,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                             </h4>
                             <div className="category-product-price d-flex flex-column justify-content-between">
                                 <p className="fpnh-resale-pricess">
-                                    Price (MRP):{" "}
+                                    MRP :{" "}
                                     <del className="fw-bold">
                                         ৳{" "}
                                         {product.resell_mrp_price *
@@ -42,7 +41,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                     </del>
                                 </p>
                                 <p className="fpnh-resale-pricess">
-                                    Price (Offer):{" "}
+                                    TP :{" "}
                                     <span className="fw-bold">
                                         ৳{" "}
                                         {product.resell_purchases_price *
@@ -50,7 +49,7 @@ const ResaleProductsInfo = ({ resaleProduct }) => {
                                     </span>
                                 </p>
                                 <p className="fpnh-resale-pricess">
-                                    Minimum Quantity:{" "}
+                                    Min Qty :{" "}
                                     <span className="fw-bold">
                                         {product.min_quantity || "N/A"}
                                     </span>
