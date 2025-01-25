@@ -3,8 +3,8 @@
 // export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
 // For Live beta - production
-// export const apiBaseUrl = "https://beta.nagadhat.com.bd/api";
-// export const NagadhatPublicUrl = "https://beta.nagadhat.com.bd";
+export const apiBaseUrl = "https://beta.nagadhat.com.bd/api";
+export const NagadhatPublicUrl = "https://beta.nagadhat.com.bd";
 
 // For Live staging way
 // export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
