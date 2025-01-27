@@ -11,7 +11,7 @@ import { useEffect, useState, useTransition } from "react";
 import LodingFixed from "@/app/components/LodingFixed";
 import NoDataFound from "@/app/components/NoDataFound";
 
-const SellOnNgadhatDetailWrapp = ({ orderId }) => {
+const SellOnNgadhatDetailWrapp = ({ orderId, buybackId }) => {
     const [isPending, startTransition] = useTransition();
     const [saleOnNagadhatData, setSaleOnNagadhatData] = useState({});
     const { data: session, status } = useSession();
@@ -22,6 +22,7 @@ const SellOnNgadhatDetailWrapp = ({ orderId }) => {
                     startTransition(async () => {
                         const response = await getSaleOnNagadhat(
                             orderId,
+                            buybackId,
                             session?.accessToken
                         );
 
@@ -31,7 +32,7 @@ const SellOnNgadhatDetailWrapp = ({ orderId }) => {
             };
             fetchSaleOnNagadhatData();
         }
-    }, [status, session?.accessToken, orderId]);
+    }, [status, session?.accessToken, orderId, buybackId]);
 
     const saleOnLength =
         saleOnNagadhatData && Object.keys(saleOnNagadhatData).length > 0;

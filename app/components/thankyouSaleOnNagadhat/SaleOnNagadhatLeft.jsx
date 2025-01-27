@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 const SaleOnNagadhatLeft = ({ responseData }) => {
-
     return (
         <div className="col-lg-5">
             <div className="order-billing-info">
