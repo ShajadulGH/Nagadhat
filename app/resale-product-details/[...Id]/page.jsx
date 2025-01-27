@@ -51,7 +51,7 @@ const ResaleProductDetailsPage = ({ params }) => {
                         }
                     >
                         <div className="row g-5">
-                            <div className="col-lg-6 px-5">
+                            <div className="col-lg-6 px-4 px-md-5">
                                 <AffiliateProductDetailsImg
                                     productGallery={productGallery}
                                     productDetails={productDetails}
