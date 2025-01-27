@@ -72,22 +72,22 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
                             <p>10 Ratings</p>
                         </div>
                     </div>
-                    <div className="product-details-rating-item d-flex align-items-center">
+                    {/* <div className="product-details-rating-item d-flex align-items-center">
                         <div className="text-black-50">
                             <FaCheck />
                         </div>
                         <div className="product-Sold">
                             <p>415 Sold</p>
                         </div>
-                    </div>
-                    <div className="product-details-rating-item d-flex align-items-center">
+                    </div> */}
+                    {/* <div className="product-details-rating-item d-flex align-items-center">
                         <div className="text-black-50">
                             <FaRegEye />
                         </div>
                         <div className="product-Sold">
                             <p>50 Viewed</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="product-details-price-area align-items-center d-flex">
                     <strong>
