@@ -19,7 +19,7 @@ const CustomerRightsids = ({
     isPending,
 }) => {
     const [cancelStatus, setCancelStatus] = useState(null);
-    const [resaleOrderID, setResaleOrderID] = useState(null);
+    const [resaleOrderID, setResaleOrderID] = useState({});
 
     const handleOrderCanceled = async (orderID) => {
         try {
@@ -78,17 +78,32 @@ const CustomerRightsids = ({
                                             order_status,
                                             grand_total,
                                             payment_status,
+                                            affiliate_buyback_package_id,
                                         } = orderItem;
                                         return (
                                             <tr key={index}>
-                                                <td>{index + 1 + serialNumber}</td>
+                                                <td>
+                                                    {index + 1 + serialNumber}
+                                                </td>
                                                 <td>{invoice_id}</td>
                                                 <td>{order_date}</td>
-                                                <td className="text-end">৳ {grand_total}</td>
-                                                <td className={`${order_status ==="Canceled" ? "text-danger fw-bolder": "" }`}>
-                                                    {order_status === "Processing" &&
-                                                    (orderItem?.order_product_type ===  "2" ||
-                                                        orderItem?.order_product_type === "3") ? (
+                                                <td className="text-end">
+                                                    ৳ {grand_total}
+                                                </td>
+                                                <td
+                                                    className={`${
+                                                        order_status ===
+                                                        "Canceled"
+                                                            ? "text-danger fw-bolder"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    {order_status ===
+                                                        "Processing" &&
+                                                    (orderItem?.order_product_type ===
+                                                        "2" ||
+                                                        orderItem?.order_product_type ===
+                                                            "3") ? (
                                                         <div className="dropdown">
                                                             <button
                                                                 className="btn text-success border-0 dropdown-toggle ps-0"
@@ -96,7 +111,8 @@ const CustomerRightsids = ({
                                                                 data-bs-toggle="dropdown"
                                                                 aria-expanded="false"
                                                             >
-                                                                {order_status || "Processing"}
+                                                                {order_status ||
+                                                                    "Processing"}
                                                             </button>
                                                             <ul className="dropdown-menu">
                                                                 <li>
@@ -104,7 +120,8 @@ const CustomerRightsids = ({
                                                                         className="dropdown-item"
                                                                         href={`/shipping-page-resale/${order_id}`}
                                                                     >
-                                                                        Get Product
+                                                                        Get
+                                                                        Product
                                                                     </Link>
                                                                 </li>
                                                                 <li>
@@ -113,22 +130,43 @@ const CustomerRightsids = ({
                                                                         className="dropdown-item"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#sale-on-nagadhat-modal"
-                                                                        onClick={() =>setResaleOrderID(order_id)}
+                                                                        onClick={() =>
+                                                                            setResaleOrderID(
+                                                                                {
+                                                                                    order_id:
+                                                                                        order_id,
+                                                                                    buyback_package_id:
+                                                                                        affiliate_buyback_package_id,
+                                                                                }
+                                                                            )
+                                                                        }
                                                                     >
-                                                                        Sale on Nagadhat
+                                                                        Sale on
+                                                                        Nagadhat
                                                                     </button>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     ) : (
-                                                        order_status || "Pending"
+                                                        order_status ||
+                                                        "Pending"
                                                     )}
                                                 </td>
 
-                                                <td className={`paid ${ payment_status === "Under Review" ? "text-warning" : "" }`}>
-                                                    {order_status !== "Canceled" &&
-                                                    payment_status === "Unpaid" ||
-                                                    payment_status === "Partial Paid"  ? (
+                                                <td
+                                                    className={`paid ${
+                                                        payment_status ===
+                                                        "Under Review"
+                                                            ? "text-warning"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    {(order_status !==
+                                                        "Canceled" &&
+                                                        payment_status ===
+                                                            "Unpaid") ||
+                                                    payment_status ===
+                                                        "Partial Paid" ? (
                                                         <>
                                                             {payment_status}
                                                             <Link
@@ -151,7 +189,9 @@ const CustomerRightsids = ({
                                                         >
                                                             <Link
                                                                 href={`/orderview?orderid=${order_id}`}
-                                                                style={{ color: "white"}}
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
                                                             >
                                                                 <FaEye />
                                                             </Link>
@@ -159,17 +199,24 @@ const CustomerRightsids = ({
                                                         <button title="Order invoice">
                                                             <Link
                                                                 href={`/orderinvoice?orderId=${order_id}`}
-                                                                style={{ color: "white"}}
+                                                                style={{
+                                                                    color: "white",
+                                                                }}
                                                             >
                                                                 <FaDownload />
                                                             </Link>
                                                         </button>
-                                                        {payment_status === "Unpaid" && 
-                                                            order_status === "New Order" &&
-                                                             (
+                                                        {payment_status ===
+                                                            "Unpaid" &&
+                                                            order_status ===
+                                                                "New Order" && (
                                                                 <button
                                                                     title="Order Cancel"
-                                                                    onClick={() => handleOrderCanceled( order_id )}
+                                                                    onClick={() =>
+                                                                        handleOrderCanceled(
+                                                                            order_id
+                                                                        )
+                                                                    }
                                                                 >
                                                                     <FaXmark />
                                                                 </button>

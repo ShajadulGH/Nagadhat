@@ -32,8 +32,7 @@ const SaleOnNagadhatLeft = ({ responseData }) => {
 
                 <div className="billing-btn-area">
                     <Link
-                        // href={`/buyback-policy-agreement/${responseData?.order_id}`}
-                        href={`#`}
+                        href={`/buyback-policy-agreement/${responseData?.order_id}?buyback-id=${responseData?.id}`}
                         className="add-to-cart-link border-0 text-capitalize"
                     >
                         Download Agreement
