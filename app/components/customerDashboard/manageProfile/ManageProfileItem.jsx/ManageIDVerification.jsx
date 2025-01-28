@@ -48,7 +48,7 @@ const ManageIDVerification = () => {
                 ...prevData,
                 nid_front: event.target.files[0],
             }));
-        }else {
+        } else {
             toast.error("No file selected. Please choose a valid image file.");
         }
     };
@@ -56,7 +56,7 @@ const ManageIDVerification = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Check for required fields
-        if (!idVerification.nid_no || !idVerification.nid_front) {
+        if (!idVerification?.nid_no) {
             toast.error("Please fill out all required fields.");
             return;
         }
@@ -70,8 +70,8 @@ const ManageIDVerification = () => {
 
                 if (!response?.error) {
                     setIdVerification({
-                        nid_no: response?.results?.nid_no || "",
-                        nid_front: response?.results.nid_front || "",
+                        nid_no: response?.results?.nid_no,
+                        nid_front: response?.results?.nid_front,
                     });
                     toast.success(response?.message);
                 } else {
