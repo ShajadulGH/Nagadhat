@@ -25,7 +25,6 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
     const [browserInfo, setBrowserInfo] = useState(null);
     const [ipNumber, setIpNumber] = useState(null);
     const modalRef = useRef(null);
-
     const { data: session, status } = useSession();
     const router = useRouter();
     useEffect(() => {
@@ -33,7 +32,8 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
             const fetchSaleOnNagadhatData = async () => {
                 try {
                     const response = await getSaleOnNagadhat(
-                        resaleOrderID,
+                        resaleOrderID?.order_id,
+                        resaleOrderID?.buyback_package_id,
                         session?.accessToken
                     );
                     startTransition(() => {
@@ -47,7 +47,6 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
 
     const saleOnLength =
         saleOnNagadhatData && Object.keys(saleOnNagadhatData).length > 0;
-
     // Function to get IP address
     const fetchIpAddress = async () => {
         try {
@@ -97,7 +96,7 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                 return;
             }
             const saleOnData = {
-                order_id: resaleOrderID,
+                order_id: resaleOrderID?.order_id,
                 product_id: saleOnNagadhatData?.product_id,
                 total_tp: saleOnNagadhatData?.total_tp,
                 total_mrp: saleOnNagadhatData?.total_mrp,
@@ -230,7 +229,7 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                                         ? "pointer"
                                         : "not-allowed",
                                 }}
-                                disabled={!checkTermsCondition}
+                                disabled={!checkTermsCondition && !saleOnLength}
                                 onClick={handleAgreement}
                             >
                                 I agreed to a sale on Nagadhat.

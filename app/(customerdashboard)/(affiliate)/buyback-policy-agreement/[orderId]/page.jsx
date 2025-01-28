@@ -1,15 +1,17 @@
 import SellOnNgadhatDetailWrapp from "@/app/components/customerDashboard/affiliate/saleonnagadhatdetail/SellOnNgadhatDetailWrapp";
 import AffiliateRoute from "@/app/components/PrivateRoute/AffiliateRoute";
 
-const page = ({ params }) => {
-    const orderId = params.orderId;
+const Page = ({ params, searchParams }) => {
+    const orderId = params?.orderId;
+    const buybackId = searchParams?.["buyback-id"];
+
+    console.log("buybackId", buybackId);
+
     return (
-        <>
-            <AffiliateRoute>
-                <SellOnNgadhatDetailWrapp orderId={orderId} />
-            </AffiliateRoute>
-        </>
+        <AffiliateRoute>
+            <SellOnNgadhatDetailWrapp orderId={orderId} buybackId={buybackId} />
+        </AffiliateRoute>
     );
 };
 
-export default page;
+export default Page;
