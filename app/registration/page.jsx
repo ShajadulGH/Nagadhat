@@ -156,11 +156,11 @@ const Registration = () => {
         //     return;
         // }
 
-        // const allowedNumbers = ["01739245723", "01680572792"];
-        // if (!allowedNumbers.includes(formData.phone)) {
-        //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
-        //     return;
-        // }
+        const allowedNumbers = ["01739245723", "01680572792"];
+        if (!allowedNumbers.includes(formData.phone)) {
+            toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
+            return;
+        }
 
         async function createUser() {
             const isValidInput = valideateInput(formData);
