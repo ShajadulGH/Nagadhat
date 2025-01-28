@@ -33,7 +33,7 @@ const BuybackPolicyTopImage = ({ saleOnDetails }) => {
                     </h1>
                     <Link
                         className="btn btn-success"
-                        href={`/buyback-policy-agreement/${saleOnDetails?.order_id}`}
+                        href={`/buyback-policy-agreement/${saleOnDetails?.order_id}?buyback-id=${saleOnDetails?.id}` }
                     >
                         Resell Agreement
                     </Link>

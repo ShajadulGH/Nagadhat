@@ -3,13 +3,13 @@
 
 import { apiBaseUrl } from "@/app/utils";
 
-export const getSaleOnNagadhat = async (orderId, token) => {
-    if (!orderId || !token) {
+export const getSaleOnNagadhat = async (orderId, buybackId, token) => {
+    if (!orderId || !token || !buybackId) {
         return null;
     }
     try {
         const response = await fetch(
-            `${apiBaseUrl}/sale-on-nagadhat/${orderId}`,
+            `${apiBaseUrl}/sale-on-nagadhat/${orderId}/${buybackId}`,
             {
                 method: "GET",
                 headers: {
