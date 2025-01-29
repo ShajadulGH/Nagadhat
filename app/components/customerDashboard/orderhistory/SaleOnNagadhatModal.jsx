@@ -143,7 +143,7 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                     <div className="modal-content">
                         {isPending && <LodingFixed />}
                         <SaleOnNagadhatHeader />
-                        <div className="modal-body px-5">
+                        <div className="modal-body px-2 px-lg-4 ">
                             {saleOnLength ? (
                                 <>
                                     <SaleOnNagadhatTop
@@ -166,9 +166,14 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                             <div className=" d-flex gap-4 justify-content-between">
                                 <div className="">
                                     <div className="mb-3 d-flex align-items-center gap-2">
-                                        <input
+                                        
+                                        <label
+                                            className="form-check-label fs-5 fw-bold "
+                                            htmlFor="terms-condition"
+                                        >
+                                            <input
                                             type="checkbox"
-                                            className="form-check-input border-2 border-info"
+                                            className="form-check-input border-2 border-info me-2 mt-0"
                                             id="terms-condition"
                                             style={{
                                                 width: "25px",
@@ -177,10 +182,6 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                                             checked={checkTermsCondition}
                                             onChange={handleTermsCondition}
                                         />
-                                        <label
-                                            className="form-check-label fs-5 fw-bold "
-                                            htmlFor="terms-condition"
-                                        >
                                             I accept the terms and conditions.
                                         </label>
                                     </div>

@@ -1,7 +1,7 @@
 const SaleOnNagadhatTop = ({ saleOnNagadhatData }) => {
     return (
         <>
-            <div className=" text-center px-5 py-2 mb-4 ">
+            <div className=" text-center px-0 px-lg-5 py-2 mb-4 ">
                 <h1 className="mb-4 bg-success d-inline-block text-white px-4 py-2 fs-4 font-width-medium rounded-4 ">
                     রিসেল/পুনঃবিক্রয় চুক্তি
                 </h1>

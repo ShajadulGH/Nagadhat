@@ -54,8 +54,8 @@ const CustomerRightsids = ({
                     <h1 className="customer-dashboard-title">Order History</h1>
                 </div>
                 {customerOrders?.length > 0 ? (
-                    <div className="customer-dashboard-order-history table-responsive-md">
-                        <table className="table">
+                    <div className="customer-dashboard-order-history table-responsive table-responsive-md">
+                        <table className="table ">
                             <thead>
                                 <tr>
                                     <th>SL</th>
@@ -82,12 +82,12 @@ const CustomerRightsids = ({
                                         } = orderItem;
                                         return (
                                             <tr key={index}>
-                                                <td>
+                                                <td className="align-middle">
                                                     {index + 1 + serialNumber}
                                                 </td>
-                                                <td>{invoice_id}</td>
-                                                <td>{order_date}</td>
-                                                <td className="text-end">
+                                                <td className="align-middle">{invoice_id}</td>
+                                                <td className="align-middle">{order_date}</td>
+                                                <td className="text-end align-middle">
                                                     ৳ {grand_total}
                                                 </td>
                                                 <td
@@ -96,7 +96,7 @@ const CustomerRightsids = ({
                                                         "Canceled"
                                                             ? "text-danger fw-bolder"
                                                             : ""
-                                                    }`}
+                                                    } align-middle`}
                                                 >
                                                     {order_status ===
                                                         "Processing" &&
@@ -159,7 +159,7 @@ const CustomerRightsids = ({
                                                         "Under Review"
                                                             ? "text-warning"
                                                             : ""
-                                                    }`}
+                                                    } align-middle`}
                                                 >
                                                     {(order_status !==
                                                         "Canceled" &&
@@ -181,7 +181,7 @@ const CustomerRightsids = ({
                                                     )}
                                                 </td>
 
-                                                <td>
+                                                <td className="align-middle">
                                                     <div className="customer-dashboard-order-history-actions">
                                                         <button
                                                             title="Order View"

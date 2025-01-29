@@ -9,7 +9,7 @@ const SaleOnNagadhatDetailPay = ({ saleOnNagadhatData }) => {
                     টাকা প্রদানের সম্ভাব্য তারিখ ও টাকার বিবরণ
                 </h1>
                 <div className="table-responsive">
-                    <table className="table table-striped border-secondary table-bordered">
+                    <table className="table table-striped border-secondary table-bordered" style={{ minWidth:"700px" }}>
                         <thead>
                             <tr>
                                 <th scope="col fs-6">SL</th>
