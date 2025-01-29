@@ -302,6 +302,9 @@
     display: none;
 }
 @media (max-width: 991px) {
+    .table-responsive-md table {
+        min-width: 930px !important;
+    }
     .product-copy-main-info-desktop {
         display: none;
     }
@@ -422,9 +425,6 @@
     }
     .observer-hover-menu {
         width: auto;
-    }
-    .table-responsive-md table {
-        min-width: 700px !important;
     }
     .order-summary-area {
         margin-left: 0 !important;

@@ -6,7 +6,7 @@ const SaleOnNagadhatInvoice = ({ saleOnNagadhatData }) => {
                     Invoice Details
                 </h1>
                 <div className="table-responsive">
-                    <table className="table table-striped">
+                    <table className="table table-striped" style={{ minWidth:"700px" }}>
                         <thead>
                             <tr>
                                 <th scope="col fs-6">SL</th>
