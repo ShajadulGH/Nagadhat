@@ -8,6 +8,7 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
     // Ensure the prices are numbers
     const productPrice = parseFloat(productDetails?.resell_purchases_price) || 0;
     const productMRP = parseFloat(productDetails?.resell_mrp_price) || 0;
+    const productMinQuantity = productDetails?.min_quantity || 1;
 
     // State to manage quantity, total price, and total MRP price
     const [quantity, setQuantity] = useState(1);  // Initial quantity set to 1 or fallback
@@ -22,7 +23,7 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
 
     // Function to handle quantity increment
     const handleIncrease = () => {
-        const newQuantity = quantity + 1;
+        const newQuantity = quantity + productMinQuantity;
         setQuantity(newQuantity);
         updatePrices(newQuantity);
     };
@@ -30,7 +31,7 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
     // Function to handle quantity decrement
     const handleDecrease = () => {
         if (quantity > productDetails?.min_quantity) {
-            const newQuantity = quantity - 1;
+            const newQuantity = quantity - productMinQuantity;
             setQuantity(newQuantity);
             updatePrices(newQuantity);
         }
