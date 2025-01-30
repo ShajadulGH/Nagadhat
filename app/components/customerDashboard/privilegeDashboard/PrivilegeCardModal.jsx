@@ -11,7 +11,7 @@ const PrivilegeCardModal = () => {
             >
                 <div className="modal-dialog  modal-dialog-scrollable modal-dialog-centered modal-xl">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        {/* <div className="modal-header">
                             <h1 className="modal-title fs-5">Card Details</h1>
                             <button
                                 type="button"
@@ -19,24 +19,33 @@ const PrivilegeCardModal = () => {
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
                             ></button>
-                        </div>
-                        <div className="modal-body py-5">
-                            <div className="customer-dashboard-order-history-title saleon-nagadhat-detail-header p-0">
-                                <div
-                                    className=" position-relative w-100 me-4"
-                                    style={{ height: "100px" }}
-                                >
+                        </div> */}
+                        <div className="modal-body pt-2 pt-sm-4 pb-0">
+                            <div className="customer-dashboard-order-history-title saleon-nagadhat-detail-header p-0 d-flex align-items-center justify-content-between pb-3 gap-4">
+                                <div className="">
                                     <Image
-                                        src={`/images/Pad-1.png`}
-                                        fill
+                                        src={`/images/Salle-on-Nagadhat-Logo-1.png`}
                                         sizes="100vw"
-                                        alt="image"
+                                        alt="image 1"
+                                        width={300}
+                                        height={35}
+                                        className="img-fluid"
+                                    />
+                                </div>
+                                <div className="">
+                                    <Image
+                                        src={`/images/Salle-on-Nagadhat-Logo-2.png`}
+                                        sizes="100vw"
+                                        alt="image 2"
+                                        width={300}
+                                        height={25}
+                                        className="img-fluid"
                                     />
                                 </div>
                             </div>
                             {/*  */}
                             <div className="resal-top-areass p-0 p-md-4">
-                                <div className="text-center px-2 px-md-4 py-1 mb-1 mb-md-3 ">
+                                <div className="text-center px-2 px-md-4 pt-4 pt-md-0 mb-1 mb-md-3 ">
                                     <h1 className="mb-4 bg-success d-inline-block text-white px-4 py-2 fs-5 font-width-medium rounded-4 ">
                                         মেম্বারশিপ কার্ড সুবিধা ও শর্তাবলী
                                     </h1>
@@ -213,7 +222,7 @@ const PrivilegeCardModal = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="pb-4">
+                                <div className="pb-3 pb-sm-0">
                                     <div className="fs-6 lh-lg ">
                                         <strong className="bg-success px-3 text-white py-1 rounded-2 me-2 d-inline-block">
                                             ৪. প্রতিষ্ঠানের বিধি লঙ্ঘন:
