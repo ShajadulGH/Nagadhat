@@ -17,7 +17,7 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
     return (
         <div>
             <div className="table-responsive pt-4">
-                <table className="table table-hover" style={{ minWidth: "980px" }}>
+                <table className="table table-hover" style={{ minWidth: "1000px" }}>
                     <thead>
                         <tr>
                             <th scope="col">SL</th>
@@ -36,15 +36,15 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                     <tbody>
                         {sellOnData.map((item, index) => (
                             <tr key={item?.id}>
-                                <td>{index + 1}</td>
-                                <td>{item?.package_invoice || "N/A"}</td>
-                                <td>{item?.start_date || "N/A"}</td>
-                                <td>{item?.duration || "N/A"}</td>
-                                <td>{item?.completed_months || "N/A"}</td>
-                                <td>৳ {item?.order_value || "N/A"}</td>
-                                <td>৳ {item?.mrp_value || "N/A"}</td>
-                                <td>৳ {(item?.monthly_bonus || 0).toFixed(2)}</td>
-                                <td>
+                                <td className="align-middle">{index + 1}</td>
+                                <td className="align-middle">{item?.package_invoice || "N/A"}</td>
+                                <td className="align-middle">{item?.start_date || "N/A"}</td>
+                                <td className="align-middle">{item?.duration || "N/A"}</td>
+                                <td className="align-middle">{item?.completed_months || "N/A"}</td>
+                                <td className="align-middle">৳ {item?.order_value || "N/A"}</td>
+                                <td className="align-middle">৳ {item?.mrp_value || "N/A"}</td>
+                                <td className="align-middle">৳ {(item?.monthly_bonus || 0).toFixed(2)}</td>
+                                <td className="align-middle">
                                     {item?.is_instalment === 1 ? (
                                         <>
                                             <FaCheckCircle className="text-success" /> Yes
@@ -55,14 +55,14 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                                         </>
                                     )}
                                 </td>
-                                <td>
+                                <td className="align-middle">
                                     {item?.active_status === 0 ? (
                                         <span className="text-primary">Active</span>
                                     ) : (
                                         <span className="text-success">Completed</span>
                                     )}
                                 </td>
-                                <td>
+                                <td className="align-middle">
                                     <Link
                                         href={`/affiliate-buyback-policy-details/${item?.id}`}
                                         className="btn btn-success"
