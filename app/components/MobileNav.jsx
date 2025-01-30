@@ -218,7 +218,6 @@ const MobileNav = () => {
                             <FaXmark />
                         </div>
                         <CustomerLeftSideNavbar
-                            authSessionData={session}
                             toggleSidebar={toggleSidebar}
                         />
                     </aside>
