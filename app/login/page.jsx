@@ -20,9 +20,10 @@ const Login = () => {
         async function fetchData() {
             if (typeof fromPath === "string" && status === "authenticated") {
                 router?.push(fromPath);
-            } else if (status === "authenticated") {
-                router?.push("/dashboard");
-            }
+            } 
+            // else if (status === "authenticated") {
+            //     router?.push("/dashboard");
+            // }
         }
         fetchData();
     }, [session?.user, status]);

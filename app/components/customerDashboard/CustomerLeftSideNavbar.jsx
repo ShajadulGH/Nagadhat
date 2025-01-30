@@ -28,7 +28,7 @@ import SignoutBtn from "../SignoutBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { setProfilePicture } from "@/app/store/slices/profileSlice";
 
-const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
+const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
     const currentPath = usePathname();
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isAffiliateUser, setIsAffiliateUser] = useState({});
@@ -95,10 +95,10 @@ const CustomerLeftSideNavbar = ({ authSessionData, toggleSidebar }) => {
                         />
                     </div>
                     <h2>
-                        {authSessionData?.user?.name}
+                        {session?.user?.name}
                         {/* <span>®</span> */}
                     </h2>
-                    <p>{authSessionData?.phone}</p>
+                    <p>{session?.phone}</p>
                 </div>
                 <nav className="customer-dashboard-side-navbar bg-white">
                     <ul className="nav flex-column">
