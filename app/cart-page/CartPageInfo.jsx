@@ -316,7 +316,10 @@ const CartPage = () => {
                     quantityUpdateInfo,
                     session?.accessToken
                 );
-
+                if (decrementApi.code != 200) {
+                    toast.error(decrementApi.message)
+                }
+                
                 const updatedCartProducts = await fetchCartProducts(
                     session?.accessToken,
                     outletId,
