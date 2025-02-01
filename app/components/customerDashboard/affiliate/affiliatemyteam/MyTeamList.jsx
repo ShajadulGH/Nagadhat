@@ -18,7 +18,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
 
     return (
         <div className="table-responsive">
-            <table className="table table-hover" style={{ minWidth: "950px" }}>
+            <table className="table table-hover" style={{ minWidth: "910px" }}>
                 <thead>
                     <tr>
                         <th scope="col">SL</th>

@@ -93,13 +93,11 @@ const AffiliateBonusDetail = ({
                                         </td>
                                         <td className="align-middle text-start" style={{ minWidth: "168px" }}>
                                             {item?.date_time || "N/A"}
-                                            <span>
-                                                <br />
-                                                <span>{item?.invoice || ""}, {item?.level || ""}</span>
-                                            </span>
+                                            <br />
+                                            {item?.invoice || ""}, {item?.level || ""}
                                         </td>
                                         <td className="align-middle text-end">
-                                            ৳ {item?.earning || "N/A"}
+                                            ৳{item?.earning || "N/A"}
                                         </td>
                                         <td className="align-middle text-end">
                                             {item?.payout_type || "N/A"}
