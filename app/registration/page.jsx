@@ -109,6 +109,10 @@ const Registration = () => {
         }
     };
     useEffect(() => {
+        fetchAffiliateNewSignup();
+    }, [status]);
+
+    useEffect(() => {
         if (toggleSponsored == "self") {
             setFormData((prevFormData) => ({
                 ...prevFormData,
@@ -412,22 +416,26 @@ const Registration = () => {
                                                 Self
                                             </label>
                                         </div>
-                                        <div className="form-check form-check-inline">
-                                            <input
-                                                className="form-check-input"
-                                                type="radio"
-                                                name="referral"
-                                                id="referral12"
-                                                value="placement"
-                                                onChange={handleSponsoreChange}
-                                            />
-                                            <label
-                                                className="form-check-label"
-                                                htmlFor="referral12"
-                                            >
-                                                Placement
-                                            </label>
-                                        </div>
+                                        {affiliateSignup.length > 0 && (
+                                            <div className="form-check form-check-inline">
+                                                <input
+                                                    className="form-check-input"
+                                                    type="radio"
+                                                    name="referral"
+                                                    id="referral12"
+                                                    value="placement"
+                                                    onChange={
+                                                        handleSponsoreChange
+                                                    }
+                                                />
+                                                <label
+                                                    className="form-check-label"
+                                                    htmlFor="referral12"
+                                                >
+                                                    Placement
+                                                </label>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                                 {toggleSponsored != "self" && (

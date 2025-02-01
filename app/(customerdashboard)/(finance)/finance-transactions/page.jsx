@@ -3,6 +3,7 @@ import FinanceTopTitle from "@/app/components/customerDashboard/finance/FinanceT
 import Pagination from "@/app/components/productCategory/Pagination";
 import { geAffiliateFinanceTransitions } from "@/app/services/affiliate-finance/geAffiliateFinanceTransitions";
 import { getServerSession } from "next-auth";
+import { FaCheckCircle, FaTimesCircle, FaUndo, FaExclamationCircle } from "react-icons/fa";
 
 const FinanceTransactions = async ({ searchParams }) => {
     // get server session
@@ -23,14 +24,14 @@ const FinanceTransactions = async ({ searchParams }) => {
     return (
         <div className="customer-dashboard-order-history-area">
             <FinanceTopTitle title="Transactions" />
-            <div className="p-4 overflow-x-scroll">
+            <div className="px-md-4 py-4 overflow-x-scroll">
                 {/* Transactions section */}
                 <table
                     className="table table-hover"
-                    style={{ minWidth: "900px" }}
                 >
                     <thead>
-                        <tr>
+                        {/* Only Desktop view */}
+                        <tr className="d-none d-md-table-row">
                             <th>SL</th>
                             <th>Date/Time</th>
                             <th>Purpose</th>
@@ -39,45 +40,91 @@ const FinanceTransactions = async ({ searchParams }) => {
                             <th className="text-end">Balance</th>
                             <th className="text-center">Status</th>
                         </tr>
+                        {/* Only Mobile view */}
+                        <tr className="d-md-none">
+                            <th>SL</th>
+                            <th>particular</th>
+                            <th className="text-end">Debit</th>
+                            <th className="text-end">Credit</th>
+                            <th className="text-end">Balance</th>
+                            <th className="text-center">ST</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {transactions?.length > 0 ? (
                             transactions?.map((transaction, index) => (
-                                <tr key={transaction?.id}>
-                                    <td>{index + 1 + serialNumber}</td>
-                                    <td>{transaction?.date_time}</td>
-                                    <td>{transaction?.purpose}</td>
-                                    <td className="text-end">
-                                        {transaction?.debit
-                                            ? "৳ " + transaction?.debit.toFixed(2)
-                                            : "--"}
-                                    </td>
-                                    <td className="text-end">
-                                        {transaction?.credit
-                                            ? "৳ " + transaction?.credit.toFixed(2)
-                                            : "--"}
-                                    </td>
-                                    <td className="text-end">
-                                        {transaction?.balance && (
-                                            "৳ " + transaction?.balance
-                                        )}
-                                    </td>
-                                    <td className="text-center">
-                                        <span
-                                            className={
-                                                transaction?.status ==="Completed"
-                                                    ? "text-success"
-                                                    : transaction?.status === "Rejected"
-                                                    ? "text-danger"
-                                                    : transaction?.status === "Refund"
-                                                    ? "text-primary"
-                                                    : "text-warning"
-                                            }
-                                        >
-                                            {transaction?.status}
-                                        </span>
-                                    </td>
-                                </tr>
+                                <>
+                                {/* // Only Desktop view */}
+                                    <tr key={transaction?.id} className="d-none d-md-table-row">
+                                        <td>{index + 1 + serialNumber}</td>
+                                        <td>{transaction?.date_time}</td>
+                                        <td>{transaction?.purpose}</td>
+                                        <td className="text-end">
+                                            {transaction?.debit
+                                                ? "৳ " + transaction?.debit.toFixed(2)
+                                                : "--"}
+                                        </td>
+                                        <td className="text-end">
+                                            {transaction?.credit
+                                                ? "৳ " + transaction?.credit.toFixed(2)
+                                                : "--"}
+                                        </td>
+                                        <td className="text-end">
+                                            {transaction?.balance && (
+                                                "৳ " + transaction?.balance
+                                            )}
+                                        </td>
+                                        <td className="text-center">
+                                            <span
+                                                className={
+                                                    transaction?.status === "Completed"
+                                                        ? "text-success"
+                                                        : transaction?.status === "Rejected"
+                                                            ? "text-danger"
+                                                            : transaction?.status === "Refund"
+                                                                ? "text-primary"
+                                                                : "text-warning"
+                                                }
+                                            >
+                                                {transaction?.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {/* // Only Mobile view */}
+                                    <tr key={transaction?.id} className="d-md-none">
+                                        <td>{index + 1 + serialNumber}</td>
+                                        <td style={{ minWidth: "176px" }}>
+                                            {transaction?.date_time}, <br />
+                                            {transaction?.purpose}
+                                        </td>
+                                        <td className="text-end">
+                                            {transaction?.debit
+                                                ? "৳" + transaction?.debit.toFixed(2)
+                                                : "--"}
+                                        </td>
+                                        <td className="text-end">
+                                            {transaction?.credit
+                                                ? "৳" + transaction?.credit.toFixed(2)
+                                                : "--"}
+                                        </td>
+                                        <td className="text-end">
+                                            {transaction?.balance && (
+                                                "৳" + transaction?.balance
+                                            )}
+                                        </td>
+                                        <td className="text-center">
+                                            {transaction?.status === "Completed" ? (
+                                                <FaCheckCircle className="text-success" />
+                                            ) : transaction?.status === "Rejected" ? (
+                                                <FaTimesCircle className="text-danger" />
+                                            ) : transaction?.status === "Refund" ? (
+                                                <FaUndo className="text-primary" />
+                                            ) : (
+                                                <FaExclamationCircle className="text-warning" />
+                                            )}
+                                        </td>
+                                    </tr>
+                                </>
                             ))
                         ) : (
                             <tr>

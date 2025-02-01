@@ -1,25 +1,24 @@
-import PayoutSearchForm from "./PayoutSearchForm";
+
 
 const AffiliateBonusDetail = ({
     affiliateBonusResult,
     affiliateBonusData,
     serialNumber,
 }) => {
-    
+
     return (
-        <div className="p-3">
+        <div className="p-md-3">
             <div className="table-responsive">
                 <table
                     className="table table-hover"
-                    style={{ minWidth: "1000px" }}
                 >
                     <thead>
-                        <tr>
+                        {/* Desktop view */}
+                        <tr className="d-none d-lg-table-row">
                             <th scope="col" className="text-center">
                                 SL
                             </th>
-                            <th scope="col" className="text-start">
-                                Date/Time
+                            <th scope="col" className="text-start">Date/Time
                             </th>
                             <th scope="col" className="text-end">
                                 Amount
@@ -36,58 +35,81 @@ const AffiliateBonusDetail = ({
                             <th scope="col" className="text-end">
                                 Type
                             </th>
-                            <th scope="col" className="text-end pe-3">
+                            {/* <th scope="col" className="text-end pe-3">
                                 Status
+                            </th> */}
+                        </tr>
+                        {/* Mobile view */}
+                        <tr className="d-lg-none">
+                            <th scope="col" className="text-center">
+                                SL
+                            </th>
+                            <th scope="col" className="text-start">
+                                Particular
+                            </th>
+                            <th scope="col" className="text-end">
+                                Amount
+                            </th>
+                            <th scope="col" className="text-end">
+                                Type
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {affiliateBonusData?.map((item, index) => {
                             return (
-                                <tr key={item?.id}>
-                                    <td className="align-middle text-center">
-                                        {index + 1 + serialNumber}
-                                    </td>
-
-                                    <td className="align-middle text-start">
-                                        {item?.date_time || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end">
-                                        ৳ {item?.earning || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end">
-                                        {item?.user_name || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end">
-                                        {item?.invoice || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end">
-                                        {item?.level || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end">
-                                        {item?.payout_type || "N/A"}
-                                    </td>
-                                    <td className="align-middle text-end pe-3">
-                                        {item?.purpose || "N/A"}
-                                    </td>
-                                </tr>
+                                <>
+                                {/* Desktop view */}
+                                    <tr key={item?.id} className="d-none d-lg-table-row">
+                                        <td className="align-middle text-center">
+                                            {index + 1 + serialNumber}
+                                        </td>
+                                        <td className="align-middle text-start">
+                                            {item?.date_time || "--"}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            ৳ {item?.earning || "--"}
+                                        </td>
+                                        <td className="align-middle text-end"  style={{ maxWidth: "180px" }}>
+                                            {item?.user_name || "--"}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            {item?.invoice || "--"}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            {item?.level || "--"}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            {item?.payout_type || "--"}
+                                        </td>
+                                        {/* <td className="align-middle text-end pe-3">
+                                            {item?.purpose || "--"}
+                                        </td> */}
+                                    </tr>
+                                {/* Mobile view */}
+                                    <tr key={item?.id} className="d-lg-none">
+                                        <td className="align-middle text-center">
+                                            {index + 1 + serialNumber}
+                                        </td>
+                                        <td className="align-middle text-start" style={{ minWidth: "170px" }}>
+                                            {item?.date_time || "--"},
+                                            <br />
+                                            {item?.invoice || ""}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            ৳{item?.earning || "--"}
+                                        </td>
+                                        <td className="align-middle text-end">
+                                            {item?.payout_type.split(" ")[0] || "--"} , {item?.level || ""}
+                                        </td>
+                                    </tr>
+                                </>
                             );
                         })}
 
                         <tr>
                             <td colSpan="3" className="align-middle text-end ">
-                                {affiliateBonusResult?.total_earning !==
-                                    null && (
-                                    <strong>
-                                        Total : ৳{" "}
-                                        {parseFloat(
-                                            affiliateBonusResult?.total_earning.replace(
-                                                /,/g,
-                                                ""
-                                            ) || 0
-                                        ).toFixed(2)}
-                                    </strong>
-                                )}
+                            ৳ {Number(affiliateBonusResult?.total_earning?.replace(/,/g, "") || 0).toFixed(2)}
                             </td>
                             <td
                                 colSpan={5}
@@ -97,20 +119,8 @@ const AffiliateBonusDetail = ({
                     </tbody>
                 </table>
             </div>
-            <p>
-                Showing{" "}
-                {affiliateBonusResult?.current_page
-                    ? affiliateBonusResult?.current_page
-                    : 0}
-                to{" "}
-                {affiliateBonusResult?.last_page
-                    ? affiliateBonusResult?.last_page
-                    : 0}{" "}
-                of{" "}
-                {affiliateBonusResult?.total_page_count
-                    ? affiliateBonusResult?.total_page_count
-                    : 0}{" "}
-                entries{" "}
+            <p className="px-4">
+                Showing {affiliateBonusResult?.current_page || 0} to {affiliateBonusResult?.last_page || 0} of {affiliateBonusResult?.total_page_count || 0} entries
             </p>
         </div>
     );

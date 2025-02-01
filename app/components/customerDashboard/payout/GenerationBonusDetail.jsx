@@ -5,10 +5,9 @@ const GenerationBonusDetail = ({
 }) => {
     return (
         <>
-            <div className="table-responsive">
+            <div className="table-responsive p-md-3 ">
                 <table
                     className="table table-hover"
-                    style={{ minWidth: "920px" }}
                 >
                     <thead>
                         <tr>
@@ -21,7 +20,7 @@ const GenerationBonusDetail = ({
                             <th scope="col" className="text-end">
                                 Amount
                             </th>
-                            <th scope="col" className="text-end">
+                            <th scope="col" className="text-end d-none d-md-table-cell">
                                 From
                             </th>
                             <th scope="col" className="text-end pe-3">
@@ -41,7 +40,7 @@ const GenerationBonusDetail = ({
                                 <td className="align-middle text-end">
                                     ৳{""} {item?.earning || "N / A"}
                                 </td>
-                                <td className="align-middle text-end">
+                                <td className="align-middle text-end d-none d-md-table-cell">
                                     {item?.user_name || "Unknown"}
                                 </td>
                                 <td className="align-middle text-end pe-3">
@@ -53,16 +52,16 @@ const GenerationBonusDetail = ({
                             <td colSpan={3} className="align-middle text-end">
                                 {generationBonusResult?.total_earning !==
                                     null && (
-                                    <strong>
-                                        Total: ৳{" "}
-                                        {parseFloat(
-                                            generationBonusResult?.total_earning.replace(
-                                                /,/g,
-                                                ""
-                                            ) || 0
-                                        ).toFixed(2)}
-                                    </strong>
-                                )}
+                                        <strong>
+                                            Total: ৳{" "}
+                                            {parseFloat(
+                                                generationBonusResult?.total_earning.replace(
+                                                    /,/g,
+                                                    ""
+                                                ) || 0
+                                            ).toFixed(2)}
+                                        </strong>
+                                    )}
                             </td>
                             <td
                                 colSpan={2}

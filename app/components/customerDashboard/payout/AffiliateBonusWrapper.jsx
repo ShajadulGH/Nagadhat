@@ -22,38 +22,38 @@ const AffiliateBonusWrapper = () => {
     const limit = 20;
 
     useEffect(() => {
-        const page = searchParam.get("page");
-        if (page && parseInt(page) !== currentPage) {
-            setCurrentPage(parseInt(page));
+        const page = parseInt(searchParam.get("page"), 10);
+        if (!isNaN(page) && page !== currentPage) {
+            setCurrentPage(page);
         }
     }, [searchParam]);
+    
 
     const fetchAffiliateBonus = async () => {
-        if (status === "authenticated" && session.accessToken) {
-            let params = {
-                search: searchTerm,
-                limit,
-                page: currentPage,
-            };
-            try {
-                startTransition(async () => {
-                    const response = await getPayoutAffiliateBonus(
-                        session.accessToken,
-                        params
-                    );
-                    setAffiliateBonusResult(response?.results || {});
-                    setAffiliateBonusData(response?.results?.data || []);
-                    setLastPage(response?.results?.last_page);
-                });
-            } catch (error) {
-                console.error("Failed to fetch affiliate bonus data:", error);
-            }
+        if (status !== "authenticated" || !session?.accessToken) return;
+    
+        let params = {
+            search: searchTerm,
+            limit,
+            page: currentPage,
+        };
+        try {
+            const response = await getPayoutAffiliateBonus(session.accessToken, params);
+            setAffiliateBonusResult(response?.results || {});
+            setAffiliateBonusData(response?.results?.data || []);
+            setLastPage(response?.results?.last_page);
+        } catch (error) {
+            console.error("Failed to fetch affiliate bonus data:", error);
         }
     };
+    
 
     useEffect(() => {
-        fetchAffiliateBonus();
+        if (status === "authenticated" && session?.accessToken) {
+            fetchAffiliateBonus();
+        }
     }, [status, session?.accessToken, searchTerm, currentPage]);
+    
 
     const serialNumber = (currentPage - 1) * limit;
 
