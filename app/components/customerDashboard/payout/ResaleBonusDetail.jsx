@@ -6,12 +6,9 @@ const ResaleBonusDetail = ({
     serialNumber,
 }) => {
     return (
-        <>
+        <div className="px-3 pt-3">
             <div className="table-responsive">
-                <table
-                    className="table table-hover"
-                    style={{ minWidth: "900px" }}
-                >
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col" className="text-center">
@@ -66,7 +63,7 @@ const ResaleBonusDetail = ({
                     </tbody>
                 </table>
             </div>
-            <div className="pt-5 ">
+            <div className="pt-3 ">
                 <p className="ps-4">
                     Showing{" "}
                     {resalBonusResult?.current_page
@@ -83,7 +80,7 @@ const ResaleBonusDetail = ({
                     entries{" "}
                 </p>
             </div>
-        </>
+        </div>
     );
 };
 

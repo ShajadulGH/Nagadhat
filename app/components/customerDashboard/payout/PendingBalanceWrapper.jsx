@@ -63,14 +63,14 @@ const PendingBalanceWrapper = () => {
                     <LodingFixed />
                 ) : (
                     <div className="table-responsive">
-                        <table className="table" style={{ minWidth: "900px" }}>
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col">SL</th>
                                     <th scope="col">Date/Time</th>
-                                    <th scope="col">Particular</th>
-                                    <th scope="col">From</th>
-                                    <th scope="col">Purpose</th>
+                                    <th scope="col" className="d-lg-none">Particular</th>
+                                    <th scope="col" className="d-none d-lg-table-cell">From</th>
+                                    <th scope="col" className="d-none d-lg-table-cell">Purpose</th>
                                     <th className="text-end" scope="col">
                                         Amount
                                     </th>
