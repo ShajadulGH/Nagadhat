@@ -409,3 +409,10 @@ body {
     justify-content: center;
     pointer-events: none;
 }
+.dropdown-item.custom-agent-id-hover {
+    border-bottom: 1px solid #d9d9d9 !important ;
+}
+.dropdown-item.custom-agent-id-hover:hover {
+    background-color: #44bc9d !important; 
+  color: #000 !important;
+}
