@@ -36,9 +36,9 @@ const PayoutRankRewardDetail = ({
                         })}
 
                         <tr>
-                            <td colSpan={2} scope="row"></td>
-                            <td  className="d-none d-md-table-cell"></td>
-                            <td className="text-end">
+                            <td colSpan={1} scope="row"></td>
+                            {/* <td  className="d-none d-md-table-cell"></td> */}
+                            <td colSpan={3} className="text-end">
                                 {rankRewardResult?.total_earning !== null && (
                                     <strong>
                                         Total: ৳{" "}
