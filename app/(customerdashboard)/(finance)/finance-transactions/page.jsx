@@ -93,7 +93,7 @@ const FinanceTransactions = async ({ searchParams }) => {
                                 {/* // Only Mobile view */}
                                     <tr key={transaction?.id} className="d-md-none">
                                         <td>{index + 1 + serialNumber}</td>
-                                        <td>
+                                        <td style={{ minWidth: "176px" }}>
                                             {transaction?.date_time}, <br />
                                             {transaction?.purpose}
                                         </td>

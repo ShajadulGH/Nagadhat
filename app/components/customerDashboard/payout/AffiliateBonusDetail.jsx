@@ -65,25 +65,25 @@ const AffiliateBonusDetail = ({
                                             {index + 1 + serialNumber}
                                         </td>
                                         <td className="align-middle text-start">
-                                            {item?.date_time || "N/A"}
+                                            {item?.date_time || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            ৳ {item?.earning || "N/A"}
+                                            ৳ {item?.earning || "--"}
                                         </td>
                                         <td className="align-middle text-end"  style={{ maxWidth: "180px" }}>
-                                            {item?.user_name || "N/A"}
+                                            {item?.user_name || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            {item?.invoice || "N/A"}
+                                            {item?.invoice || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            {item?.level || "N/A"}
+                                            {item?.level || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            {item?.payout_type || "N/A"}
+                                            {item?.payout_type || "--"}
                                         </td>
                                         {/* <td className="align-middle text-end pe-3">
-                                            {item?.purpose || "N/A"}
+                                            {item?.purpose || "--"}
                                         </td> */}
                                     </tr>
                                 {/* Mobile view */}
@@ -91,16 +91,16 @@ const AffiliateBonusDetail = ({
                                         <td className="align-middle text-center">
                                             {index + 1 + serialNumber}
                                         </td>
-                                        <td className="align-middle text-start" style={{ minWidth: "168px" }}>
-                                            {item?.date_time || "N/A"}
+                                        <td className="align-middle text-start" style={{ minWidth: "170px" }}>
+                                            {item?.date_time || "--"},
                                             <br />
-                                            {item?.invoice || ""}, {item?.level || ""}
+                                            {item?.invoice || ""}
                                         </td>
                                         <td className="align-middle text-end">
-                                            ৳{item?.earning || "N/A"}
+                                            ৳{item?.earning || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            {item?.payout_type || "N/A"}
+                                            {item?.payout_type.split(" ")[0] || "--"} , {item?.level || ""}
                                         </td>
                                     </tr>
                                 </>
@@ -109,7 +109,7 @@ const AffiliateBonusDetail = ({
 
                         <tr>
                             <td colSpan="3" className="align-middle text-end ">
-                                {Number(affiliateBonusResult?.total_earning?.replace(/,/g, "") || 0).toFixed(2)}
+                            ৳ {Number(affiliateBonusResult?.total_earning?.replace(/,/g, "") || 0).toFixed(2)}
                             </td>
                             <td
                                 colSpan={5}
@@ -119,7 +119,7 @@ const AffiliateBonusDetail = ({
                     </tbody>
                 </table>
             </div>
-            <p>
+            <p className="px-4">
                 Showing {affiliateBonusResult?.current_page || 0} to {affiliateBonusResult?.last_page || 0} of {affiliateBonusResult?.total_page_count || 0} entries
             </p>
         </div>
