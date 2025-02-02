@@ -52,6 +52,10 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
     }, [amount, bank])
 
     const handleWithdrawRequest = async () => {
+        if (typeof amount === "number" && !Number.isInteger(amount)) {
+            toast.warning("Please enter a decimal number for the amount!");
+            return ;
+          }
         setIsLoading(true);
         const data = {
             bank_id: bankTransferInfo?.bank_id,

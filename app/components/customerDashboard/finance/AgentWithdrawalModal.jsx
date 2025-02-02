@@ -77,8 +77,11 @@ const AgentWithdrawalModal = ({
     }, [amount, agentId, agentWithdrawMethod]);
 
     const handleWithdrawRequest = async () => {
+        if (typeof amount === "number" && !Number.isInteger(amount)) {
+            toast.warning("Please enter a decimal number for the amount!");
+            return ;
+          }
         setIsLoading(true); // Start loading
-
         let selectedAccount = null;
         if (agentWithdrawMethod == 3) {
             selectedAccount = bankTransferData.account_number;
