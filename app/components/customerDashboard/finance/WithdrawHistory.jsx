@@ -26,7 +26,7 @@ const WithdrawHistory = async ({ searchParams }) => {
                 {withdrawHistoryData?.length === 0 ? (
                     <NoDataFound />
                 ) : (
-                    <table className="table" style={{ minWidth: "900px" }}>
+                    <table className="table" style={{ minWidth: "767px" }}>
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -46,16 +46,13 @@ const WithdrawHistory = async ({ searchParams }) => {
                                     <td>{item.billing_method}</td>
                                     <td>{item.account_number}</td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        {item.amount}
+                                        ৳{item.amount}
                                     </td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        {item.charge}
+                                        ৳{item.charge}
                                     </td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        {item.payable}
+                                        ৳{item.payable}
                                     </td>
                                     <td
                                         className={

@@ -100,7 +100,7 @@ const AffiliateBonusDetail = ({
                                             ৳{item?.earning || "--"}
                                         </td>
                                         <td className="align-middle text-end">
-                                            {item?.payout_type.split(" ")[0] || "--"} , {item?.level || ""}
+                                            {item?.payout_type.split(" ")[0] || "--"} ,<br/> {item?.level || ""}
                                         </td>
                                     </tr>
                                 </>

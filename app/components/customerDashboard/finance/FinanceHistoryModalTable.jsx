@@ -5,7 +5,7 @@ import NoDataFound from "../../NoDataFound";
 const FinanceHistoryModalTable = ({ data }) => {
     return (
         <div className=" table-responsive">
-            <table className="table table-hover" style={{ minWidth: "900px" }}>
+            <table className="table table-hover" style={{ minWidth: "767px" }}>
                 <thead>
                     <tr>
                         <th>Date</th>
