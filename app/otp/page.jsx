@@ -17,7 +17,13 @@ const OTP = () => {
     const [otp, setOtp] = useState(searchParams.get("otp") ?? "");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-    const baseUrl = window?.location?.origin;
+    const [baseUrl, setBaseUrl] = useState("");
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setBaseUrl(window.location.origin);
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,11 +43,11 @@ const OTP = () => {
                         otp: otp,
                     });
                     console.log(res);
-                    
+
                     if (!res?.success) {
                         setErrorMessage(res.message);
                         return;
-                    }else{
+                    } else {
                         setSuccessMessage(res.message);
                         router.push(`${baseUrl}/${res?.data?.frontendUrl}`);
                     }
