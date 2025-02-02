@@ -11,8 +11,6 @@ const WithdrawTopBanner = () => {
 
     const { data: session, status } = useSession();
 
-    console.log("chartInfo===>>", chartInfo);
-
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
             const fetchFinanceBalanceChart = async () => {
@@ -43,13 +41,13 @@ const WithdrawTopBanner = () => {
                         Loading...
                     </h2>
                 ) : (
-                    <div className="d-flex flex-column flex-md-row gap-4 gap-md-5 justify-content-between align-items-md-center">
+                    <div className="d-flex flex-column flex-md-row gap-2 gap-md-5 justify-content-between align-items-md-center">
                         {/* Balance Section */}
                         <div className="text-black">
-                            <h2 className="fw-bold">
+                            <h2 className="fw-bold mb-0">
                                 ৳ {chartInfo?.total_withdrawable ?? 0}
                             </h2>
-                            <p className="fs-6">Balance</p>
+                            <p className="fs-6 d-none d-md-block">Balance</p>
                         </div>
 
                         {/* Chart or No Data Section */}
