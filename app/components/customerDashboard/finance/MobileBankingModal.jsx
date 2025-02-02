@@ -56,6 +56,10 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
     }, [amount, mobileBanking]);
 
     const handleWithdrawRequest = async () => {
+        if (typeof amount === "number" && !Number.isInteger(amount)) {
+            toast.warning("Please enter a decimal number for the amount!");
+            return ;
+          }
         setIsLoading(true);
         const selectedAccount = mobileBankingInfo?.data?.find(item => item.name == mobileBanking)?.account_number;
 
