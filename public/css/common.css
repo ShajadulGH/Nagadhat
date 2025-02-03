@@ -416,3 +416,8 @@ body {
     background-color: #44bc9d !important; 
   color: #000 !important;
 }
+.sale-on-nagadhat-hover li button:hover,
+.sale-on-nagadhat-hover li a:hover{
+    background-color: #44bc9d !important; 
+    color: white !important;
+}
