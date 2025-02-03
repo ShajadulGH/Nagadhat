@@ -18,12 +18,12 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
 
     return (
         <div className="table-responsive">
-            <table className="table table-hover" style={{ minWidth: "910px" }}>
+            <table className="table table-hover my-team-table-min-width" >
                 <thead>
                     <tr>
                         <th scope="col">SL</th>
                         <th scope="col">Username</th>
-                        <th scope="col">Full Name</th>
+                        <th scope="col" className="d-none d-md-block">Full Name</th>
                         <th scope="col">Sponsor</th>
                         <th className="text-center" scope="col">
                             Resell
@@ -41,8 +41,20 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
                     {displayMembers?.map((member, index) => (
                         <tr key={member.id}>
                             <td scope="row">{index + 1 + serialNumber}</td>
-                            <td>{member?.username}</td>
                             <td>
+                                <span className="d-block ">
+                                {member?.username}
+                                </span>
+                                
+                                <Link
+                                    href={`/affiliate-team/${member?.id}?member=${member?.name}`}
+                                    className=" border-0 d-inline-block d-md-none px-2 py-1 "
+                                    style={{ color: "white",background:"#44bc9d",minWidth:"130px" }}
+                                >
+                                    {member?.name}
+                                </Link>
+                            </td>
+                            <td className="d-none d-md-table-cell">
                                 <Link
                                     href={`/affiliate-team/${member?.id}?member=${member?.name}`}
                                     className=" border-0 bg-transparent "

@@ -37,7 +37,7 @@ const FinanceWithdraw = () => {
     return (
         <div className="customer-dashboard-order-history-area">
             <FinanceTopTitle title="Sell On Nagadhat" />
-            <div className="p-4">
+            <div className="p-2 p-sm-3 p-md-4">
                 {isPending ? (
                     <LodingFixed />
                 ) : sellOnList.length > 0 ? (

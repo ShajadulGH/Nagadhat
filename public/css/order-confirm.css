@@ -103,7 +103,7 @@
 
 .summary-header {
     width: 100%;
-    min-width: 360px;
+    min-width: 260px;
 }
 .summary-header tr th, 
 .summary-header tr td{
@@ -130,7 +130,7 @@
 
 .order-summary {
     width: 100%;
-    min-width: 300px;
+    min-width: 250px;
 }
 .order-summary tr td{
     padding: 7.5px 10px;

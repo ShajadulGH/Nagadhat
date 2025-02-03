@@ -13,7 +13,7 @@ const OrderSummaryRight = ({ orderProduct, orderSummary }) => {
                         </div>
                         <div className="order-summary-table-holder">
                             <div className="py-2 border-bottom table-responsive order-summary-table-one">
-                                <table className="summary-header ">
+                                <table className="summary-header">
                                     <thead>
                                         <tr>
                                             <th>Date</th>
