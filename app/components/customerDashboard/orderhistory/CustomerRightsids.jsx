@@ -91,22 +91,18 @@ const CustomerRightsids = ({
                                                     ৳ {grand_total}
                                                 </td>
                                                 <td
-                                                    className={`${
-                                                        order_status ===
-                                                        "Canceled"
+                                                    className={`align-middle${
+                                                        order_status === "Canceled"
                                                             ? "text-danger fw-bolder"
                                                             : ""
-                                                    } align-middle`}
+                                                    }`}
                                                 >
-                                                    {order_status ===
-                                                        "Processing" &&
-                                                    (orderItem?.order_product_type ===
-                                                        "2" ||
-                                                        orderItem?.order_product_type ===
-                                                            "3") ? (
+                                                    {order_status === "Processing" &&
+                                                    (orderItem?.order_product_type === "2" ||
+                                                        orderItem?.order_product_type === "3") ? (
                                                         <div className="dropdown">
                                                             <button
-                                                                className="btn text-success border-0 dropdown-toggle ps-0"
+                                                                className="btn text-success dropdown-toggle border border-success py-1 px-2 "
                                                                 type="button"
                                                                 data-bs-toggle="dropdown"
                                                                 aria-expanded="false"
@@ -114,16 +110,7 @@ const CustomerRightsids = ({
                                                                 {order_status ||
                                                                     "Processing"}
                                                             </button>
-                                                            <ul className="dropdown-menu">
-                                                                <li>
-                                                                    <Link
-                                                                        className="dropdown-item"
-                                                                        href={`/shipping-page-resale/${order_id}`}
-                                                                    >
-                                                                        Get
-                                                                        Product
-                                                                    </Link>
-                                                                </li>
+                                                            <ul className="dropdown-menu shadow sale-on-nagadhat-hover">
                                                                 <li>
                                                                     <button
                                                                         type="button"
@@ -133,23 +120,27 @@ const CustomerRightsids = ({
                                                                         onClick={() =>
                                                                             setResaleOrderID(
                                                                                 {
-                                                                                    order_id:
-                                                                                        order_id,
-                                                                                    buyback_package_id:
-                                                                                        affiliate_buyback_package_id,
+                                                                                    order_id: order_id, 
+                                                                                    buyback_package_id: affiliate_buyback_package_id,
                                                                                 }
                                                                             )
                                                                         }
                                                                     >
-                                                                        Sale on
-                                                                        Nagadhat
+                                                                        Sale on Nagadhat
                                                                     </button>
+                                                                </li>
+                                                                <li>
+                                                                    <Link
+                                                                        className="dropdown-item"
+                                                                        href={`/shipping-page-resale/${order_id}`}
+                                                                    >
+                                                                        Get Product
+                                                                    </Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     ) : (
-                                                        order_status ||
-                                                        "Pending"
+                                                        order_status || "Pending"
                                                     )}
                                                 </td>
 
