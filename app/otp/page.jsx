@@ -49,7 +49,7 @@ const OTP = () => {
                         return;
                     } else {
                         setSuccessMessage(res.message);
-                        router.push(`${baseUrl}/${res?.data?.frontendUrl}`);
+                        router.push(`${baseUrl}${res?.data?.frontendUrl}`);
                         // router.push("/login");
                     }
                 });
