@@ -88,6 +88,13 @@
     width: 80px;
     position: relative;
 }
+@media screen and (max-width: 768px) {
+    .product-cart-product-img {
+        height: 80px;
+        width: 60px;
+    }
+    
+}
 .product-cart-product-img img {
     border-radius: 8px;
     object-fit: cover;
@@ -95,8 +102,8 @@
 .product-cart-text {
     font-size: 16px;
     font-weight: 400;
-    max-width: 100%;
-    width: 320px;
+    max-width: 300px;
+    min-width: 300px;
 }
 .discount-code-img {
     position: relative;
@@ -249,6 +256,13 @@
 }
 @media (max-width: 1199px) {
     .product-cart-text {
-        width: 200px;
+        max-width: 200px;
+        min-width: 0;
+    }
+}
+@media (max-width: 520px) {
+    .product-cart-text {
+        max-width: 140px;
+        min-width: 0;
     }
 }
