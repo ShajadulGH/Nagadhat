@@ -35,7 +35,10 @@ const GenerationBonusDetail = ({
                                     {index + 1 + serialNumber}
                                 </td>
                                 <td className="align-middle text-start">
-                                    {item?.date_time || "N/A"}
+                                    {item?.date_time || "N/A"}<br />
+                                    <small className="d-md-none">
+                                        {item?.user_name || "Unknown"}
+                                    </small>
                                 </td>
                                 <td className="align-middle text-end">
                                     ৳{""} {item?.earning || "N / A"}
