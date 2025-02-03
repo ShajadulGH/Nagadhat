@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaCheckCircle } from "react-icons/fa";
 import { FcCancel } from "react-icons/fc";
+import SellOnNagadhatMobileV from "./SellOnNagadhatMobileV";
 
 const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
     // Calculate sums using reduce
@@ -16,13 +17,13 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
 
     return (
         <div>
-            <div className="table-responsive pt-4">
-                <table className="table table-hover" style={{ minWidth: "1000px" }}>
+            <div className="table-responsive pt-4 d-none d-md-block">
+                <table className="table table-hover sale-on-ng-min-responsive">
                     <thead>
                         <tr>
                             <th scope="col">SL</th>
-                            <th scope="col">Package</th>
                             <th scope="col">Date</th>
+                            <th scope="col" className="d-none d-md-block">Package</th>
                             <th scope="col">Duration (Month)</th>
                             <th scope="col">Completed (Month)</th>
                             <th scope="col">Order Value</th>
@@ -30,36 +31,59 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                             <th scope="col">Monthly Return</th>
                             <th scope="col">Instalment</th>
                             <th scope="col">Status</th>
-                            <th scope="col" className="text-center">Action</th>
+                            <th scope="col" className="text-center">
+                                Action
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {sellOnData.map((item, index) => (
                             <tr key={item?.id}>
                                 <td className="align-middle">{index + 1}</td>
-                                <td className="align-middle">{item?.package_invoice || "N/A"}</td>
-                                <td className="align-middle">{item?.start_date || "N/A"}</td>
-                                <td className="align-middle">{item?.duration || "N/A"}</td>
-                                <td className="align-middle">{item?.completed_months || "N/A"}</td>
-                                <td className="align-middle">৳ {item?.order_value || "N/A"}</td>
-                                <td className="align-middle">৳ {item?.mrp_value || "N/A"}</td>
-                                <td className="align-middle">৳ {(item?.monthly_bonus || 0).toFixed(2)}</td>
+                                <td className="align-middle">
+                                    {item?.start_date || "---"}
+                                    
+                                </td>
+                                <td className="align-middle d-none d-md-table-cell">
+                                    {item?.package_invoice || "---"}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {item?.duration || "---"}
+                                </td>
+                                <td className="align-middle text-center">
+                                    {item?.completed_months || "---"}
+                                </td>
+                                <td className="align-middle">
+                                    ৳ {item?.order_value || "---"}
+                                </td>
+                                <td className="align-middle">
+                                    ৳ {item?.mrp_value || "---"}
+                                </td>
+                                <td className="align-middle">
+                                    ৳ {(item?.monthly_bonus || 0).toFixed(2)}
+                                </td>
                                 <td className="align-middle">
                                     {item?.is_instalment === 1 ? (
                                         <>
-                                            <FaCheckCircle className="text-success" /> Yes
+                                            <FaCheckCircle className="text-success" />{" "}
+                                            Yes
                                         </>
                                     ) : (
                                         <>
-                                            <FcCancel className="text-danger" /> No
+                                            <FcCancel className="text-danger" />{" "}
+                                            No
                                         </>
                                     )}
                                 </td>
                                 <td className="align-middle">
                                     {item?.active_status === 0 ? (
-                                        <span className="text-primary">Active</span>
+                                        <span className="text-primary">
+                                            Active
+                                        </span>
                                     ) : (
-                                        <span className="text-success">Completed</span>
+                                        <span className="text-success">
+                                            Completed
+                                        </span>
                                     )}
                                 </td>
                                 <td className="align-middle">
@@ -75,7 +99,9 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colSpan="5" className="text-end fw-bold">Totals:</td>
+                            <td colSpan="5" className="text-end fw-bold">
+                                Totals:
+                            </td>
                             <td>৳ {totals.totalOrderValue.toFixed(2)}</td>
                             <td>৳ {totals.totalMrpValue.toFixed(2)}</td>
                             <td>৳ {totals.totalMonthlyBonus.toFixed(2)}</td>
@@ -83,6 +109,18 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+            <div className="d-block d-md-none">
+                {
+                    sellOnData.map((item)=>(
+                        <SellOnNagadhatMobileV item={item}/>
+                    ))
+                }
+                
+                <p className="d-flex flex-column align-items-end justify-content-between px-2 py-2 gap-1">
+                    <strong>Total Sell On Nagadhat: ৳ {totals.totalOrderValue.toFixed(2)}</strong>
+                     
+                </p>
             </div>
         </div>
     );
