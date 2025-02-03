@@ -62,7 +62,7 @@ const CustomerRightsids = ({
                                     <th scope="col">Invoice ID</th>
                                     <th
                                         scope="col"
-                                        className="d-none d-md-block"
+                                        className="d-none d-md-table-cell"
                                     >
                                         Date
                                     </th>
