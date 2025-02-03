@@ -5,7 +5,7 @@ import { FaDownload, FaRegFaceFrown, FaXmark } from "react-icons/fa6";
 import Pagination from "../../productCategory/Pagination";
 import { postOrderCancel } from "@/app/services/userdashboard/postOrderCancel";
 import { toast } from "react-toastify"; // Import Toastify
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LodingFixed from "../../LodingFixed";
 import SaleOnNagadhatModal from "./SaleOnNagadhatModal";
 
@@ -49,19 +49,26 @@ const CustomerRightsids = ({
     return (
         <>
             {isPending && <LodingFixed />}
-            <div className="customer-dashboard-order-history-area">
+            <div className="customer-dashboard-order-history-area h-100">
                 <div className="customer-dashboard-order-history-title">
                     <h1 className="customer-dashboard-title">Order History</h1>
                 </div>
                 {customerOrders?.length > 0 ? (
-                    <div className="customer-dashboard-order-history table-responsive table-responsive-md">
+                    <div className="customer-dashboard-order-history table-responsive table-responsive-md h-100">
                         <table className="table ">
                             <thead>
                                 <tr>
                                     <th>SL</th>
                                     <th scope="col">Invoice ID</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Grand Total</th>
+                                    <th
+                                        scope="col"
+                                        className="d-none d-md-block"
+                                    >
+                                        Date
+                                    </th>
+                                    <th scope="col" className="text-end">
+                                        Grand Total
+                                    </th>
                                     <th scope="col">Order Status</th>
                                     <th scope="col">Payment Status</th>
                                     <th scope="col">Actions</th>
@@ -85,21 +92,30 @@ const CustomerRightsids = ({
                                                 <td className="align-middle">
                                                     {index + 1 + serialNumber}
                                                 </td>
-                                                <td className="align-middle">{invoice_id}</td>
-                                                <td className="align-middle">{order_date}</td>
+                                                <td className="align-middle">
+                                                    <span>{invoice_id}</span>
+                                                    <span className=" d-block d-md-none">{order_date}</span>
+                                                </td>
+                                                <td className="align-middle d-none d-md-table-cell">
+                                                    <span>{order_date}</span>
+                                                </td>
                                                 <td className="text-end align-middle">
                                                     ৳ {grand_total}
                                                 </td>
                                                 <td
                                                     className={`align-middle${
-                                                        order_status === "Canceled"
+                                                        order_status ===
+                                                        "Canceled"
                                                             ? "text-danger fw-bolder"
                                                             : ""
                                                     }`}
                                                 >
-                                                    {order_status === "Processing" &&
-                                                    (orderItem?.order_product_type === "2" ||
-                                                        orderItem?.order_product_type === "3") ? (
+                                                    {order_status ===
+                                                        "Processing" &&
+                                                    (orderItem?.order_product_type ===
+                                                        "2" ||
+                                                        orderItem?.order_product_type ===
+                                                            "3") ? (
                                                         <div className="dropdown">
                                                             <button
                                                                 className="btn text-success dropdown-toggle border border-success py-1 px-2 "
@@ -120,13 +136,16 @@ const CustomerRightsids = ({
                                                                         onClick={() =>
                                                                             setResaleOrderID(
                                                                                 {
-                                                                                    order_id: order_id, 
-                                                                                    buyback_package_id: affiliate_buyback_package_id,
+                                                                                    order_id:
+                                                                                        order_id,
+                                                                                    buyback_package_id:
+                                                                                        affiliate_buyback_package_id,
                                                                                 }
                                                                             )
                                                                         }
                                                                     >
-                                                                        Sale on Nagadhat
+                                                                        Sale on
+                                                                        Nagadhat
                                                                     </button>
                                                                 </li>
                                                                 <li>
@@ -134,13 +153,15 @@ const CustomerRightsids = ({
                                                                         className="dropdown-item"
                                                                         href={`/shipping-page-resale/${order_id}`}
                                                                     >
-                                                                        Get Product
+                                                                        Get
+                                                                        Product
                                                                     </Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     ) : (
-                                                        order_status || "Pending"
+                                                        order_status ||
+                                                        "Pending"
                                                     )}
                                                 </td>
 

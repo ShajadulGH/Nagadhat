@@ -366,6 +366,9 @@
     display: none;
 }
 @media (max-width: 767px) {
+    .table-responsive-md table {
+        min-width: 770px !important;
+    }
     .resell-list-view-info-desktop {
         display: none
     }
