@@ -48,12 +48,12 @@ const LastFiveWithdrawHistory = () => {
             ) : (
                 <div className="table-responsive pt-4">
                     {lastFiveData?.length > 0 ? (
-                        <table className="table" style={{ minWidth: "900px" }}>
+                        <table className="table finance-withdraw-min-with" >
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Billing Method</th>
-                                    <th>Account ID/Code</th>
+                                    <th className="d-none d-lg-table-cell">Billing Method</th>
+                                    <th className="d-none d-lg-table-cell">Account ID/Code</th>
                                     <th className="text-end">Amount</th>
                                     <th className="text-end">Charge</th>
                                     <th className="text-end">Payable</th>
@@ -64,30 +64,32 @@ const LastFiveWithdrawHistory = () => {
                             <tbody>
                                 {lastFiveData?.slice(0, 5).map((item) => (
                                     <tr key={item.id || item.account_number}>
-                                        <td>{item.date_time}</td>
-                                        <td>{item.billing_method}</td>
-                                        <td>{item.account_number}</td>
-                                        <td className="text-end">
+                                        <td className="align-middle">
+                                            {item.date_time}
+                                            <span className="d-block d-lg-none"> <strong>B Method :</strong> {item.billing_method}</span>
+                                            <span className="d-block d-lg-none"> <strong>ID/Code :</strong> {item.account_number}</span>
+                                        </td>
+                                        <td className="d-none d-lg-table-cell align-middle">{item.billing_method}</td>
+                                        <td className="d-none d-lg-table-cell align-middle">{item.account_number}</td>
+                                        <td className="text-end align-middle">
                                             ৳ {""} {item.amount}
                                         </td>
-                                        <td className="text-end">
+                                        <td className="text-end align-middle">
                                             ৳ {""}
                                             {item.charge}
                                         </td>
-                                        <td className="text-end">
+                                        <td className="text-end align-middle">
                                             ৳ {""}
                                             {item.payable}
                                         </td>
                                         <td
-                                            className={
-                                                item.status === "Completed"
-                                                    ? "paid"
-                                                    : "pending"
-                                            }
+                                            className={`align-middle ${
+                                                item.status === "Completed" ? "paid" : "pending"
+                                            }`}
                                         >
                                             {item.status}
                                         </td>
-                                        <td className="text-center">
+                                        <td className="text-center align-middle">
                                             <div className="customer-dashboard-order-history-actions justify-content-center">
                                                 <button
                                                     type="button"
