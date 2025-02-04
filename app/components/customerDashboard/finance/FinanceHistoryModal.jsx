@@ -27,9 +27,9 @@ const FinanceHistoryModal = ({ transaction, modalId }) => {
                                 aria-label="Close"
                             ></button>
                         </div>
-                        <div className="modal-body p-4">
+                        <div className="modal-body p-3 p-md-4">
                             {transaction ? (
-                                <table className="table table-bordered table-hover">
+                                <table className="table table-bordered table-hover mb-0">
                                     <tbody>
                                         <tr>
                                             <th>Date :</th>
