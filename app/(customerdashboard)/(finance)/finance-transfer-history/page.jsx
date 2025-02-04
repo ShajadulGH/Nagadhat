@@ -12,9 +12,9 @@ const FinanceTransferHistory = async () => {
     const { results: data } = await geAffiliateFinanceTransferHistory(session?.accessToken);
 
     return (
-        <div className="customer-dashboard-order-history-area">
+        <div className="customer-dashboard-order-history-area h-100">
             <FinanceTopTitle title="Transfer History" />
-            <div className="p-4 overflow-x-scroll">
+            <div className="p-4 ">
                 {/* Transactions section */}
                 <FinanceHistoryModalTable data={data}/>
             </div>

@@ -301,7 +301,19 @@
 .product-copy-main-info-mobile {
     display: none;
 }
+.finance-withdraw-min-with {
+    min-width: 900px;
+}
+.finance-withdraw-history-min-width {
+    min-width: 767px;
+}
 @media (max-width: 991px) {
+    .finance-withdraw-history-min-width{
+        min-width: 600px;
+    }
+    .finance-withdraw-min-with {
+        min-width: 650px;
+    }
     .table-responsive-md table {
         min-width: 930px !important;
     }

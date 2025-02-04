@@ -23,7 +23,7 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                         <tr>
                             <th scope="col">SL</th>
                             <th scope="col">Date</th>
-                            <th scope="col" className="d-none d-md-block">Package</th>
+                            <th scope="col" className="d-none d-md-table-cell">Package</th>
                             <th scope="col">Duration (Month)</th>
                             <th scope="col">Completed (Month)</th>
                             <th scope="col">Order Value</th>

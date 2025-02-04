@@ -23,7 +23,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
                     <tr>
                         <th scope="col">SL</th>
                         <th scope="col">Username</th>
-                        <th scope="col" className="d-none d-md-block">Full Name</th>
+                        <th scope="col" className="d-none d-md-table-cell">Full Name</th>
                         <th scope="col">Sponsor</th>
                         <th className="text-center" scope="col">
                             Resell

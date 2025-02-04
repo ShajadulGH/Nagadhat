@@ -26,12 +26,12 @@ const WithdrawHistory = async ({ searchParams }) => {
                 {withdrawHistoryData?.length === 0 ? (
                     <NoDataFound />
                 ) : (
-                    <table className="table" style={{ minWidth: "767px" }}>
+                    <table className="table finance-withdraw-history-min-width" >
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th className="text-center">Billing Method</th>
-                                <th className="text-center">Account ID/Code</th>
+                                <th className="text-center d-none d-lg-table-cell">Billing Method</th>
+                                <th className="text-center d-none d-lg-table-cell">Account ID/Code</th>
                                 <th className="text-end">Amount</th>
                                 <th className="text-end">Charge</th>
                                 <th className="text-end">Payable</th>
@@ -42,29 +42,33 @@ const WithdrawHistory = async ({ searchParams }) => {
                         <tbody>
                             {withdrawHistoryData?.map((item) => (
                                 <tr key={item.id || item.account_number}>
-                                    <td>{item.date_time}</td>
-                                    <td>{item.billing_method}</td>
-                                    <td>{item.account_number}</td>
-                                    <td className="text-end">
+                                    <td className="align-middle">
+                                        {item.date_time}
+                                        <span className="d-block d-lg-none"><strong>B Method :</strong>{item.billing_method}</span>
+                                        <span className="d-block d-lg-none"><strong>ID/Code :</strong>{item.account_number}</span>
+                                    </td>
+                                    <td className="d-none d-lg-table-cell align-middle">{item.billing_method}</td>
+                                    <td className="d-none d-lg-table-cell align-middle">{item.account_number}</td>
+                                    <td className="text-end align-middle">
                                         ৳{item.amount}
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-end align-middle">
                                         ৳{item.charge}
                                     </td>
-                                    <td className="text-end">
+                                    <td className="text-end align-middle">
                                         ৳{item.payable}
                                     </td>
                                     <td
-                                        className={
-                                            item?.status ==="Completed"
+                                        className={`align-middle text-center ${
+                                            item?.status === "Completed"
                                                 ? "text-success"
                                                 : item?.status === "Rejected"
                                                 ? "text-danger"
                                                 : item?.status === "Refund"
                                                 ? "text-primary"
                                                 : "text-warning"
-                                        }
-                                        style={{ textAlign: "center" }}
+                                        }`}
+                                        
                                     >
                                         {item.status}
                                     </td>
