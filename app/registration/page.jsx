@@ -9,6 +9,7 @@ import { validatePhoneNumber } from "../services/validatePhoneNumber";
 import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 const Registration = () => {
@@ -18,6 +19,8 @@ const Registration = () => {
     const [selectedPlacementChildId, setSelectedPlacementChildId] = useState(0);
     const [selectedPlacementId, setSelectedPlacementId] = useState(0);
     // const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const router = useRouter();
     const searchParams = useSearchParams();
     const referralId = searchParams.get("id");
@@ -49,6 +52,7 @@ const Registration = () => {
         phone: "",
         email: "",
         password: "",
+        confirm_password: "",
         gender: "",
         referrer_id: "",
         placement_user_id: "",
@@ -70,14 +74,12 @@ const Registration = () => {
         selectedPlacementId,
     ]);
 
-    useEffect(() => {}, [formData, referrerID]);
+    useEffect(() => { }, [formData, referrerID]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
+        setFormData((prevState) => ({...prevState, [name]: value}));
+        setErrorMessage('')
     };
     const handleSponsoreChange = (e) => {
         const { name, value } = e.target;
@@ -141,26 +143,12 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // password must be at least 6 characters
-        // if (formData.password.length < 6) {
-        //     toast.error("Password must be at least 6 characters long.");
-        //     return;
-        // } else if (formData.phone.length < 11) {
-        //     toast.error("Phone number must be at least 11 characters long.");
-        //     return;
-        // }
 
-        //function for CaptchaVerified
-        // if (!isCaptchaVerified) {
-        //     toast.error("Please complete the reCAPTCHA verification.");
-        //     return;
-        // }
-
-        // const allowedNumbers = ["01739245723", "01680572792"];
-        // if (!allowedNumbers.includes(formData.phone)) {
-        //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
-        //     return;
-        // }
+        if (formData.password !== formData.confirm_password) {
+            toast.error("Passwords do not match.");
+            setErrorMessage("Passwords do not match.")
+            return;
+        }
 
         async function createUser() {
             try {
@@ -170,7 +158,8 @@ const Registration = () => {
                         localStorage.removeItem("referrerID");
                         formData.referrer_id = "";
                     }
-                    toast.warning(res.message);
+                    toast.error(res.message);
+                    setErrorMessage(res.message)
                     return;
                 }
 
@@ -215,7 +204,6 @@ const Registration = () => {
                     console.log(error);
                 }
             }
-
             return;
         };
         checkPhoneNumberValidity();
@@ -244,9 +232,6 @@ const Registration = () => {
                         <h1 className="text-center text-capitalize">
                             registration.
                         </h1>
-                        {errorMessage && (
-                            <h3 style={{ color: "#f00" }}>{errorMessage}</h3>
-                        )}
                         <div className="user-login-form">
                             <form onSubmit={handleSubmit}>
                                 {/* affiliate referral id */}
@@ -315,7 +300,7 @@ const Registration = () => {
                                         className="form-control"
                                         id="email"
                                         placeholder="Enter Email"
-                                        value={ existsEmail ? existsEmail : formData.email }
+                                        value={existsEmail ? existsEmail : formData.email}
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -326,16 +311,68 @@ const Registration = () => {
                                     >
                                         Password <span>*</span>
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        className="form-control"
-                                        placeholder="Enter Password"
-                                        id="password"
-                                        value={formData.password}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
+                                    <div className="position-relative">
+                                        <input
+                                            type={ showPassword ? "text" : "password" }
+                                            name="password"
+                                            className="form-control"
+                                            placeholder="Enter Password"
+                                            id="password"
+                                            value={formData.password}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
+                                            onClick={() => { setShowPassword(!showPassword) }}
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#000",
+                                            }}
+                                        >
+                                            {showPassword ? (
+                                                <FaEyeSlash />
+                                            ) : (
+                                                <FaEye />
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                                < div className="mb-3">
+                                    <label
+                                        htmlFor="password"
+                                        className="form-label"
+                                    >
+                                        Confirm Password <span>*</span>
+                                    </label>
+                                    <div className="position-relative">
+                                        <input
+                                            type={ showConfirmPassword ? "text" : "password" }
+                                            name="confirm_password"
+                                            className="form-control"
+                                            placeholder="Enter Password"
+                                            id="password"
+                                            value={formData.confirm_password}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
+                                            onClick={() => { setShowConfirmPassword(!showConfirmPassword) }}
+                                            style={{
+                                                textDecoration: "none",
+                                                color: "#000",
+                                            }}
+                                        >
+                                            {showConfirmPassword ? (
+                                                <FaEyeSlash />
+                                            ) : (
+                                                <FaEye />
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="mb-3 ">
                                     <div className="form-check form-check-inline">
@@ -486,7 +523,9 @@ const Registration = () => {
                                         onChange={handleCaptchaChange}
                                     />
                                 </div> */}
-
+                                {errorMessage && (
+                                    <p className="text-danger pb-2">{errorMessage}</p>
+                                )}
                                 <button
                                     type="submit"
                                     className="btn btn-primary"
@@ -522,8 +561,8 @@ const Registration = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 
