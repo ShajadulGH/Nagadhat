@@ -7,7 +7,7 @@ const WithdrawHistoryBtn = ({ item, token }) => {
     const [selectedId, setSelectedId] = useState(null);
     return (
         <>
-            <td className="text-center">
+            <td className="text-center align-middle">
                 <div className="customer-dashboard-order-history-actions justify-content-center">
                     <button
                         type="button"
