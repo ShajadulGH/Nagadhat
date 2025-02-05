@@ -139,22 +139,18 @@ const Registration = () => {
         }
     }, [toggleSponsored]);
 
-    const valideateInput = (formValue) => {
-        for (const input in formValue) {
-            if (["name", "phone", "password"].includes(input)) {
-                if (!formValue[input]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
+        // password must be at least 6 characters
+        // if (formData.password.length < 6) {
+        //     toast.error("Password must be at least 6 characters long.");
+        //     return;
+        // } else if (formData.phone.length < 11) {
+        //     toast.error("Phone number must be at least 11 characters long.");
+        //     return;
+        // }
 
         //function for CaptchaVerified
-
         // if (!isCaptchaVerified) {
         //     toast.error("Please complete the reCAPTCHA verification.");
         //     return;
@@ -167,34 +163,13 @@ const Registration = () => {
         // }
 
         async function createUser() {
-            const isValidInput = valideateInput(formData);
-            if (!isValidInput) {
-                setErrorMessage("Please provide required information");
-            }
-
-            if (errorMessage) {
-                return;
-            }
-
             try {
                 const res = await registerUser(formData);
                 if (res?.success != true) {
-                    // if (res.message == "Phone Already Exists! You do not verify your OTP OT Delete Customer API Call!") {
-                    //     router.push(`/otp?phone=${formData.phone}`);
-                    //     return;
-                    // }
-
-                    if (
-                        res.message ==
-                        "Referrer User Not Found! Please try another Referrer."
-                    ) {
+                    if (res.message == "Referrer User Not Found! Please try another Referrer.") {
                         localStorage.removeItem("referrerID");
                         formData.referrer_id = "";
                     }
-                    // else if (res.message == "Validation Error.") {
-                    //     setErrorMessage(res.data.phone[0]);
-                    //     return;
-                    // }
                     toast.warning(res.message);
                     return;
                 }
@@ -306,6 +281,7 @@ const Registration = () => {
                                         placeholder="Enter Your Name"
                                         value={formData.name}
                                         onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -323,6 +299,7 @@ const Registration = () => {
                                         placeholder="Enter Phone Number"
                                         value={formData.phone}
                                         onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -338,11 +315,7 @@ const Registration = () => {
                                         className="form-control"
                                         id="email"
                                         placeholder="Enter Email"
-                                        value={
-                                            existsEmail
-                                                ? existsEmail
-                                                : formData.email
-                                        }
+                                        value={ existsEmail ? existsEmail : formData.email }
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -361,6 +334,7 @@ const Registration = () => {
                                         id="password"
                                         value={formData.password}
                                         onChange={handleInputChange}
+                                        required
                                     />
                                 </div>
                                 <div className="mb-3 ">
