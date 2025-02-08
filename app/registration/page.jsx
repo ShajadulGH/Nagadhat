@@ -21,6 +21,7 @@ const Registration = () => {
     // const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [existsErrorMessage, setExistsErrorMessage] = useState("");
     const router = useRouter();
     const searchParams = useSearchParams();
     const referralId = searchParams.get("id");
@@ -78,7 +79,7 @@ const Registration = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({...prevState, [name]: value}));
+        setFormData((prevState) => ({ ...prevState, [name]: value }));
         setErrorMessage('')
     };
     const handleSponsoreChange = (e) => {
@@ -149,6 +150,11 @@ const Registration = () => {
             setErrorMessage("Passwords do not match.")
             return;
         }
+        if ( existsErrorMessage){
+            toast.error("Phone number already exists.");
+            setErrorMessage("Phone number already exists.")
+            return;
+        }
 
         //function for CaptchaVerified
         // if (!isCaptchaVerified) {
@@ -205,11 +211,11 @@ const Registration = () => {
 
                     if (res?.message.includes("Already Exists")) {
                         setFormData({ ...formData, email: res.email });
-                        setErrorMessage(res?.message);
+                        setExistsErrorMessage(res?.message);
 
                         setExistsEmail(res.email);
                     } else {
-                        setErrorMessage("");
+                        setExistsErrorMessage("");
                     }
                 } catch (error) {
                     alert("Something went wrong. Please try after sometime");
@@ -244,6 +250,11 @@ const Registration = () => {
                         <h1 className="text-center text-capitalize">
                             registration.
                         </h1>
+                        {existsErrorMessage && (
+                            <p className="text-danger pb-2 fs-5">
+                                {existsErrorMessage}
+                            </p>
+                        )}
                         <div className="user-login-form">
                             <form onSubmit={handleSubmit}>
                                 {/* affiliate referral id */}
@@ -325,7 +336,7 @@ const Registration = () => {
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={ showPassword ? "text" : "password" }
+                                            type={showPassword ? "text" : "password"}
                                             name="password"
                                             className="form-control"
                                             placeholder="Enter Password"
@@ -360,7 +371,7 @@ const Registration = () => {
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={ showConfirmPassword ? "text" : "password" }
+                                            type={showConfirmPassword ? "text" : "password"}
                                             name="confirm_password"
                                             className="form-control"
                                             placeholder="Enter Password"
@@ -536,7 +547,7 @@ const Registration = () => {
                                     />
                                 </div> */}
                                 {errorMessage && (
-                                    <p className="text-danger pb-2">{errorMessage}</p>
+                                    <p className="text-danger pb-2 fs-6">{errorMessage}</p>
                                 )}
                                 <button
                                     type="submit"
