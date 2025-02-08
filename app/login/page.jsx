@@ -124,11 +124,7 @@ const Login = () => {
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={
-                                                showPassword
-                                                    ? "text"
-                                                    : "password"
-                                            }
+                                            type={ showPassword ? "text" : "password" }
                                             className="form-control"
                                             id="password"
                                             name="password"
