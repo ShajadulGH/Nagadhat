@@ -203,7 +203,7 @@ const Registration = () => {
                 return;
             }
 
-            if ((phone_number_length = 11)) {
+            if ((phone_number_length >= 11)) {
                 try {
                     const res = await validatePhoneNumber({
                         phone: formData.phone,
@@ -212,7 +212,6 @@ const Registration = () => {
                     if (res?.message.includes("Already Exists")) {
                         setFormData({ ...formData, email: res.email });
                         setExistsErrorMessage(res?.message);
-
                         setExistsEmail(res.email);
                     } else {
                         setExistsErrorMessage("");
