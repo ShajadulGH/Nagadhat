@@ -143,8 +143,7 @@ const ManageIDVerification = () => {
                                     htmlFor="nid_front"
                                     className="form-label"
                                 >
-                                    Upload NID/ Birth Certificate/ Passport/
-                                    Driving License Photo
+                                    Upload NID/ Birth Certificate/ Passport/ Driving License Photo
                                 </label>
                                 <input
                                     className="form-control"
@@ -152,13 +151,12 @@ const ManageIDVerification = () => {
                                     id="nid_front"
                                     accept="image/*"
                                     name="nid_front"
-                                    capture
+                                    // capture
                                     onChange={handleFileChange}
                                 />
                             </div>
                             <span className="text-danger">
-                                * Please upload original picture, photocopy not
-                                allowed.
+                                * Please upload original picture, photocopy not allowed.
                             </span>
                             <div className="pt-3">
                                 <button
@@ -166,9 +164,7 @@ const ManageIDVerification = () => {
                                     type="submit"
                                     disabled={isPending}
                                     style={{
-                                        cursosEvents: isPending
-                                            ? "none"
-                                            : "pointer",
+                                        cursosEvents: isPending ? "none" : "pointer",
                                         opacity: isPending ? "0.5" : "1",
                                     }}
                                 >
