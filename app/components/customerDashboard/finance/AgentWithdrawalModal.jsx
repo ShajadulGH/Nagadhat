@@ -159,9 +159,9 @@ const AgentWithdrawalModal = ({
                             <div className="text-center">
                                 <Image
                                     height={200}
-                                    width={300}
+                                    width={360}
                                     className="img-fluid"
-                                    style={{ width: "50%" }}
+                                    style={{ maxWidth: "360px", width: "80%" }}
                                     src={agentImg}
                                     alt="Pay with agent"
                                 />
@@ -194,7 +194,7 @@ const AgentWithdrawalModal = ({
                                     {/* Dropdown Menu */}
                                     {open && (
                                         <ul
-                                            className="dropdown-menu show w-100"
+                                            className="dropdown-menu show w-100 p-0"
                                             style={{
                                                 maxHeight: "200px",
                                                 overflowY: "auto",
@@ -204,7 +204,7 @@ const AgentWithdrawalModal = ({
                                                 (item) => (
                                                     <li key={item?.agent_id}>
                                                         <button
-                                                            className="dropdown-item custom-agent-id-hover"
+                                                            className="dropdown-item custom-agent-id-hover p-2 px-3"
                                                             onClick={() =>
                                                                 handleSelect(
                                                                     item?.agent_id,
@@ -309,21 +309,14 @@ const AgentWithdrawalModal = ({
                                     <select
                                         className="custom-select form-control"
                                         name="bank_billing_method"
-                                        onChange={(e) =>
-                                            setAccountType(e.target.value)
-                                        }
+                                        onChange={(e) => setAccountType(e.target.value) }
                                     >
                                         <option defaultValue="Select Billing Method">
                                             Select Billing Method
                                         </option>
                                         {bankTransferData?.account_number && (
-                                            <option
-                                                value={bankTransferData?.name}
-                                            >
-                                                {bankTransferData?.name} -{" "}
-                                                {
-                                                    bankTransferData?.account_number
-                                                }
+                                            <option value={bankTransferData?.name}>
+                                                {bankTransferData?.name} - {bankTransferData?.account_number}
                                             </option>
                                         )}
                                     </select>

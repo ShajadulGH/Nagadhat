@@ -114,9 +114,9 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
                             <div className="text-center">
                                 <Image
                                     height={200}
-                                    width={300}
+                                    width={360}
                                     className="img-fluid"
-                                    style={{ width: "50%" }}
+                                    style={{ maxWidth: "360px", width: "80%" }}
                                     src={bankImg}
                                     alt="Withdraw to bank"
                                 />
