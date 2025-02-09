@@ -85,6 +85,32 @@ const ManageNomineeInfo = () => {
         }
     };
 
+    const handleDataSync = async () => {
+        try {
+            startTransition(async () => {
+                const nomineeData = await getManageNomineeInfo(
+                    session?.accessToken,
+                    session?.phone
+                );
+                if (nomineeData?.error) {
+                    toast.error(nomineeData?.message);
+                    return;
+                }
+                const nomineeResult = nomineeData?.results || {};
+                setNomineInfo({
+                    ...nomineInfo,
+                    nominee_name: nomineeResult.nominee_name || "",
+                    nominee_mobile_number: nomineeResult.nominee_mobile_number || "",
+                    nominee_nid: nomineeResult.nominee_nid || "",
+                    nominee_relation: nomineeResult.nominee_relation || "",
+                });
+                toast.success(nomineeData?.message || "Nominee info synced successfully");
+            });
+        } catch (error) {
+            toast.error("Error fetching nominee info:", error);
+            console.error("Error fetching nominee info:", error);
+        }
+    }
     return (
         <div className="accordion-item border-0 mb-4 rounded">
             <h2 className="accordion-header">
@@ -106,6 +132,13 @@ const ManageNomineeInfo = () => {
             >
                 <div className="accordion-body border-top">
                     <div className="customer-manage-profile-from-area">
+                        {(session?.phone && String(session?.phone).length > 11) && (
+                            <div className="ms-auto">
+                                <button className="add-to-cart-link border-0 ms-auto" onClick={handleDataSync}>
+                                    sync
+                                </button>
+                            </div>
+                        )}
                         <form className="row" onSubmit={handleSubmit}>
                             <div className="col-md-6 pb-3">
                                 <label
