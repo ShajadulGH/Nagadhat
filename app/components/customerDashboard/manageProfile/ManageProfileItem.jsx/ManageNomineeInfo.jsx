@@ -1,6 +1,7 @@
 "use client";
 
 import { getManageNomineeInfo } from "@/app/services/getManageNomineeInfo";
+import { getSyncManageNomineeInfo } from "@/app/services/getSyncManageNomineeInfo";
 import { postManageNomineeInfo } from "@/app/services/postManageNomineeInfo";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";
@@ -88,7 +89,7 @@ const ManageNomineeInfo = () => {
     const handleDataSync = async () => {
         try {
             startTransition(async () => {
-                const nomineeData = await getManageNomineeInfo(
+                const nomineeData = await getSyncManageNomineeInfo(
                     session?.accessToken,
                     session?.phone
                 );
