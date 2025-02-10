@@ -240,13 +240,13 @@ export default function RootLayout({ children, slug, option }) {
                         <ReduxProvider>
                             <ErrorBoundary>
                                 <ToastProvider>
-                                    <Header />
-                                    <DistrictModal />
-                                    <main className="main-body-pading">
+                                    {/* <Header />
+                                    <DistrictModal /> */}
+                                    {/* <main className="main-body-pading"> */}
                                         {children}
-                                    </main>
-                                    <MobileButtonNav/>
-                                    <Footer />
+                                    {/* </main> */}
+                                    {/* <MobileButtonNav/> */}
+                                    {/* <Footer /> */}
                                 </ToastProvider>
                             </ErrorBoundary>
                         </ReduxProvider>
