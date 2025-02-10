@@ -15,24 +15,29 @@ export default async function Home() {
             <div className="pb-5">
                 <Service />
             </div> */}
-            <div className=" w-100 h-100 d-flex align-items-center justify-content-center py-5">
+            <div className="d-flex justify-content-center align-items-center vh-100 bg-light px-3">
                 <div
-                    className="py-5"
-                    style={{ maxWidth: "600px", margin: "0 auto" }}
+                    className="bg-white shadow-lg rounded-4 p-5 text-center"
+                    style={{ maxWidth: "600px", width: "100%" }}
                 >
-                    <h1>📢 Dear Users,</h1>
-                    <p className="fs-5">
-                        Our website will be temporarily unavailable for 30
-                        minutes due to maintenance. We apologize for any
-                        inconvenience and appreciate your patience.
+                    <h1 className="text-danger fw-bold">📢 Dear Users,</h1>
+                    <p className="fs-5 text-secondary mt-3">
+                        Our website will be temporarily unavailable for{" "}
+                        <strong>30 minutes</strong> due to maintenance. We
+                        apologize for any inconvenience and appreciate your
+                        patience.
                     </p>
-                    <strong className="d-block fs-6">
-                        🔹 Downtime: 30 minutes
-                    </strong>
-                    <strong className="d-block fs-6">
-                        🔹 We’ll be back shortly!
-                    </strong>
-                    <p className="fs-6">Thank you for your understanding. 🙏</p>
+                    <div className="mt-4">
+                        <strong className="d-block fs-5 text-primary">
+                            🔹 Downtime: 30 minutes
+                        </strong>
+                        <strong className="d-block fs-5 text-success">
+                            🔹 We’ll be back shortly!
+                        </strong>
+                    </div>
+                    <p className="fs-6 text-muted mt-4">
+                        Thank you for your understanding. 🙏
+                    </p>
                 </div>
             </div>
         </>
