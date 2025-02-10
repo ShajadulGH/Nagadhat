@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { postManageBasicInfo } from "@/app/services/postManageBasicInfo";
 import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner";
+import { getSyncBasicInfo } from "@/app/services/getSyncBasicInfo";
 
 const ManageBasicInfo = () => {
     const [isPending, startTransition] = useTransition();
@@ -30,12 +31,12 @@ const ManageBasicInfo = () => {
                     const basicInfoResult = basicInfo?.results || {};
                     setFormData({
                         ...formData,
-                        username: basicInfoResult.username || "",
-                        mobile_number: basicInfoResult.mobile_number || "",
-                        email: basicInfoResult.email || "",
-                        date_of_birth: basicInfoResult.date_of_birth || "",
-                        gender: basicInfoResult.gender || "",
-                        marital_status: basicInfoResult.marital_status || "",
+                        username: basicInfoResult?.username,
+                        mobile_number: basicInfoResult?.mobile_number,
+                        email: basicInfoResult?.email || "",
+                        date_of_birth: basicInfoResult?.date_of_birth || "",
+                        gender: basicInfoResult?.gender || "",
+                        marital_status: basicInfoResult?.marital_status || "",
                     });
                 } catch (error) {
                     toast.error("Failed to fetch user information.");
@@ -92,6 +93,25 @@ const ManageBasicInfo = () => {
         }
     };
 
+    const handleDataSync = () => {
+        startTransition(async () => {
+            const basicInfo = await getSyncBasicInfo(session?.accessToken, session?.phone);
+            if (basicInfo?.error) {
+                toast.error(basicInfo?.message || "Failed to sync data.");
+                return;
+            }
+            toast.success(basicInfo?.message || "Data synced successfully.");
+            const basicInfoResult = basicInfo?.results || {};
+            setFormData({
+                ...formData,
+                email: formData.email ? formData.email : basicInfoResult?.email,
+                date_of_birth: basicInfoResult?.date_of_birth,
+                gender: formData.gender? formData.gender : basicInfoResult?.gender ,
+                marital_status: basicInfoResult?.marital_status
+            });
+        });
+    };
+
     return (
         <div className="accordion-item mb-4 border-0 rounded-bottom">
             <h2 className="accordion-header">
@@ -113,6 +133,13 @@ const ManageBasicInfo = () => {
             >
                 <div className="accordion-body">
                     <div className="customer-manage-profile-from-area">
+                        {(session?.phone && String(session?.phone).length > 11) && (
+                            <div className="ms-auto">
+                                <button className="add-to-cart-link border-0 ms-auto" onClick={handleDataSync}>
+                                    sync
+                                </button>
+                            </div>
+                        )}
                         <form className="row" onSubmit={handleSubmit}>
                             <div className="col-md-6 pb-3">
                                 <label

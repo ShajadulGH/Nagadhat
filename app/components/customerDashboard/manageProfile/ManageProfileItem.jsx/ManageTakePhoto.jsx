@@ -1,6 +1,7 @@
 "use client";
 
 import { getProfilePicture } from "@/app/services/getProfilePicture";
+import { getSyncProfilePicture } from "@/app/services/getSyncProfilePicture";
 import { postManageProfilePicture } from "@/app/services/postManageProfilePicture";
 import { setProfilePicture } from "@/app/store/slices/profileSlice";
 import { NagadhatPublicUrl } from "@/app/utils";
@@ -35,7 +36,7 @@ const ManageTakePhoto = () => {
             };
             fetchProfilePicture();
         }
-    }, [session?.accessToken, status, profilePic]);
+    }, [session?.accessToken, profilePic]);
 
     const handleFileChange = (event) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -72,6 +73,26 @@ const ManageTakePhoto = () => {
         }
     };
 
+    // const handleDataSync = async () => {
+    //     try {
+    //         startTransition(async () => {
+    //             const profilePictureData = await getSyncProfilePicture(
+    //                 session?.accessToken, session?.phone
+    //             );
+    //             if (profilePictureData?.error) {
+    //                 toast.error(profilePictureData?.message);
+    //                 return;
+    //             }
+    //             const profilePictureResult = profilePictureData?.results?.profile_picture;
+    //             setProfilePic(profilePictureResult);
+    //             toast.success("Profile picture synced successfully.");
+    //         });
+    //     } catch (error) {
+    //         console.error("Error syncing profile picture:", error);
+    //         toast.error("An error occurred while syncing your profile picture.");
+    //     }
+    // }
+
     return (
         <div className="accordion-item rounded border-0 mb-4">
             <h2 className="accordion-header">
@@ -93,15 +114,18 @@ const ManageTakePhoto = () => {
             >
                 <div className="accordion-body border-top">
                     <div className="customer-manage-profile-from-area">
+                        {/* {(session?.phone && String(session?.phone).length > 11) && (
+                            <div className="ms-auto">
+                                <button className="add-to-cart-link border-0 ms-auto" onClick={handleDataSync}>
+                                    sync
+                                </button>
+                            </div>
+                        )} */}
                         <form onSubmit={handleSubmit}>
                             {profilePic || file ? (
                                 <div className="mb-2">
                                     <Image
-                                        src={
-                                            file
-                                                ? URL.createObjectURL(file)
-                                                : `${NagadhatPublicUrl}/${profilePic}`
-                                        }
+                                        src={ file ? URL.createObjectURL(file) : `${NagadhatPublicUrl}/${profilePic}`}
                                         alt="Profile Picture"
                                         width={80}
                                         height={80}
@@ -133,10 +157,8 @@ const ManageTakePhoto = () => {
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
                                     disabled={isPending}
-                                    style={{
-                                        cursosEvents: isPending
-                                            ? "none"
-                                            : "pointer",
+                                    style={{ 
+                                        cursosEvents: isPending ? "none" : "pointer",
                                         opacity: isPending ? "0.5" : "1",
                                     }}
                                 >
