@@ -246,7 +246,7 @@ export default function RootLayout({ children, slug, option }) {
                                         {children}
                                     </main>
                                     <MobileButtonNav/>
-                                    <Footer />
+                                     <Footer />
                                 </ToastProvider>
                             </ErrorBoundary>
                         </ReduxProvider>
