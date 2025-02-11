@@ -21,7 +21,7 @@ const PayoutSalaryDate = ({ salaryResult }) => {
                     <div className="px-3 rounded py-2 border">
                         <p>
                             Next Salary:{" "}
-                            <strong> ৳ {salaryResult?.next_salary} </strong>
+                            <strong>{typeof salaryResult?.next_salary === "number" ? `৳ ${salaryResult?.next_salary}` : salaryResult?.next_salary}</strong>
                         </p>
                     </div>
                 </div>
