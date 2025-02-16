@@ -48,7 +48,7 @@ const PrivilegeCardProduct = () => {
                         );
                         setAlreadyBuyResponse(response);
                         const cartLimitPrice = parseInt(
-                            parseFloat("1000.00"),
+                            parseFloat(response?.results?.card_limit),
                             10
                         );
 

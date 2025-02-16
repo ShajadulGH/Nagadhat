@@ -35,14 +35,16 @@ const PrivilegeCardDashboardTop = () => {
 
     return (
         <>
-            <div className="customer-dashboard-order-history-area">
+            <div className="customer-dashboard-order-history-area h-100">
                 <PrivilegeMainCard
                     privilegeCardInfo={privilegeCardInfo}
                     cancelToggleStatus={cancelToggleStatus}
                     setCancelToggleStatus={setCancelToggleStatus}
                     isPending={isPending}
                 />
-                <PrivilegeCardProduct />
+                {privilegeCardInfo?.cancel_status !== 2 && (
+                    <PrivilegeCardProduct />
+                )}
             </div>
         </>
     );
