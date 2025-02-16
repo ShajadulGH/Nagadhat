@@ -23,6 +23,8 @@ const PrivilegeMainCard = ({
     const [balanceAfterChoosing, setBalanceAfterChoosing] = useState({});
     const { data: session } = useSession();
 
+    console.log("balanceAfterChoosing", balanceAfterChoosing);
+
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.front_image}`
         : "/path-to-default-front-image.jpg";
@@ -146,16 +148,13 @@ const PrivilegeMainCard = ({
                                 Details
                             </button>
 
-                            {/* <PrivilegeBuyNowBtn
+                            <PrivilegeBuyNowBtn
                                 privilegeCardInfo={privilegeCardInfo}
-                            /> */}
+                            />
                             {privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
                                 privilegeCardInfo?.cancel_status === 0 && (
-                                    <span
-                                        
-                                        className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                                    >
+                                    <span className="add-to-cart-link border-0 rounded-3 text-capitalize">
                                         Active
                                     </span>
                                 )}
@@ -196,7 +195,9 @@ const PrivilegeMainCard = ({
                 setCancelToggleStatus={setCancelToggleStatus}
             />
 
-            {privilegeCardInfo?.product_name !== "Membership Card" &&
+            {balanceAfterChoosing?.status === 0 &&
+                privilegeCardInfo?.cancel_status === 0 &&
+                privilegeCardInfo?.product_name !== "Membership Card" &&
                 privilegeCardInfo?.rebate_status === 1 &&
                 !isPending && (
                     <PrivilegeChooseOptionBtn
@@ -207,7 +208,8 @@ const PrivilegeMainCard = ({
                     />
                 )}
 
-            {privilegeCardInfo?.product_name !== "Membership Card" &&
+            {privilegeCardInfo?.cancel_status !== 2 &&
+                privilegeCardInfo?.product_name !== "Membership Card" &&
                 !isPending && (
                     <ShowingProductPrices
                         balanceAfterChoosing={balanceAfterChoosing}

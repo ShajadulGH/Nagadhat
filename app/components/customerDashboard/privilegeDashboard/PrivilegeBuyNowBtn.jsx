@@ -125,7 +125,7 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
                 </button>
             )}
 
-            {privilegeCardInfo?.status === 2 && (
+            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 2 && (
                 <button
                     className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                     disabled
