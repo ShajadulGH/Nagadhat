@@ -117,7 +117,7 @@ const ChangeTransactionOtp = () => {
                             onChange={handleOtpChange}
                         >
                             <option value="pin">PIN</option>
-                            <option value="mobile">Mobile OTP</option>
+                            {/* <option value="mobile">Mobile OTP</option> */}
                         </select>
                     </div>
 
