@@ -13,7 +13,7 @@ const OTP = () => {
     const router = useRouter();
     let pin = searchParams.get("pin") ? searchParams.get("pin") : "";
     let otpType = searchParams.get("otpType") ? searchParams.get("otpType") : "";
-    const [otp, setOtp] = useState("");
+    const [otp, setOtp] = useState( searchParams.get("otp"));
     const { data: session } = useSession();
 
     const handleSubmit = async (e) => {
@@ -33,7 +33,7 @@ const OTP = () => {
                     icon: "success",
                     title: "Your Transaction OTP/PIN Set Successfully",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 });
                 router.push("/others-password-txn-otp");
             } else {

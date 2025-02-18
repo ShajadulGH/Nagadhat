@@ -1,12 +1,12 @@
 
+import FinanceTopTitle from "../../finance/FinanceTopTitle";
 import ChangeTransactionOtp from "./ChangeTransactionOtp";
-import PasswordTopNav from "./PasswordTopNav";
 
 const PasswordTxnOtpRight = () => {
     return (
         <>
             <div className="customer-setting">
-                <PasswordTopNav />
+                <FinanceTopTitle title="Transaction OTP/PIN" />
                 <div className="tab-content customer-setting-body">
                     {/* <ChangePasswordForm /> */}
                     <ChangeTransactionOtp />
