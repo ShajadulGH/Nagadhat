@@ -24,11 +24,11 @@ const Page = () => {
                 const response = await postForgetPasswordOtp(
                     otpMobileNumber.phone
                 );
-
+                
                 if (response?.code === 200) {
                     setSuccess(response?.message);
                     router.push(
-                        `/otp?forget_password=${otpMobileNumber.phone}`
+                        `/otp?forget_password=${otpMobileNumber.phone}&otp=${response?.results?.otp}`
                     );
                 } else {
                     setError(
