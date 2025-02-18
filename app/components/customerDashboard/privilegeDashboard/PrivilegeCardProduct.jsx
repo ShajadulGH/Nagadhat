@@ -15,6 +15,7 @@ const PrivilegeCardProduct = () => {
     const [productCardLimit, setProductCardLimit] = useState(null);
     const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
     const [alreadyBuyResponse, setAlreadyBuyResponse] = useState({});
+    const [cardTypeName, setCardTypeName] = useState("");
     const searchParam = useSearchParams();
     const [lastPage, setLastPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -51,8 +52,15 @@ const PrivilegeCardProduct = () => {
                             parseFloat(response?.results?.card_limit),
                             10
                         );
-
-                        setProductCardLimit(cartLimitPrice);
+                        const cartName = response?.results?.card_name;
+                        setCardTypeName(cartName);
+                        const list_choice = response?.results?.list_choice;
+                        console.log("list_choice===>", list_choice);
+                        if (cardTypeName === "Membership Card") {
+                            setProductCardLimit(cartLimitPrice);
+                        } else {
+                            setProductCardLimit(list_choice);
+                        }
 
                         setProductsData(response?.results?.data);
                         setLastPage(response?.results?.last_page);
@@ -72,8 +80,12 @@ const PrivilegeCardProduct = () => {
         categoryFilter,
         rendaringCartPrice,
         currentPage,
+        productCardLimit,
         // alreadyBuyResponse,
     ]);
+    console.log("cardTypeName===>", cardTypeName);
+    console.log("productCardLimit===>", productCardLimit);
+    console.log("alreadyBuyResponse===>", alreadyBuyResponse);
 
     return (
         <>
