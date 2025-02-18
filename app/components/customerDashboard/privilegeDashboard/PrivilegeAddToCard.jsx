@@ -75,14 +75,14 @@ const PrivilegeAddToCard = ({
             <button
                 onClick={handlePrivilegeAddToCard}
                 className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${
-                    isButtonDisable ? "" : "disabled-button"
+                    isButtonDisable ? "disabled-button" : ""
                 } ${
                     productsData?.purchase_quantity === 0
                         ? "disabled-button"
                         : ""
                 }`}
                 disabled={
-                    !isButtonDisable || productsData?.purchase_quantity === 0
+                    isButtonDisable || productsData?.purchase_quantity === 0
                 }
             >
                 {isPending ? (
