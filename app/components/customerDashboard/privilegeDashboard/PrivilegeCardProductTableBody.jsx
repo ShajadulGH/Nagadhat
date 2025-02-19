@@ -51,7 +51,7 @@ const PrivilegeCardProductTableBody = ({
 
     const handleIncrementWithLimit = (purchase_quantity) => {
         if (
-            changeQuantity < purchase_quantity &&
+            changeQuantity <= purchase_quantity &&
             changePrice + netPrice <= productCardLimit
         ) {
             setChangeQuantity((prev) => prev + 1);
@@ -165,8 +165,8 @@ const PrivilegeCardProductTableBody = ({
                             productsData={item}
                             quantity={changeQuantity}
                             isButtonDisable={
-                                changePrice + netPrice <= productCardLimit ||
-                                purchases_price > productCardLimit
+                                changePrice + netPrice >= productCardLimit ||
+                                purchases_price >= productCardLimit
                             }
                             productCardLimit
                         />
