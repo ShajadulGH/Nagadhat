@@ -91,7 +91,17 @@ const PrivilegeCardProductTable = ({
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="100%">No products available</td>
+                                <td colSpan="100%">
+                                    {alreadyBuyResponse?.code === 402 ? (
+                                        <h1 className="text-center py-5 fs-4 text-capitalize">
+                                            {alreadyBuyResponse?.message}
+                                        </h1>
+                                    ) : (
+                                        <h1 className="text-center py-5 fs-4 text-capitalize">
+                                            No Products Available
+                                        </h1>
+                                    )}
+                                </td>
                             </tr>
                         )}
                     </tbody>
