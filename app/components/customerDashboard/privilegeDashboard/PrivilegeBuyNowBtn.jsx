@@ -84,7 +84,7 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
     return (
         <>
             {privilegeCardInfo?.product_name === "Membership Card" &&
-                privilegeCardInfo?.status === 0 && (
+                privilegeCardInfo?.status === 4 && (
                     <button
                         onClick={handlePrivilegeBuyNow}
                         className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
@@ -116,7 +116,7 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
                     </button>
                 )}
 
-            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 1 && (
+            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 0 && (
                 <button
                     className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                     disabled
@@ -125,7 +125,7 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
                 </button>
             )}
 
-            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 2 && (
+            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 1 && (
                 <button
                     className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
                     disabled
