@@ -42,7 +42,7 @@ const PrivilegeCardDashboardTop = () => {
                     setCancelToggleStatus={setCancelToggleStatus}
                     isPending={isPending}
                 />
-                {privilegeCardInfo?.cancel_status !== 2 && (
+                {privilegeCardInfo?.cancel_status === 5 && (
                     <PrivilegeCardProduct />
                 )}
             </div>
