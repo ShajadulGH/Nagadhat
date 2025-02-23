@@ -4,7 +4,8 @@ import { addToCartSelectedProduct } from "@/app/services/postCartSelectedProduct
 import { placeOrder } from "@/app/services/postPlaceOrder";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
+import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
 const PrivilegeCardProductSummary = ({
@@ -25,6 +26,7 @@ const PrivilegeCardProductSummary = ({
         }
         return 47;
     });
+    const [isPending, startTransition] = useTransition();
 
     const hasStatusTwo = productsData?.some(
         (product) => product.cart_status === 2
@@ -32,7 +34,11 @@ const PrivilegeCardProductSummary = ({
 
     const router = useRouter();
     const netPrice = useMemo(
-        () => privilegeCartItem.reduce((acc, item) => acc + item.price* item?.quantity, 0),
+        () =>
+            privilegeCartItem.reduce(
+                (acc, item) => acc + item.price * item?.quantity,
+                0
+            ),
         [privilegeCartItem]
     );
 
@@ -78,25 +84,28 @@ const PrivilegeCardProductSummary = ({
                 place_order_with: "place order with Privilege card",
                 cart_items: cartItem,
             };
-            const response = await placeOrder(orderData, token);
-
-            if (response?.code === 200) {
-                const order_id = response?.results?.order_id;
-                toast.success("Checkout successful!");
-                if (order_id) {
-                    router.push(
-                        `/shipping-page-resale/${order_id}?order-type=${4}`
-                    );
+            startTransition(async () => {
+                const response = await placeOrder(orderData, token);
+                if (response?.code === 200) {
+                    const order_id = response?.results?.order_id;
+                    toast.success("Checkout successful!");
+                    if (order_id) {
+                        router.push(
+                            `/shipping-page-resale/${order_id}?order-type=${4}`
+                        );
+                    } else {
+                        toast.error(
+                            "Order ID not found. Please contact support."
+                        );
+                    }
                 } else {
-                    toast.error("Order ID not found. Please contact support.");
+                    toast.error(
+                        response?.message,
+                        "Checkout failed. Please try again."
+                    );
+                    console.error("Checkout failed:", response?.message);
                 }
-            } else {
-                toast.error(
-                    "Checkout failed. Please try again.",
-                    response?.message
-                );
-                console.error("Checkout failed:", response?.message);
-            }
+            });
         } catch (error) {
             toast.error("An error occurred during checkout.");
             console.error("Error during checkout:", error);
@@ -151,10 +160,30 @@ const PrivilegeCardProductSummary = ({
                             className="border-0 add-to-cart-link"
                             disabled={
                                 alreadyBuyResponse?.code !== 200 ||
-                                !hasStatusTwo
+                                !hasStatusTwo ||
+                                isPending
                             }
                         >
-                            Proceed to Checkout
+                            {isPending ? (
+                                <div
+                                    className="flex items-center justify-center"
+                                    style={{ height: "21px", width: "160px" }}
+                                >
+                                    <RotatingLines
+                                        visible={true}
+                                        height="18"
+                                        width="20"
+                                        color="#ffffff"
+                                        strokeWidth="5"
+                                        animationDuration="0.75"
+                                        ariaLabel="rotating-lines-loading"
+                                        wrapperStyle={{}}
+                                        wrapperClass="w-25"
+                                    />
+                                </div>
+                            ) : (
+                                "Proceed to Checkout"
+                            )}
                         </button>
                         <Link
                             href="/privilege-card-shopping-list"

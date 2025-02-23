@@ -28,7 +28,6 @@ const PrivilegeCardProductTableBody = ({
     } = item;
 
     // console.log("item=====", item);
-    console.log("add to cart item=====", privilegeCartItem);
 
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
     const [changePrice, setChangePrice] = useState(
@@ -168,7 +167,6 @@ const PrivilegeCardProductTableBody = ({
                                 changePrice + netPrice >= productCardLimit ||
                                 purchases_price >= productCardLimit
                             }
-                            productCardLimit
                         />
                     ) : (
                         <PrivilegeDeleteCardItem

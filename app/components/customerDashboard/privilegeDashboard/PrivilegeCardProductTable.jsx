@@ -66,7 +66,12 @@ const PrivilegeCardProductTable = ({
 
     return (
         <>
-            <div className="table-responsive px-3 px-md-4">
+            <div
+                className={`table-responsive px-3 px-md-4 ${
+                    isPending ? "opacity-50 pointer-events-none" : ""
+                }`}
+                disabled={isPending}
+            >
                 <table
                     className="table table-bordered border-secondary table-hover table-striped"
                     style={{ minWidth: "850px" }}
