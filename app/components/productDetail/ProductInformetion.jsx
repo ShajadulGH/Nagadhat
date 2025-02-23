@@ -71,8 +71,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     attribute.name
                 );
 
-                // console.log(updatedProductAllVariants);
-
                 if (existingAttributeIndex === -1) {
                     updatedProductAllVariants.push({
                         name: attribute.name,
@@ -112,24 +110,27 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             const defaultProduct = productInfo?.variations?.find(
                 (product) => product?.variations_default === 1
             );
+
             setProductPrice({
                 ...productPrice,
+
                 prices:
                     defaultProduct?.discount_amount > 0
                         ? defaultProduct?.discount_type === "percentage"
                             ? defaultProduct?.mrp_price -
-                              defaultProduct?.mrp_price *
-                                  (defaultProduct?.discount_amount / 100)
+                            defaultProduct?.mrp_price *
+                            (defaultProduct?.discount_amount / 100)
                             : defaultProduct?.mrp_price -
-                              defaultProduct?.discount_amount
+                            defaultProduct?.discount_amount
                         : defaultProduct?.mrp_price,
+
                 discountPrice:
                     defaultProduct?.discount_type === "percentage"
                         ? defaultProduct?.mrp_price *
-                          (defaultProduct?.discount_amount / 100)
+                        (defaultProduct?.discount_amount / 100)
                         : defaultProduct?.discount_amount,
             });
-            setProductGallery(defaultProduct?.gallery);
+            // setProductGallery(defaultProduct?.gallery);
             setProductStoke(
                 defaultProduct?.variation_max_quantity === null
                     ? 0
@@ -157,23 +158,18 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
     // this handler get the value when user select the variations and change the selected,selectable. set the value error.
     const handleVariations = (variantValue, name) => {
         setProductAllVariants((prevProductAllVariants) => {
-            const updatedProductAllVariants = prevProductAllVariants.map(
-                (item) => {
-                    if (item.name === name && Array.isArray(item.variants)) {
-                        return {
-                            ...item,
-                            error: false,
-                            variants: item?.variants?.map((variantItem) => ({
-                                ...variantItem,
-                                selected:
-                                    variantItem.value === variantValue
-                                        ? !variantItem.selected
-                                        : false,
-                            })),
-                        };
-                    }
-                    return item;
+            const updatedProductAllVariants = prevProductAllVariants.map((item) => {
+                if (item.name === name && Array.isArray(item.variants)) {
+                    return {
+                        ...item, error: false,
+                        variants: item?.variants?.map((variantItem) => ({
+                            ...variantItem,
+                            selected: variantItem.value === variantValue ? !variantItem.selected : false,
+                        })),
+                    };
                 }
+                return item;
+            }
             );
             return updatedProductAllVariants;
         });
@@ -323,7 +319,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     if (selectedVariants.length == 1) {
                         if (
                             availableVariant[selectedKey] ===
-                                selectedVariantObject[selectedKey] &&
+                            selectedVariantObject[selectedKey] &&
                             !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
@@ -332,7 +328,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     if (selectedVariants.length > 1) {
                         if (
                             availableVariant[selectedKey] ===
-                                selectedVariantObject[selectedKey] &&
+                            selectedVariantObject[selectedKey] &&
                             !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
@@ -467,20 +463,19 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         if (selectedVariants.length > 0) {
             setProductPrice({
                 ...productPrice,
-                prices:
-                    bestMatch?.discount_amount > 0
-                        ? bestMatch?.discount_type === "percentage"
-                            ? bestMatch?.discountPrice -
-                              bestMatch?.discountPrice *
-                                  (bestMatch?.discount_amount / 100)
-                            : bestMatch?.discountPrice -
-                              bestMatch?.discount_amount
-                        : bestMatch?.discountPrice,
-                discountPrice:
-                    bestMatch?.discount_type === "percentage"
-                        ? bestMatch?.discountPrice *
-                          (bestMatch?.discount_amount / 100)
-                        : bestMatch?.discount_amount,
+                // prices:
+                //     bestMatch?.discount_amount > 0 ?
+                //         bestMatch?.discount_type === "percentage" ?
+                //             bestMatch?.discountPrice - bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
+                //             : bestMatch?.discountPrice - bestMatch?.discount_amount
+                //         : bestMatch?.discountPrice,
+                prices: bestMatch?.price,
+                discountPrice: bestMatch?.discount_amount,
+                
+                // discountPrice:
+                //     bestMatch?.discount_type === "percentage" ?
+                //         bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
+                //         : bestMatch?.discount_amount,
             });
 
             setProductStoke(

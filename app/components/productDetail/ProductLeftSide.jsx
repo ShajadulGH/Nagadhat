@@ -6,7 +6,7 @@ import ProductInformetion from "./ProductInformetion";
 import ProductLongDescription from "./ProductLongDescription";
 
 const ProductLeftSide = ({ productInfo }) => {
-    const [productGallery, setProductGallery] = useState([]);
+    const [productGallery, setProductGallery] = useState(productInfo.gallery);
 
     storeProductId(productInfo?.id);
 

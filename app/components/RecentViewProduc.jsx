@@ -103,7 +103,7 @@ const RecentViewProduc = () => {
                                 <div className="flash-sale-content-area-grid">
                                     <Slider {...settings}>
                                         {recentViewProductList.map((product) => (
-                                            <div className="px-1 px-md-2">
+                                            <div key={product.id} className="px-1 px-md-2">
                                                 <ProductCard key={product.id} item={product} />
                                             </div>
                                         ))}
