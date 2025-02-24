@@ -81,10 +81,9 @@ const PrivilegeCardShoppingSummary = ({
                 }
             } else {
                 toast.error(
-                    "Checkout failed. Please try again.",
-                    response?.message
+                    response?.message,
+                    "Checkout failed. Please try again."
                 );
-                console.error("Checkout failed:", response?.message);
             }
         } catch (error) {
             toast.error("An error occurred during checkout.");
@@ -124,6 +123,7 @@ const PrivilegeCardShoppingSummary = ({
                         <button
                             onClick={handleCheckoutPrivilegeProduct}
                             className="border-0 add-to-cart-link"
+                            disabled={privilegeCartItem.length === 0}
                         >
                             Checkout
                         </button>

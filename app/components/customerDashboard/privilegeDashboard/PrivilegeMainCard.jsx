@@ -198,6 +198,7 @@ const PrivilegeMainCard = ({
             {privilegeCardInfo?.product_name !== "Membership Card" &&
                 privilegeCardInfo?.rebate_status === 1 &&
                 balanceAfterChoosing.status === 0 &&
+                privilegeCardInfo?.cancel_status === 5 &&
                 !isPending && (
                     <PrivilegeChooseOptionBtn
                         choocingProductAmount={choocingProductAmount}
