@@ -125,51 +125,64 @@ const ManageTakePhoto = () => {
                             {profilePic || file ? (
                                 <div className="mb-2">
                                     <Image
-                                        src={ file ? URL.createObjectURL(file) : `${NagadhatPublicUrl}/${profilePic}`}
+                                        src={file ? URL.createObjectURL(file) : `${NagadhatPublicUrl}/${profilePic}`}
                                         alt="Profile Picture"
                                         width={80}
                                         height={80}
                                         className="rounded-circle"
                                     />
                                 </div>
-                            ) : (
-                                ""
-                            )}
+                            ) : null}
+
                             <div className="mb-3">
-                                <label htmlFor="photo" className="form-label">
-                                    Uplod Your Photo
-                                    <span className="text-danger fw-bold">
-                                        *
-                                    </span>
+                                <label className="form-label fw-bold mb-2">
+                                    Upload Your Photo <span className="text-danger">*</span>
                                 </label>
                                 <input
-                                    className="form-control"
                                     type="file"
+                                    className="form-control mb-3 d-none d-md-block"
                                     accept="image/*"
                                     name="photo"
-                                    // capture
                                     id="photo"
                                     onChange={handleFileChange}
                                 />
+                                <div className="d-flex gap-2 justify-content-center d-md-none w-auto" >
+                                    <label htmlFor="photo" className="btn px-4 w-auto btn-primary">
+                                        📁 Choose File
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            name="photo"
+                                            id="photo"
+                                            onChange={handleFileChange}
+                                            className="d-none"
+                                        />
+                                    </label>
+                                    <label htmlFor="takePhoto" className="btn btn-success px-4 w-auto">
+                                        📷 Take Photo
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            capture="camera"
+                                            id="takePhoto"
+                                            onChange={handleFileChange}
+                                            className="d-none"
+                                        />
+                                    </label>
+                                </div>
                             </div>
                             <div>
                                 <button
                                     className="add-to-cart-link border-0 mx-auto"
                                     type="submit"
                                     disabled={isPending}
-                                    style={{ 
-                                        cursosEvents: isPending ? "none" : "pointer",
-                                        opacity: isPending ? "0.5" : "1",
+                                    style={{
+                                        cursor: isPending ? "not-allowed" : "pointer",
+                                        opacity: isPending ? "0.6" : "1",
                                     }}
                                 >
                                     {isPending ? (
-                                        <div
-                                            style={{
-                                                height: "21px",
-                                                width: "96px",
-                                                textAlign: "center",
-                                            }}
-                                        >
+                                        <div style={{ display: "inline-flex", alignItems: "center" }}>
                                             <RotatingLines
                                                 visible={true}
                                                 height="18"
@@ -178,9 +191,8 @@ const ManageTakePhoto = () => {
                                                 strokeWidth="5"
                                                 animationDuration="0.75"
                                                 ariaLabel="rotating-lines-loading"
-                                                wrapperStyle={{}}
-                                                wrapperClass="w-25"
                                             />
+                                            <span className="ms-2">Updating...</span>
                                         </div>
                                     ) : (
                                         "Update Profile Picture"
