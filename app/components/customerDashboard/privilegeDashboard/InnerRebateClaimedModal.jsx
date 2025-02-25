@@ -10,6 +10,7 @@ const InnerRebateClaimedModal = ({
     setRebateRecordRecall,
     choocingProductAmount,
     ownChoocingAmount,
+    selectedChooceId,
 }) => {
     const [isPending, startTransition] = useTransition();
     const chooseListedModal = useRef(null);
@@ -18,14 +19,16 @@ const InnerRebateClaimedModal = ({
     const { data: session } = useSession();
 
     const handleChooseProductClick = async (rebateID) => {
-        const rebateData = { rebate: rebateID };
-        const previousRebate = 3;
+        const rebateData = {
+            rebate: rebateID,
+            previousRebate: 3,
+            rebate_id: selectedChooceId,
+        };
         try {
             startTransition(async () => {
                 const response = await postPrivilegeCardShoppingChoice(
                     session?.accessToken,
-                    rebateData,
-                    previousRebate
+                    rebateData
                 );
 
                 if (response?.code === 200) {

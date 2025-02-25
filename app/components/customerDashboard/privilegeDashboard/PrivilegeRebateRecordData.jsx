@@ -16,6 +16,7 @@ const PrivilegeRebateRecordData = ({
 }) => {
     const [ownChoocingAmount, setOwnChoocingAmount] = useState({});
     const [choocingProductAmount, setChoocingProductAmount] = useState({});
+    const [selectedChooceId, setSelectedChooceId] = useState(null);
     const { data: session } = useSession();
     // Choose Listed Products
     useEffect(() => {
@@ -60,6 +61,10 @@ const PrivilegeRebateRecordData = ({
         }
     }, [session?.accessToken]);
 
+    const handleChooseBlance = (itemId) => {
+        setSelectedChooceId(itemId);
+    };
+
     return (
         <>
             <div className="px-4 py-4">
@@ -100,7 +105,12 @@ const PrivilegeRebateRecordData = ({
                                                         >
                                                             Last Month Rebate
                                                         </button>
-                                                        <RebateClaimedDropdown />
+                                                        <RebateClaimedDropdown
+                                                            itemId={id}
+                                                            handleChooseBlance={
+                                                                handleChooseBlance
+                                                            }
+                                                        />
                                                     </div>
                                                 ) : (
                                                     <span
@@ -130,6 +140,7 @@ const PrivilegeRebateRecordData = ({
                 setRebateRecordRecall={setRebateRecordRecall}
                 choocingProductAmount={choocingProductAmount}
                 ownChoocingAmount={ownChoocingAmount}
+                selectedChooceId={selectedChooceId}
             />
         </>
     );
