@@ -60,7 +60,7 @@ const InnerRebateClaimedModal = ({
 
     return (
         <>
-            {/* Bootstrap Modal for Choose Listed */}
+            {/* Modal for Choose Listed */}
             <div
                 className="modal fade"
                 id="rebate-listed-choose-modal"
@@ -93,13 +93,13 @@ const InnerRebateClaimedModal = ({
                                 then click the button.
                             </h6>
                         </div>
-                        <div className="modal-footer">
+                        <div className="modal-footer d-flex justify-content-center">
                             <button
                                 onClick={() =>
                                     !isPending && handleChooseProductClick(1)
                                 }
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-success"
                                 disabled={isPending}
                             >
                                 {isPending ? (
@@ -126,7 +126,7 @@ const InnerRebateClaimedModal = ({
                 </div>
             </div>
 
-            {/* Bootstrap Modal for Choose Own */}
+            {/*  Modal for Choose Own */}
             <div
                 className="modal fade"
                 id="rebate-own-choose-modal"
@@ -158,13 +158,13 @@ const InnerRebateClaimedModal = ({
                                 click the confirm button.
                             </h6>
                         </div>
-                        <div className="modal-footer">
+                        <div className="modal-footer d-flex justify-content-center">
                             <button
                                 onClick={() =>
                                     !isPending && handleChooseProductClick(2)
                                 }
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-success"
                                 disabled={isPending}
                             >
                                 {isPending ? (

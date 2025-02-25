@@ -1,16 +1,8 @@
-const RebateClaimedDropdown = (
-    {
-        // setShowListedModal,
-        // showListedModal,
-        // setShowOwnModal,
-        // showOwnModal,
-    }
-) => {
+const RebateClaimedDropdown = () => {
     return (
         <ul className="dropdown-menu">
             <li>
                 <button
-                    // onClick={() => setShowListedModal(!showListedModal)}
                     data-bs-toggle="modal"
                     data-bs-target="#rebate-listed-choose-modal"
                     className="dropdown-item text-capitalize"
@@ -20,7 +12,6 @@ const RebateClaimedDropdown = (
             </li>
             <li>
                 <button
-                    // onClick={() => setShowOwnModal(!showOwnModal)}
                     className="dropdown-item  text-capitalize"
                     data-bs-toggle="modal"
                     data-bs-target="#rebate-own-choose-modal"
