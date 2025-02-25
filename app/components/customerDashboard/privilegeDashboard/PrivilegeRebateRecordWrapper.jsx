@@ -1,33 +1,57 @@
-import { getServerSession } from "next-auth";
+"use client";
+import { useState, useEffect, useTransition } from "react";
+import { useSession } from "next-auth/react";
 import PrivilegeRebateRecordData from "./PrivilegeRebateRecordData";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getPrivilegeCardRebateRecord } from "@/app/services/privilegeCard/getPrivilegeCardRebateRecord";
+import DefaultLoader from "../../defaultloader/DefaultLoader";
 
-const PrivilegeRebateRecordWrapper = async ({ searchParams }) => {
+const PrivilegeRebateRecordWrapper = ({ searchParams }) => {
+    const { data: session } = useSession();
+    const [rebateRecordData, setRebateRecordData] = useState([]);
+    const [rebateRecordRecall, setRebateRecordRecall] = useState(false);
+    const [lastPage, setLastPage] = useState(1);
+    const [isPending, startTransition] = useTransition();
+
     const page = parseInt(searchParams?.page) || 1;
-    const limit = 20; //Per Page Category
-    const params = {
-        page,
-        limit
-    }
-    const session = await getServerSession(authOptions);
-    const response = await getPrivilegeCardRebateRecord(
-        session?.accessToken,
-        params
-    );
-    const rebateRecordData = response?.results?.data || [];
-    const lastPage = response?.results?.last_page || 1;
+    const limit = 20;
+
+    useEffect(() => {
+        const fetchRebateRecords = async () => {
+            if (!session?.accessToken) return;
+
+            try {
+                startTransition(async () => {
+                    const response = await getPrivilegeCardRebateRecord(
+                        session.accessToken,
+                        { page, limit }
+                    );
+                    setRebateRecordData(response?.results?.data || []);
+                    setLastPage(response?.results?.last_page || 1);
+                });
+            } catch (error) {
+                console.error("Error fetching rebate records:", error);
+            }
+        };
+
+        fetchRebateRecords();
+    }, [session?.accessToken, page, rebateRecordRecall]);
 
     return (
-        <div className="customer-dashboard-order-history-area  ">
+        <div className="customer-dashboard-order-history-area h-100 ">
             <div className="customer-dashboard-order-history-title">
                 <h4 className="mb-0">Rebate History</h4>
             </div>
-            <PrivilegeRebateRecordData
-                rebateRecordData={rebateRecordData}
-                currentPage={page}
-                lastPage={lastPage}
-            />
+            {isPending ? (
+                <DefaultLoader />
+            ) : (
+                <PrivilegeRebateRecordData
+                    rebateRecordData={rebateRecordData}
+                    currentPage={page}
+                    lastPage={lastPage}
+                    setRebateRecordRecall={setRebateRecordRecall}
+                    rebateRecordRecall={rebateRecordRecall}
+                />
+            )}
         </div>
     );
 };

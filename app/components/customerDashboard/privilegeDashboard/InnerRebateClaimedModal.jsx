@@ -1,34 +1,38 @@
 "use client";
 import { postPrivilegeCardShoppingChoice } from "@/app/services/privilegeCard/postPrivilegeCardShoppingChoice";
 import { useSession } from "next-auth/react";
-import { useRef, useTransition } from "react";
-import { RotatingLines } from "react-loader-spinner";
-import { toast, ToastContainer } from "react-toastify";
-const PrivilegeChooseOptionBtn = ({
-    ownChoocingAmount,
-    setToggleStatte,
-    toggleStatte,
+import { useRef, useState, useTransition } from "react";
+import { toast } from "react-toastify";
+import { RotatingLines } from "react-loader-spinner"; // Assuming you are using this for loading spinner
+
+const InnerRebateClaimedModal = ({
+    rebateRecordRecall,
+    setRebateRecordRecall,
     choocingProductAmount,
+    ownChoocingAmount,
 }) => {
     const [isPending, startTransition] = useTransition();
     const chooseListedModal = useRef(null);
     const chooseOwndModal = useRef(null);
+
     const { data: session } = useSession();
 
     const handleChooseProductClick = async (rebateID) => {
         const rebateData = { rebate: rebateID };
+        const previousRebate = 3;
         try {
             startTransition(async () => {
                 const response = await postPrivilegeCardShoppingChoice(
                     session?.accessToken,
-                    rebateData
+                    rebateData,
+                    previousRebate
                 );
 
                 if (response?.code === 200) {
-                    setToggleStatte(!toggleStatte);
+                    setRebateRecordRecall(!rebateRecordRecall);
                     toast.success(
                         response?.message ||
-                            "Shopping choice submitted successfully! "
+                            "Shopping choice submitted successfully!"
                     );
 
                     const modalRef =
@@ -44,60 +48,29 @@ const PrivilegeChooseOptionBtn = ({
                 } else {
                     toast.error(
                         response?.message ||
-                            `Failed to submit shopping choice Please try again.`
+                            `Failed to submit shopping choice. Please try again.`
                     );
                 }
             });
         } catch (error) {
             console.error("Error submitting shopping choice:", error);
-            toast.error(
-                `An unexpected error occurred while choosing Please try again.`
-            );
+            toast.error(error.message || "Something went wrong!");
         }
     };
 
     return (
         <>
-            <ToastContainer />
-            <div className="mt-3 mt-md-5 mb-3 mb-md-4">
-                <div className="bg-white shadow-lg rounded-4 p-4 d-flex flex-column flex-md-row  justify-content-center align-items-center gap-2">
-                    <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#choose-listed-modal"
-                        className="w-100 w-md-50 add-to-cart-link border-0 rounded-3 text-capitalize"
-                    >
-                        Choose Listed Products
-                    </button>
-                    <button
-                        data-bs-toggle="modal"
-                        data-bs-target="#choose-own-modal"
-                        className="w-100 w-md-50 add-to-cart-link border-0 rounded-3 text-capitalize"
-                    >
-                        Choose Own Choice Shopping
-                    </button>
-                </div>
-            </div>
-            
-            {/* <!--choose listed Modal --> */}
+            {/* Bootstrap Modal for Choose Listed */}
             <div
                 className="modal fade"
-                id="choose-listed-modal"
+                id="rebate-listed-choose-modal"
                 tabIndex="-1"
                 ref={chooseListedModal}
-                role="dialog"
             >
-                <div
-                    className="modal-dialog  modal-dialog-centered"
-                    role="document"
-                >
+                <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1
-                                className="modal-title fs-4 text-black"
-                                id="choose-listed-modalLabel"
-                            >
-                                List Choice Details
-                            </h1>
+                            <h6 className="modal-title">List Choice Details</h6>
                             <button
                                 type="button"
                                 className="btn-close"
@@ -106,32 +79,28 @@ const PrivilegeChooseOptionBtn = ({
                             ></button>
                         </div>
                         <div className="modal-body">
-                            <p className="fs-6 text-black">
+                            <h6>
                                 You will get{" "}
                                 <strong>
                                     Tk{" "}
-                                    {typeof choocingProductAmount?.amount ===
-                                    "number"
-                                        ? choocingProductAmount?.amount.toFixed(
-                                              2
-                                          )
-                                        : "0.00"}{" "}
+                                    {choocingProductAmount?.amount?.toFixed(
+                                        2
+                                    ) || "0.00"}{" "}
                                     BDT
-                                </strong>{" "}
+                                </strong>
                                 for free shopping on your shopping balance for{" "}
-                                {choocingProductAmount?.date}. If you agree then
-                                click the button.
-                            </p>
+                                {choocingProductAmount?.date}. If you agree,
+                                then click the button.
+                            </h6>
                         </div>
-                        <div className="modal-footer justify-content-center">
+                        <div className="modal-footer">
                             <button
                                 onClick={() =>
                                     !isPending && handleChooseProductClick(1)
                                 }
                                 type="button"
-                                className={`add-to-cart-link border-0 rounded-3 text-capitalize px-4 ${
-                                    isPending ? "disabled-button" : ""
-                                }`}
+                                className="btn btn-primary"
+                                disabled={isPending}
                             >
                                 {isPending ? (
                                     <div
@@ -142,19 +111,14 @@ const PrivilegeChooseOptionBtn = ({
                                         }}
                                     >
                                         <RotatingLines
-                                            visible={true}
                                             height="18"
                                             width="20"
                                             color="#ffffff"
                                             strokeWidth="5"
-                                            animationDuration="0.75"
-                                            ariaLabel="rotating-lines-loading"
-                                            wrapperStyle={{}}
-                                            wrapperClass="w-25"
                                         />
                                     </div>
                                 ) : (
-                                    <span>Let's start shopping</span>
+                                    "Let's start shopping"
                                 )}
                             </button>
                         </div>
@@ -162,26 +126,17 @@ const PrivilegeChooseOptionBtn = ({
                 </div>
             </div>
 
-            {/* <!--Choose Own Choice Modal --> */}
+            {/* Bootstrap Modal for Choose Own */}
             <div
                 className="modal fade"
-                id="choose-own-modal"
+                id="rebate-own-choose-modal"
                 tabIndex="-1"
                 ref={chooseOwndModal}
-                role="dialog"
             >
-                <div
-                    className="modal-dialog  modal-dialog-centered"
-                    role="document"
-                >
+                <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1
-                                className="modal-title fs-4 text-black"
-                                id="choose-own-modalLabel"
-                            >
-                                Own Choice Details
-                            </h1>
+                            <h6 className="modal-title">Own Choice Details</h6>
                             <button
                                 type="button"
                                 className="btn-close"
@@ -190,30 +145,27 @@ const PrivilegeChooseOptionBtn = ({
                             ></button>
                         </div>
                         <div className="modal-body">
-                            <p className="fs-6 text-black">
+                            <h6>
                                 You will get{" "}
                                 <strong>
                                     Tk{" "}
-                                    {typeof ownChoocingAmount?.amount ===
-                                    "number"
-                                        ? ownChoocingAmount?.amount.toFixed(2)
-                                        : "0.00"}{" "}
+                                    {ownChoocingAmount?.amount?.toFixed(2) ||
+                                        "0.00"}{" "}
                                     BDT
-                                </strong>{" "}
+                                </strong>
                                 for free shopping on your shopping balance for{" "}
-                                {ownChoocingAmount?.date}. If you agree then
+                                {ownChoocingAmount?.date}. If you agree, then
                                 click the confirm button.
-                            </p>
+                            </h6>
                         </div>
-                        <div className="modal-footer justify-content-center ">
+                        <div className="modal-footer">
                             <button
                                 onClick={() =>
                                     !isPending && handleChooseProductClick(2)
                                 }
                                 type="button"
-                                className={`add-to-cart-link border-0 rounded-3 text-capitalize px-4 ${
-                                    isPending ? "disabled-button" : ""
-                                }`}
+                                className="btn btn-primary"
+                                disabled={isPending}
                             >
                                 {isPending ? (
                                     <div
@@ -224,19 +176,14 @@ const PrivilegeChooseOptionBtn = ({
                                         }}
                                     >
                                         <RotatingLines
-                                            visible={true}
                                             height="18"
                                             width="20"
                                             color="#ffffff"
                                             strokeWidth="5"
-                                            animationDuration="0.75"
-                                            ariaLabel="rotating-lines-loading"
-                                            wrapperStyle={{}}
-                                            wrapperClass="w-25"
                                         />
                                     </div>
                                 ) : (
-                                    <span>Let's start shopping</span>
+                                    "Let's start shopping"
                                 )}
                             </button>
                         </div>
@@ -247,4 +194,4 @@ const PrivilegeChooseOptionBtn = ({
     );
 };
 
-export default PrivilegeChooseOptionBtn;
+export default InnerRebateClaimedModal;

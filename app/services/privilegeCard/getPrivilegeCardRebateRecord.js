@@ -23,7 +23,6 @@ export const getPrivilegeCardRebateRecord = async (token, params = {}) => {
             "Something went wrong fetching Privilege Card Rebate Record Data",
             error
         );
-        console.info(error);
         return null;
     }
 };
