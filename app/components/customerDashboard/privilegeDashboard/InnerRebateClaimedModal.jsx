@@ -18,14 +18,12 @@ const InnerRebateClaimedModal = ({
     const { data: session } = useSession();
 
     const handleChooseProductClick = async (rebateID) => {
-        const rebateData = { rebate: rebateID };
-        const previousRebate = 3;
+        const rebateData = { rebate: rebateID, previousRebate: 3 };
         try {
             startTransition(async () => {
                 const response = await postPrivilegeCardShoppingChoice(
                     session?.accessToken,
-                    rebateData,
-                    previousRebate
+                    rebateData
                 );
 
                 if (response?.code === 200) {
