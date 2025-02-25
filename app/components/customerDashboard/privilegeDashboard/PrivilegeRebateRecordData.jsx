@@ -16,11 +16,7 @@ const PrivilegeRebateRecordData = ({
 }) => {
     const [ownChoocingAmount, setOwnChoocingAmount] = useState({});
     const [choocingProductAmount, setChoocingProductAmount] = useState({});
-    const [showListedModal, setShowListedModal] = useState(false);
-    const [showOwnModal, setShowOwnModal] = useState(false);
     const { data: session } = useSession();
-    console.log("rebateRecordData===>>", rebateRecordData);
-
     // Choose Listed Products
     useEffect(() => {
         const fetchingChooseListedProducts = async () => {
@@ -104,20 +100,7 @@ const PrivilegeRebateRecordData = ({
                                                         >
                                                             Last Month Rebate
                                                         </button>
-                                                        <RebateClaimedDropdown
-                                                            setShowListedModal={
-                                                                setShowListedModal
-                                                            }
-                                                            showListedModal={
-                                                                showListedModal
-                                                            }
-                                                            setShowOwnModal={
-                                                                setShowOwnModal
-                                                            }
-                                                            showOwnModal={
-                                                                showOwnModal
-                                                            }
-                                                        />
+                                                        <RebateClaimedDropdown />
                                                     </div>
                                                 ) : (
                                                     <span
@@ -147,10 +130,6 @@ const PrivilegeRebateRecordData = ({
                 setRebateRecordRecall={setRebateRecordRecall}
                 choocingProductAmount={choocingProductAmount}
                 ownChoocingAmount={ownChoocingAmount}
-                showOwnModal={showOwnModal}
-                setShowOwnModal={setShowOwnModal}
-                showListedModal={showListedModal}
-                setShowListedModal={setShowListedModal}
             />
         </>
     );
