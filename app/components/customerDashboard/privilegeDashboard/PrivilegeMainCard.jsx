@@ -23,8 +23,6 @@ const PrivilegeMainCard = ({
     const [balanceAfterChoosing, setBalanceAfterChoosing] = useState({});
     const { data: session } = useSession();
 
-    console.log("balanceAfterChoosing", balanceAfterChoosing);
-
     const frontImageUrl = privilegeCardInfo?.privilege_card?.front_image
         ? `${NagadhatPublicUrl}/${privilegeCardInfo.privilege_card.front_image}`
         : "/path-to-default-front-image.jpg";
