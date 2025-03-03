@@ -1,5 +1,5 @@
 "use client";
-import { use, useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import PrivilegeCardProductTable from "./PrivilegeCardProductTable";
 import PrivilegeCardProductTop from "./PrivilegeCardProductTop";
 import { useSession } from "next-auth/react";
@@ -88,23 +88,25 @@ const PrivilegeCardProduct = () => {
 
     // function for discount partner product
     useEffect(() => {
-        const fetchingDiscountPartnerProduct = async () => {
-            try {
-                startTransition(async () => {
-                    const response = await getDiscountPartnerList(
-                        session?.accessToken
+        if (session?.accessToken) {
+            const fetchingDiscountPartnerProduct = async () => {
+                try {
+                    startTransition(async () => {
+                        const response = await getDiscountPartnerList(
+                            session?.accessToken
+                        );
+                        setDiscountPartnerList(response?.results || []);
+                    });
+                } catch (error) {
+                    console.error(
+                        "Error fetching Discount Partner Products:",
+                        error
                     );
-                    setDiscountPartnerList(response?.results || []);
-                });
-            } catch (error) {
-                console.error(
-                    "Error fetching Discount Partner Products:",
-                    error
-                );
-            }
-        };
+                }
+            };
 
-        fetchingDiscountPartnerProduct();
+            fetchingDiscountPartnerProduct();
+        }
     }, [session?.accessToken]);
 
     return (

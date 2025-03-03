@@ -1,53 +1,83 @@
-const ProductWallet = () => {
+import NoDataFound from "@/app/components/NoDataFound";
+import Pagination from "@/app/components/productCategory/Pagination";
+
+const ProductWallet = ({ lastPage, currentPage, statementData }) => {
+
+
     return (
         <div className="px-4 py-4">
             <div className="table-responsive">
-                <table className="table" style={{ minWidth: "720px" }}>
-                    <thead>
-                        <tr>
-                            <th scope="col">SL</th>
-                            <th scope="col">Date/Time</th>
-                            <th scope="col">Purpose</th>
-                            <th scope="col">Debit</th>
-                            <th scope="col">Credit</th>
-                            <th scope="col">Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>index + 1</td>
-                            <td>23 Feb, 2025 / 12:01 PM</td>
-                            <td>Balance of Feb, 2025</td>
-                            <td>৳ 5800</td>
-                            <td>৳ 898520</td>
-                            <td>৳ 1356868</td>
-                        </tr>
-                        <tr>
-                            <td>index + 2</td>
-                            <td> 23 Feb, 2025 / 12:01 PM</td>
-                            <td>Balance of Feb, 2025</td>
-                            <td>৳ 5800</td>
-                            <td>৳ 898520</td>
-                            <td>৳ 1356868</td>
-                        </tr>
-                        <tr>
-                            <td>index + 3</td>
-                            <td> 23 Feb, 2025 / 12:01 PM</td>
-                            <td>Balance of Feb, 2025</td>
-                            <td>৳ 5800</td>
-                            <td>৳ 898520</td>
-                            <td>৳ 1356868</td>
-                        </tr>
-                        <tr>
-                            <td>index + 4</td>
-                            <td> 23 Feb, 2025 / 12:01 PM</td>
-                            <td>Balance of Feb, 2025</td>
-                            <td>৳ 5800</td>
-                            <td>৳ 898520</td>
-                            <td>৳ 1356868</td>
-                        </tr>
-                    </tbody>
-                </table>
+                {statementData?.length > 0 ? (
+                    <table className="table" style={{ minWidth: "720px" }}>
+                        <thead>
+                            <tr>
+                                <th scope="col" className="text-center">
+                                    SL
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Date/Time
+                                </th>
+                                <th scope="col" className="text-center">
+                                    Purpose
+                                </th>
+                                <th scope="col" className="text-end">
+                                    Debit
+                                </th>
+                                <th scope="col" className="text-end">
+                                    Credit
+                                </th>
+                                <th scope="col" className="text-end">
+                                    Balance
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {statementData?.map((item, index) => {
+                                const {
+                                    id,
+                                    date,
+                                    time,
+                                    transaction_type,
+                                    purpose,
+                                    amount,
+                                    balance,
+                                } = item;
+
+                                return (
+                                    <tr key={id}>
+                                        <td className="text-center">
+                                            {index + 1}
+                                        </td>
+                                        <td className="text-center">
+                                            {date} / {time}
+                                        </td>
+                                        <td className="text-center">
+                                            {purpose}
+                                        </td>
+                                        <td className="text-end">
+                                            ৳{" "}
+                                            {transaction_type === "Debit"
+                                                ? amount.toFixed(2)
+                                                : 0}
+                                        </td>
+                                        <td className="text-end">
+                                            ৳{" "}
+                                            {transaction_type === "Credit"
+                                                ? amount.toFixed(2)
+                                                : 0}
+                                        </td>
+                                        <td className="text-end">
+                                            ৳ {balance ? balance.toFixed(2) : 0}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                ) : (
+                    <NoDataFound title={`Product Wallet  Data Not Found`} />
+                )}
+                <Pagination currentPage={currentPage} lastPage={lastPage} />
             </div>
         </div>
     );
