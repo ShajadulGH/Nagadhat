@@ -163,7 +163,7 @@ const ManageTakePhoto = () => {
                                         <input
                                             type="file"
                                             accept="image/*"
-                                            capture="camera"
+                                            capture
                                             id="takePhoto"
                                             onChange={handleFileChange}
                                             className="d-none"

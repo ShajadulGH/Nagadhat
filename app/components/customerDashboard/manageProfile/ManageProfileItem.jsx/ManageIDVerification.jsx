@@ -1,6 +1,7 @@
 "use client";
 
 import { getManageIdVerificationInfo } from "@/app/services/getManageIdVerificationInfo";
+import { getSyncManageIdVerificationInfo } from "@/app/services/getSyncManageIdVerificationInfo";
 import { postManageIdVerificationInfo } from "@/app/services/postManageIdVerificationInfo";
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useSession } from "next-auth/react";
@@ -90,6 +91,26 @@ const ManageIDVerification = () => {
         }
     };
 
+    const handleDataSync = async () => {
+        try {
+            startTransition(async () => {
+                const nidData = await getSyncManageIdVerificationInfo(
+                    session?.accessToken, session?.phone
+                );
+                const nidDataResult = nidData?.results || {};
+                console.log(nidData);
+                setIdVerification({
+                    nid_no: nidDataResult.nid_no || "",
+                });
+            });
+        } catch (error) {
+            console.error("Error fetching ID Verification data:", error);
+            toast.error(
+                error.message || "An error occurred. Please try again later."
+            );
+        }
+    }
+
     return (
         <div className="accordion-item border-0 rounded mb-4">
             <h2 className="accordion-header">
@@ -111,6 +132,13 @@ const ManageIDVerification = () => {
             >
                 <div className="accordion-body border-top">
                     <div className="customer-manage-profile-from-area">
+                        {(session?.phone && String(session?.phone).length > 11) && (
+                            <div className="ms-auto">
+                                <button className="add-to-cart-link border-0 ms-auto" onClick={handleDataSync}>
+                                    sync
+                                </button>
+                            </div>
+                        )}
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="nid_no" className="form-label">
