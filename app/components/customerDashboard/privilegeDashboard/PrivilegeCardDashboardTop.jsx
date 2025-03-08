@@ -4,6 +4,7 @@ import PrivilegeCardProduct from "./PrivilegeCardProduct";
 import PrivilegeMainCard from "./PrivilegeMainCard";
 import { getPrivilegeCardDetails } from "@/app/services/privilegeCard/getPrivilegeCardDetails";
 import { useSession } from "next-auth/react";
+import LodingFixed from "@/app/components/LodingFixed";
 
 const PrivilegeCardDashboardTop = () => {
     const [isPending, startTransition] = useTransition();
@@ -33,17 +34,34 @@ const PrivilegeCardDashboardTop = () => {
         fetchPrivilegeCardDetails();
     }, [session?.accessToken, cancelToggleStatus]);
 
+    console.log("privilegeCardInfo", privilegeCardInfo);
+
     return (
         <>
             <div className="customer-dashboard-order-history-area h-100">
-                <PrivilegeMainCard
-                    privilegeCardInfo={privilegeCardInfo}
-                    cancelToggleStatus={cancelToggleStatus}
-                    setCancelToggleStatus={setCancelToggleStatus}
-                    isPending={isPending}
-                />
-                {privilegeCardInfo?.cancel_status === 5 && (
-                    <PrivilegeCardProduct />
+                {privilegeCardInfo?.privilege_card?.status === 1 ? (
+                    <>
+                        <PrivilegeMainCard
+                            privilegeCardInfo={privilegeCardInfo}
+                            cancelToggleStatus={cancelToggleStatus}
+                            setCancelToggleStatus={setCancelToggleStatus}
+                            isPending={isPending}
+                        />
+                        {privilegeCardInfo?.cancel_status === 5 && (
+                            <PrivilegeCardProduct />
+                        )}
+                    </>
+                ) : isPending ? (
+                    <LodingFixed />
+                ) : (
+                    <div className="d-flex align-items-center justify-content-center h-100">
+                        <div>
+                            <h1>
+                                Currently, the {privilegeCardInfo?.product_name}{" "}
+                                is Inactive.
+                            </h1>
+                        </div>
+                    </div>
                 )}
             </div>
         </>
