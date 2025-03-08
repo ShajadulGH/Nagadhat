@@ -34,8 +34,6 @@ const PrivilegeCardDashboardTop = () => {
         fetchPrivilegeCardDetails();
     }, [session?.accessToken, cancelToggleStatus]);
 
-    console.log("privilegeCardInfo", privilegeCardInfo);
-
     return (
         <>
             <div className="customer-dashboard-order-history-area h-100">
