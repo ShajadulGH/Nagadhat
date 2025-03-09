@@ -4,10 +4,6 @@ import FlipClock from "./FlipClock";
 import SectionTitle from "./SectionTitle";
 import ProductCard from "./ProductCard";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-// import { getFlashSaleProduct } from "../services/getFlashSaleProduct";
-// import getAllSettings from "../services/getAllSettings";
 import { getHomeFlashSalesProduct } from "../services/getHomeFlashSalesProduct";
 import { getFlashSlaeShowOnHomePage } from "../services/getFlashSlaeShowOnHomePage";
 
