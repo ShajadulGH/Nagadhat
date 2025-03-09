@@ -133,6 +133,14 @@ const PrivilegeBuyNowBtn = ({ privilegeCardInfo }) => {
                     <span>Active</span>
                 </button>
             )}
+            {privilegeCardInfo?.product_name === "Membership Card" && privilegeCardInfo?.status === 3 && (
+                <button
+                    className={`add-to-cart-link border-0 rounded-3 text-capitalize`}
+                    disabled
+                >
+                    <span>Suspended</span>
+                </button>
+            )}
         </>
     );
 };
