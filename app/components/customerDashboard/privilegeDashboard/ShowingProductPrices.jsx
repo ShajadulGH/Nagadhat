@@ -1,6 +1,6 @@
 const ShowingProductPrices = ({ balanceAfterChoosing }) => {
     return (
-        <div className="  d-flex flex-column flex-md-row align-items-center justify-content-between ">
+        <div className="mt-4 d-flex flex-column flex-md-row align-items-center justify-content-between ">
             <div className="fs-5">
                 <p>
                     List Choice Balance: ৳ {""}

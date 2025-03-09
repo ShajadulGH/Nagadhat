@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import { getPrivilegeCardProducts } from "@/app/services/privilegeCard/getPrivilegeCardProducts";
 import LodingFixed from "../../LodingFixed";
 import { useSearchParams } from "next/navigation";
+import { getDiscountPartnerList } from "@/app/services/discountPartner/getDiscountPartnerList";
+import DiscountpartnerList from "./DiscountpartnerList";
 
 const PrivilegeCardProduct = () => {
     const [isPending, startTransition] = useTransition();
@@ -15,6 +17,8 @@ const PrivilegeCardProduct = () => {
     const [productCardLimit, setProductCardLimit] = useState(null);
     const [rendaringCartPrice, setRendaringCartPrice] = useState(false);
     const [alreadyBuyResponse, setAlreadyBuyResponse] = useState({});
+    const [discountPartnerList, setDiscountPartnerList] = useState([]);
+    const [cardTypeName, setCardTypeName] = useState("");
     const searchParam = useSearchParams();
     const [lastPage, setLastPage] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -48,11 +52,17 @@ const PrivilegeCardProduct = () => {
                         );
                         setAlreadyBuyResponse(response);
                         const cartLimitPrice = parseInt(
-                            parseFloat("1000.00"),
+                            parseFloat(response?.results?.card_limit),
                             10
                         );
-
-                        setProductCardLimit(cartLimitPrice);
+                        const cartName = response?.results?.card_name;
+                        setCardTypeName(cartName);
+                        const list_choice = response?.results?.list_choice;
+                        if (cardTypeName === "Membership Card") {
+                            setProductCardLimit(cartLimitPrice);
+                        } else {
+                            setProductCardLimit(list_choice);
+                        }
 
                         setProductsData(response?.results?.data);
                         setLastPage(response?.results?.last_page);
@@ -72,27 +82,63 @@ const PrivilegeCardProduct = () => {
         categoryFilter,
         rendaringCartPrice,
         currentPage,
+        productCardLimit,
         // alreadyBuyResponse,
     ]);
 
+    // function for discount partner product
+    useEffect(() => {
+        if (session?.accessToken) {
+            const fetchingDiscountPartnerProduct = async () => {
+                try {
+                    startTransition(async () => {
+                        const response = await getDiscountPartnerList(
+                            session?.accessToken
+                        );
+                        setDiscountPartnerList(response?.results || []);
+                    });
+                } catch (error) {
+                    console.error(
+                        "Error fetching Discount Partner Products:",
+                        error
+                    );
+                }
+            };
+
+            fetchingDiscountPartnerProduct();
+        }
+    }, [session?.accessToken]);
+
     return (
         <>
-            <PrivilegeCardProductTop
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                categoryFilter={categoryFilter}
-                setCategoryFilter={setCategoryFilter}
-            />
             {isPending && <LodingFixed />}
-            <PrivilegeCardProductTable
-                productsData={productsData}
-                rendaringCartPrice={rendaringCartPrice}
-                setRendaringCartPrice={setRendaringCartPrice}
-                productCardLimit={productCardLimit}
-                currentPage={currentPage}
-                lastPage={lastPage}
-                alreadyBuyResponse={alreadyBuyResponse}
-            />
+
+            {alreadyBuyResponse?.code === 402 ? (
+                <div className="p-4">
+                    <DiscountpartnerList
+                        partnerData={discountPartnerList}
+                        isPending={isPending}
+                    />
+                </div>
+            ) : (
+                <>
+                    <PrivilegeCardProductTop
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        categoryFilter={categoryFilter}
+                        setCategoryFilter={setCategoryFilter}
+                    />
+                    <PrivilegeCardProductTable
+                        productsData={productsData}
+                        rendaringCartPrice={rendaringCartPrice}
+                        setRendaringCartPrice={setRendaringCartPrice}
+                        productCardLimit={productCardLimit}
+                        currentPage={currentPage}
+                        lastPage={lastPage}
+                        alreadyBuyResponse={alreadyBuyResponse}
+                    />
+                </>
+            )}
         </>
     );
 };

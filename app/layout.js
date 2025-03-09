@@ -1,5 +1,4 @@
 import { Lato, Open_Sans, Philosopher } from "next/font/google";
-import Script from "next/script";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./globals.css";
@@ -11,6 +10,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import ToastProvider from "./ToastProvider";
 import MobileButtonNav from "./components/MobileButtonNav";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import dynamic from "next/dynamic";
+const BootstrapProvider = dynamic(() => import("./BootstrapProvider"), {
+    ssr: false,
+});
+
 const lato = Lato({
     subsets: ["latin"],
     display: "swap",
@@ -35,23 +41,12 @@ export const metadata = {
     description: "Nagadhat is a online shopping platform",
 };
 
-export default function RootLayout({ children, slug, option }) {
+export default function RootLayout({ children }) {
     return (
         <html
             lang="en"
             className={`${lato.variable} ${open_sans.variable} ${philosopher.variable}`}
         >
-            <link
-                rel="stylesheet"
-                href="/css/bootstrap.min.css"
-                precedence="default"
-            />
-            <link rel="stylesheet" href="/css/slick.css" precedence="default" />
-            <link
-                rel="stylesheet"
-                href="/css/slick-theme.css"
-                precedence="default"
-            />
             <link rel="stylesheet" href="/css/brand.css" precedence="default" />
             <link
                 rel="stylesheet"
@@ -228,26 +223,23 @@ export default function RootLayout({ children, slug, option }) {
                 href="/css/sale-on-nagadhat.css"
                 precedence="default"
             />
-            {/* <Script strategy="afterInteractive" src="/js/jquery.min.js" /> */}
-            <Script
-                strategy="afterInteractive"
-                src="/js/bootstrap.bundle.min.js"
-            />
 
             <body>
                 <Suspense>
                     <AuthProvider>
                         <ReduxProvider>
                             <ErrorBoundary>
-                                <ToastProvider>
-                                    <Header />
-                                    <DistrictModal />
-                                    <main className="main-body-pading">
-                                        {children}
-                                    </main>
-                                    <MobileButtonNav/>
-                                     <Footer />
-                                </ToastProvider>
+                                <BootstrapProvider>
+                                    <ToastProvider>
+                                        <Header />
+                                        <DistrictModal />
+                                        <main className="main-body-pading">
+                                            {children}
+                                        </main>
+                                        <MobileButtonNav />
+                                        <Footer />
+                                    </ToastProvider>
+                                </BootstrapProvider>
                             </ErrorBoundary>
                         </ReduxProvider>
                     </AuthProvider>
