@@ -14,6 +14,19 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
     const modalRef = useRef(null);
     const [districtsData, setDistrictsData] = useState([]);
 
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
+
     useEffect(() => {
         if (currentAddress) {
             setNewEmail(currentAddress.email || "");
@@ -64,7 +77,7 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
                 const response = await updateShippingAddress(addAddressInfo, session?.accessToken);
                 if (response.code === 200) {
                     // Close the modal if the response is successful
-                    if (modalRef.current) {
+                    if (bootstrap && modalRef.current) {
                         const modalInstance = bootstrap.Modal.getInstance(modalRef.current);
                         modalInstance.hide();
                     }
@@ -83,7 +96,7 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
                 const response = await postShippingAddress(addAddressInfo, session?.accessToken);
                 if (response.code === 200) {
                     // Close the modal if the response is successful
-                    if (modalRef.current) {
+                    if (bootstrap && modalRef.current) {
                         const modalInstance = bootstrap.Modal.getInstance(modalRef.current);
                         modalInstance.hide();
                     }

@@ -28,6 +28,18 @@ const AgentWithdrawalModal = ({
     const { data: session } = useSession();
     const route = useRouter();
     const modalRef = useRef(null);
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
 
     const maxAmount = parseInt(financeAgentInfo?.total_withdrawable) || 0;
 
@@ -79,8 +91,8 @@ const AgentWithdrawalModal = ({
     const handleWithdrawRequest = async () => {
         if (typeof amount === "number" && !Number.isInteger(amount)) {
             toast.warning("Please enter a decimal number for the amount!");
-            return ;
-          }
+            return;
+        }
         setIsLoading(true); // Start loading
         let selectedAccount = null;
         if (agentWithdrawMethod == 3) {
@@ -110,9 +122,10 @@ const AgentWithdrawalModal = ({
             );
             if (response.code === 200) {
                 const modalElement = modalRef.current;
-                if (modalElement) {
-                    const modalInstance =
-                        bootstrap.Modal.getInstance(modalElement);
+                if (bootstrap && modalElement) {
+                    const modalInstance = bootstrap.Modal.getInstance(
+                        modalRef.current
+                    );
                     modalInstance.hide();
                 }
                 route.push(`/finance-withdraw-request/${response.results.id}`);
@@ -309,14 +322,21 @@ const AgentWithdrawalModal = ({
                                     <select
                                         className="custom-select form-control"
                                         name="bank_billing_method"
-                                        onChange={(e) => setAccountType(e.target.value) }
+                                        onChange={(e) =>
+                                            setAccountType(e.target.value)
+                                        }
                                     >
                                         <option defaultValue="Select Billing Method">
                                             Select Billing Method
                                         </option>
                                         {bankTransferData?.account_number && (
-                                            <option value={bankTransferData?.name}>
-                                                {bankTransferData?.name} - {bankTransferData?.account_number}
+                                            <option
+                                                value={bankTransferData?.name}
+                                            >
+                                                {bankTransferData?.name} -{" "}
+                                                {
+                                                    bankTransferData?.account_number
+                                                }
                                             </option>
                                         )}
                                     </select>

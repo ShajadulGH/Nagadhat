@@ -14,6 +14,19 @@ const PrivilegeCancelledModal = ({
     const { data: session } = useSession();
     const closeCancelModal = useRef(null);
 
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
+
     const handleCancelAggriment = async () => {
         const cancelStatus = { status: 2 };
 
@@ -39,7 +52,7 @@ const PrivilegeCancelledModal = ({
     };
 
     const closeModal = () => {
-        if (closeCancelModal?.current) {
+        if (bootstrap && closeCancelModal?.current) {
             document.activeElement?.blur();
             const modalInstance = bootstrap.Modal.getInstance(
                 closeCancelModal.current

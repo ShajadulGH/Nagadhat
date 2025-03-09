@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const BootstrapProvider = ({ children }) => {
     useEffect(() => {
         if (typeof window !== "undefined") {
-            require("bootstrap/dist/js/bootstrap.bundle.min.js");
+            import("bootstrap/dist/js/bootstrap.bundle.min.js");
         }
     }, []);
 
