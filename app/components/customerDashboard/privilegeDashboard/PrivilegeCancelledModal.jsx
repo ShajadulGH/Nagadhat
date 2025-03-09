@@ -2,7 +2,7 @@
 import { postPrivilegeCardCancelAggriment } from "@/app/services/privilegeCard/postPrivilegeCardCancelAggriment";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRef, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
 
