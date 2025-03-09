@@ -22,6 +22,18 @@ const ChangeTransactionOtp = () => {
     const router = useRouter();
 
     const [loading, setLoading] = useState(true);
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
 
     useEffect(() => {
         const getData = async () => {
@@ -79,7 +91,7 @@ const ChangeTransactionOtp = () => {
             if (response.code === 200) {
                 // toast.success(response.message);
                 const modalElement = modalRef.current;
-                if (modalElement) {
+                if (bootstrap && modalElement) {
                     const modalInstance =
                         bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal

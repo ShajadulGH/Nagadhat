@@ -16,6 +16,19 @@ const TransferVerifyOTPModal = ({
     const { data: session, status } = useSession();
     const modalRef = useRef(null); // Reference for modal
 
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -35,7 +48,7 @@ const TransferVerifyOTPModal = ({
         if (response.code === 200) {
             // Close modal programmatically
             const modalElement = modalRef.current;
-            if (modalElement) {
+            if (bootstrap && modalElement) {
                 const modalInstance = bootstrap.Modal.getInstance(modalElement);
                 modalInstance.hide(); // Close modal
             }
