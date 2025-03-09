@@ -18,6 +18,19 @@ const InnerRebateClaimedModal = ({
 
     const { data: session } = useSession();
 
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
+
     const handleChooseProductClick = async (rebateID) => {
         const rebateData = {
             rebate: rebateID,
@@ -41,7 +54,7 @@ const InnerRebateClaimedModal = ({
                     const modalRef =
                         rebateID === 1 ? chooseListedModal : chooseOwndModal;
 
-                    if (modalRef?.current) {
+                    if (bootstrap && modalRef?.current) {
                         document.activeElement?.blur();
                         const modalInstance = bootstrap.Modal.getInstance(
                             modalRef.current

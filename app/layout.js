@@ -50,6 +50,10 @@ export default function RootLayout({ children }) {
             <link rel="stylesheet" href="/css/brand.css" precedence="default" />
             <link
                 rel="stylesheet"
+                href="bootstrap/dist/js/bootstrap.bundle.min.js"
+                precedence="default"/>
+            <link
+                rel="stylesheet"
                 href="/css/animatloading.css"
                 precedence="default"
             />

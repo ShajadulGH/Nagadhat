@@ -11,6 +11,18 @@ import { postDiscountPartnerInfo } from '@/app/services/discountPartner/postDisc
 const DiscountPartnerComfarmModal = ({ formData }) => {
     const [loading, setLoading] = useState(false);
     const router = useRouter()
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
     const confirmSubmitForm = async () => {
         // Create FormData to handle file uploads
         const formDataToSend = new FormData();
@@ -55,7 +67,7 @@ const DiscountPartnerComfarmModal = ({ formData }) => {
             if (response.code === 200) {
                 // Handle successful response
                 const modalElement = document.getElementById('exampleModal');
-                if (modalElement) {
+                if (bootstrap && modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide();
                 }
@@ -63,7 +75,7 @@ const DiscountPartnerComfarmModal = ({ formData }) => {
                 router.push(`/success-discount-partner?id=${response.results.id}`);
             } else {
                 const modalElement = document.getElementById('exampleModal');
-                if (modalElement) {
+                if (bootstrap && modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide();
                 }

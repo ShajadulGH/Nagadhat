@@ -27,6 +27,19 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
     const modalRef = useRef(null);
     const { data: session, status } = useSession();
     const router = useRouter();
+
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
             const fetchSaleOnNagadhatData = async () => {
@@ -111,7 +124,7 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                 session?.accessToken
             );
             let saleOnNagadhatId = response?.results?.id;
-            if (!response?.error) {
+            if (bootstrap && !response?.error) {
                 const modal = bootstrap.Modal.getInstance(modalRef.current);
                 if (modal) modal.hide();
                 router.push(

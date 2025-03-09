@@ -17,6 +17,18 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
     const { data: session } = useSession();
     const route = useRouter();
     const modalRef = useRef(null); // Reference for modal
+    const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
 
     const maxAmount = parseInt(mobileBankingInfo?.total_withdrawable) || 0; // Get max withdrawable amount
 
@@ -75,7 +87,7 @@ const MobileBankingModal = ({ mobileBankingInfo, financeAgentInfo }) => {
             if (response.code === 200) {
                 // Close modal programmatically
                 const modalElement = modalRef.current;
-                if (modalElement) {
+                if (bootstrap && modalElement) {
                     const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
