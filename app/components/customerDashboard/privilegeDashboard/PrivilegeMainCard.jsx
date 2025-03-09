@@ -146,22 +146,19 @@ const PrivilegeMainCard = ({
                                 Details
                             </button>
 
-                            {/* <PrivilegeBuyNowBtn
+                            <PrivilegeBuyNowBtn
                                 privilegeCardInfo={privilegeCardInfo}
-                            /> */}
+                            />
                             {privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
-                                privilegeCardInfo?.cancel_status === 0 && (
-                                    <span
-                                        
-                                        className="add-to-cart-link border-0 rounded-3 text-capitalize"
-                                    >
+                                privilegeCardInfo?.cancel_status === 5 && (
+                                    <span className="add-to-cart-link border-0 rounded-3 text-capitalize">
                                         Active
                                     </span>
                                 )}
                             {privilegeCardInfo?.product_name !==
                                 "Membership Card" &&
-                            privilegeCardInfo?.cancel_status === 0 ? (
+                            privilegeCardInfo?.cancel_status === 5 ? (
                                 <button
                                     data-bs-toggle="modal"
                                     data-bs-target="#privilege-cancelled-modal"
@@ -171,14 +168,14 @@ const PrivilegeMainCard = ({
                                 </button>
                             ) : privilegeCardInfo?.product_name !==
                                   "Membership Card" &&
-                              privilegeCardInfo?.cancel_status === 1 ? (
+                              privilegeCardInfo?.cancel_status === 2 ? (
                                 <button className="btn btn-warning">
                                     Cancel In Review
                                 </button>
                             ) : (
                                 privilegeCardInfo?.product_name !==
                                     "Membership Card" &&
-                                privilegeCardInfo?.cancel_status === 2 && (
+                                privilegeCardInfo?.cancel_status === 3 && (
                                     <button className="btn btn-warning">
                                         Refunded
                                     </button>
@@ -198,6 +195,8 @@ const PrivilegeMainCard = ({
 
             {privilegeCardInfo?.product_name !== "Membership Card" &&
                 privilegeCardInfo?.rebate_status === 1 &&
+                balanceAfterChoosing.status === 0 &&
+                privilegeCardInfo?.cancel_status === 5 &&
                 !isPending && (
                     <PrivilegeChooseOptionBtn
                         choocingProductAmount={choocingProductAmount}
@@ -207,7 +206,8 @@ const PrivilegeMainCard = ({
                     />
                 )}
 
-            {privilegeCardInfo?.product_name !== "Membership Card" &&
+            {privilegeCardInfo?.cancel_status === 5 &&
+                privilegeCardInfo?.product_name !== "Membership Card" &&
                 !isPending && (
                     <ShowingProductPrices
                         balanceAfterChoosing={balanceAfterChoosing}

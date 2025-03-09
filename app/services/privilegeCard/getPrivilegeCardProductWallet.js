@@ -1,12 +1,13 @@
 import { apiBaseUrl } from "@/app/utils";
 
-export const getPrivilegeCardRebateRecord = async (token, params = {}) => {
-    if (!token) return null;
+export const getPrivilegeCardProductWallet = async (token, params = {}) => {
+    if (!token) return;
     try {
         const queryParams = new URLSearchParams(params).toString();
+
         const url = queryParams
-            ? `${apiBaseUrl}/privilege-card-rebate-record?${queryParams}`
-            : `${apiBaseUrl}/privilege-card-rebate-record`;
+            ? `${apiBaseUrl}/privilege-card-product-statement?${queryParams}`
+            : `${apiBaseUrl}/privilege-card-product-statement`;
 
         const response = await fetch(url, {
             method: "GET",
@@ -20,9 +21,10 @@ export const getPrivilegeCardRebateRecord = async (token, params = {}) => {
         return await response.json();
     } catch (error) {
         console.error(
-            "Something went wrong fetching Privilege Card Rebate Record Data",
+            "Something went wrong fetching Privilege Card Product Wallet  Data",
             error
         );
-        return null;
+        console.info(error);
+        return;
     }
 };

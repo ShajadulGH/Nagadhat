@@ -7,10 +7,8 @@ import { toast } from "react-toastify";
 
 const PrivilegeAddToCard = ({
     productsData,
-    totalAmount,
     setRendaringCartPrice,
     rendaringCartPrice,
-    productCardLimit,
     quantity,
     isButtonDisable,
 }) => {
@@ -21,7 +19,6 @@ const PrivilegeAddToCard = ({
         }
         return 3;
     });
-
 
     const [districtId, setDistrictId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -75,20 +72,29 @@ const PrivilegeAddToCard = ({
             <button
                 onClick={handlePrivilegeAddToCard}
                 className={`border-0 add-to-cart-link rounded-2 flex items-center justify-center ${
-                    isButtonDisable ? "" : "disabled-button"
+                    isButtonDisable ? "disabled-button" : ""
                 } ${
                     productsData?.purchase_quantity === 0
                         ? "disabled-button"
                         : ""
-                }`}
+                } ${isPending ? "opacity-50 pointer-events-none" : ""}`}
                 disabled={
-                    !isButtonDisable || productsData?.purchase_quantity === 0
+                    isButtonDisable ||
+                    productsData?.purchase_quantity === 0 ||
+                    isPending
                 }
+                style={{
+                    pointerEvents: isPending ? "none" : "auto",
+                    cursor: isPending ? "not-allowed" : "pointer",
+                }}
             >
                 {isPending ? (
                     <div
                         className="flex items-center justify-center"
-                        style={{ height: "21px", width: "30px" }}
+                        style={{
+                            height: "21px",
+                            width: "30px",
+                        }}
                     >
                         <RotatingLines
                             visible={true}

@@ -66,7 +66,12 @@ const PrivilegeCardProductTable = ({
 
     return (
         <>
-            <div className="table-responsive px-3 px-md-4">
+            <div
+                className={`table-responsive px-3 px-md-4 ${
+                    isPending ? "opacity-50 pointer-events-none" : ""
+                }`}
+                disabled={isPending}
+            >
                 <table
                     className="table table-bordered border-secondary table-hover table-striped"
                     style={{ minWidth: "850px" }}
@@ -91,7 +96,17 @@ const PrivilegeCardProductTable = ({
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="100%">No products available</td>
+                                <td colSpan="100%">
+                                    {alreadyBuyResponse?.code === 402 ? (
+                                        <h1 className="text-center py-5 fs-4 text-capitalize">
+                                            {alreadyBuyResponse?.message}
+                                        </h1>
+                                    ) : (
+                                        <h1 className="text-center py-5 fs-4 text-capitalize">
+                                            No Products Available
+                                        </h1>
+                                    )}
+                                </td>
                             </tr>
                         )}
                     </tbody>

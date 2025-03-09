@@ -186,7 +186,22 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
                                         href="/privilege-card-wallet-statement"
                                     >
                                         <span className="dropdown-item-circle"></span>
-                                        Wallet Statement
+                                        Shopping Wallet 
+                                    </Link>
+                                </li>
+                                <li className="dropdown-item customer-dashboard-dropdown-item">
+                                    <Link
+                                        onClick={toggleSidebar}
+                                        className={`${isActive(
+                                            "/privilege-card-product-wallet"
+                                        )
+                                            ? "activ-link"
+                                            : ""
+                                            } nav-link customer-dashboard-nav-link customer-dashboard-dropdown-link`}
+                                        href="/privilege-card-product-wallet"
+                                    >
+                                        <span className="dropdown-item-circle"></span>
+                                        Product Wallet 
                                     </Link>
                                 </li>
                                 <li className="dropdown-item customer-dashboard-dropdown-item">

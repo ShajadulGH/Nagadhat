@@ -27,24 +27,31 @@ const PrivilegeCardProductTableBody = ({
         cart_id,
     } = item;
 
+    // console.log("item=====", item);
+
     const [changeQuantity, setChangeQuantity] = useState(purchase_quantity);
-    const [changePrice, setChangePrice] = useState(purchases_price * changeQuantity);
+    const [changePrice, setChangePrice] = useState(
+        purchases_price * changeQuantity
+    );
 
     const imageUrl = product_thumbnail
         ? `${NagadhatPublicUrl}/${product_thumbnail}`
         : "/images/placeholder--image.jpg";
     const totalAmount = purchases_price * changeQuantity;
-    
+
     const netPrice = useMemo(
-        () => privilegeCartItem.reduce((acc, item) => acc + item.purchase_price * item?.quantity, 0),
+        () =>
+            privilegeCartItem.reduce(
+                (acc, item) => acc + item.purchase_price * item?.quantity,
+                0
+            ),
         [privilegeCartItem]
     );
 
     const handleIncrementWithLimit = (purchase_quantity) => {
-  
         if (
-            changeQuantity < purchase_quantity &&
-            (changePrice + netPrice) <= productCardLimit
+            changeQuantity <= purchase_quantity &&
+            changePrice + netPrice <= productCardLimit
         ) {
             setChangeQuantity((prev) => prev + 1);
         } else {
@@ -67,11 +74,11 @@ const PrivilegeCardProductTableBody = ({
     const handleProductClick = (proItem) => {
         setProductDetail(proItem);
     };
-    
+
     let cartItem = privilegeCartItem.find(
         (cartPrice) => cartPrice.product_id === id
     );
-    
+
     return (
         <>
             <tr key={id}>
@@ -146,10 +153,7 @@ const PrivilegeCardProductTableBody = ({
                     </span>
                 </td>
                 <td>
-                    {
-                        cartItem?.price &&
-                        cartItem?.price * cartItem?.quantity
-                    }
+                    {cartItem?.price && cartItem?.price * cartItem?.quantity}
                 </td>
                 <td>
                     {cart_status === 1 ? (
@@ -160,7 +164,8 @@ const PrivilegeCardProductTableBody = ({
                             productsData={item}
                             quantity={changeQuantity}
                             isButtonDisable={
-                               ( changePrice + netPrice) <= productCardLimit
+                                changePrice + netPrice >= productCardLimit ||
+                                purchases_price >= productCardLimit
                             }
                         />
                     ) : (
