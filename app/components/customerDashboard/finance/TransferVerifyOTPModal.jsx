@@ -1,7 +1,7 @@
 "use client"
 import { postVerifyTransferOtp } from '@/app/services/affiliate-finance/postVerifyTransferOtp';
 import { useSession } from 'next-auth/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 

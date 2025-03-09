@@ -113,7 +113,7 @@ const PrivilegeCardProduct = () => {
         <>
             {isPending && <LodingFixed />}
 
-            {alreadyBuyResponse?.code === 402 ? (
+            {alreadyBuyResponse?.results?.buy_id === 10 ? (
                 <div className="p-4">
                     <DiscountpartnerList
                         partnerData={discountPartnerList}
