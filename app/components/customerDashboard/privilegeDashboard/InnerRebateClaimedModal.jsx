@@ -1,7 +1,7 @@
 "use client";
 import { postPrivilegeCardShoppingChoice } from "@/app/services/privilegeCard/postPrivilegeCardShoppingChoice";
 import { useSession } from "next-auth/react";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { toast } from "react-toastify";
 import { RotatingLines } from "react-loader-spinner"; // Assuming you are using this for loading spinner
 
