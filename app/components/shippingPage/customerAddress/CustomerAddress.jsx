@@ -52,6 +52,19 @@ const CustomerAddress = ({
     return 3;
   });
 
+  const [bootstrap, setBootstrap] = useState(null);
+
+    // Dynamically import bootstrap bundle on the client-side
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
+
   // Utility functions
   const validate = () => {
     const errors = {};
@@ -118,9 +131,11 @@ const CustomerAddress = ({
     const modalElement = document.getElementById(
       "change-nhn-shipping-address"
     );
-
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
+    if (bootstrap && modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    }
+    
   };
 
   const afterClickingEditButton = (id) => {
@@ -148,8 +163,10 @@ const CustomerAddress = ({
     const modalElement = document.getElementById(
       "shipping-pick-point-modal"
     );
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
+    if (bootstrap && modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    }
   };
 
   // Effects
@@ -237,8 +254,11 @@ const CustomerAddress = ({
       localStorage.setItem("userEmail", tempEmail);
 
       const modalElement = document.getElementById("edit-mail-shipping-modal");
+
+      if (bootstrap && modalElement) {
       const modalInstance = bootstrap.Modal.getInstance(modalElement);
       modalInstance.hide();
+    }
     }
   };
 
@@ -272,8 +292,11 @@ const CustomerAddress = ({
 
     // Hide modal after update
     const modalElement = document.getElementById("updatedeliveryaddress");
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
+    if (bootstrap && modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    }
+
     setIsOpen(true);
 
     // Reset form data
@@ -320,8 +343,11 @@ const CustomerAddress = ({
     setSelectedDefaultAddressId(defaultAddressInfo?.id);
     // Close the modal
     const modalElement = document.getElementById("addnewdeliveryaddress");
-    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-    modalInstance.hide();
+    if (bootstrap && modalElement) {
+      const modalInstance = bootstrap.Modal.getInstance(modalElement);
+      modalInstance.hide();
+    }
+    
     // Reset form data
     setFormData({
       fullName: "",
