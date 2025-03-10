@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import logo from "@/public/images/nagadhat-squire-logo.jpeg"
 import handshake from "@/public/images/handshake.gif"
