@@ -1,7 +1,7 @@
 "use client";
 import { postPrivilegeCardShoppingChoice } from "@/app/services/privilegeCard/postPrivilegeCardShoppingChoice";
 import { useSession } from "next-auth/react";
-import { useRef, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
 const PrivilegeChooseOptionBtn = ({
