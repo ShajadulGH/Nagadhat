@@ -3,8 +3,8 @@ import { getFinanceWithdrawHistoryById } from "@/app/services/affiliate-finance/
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useEffect, useState, useTransition } from "react";
 
-const WithdrawHistoryModal = ({ selectedId, token }) => {
-    const [withdrawData, setWithdrawData] = useState({});
+const WithdrawHistoryModal = ({ selectedId, token, modalId }) => {
+    const [withdrawData, setWithdrawData] = useState(null);
     const [isPending, startTransition] = useTransition();
 
     useEffect(() => {
@@ -25,12 +25,12 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
 
     return (
         <>
-            {/* <!-- Modal --> */}
+            {/* Modal with dynamic ID */}
             <div
                 className="modal fade"
-                id="viewWithdrawHistoryModal"
+                id={modalId}
                 tabIndex="-1"
-                aria-labelledby="viewWithdrawHistoryModalLabel"
+                aria-labelledby={`${modalId}Label`}
                 aria-hidden="true"
             >
                 <div className="modal-dialog modal-dialog-scrollable custom-withdrawHistory">
@@ -38,7 +38,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                         <div className="modal-header">
                             <h1
                                 className="modal-title fs-5"
-                                id="viewWithdrawHistoryModalLabel"
+                                id={`${modalId}Label`}
                             >
                                 {withdrawData
                                     ? withdrawData.status
@@ -52,10 +52,9 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                             ></button>
                         </div>
                         {isPending ? (
-                            <div className=" d-flex align-content-center justify-content-center h-100 pt-5 pb-5">
-                                <h1>loading...</h1>
+                            <div className="d-flex align-content-center justify-content-center h-100 pt-5 pb-5">
+                                <h1>Loading...</h1>
                             </div>
-                            
                         ) : (
                             <div className="modal-body p-4">
                                 <table className="table table-bordered table-hover">
@@ -97,7 +96,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                         {withdrawData?.account_number && (
                                             <tr>
                                                 <th scope="row">
-                                                    Account number:
+                                                    Account Number:
                                                 </th>
                                                 <td>
                                                     {
@@ -122,7 +121,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                             <tr>
                                                 <th scope="row">Payable:</th>
                                                 <td>
-                                                    ৳ {withdrawData?.payable}
+                                                    ৳ {withdrawData.payable}
                                                 </td>
                                             </tr>
                                         )}
@@ -132,7 +131,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                     Requested On:
                                                 </th>
                                                 <td>
-                                                    {withdrawData?.request_on}
+                                                    {withdrawData.request_on}
                                                 </td>
                                             </tr>
                                         )}
@@ -142,14 +141,14 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                     Completed Date:
                                                 </th>
                                                 <td>
-                                                    {withdrawData?.update_on}
+                                                    {withdrawData.update_on}
                                                 </td>
                                             </tr>
                                         )}
                                         {withdrawData?.transection_id && (
                                             <tr>
                                                 <th scope="row">
-                                                    Transaction Id:
+                                                    Transaction ID:
                                                 </th>
                                                 <td>
                                                     {
@@ -159,7 +158,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                             </tr>
                                         )}
                                         {withdrawData?.script_pic &&
-                                        withdrawData?.script_pic !=
+                                        withdrawData?.script_pic !==
                                             "Not Attached" ? (
                                             <tr>
                                                 <th scope="row">
@@ -167,7 +166,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                 </th>
                                                 <td>
                                                     <a
-                                                        href={`${NagadhatPublicUrl}/${withdrawData?.script_pic}`}
+                                                        href={`${NagadhatPublicUrl}/${withdrawData.script_pic}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                     >
@@ -175,9 +174,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                                                     </a>
                                                 </td>
                                             </tr>
-                                        ) : (
-                                            ""
-                                        )}
+                                        ) : null}
                                     </tbody>
                                 </table>
                             </div>
