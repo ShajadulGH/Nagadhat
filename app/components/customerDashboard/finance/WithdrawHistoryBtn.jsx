@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const WithdrawHistoryBtn = ({ item, token }) => {
     const [selectedId, setSelectedId] = useState(null);
+    const modalId = `viewWithdrawHistoryModal-${item?.id}`;
     return (
         <>
             <td className="text-center align-middle">
@@ -13,13 +14,13 @@ const WithdrawHistoryBtn = ({ item, token }) => {
                         type="button"
                         className="border-0"
                         data-bs-toggle="modal"
-                        data-bs-target="#viewWithdrawHistoryModal"
+                        data-bs-target={`#${modalId}`}
                         onClick={() => setSelectedId(item?.id)}
                     >
                         <FaEye />
                     </button>
                 </div>
-                <WithdrawHistoryModal selectedId={selectedId} token={token} />
+                <WithdrawHistoryModal selectedId={selectedId} token={token}  modalId={modalId}  />
             </td>
 
         </>
