@@ -171,10 +171,10 @@ const AgentWithdrawalModal = ({
                         <div className="container d-flex gap-3 flex-column">
                             <div className="text-center">
                                 <Image
-                                     height={200}
-                                     width={360}
-                                     className="img-fluid"
-                                     style={{ maxWidth: "360px", width: "80%" }}
+                                    height={200}
+                                    width={360}
+                                    className="img-fluid"
+                                    style={{ maxWidth: "360px", width: "80%" }}
                                     src={agentImg}
                                     alt="Pay with agent"
                                 />
