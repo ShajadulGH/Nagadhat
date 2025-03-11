@@ -13,7 +13,7 @@ const OTP = () => {
     const router = useRouter();
     let pin = searchParams.get("pin") ? searchParams.get("pin") : "";
     let otpType = searchParams.get("otpType") ? searchParams.get("otpType") : "";
-    const [otp, setOtp] = useState( searchParams.get("otp"));
+    const [otp, setOtp] = useState("");
     const { data: session } = useSession();
 
     const handleSubmit = async (e) => {
