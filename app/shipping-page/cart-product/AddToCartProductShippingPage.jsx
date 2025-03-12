@@ -71,7 +71,7 @@ const AddToCartProductShippingPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (session) {
+            if (session?.accessToken) {
                 try {
                     setLoading(true);
                     const data = await getCustomerAllShippingAddress(
@@ -98,9 +98,10 @@ const AddToCartProductShippingPage = () => {
                     setPickUpPoint(pickUpPoint);
                     const totalDistrict = await getDistrictForShipping();
                     setDistrictsData(totalDistrict?.results?.districts);
-                    setLoading(false);
                 } catch (error) {
                     console.error("Error fetching data:", error);
+                } finally {
+                    setLoading(false);  
                 }
             }
         };
@@ -108,64 +109,72 @@ const AddToCartProductShippingPage = () => {
     }, [session?.accessToken]);
 
     const handlePlaceOrder = async () => {
-        if (!isTermsChecked) {
-            toast.error("You must agree to the terms and conditions.");
-            return;
-        }
-        const cartItems = cartProduct?.map((item) => ({
-            product_id: item.product_id,
-            cart_product_type: parseInt(item.cart_product_type),
-            product_quantity: item.quantity,
-            product_unit_price: item.price,
-            product_variation_id: item.product_variation_id,
-            product_shipping_charge: "", // Replace with actual shipping charge if applicable
-            product_discount_type: item.discount_type,
-            product_discount_amount: item?.discountPrice,
-            vendor_id: "", // Replace with actual vendor ID if applicable
-            thumbnail: item?.product_thumbnail,
-            product_regular_price: item.regular_price,
-        }));
+        try {
+            setLoading(true);
+            if (!isTermsChecked) {
+                toast.error("You must agree to the terms and conditions.");
+                return;
+            }
+            const cartItems = cartProduct?.map((item) => ({
+                product_id: item.product_id,
+                cart_product_type: parseInt(item.cart_product_type),
+                product_quantity: item.quantity,
+                product_unit_price: item.price,
+                product_variation_id: item.product_variation_id,
+                product_shipping_charge: "", // Replace with actual shipping charge if applicable
+                product_discount_type: item.discount_type,
+                product_discount_amount: item?.discountPrice,
+                vendor_id: "", // Replace with actual vendor ID if applicable
+                thumbnail: item?.product_thumbnail,
+                product_regular_price: item.regular_price,
+            }));
 
-        const payload = {
-            order_product_type: parseInt(cartProduct[0].cart_product_type),
-            outlet_id: outletId,
-            location_id: districtId,
-            shipping_address_id: selectedDefaultAddressId, // Replace with actual shipping address ID if applicable
-            delivery_note: deliveryNote,
-            total_delivery_charge: shippingPrice || 0,
-            total_products_price: totalPrice,
-            payment_type: "cash_on_delivery",
-            shipping_email: userEmail,
-            place_order_with: "add to cart",
-            outlet_pickup_point_id: pickUpIdForOrder,
-            sub_total: subTotal,
-            discount_amount: subTotal - totalPrice,
-            grand_total: totalPrice + parseInt(shippingPrice),
-            cart_items: cartItems,
-        };
-        const order = await placeOrder(payload, session?.accessToken);
-        const cartProductsItem = await fetchCartProductsLength(
-            session?.accessToken,
-            outletId,
-            districtId
-        );
-        const quantityTotal = getTotalQuantity(cartProductsItem?.data);
-
-        // setCartProduct(cartProductsItem?.data);
-
-        if (order.code == 200) {
-            setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
-
-            router.push(`/paynow?orderId=${order?.results?.order_id}`);
-            dispatch(
-                setAddToCart({
-                    hasSession: true,
-                    length: quantityTotal,
-                })
+            const payload = {
+                order_product_type: parseInt(cartProduct[0].cart_product_type),
+                outlet_id: outletId,
+                location_id: districtId,
+                shipping_address_id: selectedDefaultAddressId, // Replace with actual shipping address ID if applicable
+                delivery_note: deliveryNote,
+                total_delivery_charge: shippingPrice || 0,
+                total_products_price: totalPrice,
+                payment_type: "cash_on_delivery",
+                shipping_email: userEmail,
+                place_order_with: "add to cart",
+                outlet_pickup_point_id: pickUpIdForOrder,
+                sub_total: subTotal,
+                discount_amount: subTotal - totalPrice,
+                grand_total: totalPrice + parseInt(shippingPrice),
+                cart_items: cartItems,
+            };
+            const order = await placeOrder(payload, session?.accessToken);
+            const cartProductsItem = await fetchCartProductsLength(
+                session?.accessToken,
+                outletId,
+                districtId
             );
-        } else {
-            setRedirectPath("#");
-            toast.error(order.message, "error");
+            const quantityTotal = getTotalQuantity(cartProductsItem?.data);
+
+            // setCartProduct(cartProductsItem?.data);
+
+            if (order.code == 200) {
+                setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
+
+                router.push(`/paynow?orderId=${order?.results?.order_id}`);
+                dispatch(
+                    setAddToCart({
+                        hasSession: true,
+                        length: quantityTotal,
+                    })
+                );
+            } else {
+                setRedirectPath("#");
+                toast.error(order.message, "error");
+            }
+        } catch (error) {
+            console.error("Error placing order:", error);
+            toast.error("Error placing order", "error");  
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -178,7 +187,7 @@ const AddToCartProductShippingPage = () => {
                 setUserEmail(session.user.email);
             }
         }
-    }, [session]);
+    }, [session?.accessToken]);
 
     return (
         <>
@@ -247,6 +256,7 @@ const AddToCartProductShippingPage = () => {
                                         setIsTermsChecked={setIsTermsChecked}
                                         customerAddress={customerAddress}
                                         cartProduct={cartProduct}
+                                        loading={loading}
                                     />
                                 </div>
                             </div>
