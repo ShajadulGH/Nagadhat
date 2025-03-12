@@ -8,7 +8,8 @@ const ShippingOrderSection= ({
     setIsTermsChecked,
     customerAddress,
     cartProduct,
-    shippingPrice
+    shippingPrice,
+    loading
 }) => {
     return (
         <>
@@ -66,24 +67,20 @@ const ShippingOrderSection= ({
 
                         <div className="place-order-btn">
                             <button
-                                // href={
-                                //     customerAddress?.length > 0 && cartProduct?.length > 0
-                                //         ? redirectPath
-                                //         : "#"
-                                // }
                                 onClick={handlePlaceOrder}
                                 className="add-to-cart-link border border-0 w-100"
+                                disabled={loading && !isTermsChecked && !customerAddress?.length > 0 && !cartProduct?.length > 0}
                                 style={{
                                     pointerEvents:
                                         customerAddress?.length > 0 &&
                                             cartProduct?.length > 0 &&
-                                            isTermsChecked
+                                            isTermsChecked && !loading
                                             ? "auto"
                                             : "none",
                                     opacity:
                                         customerAddress?.length > 0 &&
                                             cartProduct?.length > 0 &&
-                                            isTermsChecked
+                                            isTermsChecked && !loading
                                             ? 1
                                             : 0.5,
                                 }}
