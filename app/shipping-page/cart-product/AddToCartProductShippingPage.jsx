@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import CustomerAddress from "@/app/components/shippingPage/customerAddress/CustomerAddress";
 import ShippingProduct from "@/app/components/shippingPage/ShippingProduct";
 import ShippingOrderSection from "@/app/components/shippingPage/ShippingOrderSection";
+import LodingFixed from "@/app/components/LodingFixed";
 
 function findObjectWithKey(array, key, value) {
     return array.find((obj) => obj[key] === value);
@@ -191,79 +192,52 @@ const AddToCartProductShippingPage = () => {
 
     return (
         <>
-            {loading ? (
-                <div
-                    style={{
-                        textAlign: "center",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        color: "#fff",
-                        height: "100vh",
-                        width: "100%",
-                    }}
-                >
-                    <RotatingLines
-                        visible={true}
-                        height="80"
-                        width="80"
-                        color="white"
-                        strokeColor="#44bc9d"
-                        strokeWidth="5"
-                        animationDuration="0.75"
-                        ariaLabel="rotating-lines-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
-                </div>
-            ) : (
-                <>
-                    <section className="shipping-section-area nh-new-shipping-wrapper">
-                        <div className="container">
-                            <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
-                                <div className="col-lg-8">
-                                    <CustomerAddress
-                                        setPickUpIdForOrder={
-                                            setPickUpIdForOrder
-                                        }
-                                        setShippingPrice={setShippingPrice}
-                                        setDeliveryNote={setDeliveryNote}
-                                        customerAddress={customerAddress}
-                                        setCustomerAddress={setCustomerAddress}
-                                        selectedDefaultAddressId={
-                                            selectedDefaultAddressId
-                                        }
-                                        setSelectedDefaultAddressId={
-                                            setSelectedDefaultAddressId
-                                        }
-                                        cartProduct={cartProduct}
-                                    />
+            <section className="shipping-section-area nh-new-shipping-wrapper">
+            
+                <div className="container">
+                { loading && <LodingFixed/>}
+                    <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
+                        <div className="col-lg-8">
+                            <CustomerAddress
+                                setPickUpIdForOrder={
+                                    setPickUpIdForOrder
+                                }
+                                setShippingPrice={setShippingPrice}
+                                setDeliveryNote={setDeliveryNote}
+                                customerAddress={customerAddress}
+                                setCustomerAddress={setCustomerAddress}
+                                selectedDefaultAddressId={
+                                    selectedDefaultAddressId
+                                }
+                                setSelectedDefaultAddressId={
+                                    setSelectedDefaultAddressId
+                                }
+                                cartProduct={cartProduct}
+                            />
 
-                                    {/* shows add to card product */}
-                                    <ShippingProduct
-                                        cartProduct={cartProduct}
-                                        setTotalPrice={setTotalPrice}
-                                        setSubTotal={setSubTotal}
-                                    />
-                                </div>
-                                <div className="col-lg-4">
-                                    <ShippingOrderSection
-                                        subTotal={subTotal}
-                                        totalPrice={totalPrice}
-                                        shippingPrice={shippingPrice}
-                                        handlePlaceOrder={handlePlaceOrder}
-                                        isTermsChecked={isTermsChecked}
-                                        setIsTermsChecked={setIsTermsChecked}
-                                        customerAddress={customerAddress}
-                                        cartProduct={cartProduct}
-                                        loading={loading}
-                                    />
-                                </div>
-                            </div>
+                            {/* shows add to card product */}
+                            <ShippingProduct
+                                cartProduct={cartProduct}
+                                setTotalPrice={setTotalPrice}
+                                setSubTotal={setSubTotal}
+                            />
                         </div>
-                    </section>
-                </>
-            )}
+                        <div className="col-lg-4">
+                            <ShippingOrderSection
+                                subTotal={subTotal}
+                                totalPrice={totalPrice}
+                                shippingPrice={shippingPrice}
+                                handlePlaceOrder={handlePlaceOrder}
+                                isTermsChecked={isTermsChecked}
+                                setIsTermsChecked={setIsTermsChecked}
+                                customerAddress={customerAddress}
+                                cartProduct={cartProduct}
+                                loading={loading}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     );
 };
