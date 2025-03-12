@@ -15,6 +15,7 @@ import NoDataFound from "../../NoDataFound";
 import { postSaleOnNagadhat } from "@/app/services/affiliate/postSaleOnNagadhat";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { RotatingLines } from "react-loader-spinner";
 
 const SaleOnNagadhatModal = ({ resaleOrderID }) => {
     const [isPending, startTransition] = useTransition();
@@ -119,22 +120,25 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                 browser: browserInfo || "",
                 browsing_address: ipAddress || "",
             };
-            const response = await postSaleOnNagadhat(
-                saleOnData,
-                session?.accessToken
-            );
-            let saleOnNagadhatId = response?.results?.id;
-            if (bootstrap && !response?.error) {
-                const modal = bootstrap.Modal.getInstance(modalRef.current);
-                if (modal) modal.hide();
-                router.push(
-                    `/thank-you-for-sale-on-nagadhat?saleonid=${saleOnNagadhatId}`
+            startTransition(async () => {
+                const response = await postSaleOnNagadhat(
+                    saleOnData,
+                    session?.accessToken
                 );
-            } else {
-                toast.error(
-                    response?.message || "Failed to process the sale agreement."
-                );
-            }
+                let saleOnNagadhatId = response?.results?.id;
+                if (bootstrap && !response?.error) {
+                    const modal = bootstrap.Modal.getInstance(modalRef.current);
+                    if (modal) modal.hide();
+                    router.push(
+                        `/thank-you-for-sale-on-nagadhat?saleonid=${saleOnNagadhatId}`
+                    );
+                } else {
+                    toast.error(
+                        response?.message ||
+                            "Failed to process the sale agreement."
+                    );
+                }
+            });
         } catch (error) {
             console.error("Error handling agreement:", error);
             toast.error(
@@ -179,22 +183,21 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                             <div className=" d-flex gap-4 justify-content-between">
                                 <div className="">
                                     <div className="mb-3 d-flex align-items-center gap-2">
-                                        
                                         <label
                                             className="form-check-label fs-5 fw-bold "
                                             htmlFor="terms-condition"
                                         >
                                             <input
-                                            type="checkbox"
-                                            className="form-check-input border-2 border-info me-2 mt-0"
-                                            id="terms-condition"
-                                            style={{
-                                                width: "25px",
-                                                height: "25px",
-                                            }}
-                                            checked={checkTermsCondition}
-                                            onChange={handleTermsCondition}
-                                        />
+                                                type="checkbox"
+                                                className="form-check-input border-2 border-info me-2 mt-0"
+                                                id="terms-condition"
+                                                style={{
+                                                    width: "25px",
+                                                    height: "25px",
+                                                }}
+                                                checked={checkTermsCondition}
+                                                onChange={handleTermsCondition}
+                                            />
                                             I accept the terms and conditions.
                                         </label>
                                     </div>
@@ -243,10 +246,36 @@ const SaleOnNagadhatModal = ({ resaleOrderID }) => {
                                         ? "pointer"
                                         : "not-allowed",
                                 }}
-                                disabled={!checkTermsCondition && !saleOnLength}
+                                disabled={
+                                    !checkTermsCondition &&
+                                    !saleOnLength &&
+                                    isPending
+                                }
                                 onClick={handleAgreement}
                             >
-                                I agreed to a sale on Nagadhat.
+                                {isPending ? (
+                                    <div
+                                        style={{
+                                            height: "30px",
+                                            width: " 220px",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        <RotatingLines
+                                            visible={true}
+                                            height="18"
+                                            width="20"
+                                            color="#ffffff"
+                                            strokeWidth="5"
+                                            animationDuration="0.75"
+                                            ariaLabel="rotating-lines-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClass="w-25"
+                                        />
+                                    </div>
+                                ) : (
+                                    "I agreed to a sale on Nagadhat."
+                                )}
                             </button>
                         </div>
                     </div>
