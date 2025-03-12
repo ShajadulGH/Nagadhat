@@ -927,11 +927,11 @@ const CartPage = () => {
                                                 handlePlaceOrder();
                                             }}
                                             className="add-to-cart-link border border-0 w-100"
-                                            disabled={!totalPrice}
+                                            disabled={!totalPrice && loading && isButtonDisabled}
                                             style={{
                                                 pointerEvents:
                                                     totalPrice &&
-                                                        !isButtonDisabled
+                                                        !isButtonDisabled && !loading
                                                         ? "auto"
                                                         : "none",
                                                 opacity:
@@ -951,11 +951,11 @@ const CartPage = () => {
                                                 handleCheckoutNavigation();
                                             }}
                                             className="add-to-cart-link border border-0 w-100"
-                                            disabled={!totalPrice}
+                                            disabled={!totalPrice && loading && isButtonDisabled}
                                             style={{
                                                 pointerEvents:
                                                     totalPrice &&
-                                                        !isButtonDisabled
+                                                        !isButtonDisabled && !loading
                                                         ? "auto"
                                                         : "none",
                                                 opacity:

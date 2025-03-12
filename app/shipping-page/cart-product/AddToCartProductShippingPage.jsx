@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import CustomerAddress from "@/app/components/shippingPage/customerAddress/CustomerAddress";
 import ShippingProduct from "@/app/components/shippingPage/ShippingProduct";
 import ShippingOrderSection from "@/app/components/shippingPage/ShippingOrderSection";
+import LodingFixed from "@/app/components/LodingFixed";
 
 function findObjectWithKey(array, key, value) {
     return array.find((obj) => obj[key] === value);
@@ -71,7 +72,7 @@ const AddToCartProductShippingPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (session) {
+            if (session?.accessToken) {
                 try {
                     setLoading(true);
                     const data = await getCustomerAllShippingAddress(
@@ -98,9 +99,10 @@ const AddToCartProductShippingPage = () => {
                     setPickUpPoint(pickUpPoint);
                     const totalDistrict = await getDistrictForShipping();
                     setDistrictsData(totalDistrict?.results?.districts);
-                    setLoading(false);
                 } catch (error) {
                     console.error("Error fetching data:", error);
+                } finally {
+                    setLoading(false);  
                 }
             }
         };
@@ -108,64 +110,72 @@ const AddToCartProductShippingPage = () => {
     }, [session?.accessToken]);
 
     const handlePlaceOrder = async () => {
-        if (!isTermsChecked) {
-            toast.error("You must agree to the terms and conditions.");
-            return;
-        }
-        const cartItems = cartProduct?.map((item) => ({
-            product_id: item.product_id,
-            cart_product_type: parseInt(item.cart_product_type),
-            product_quantity: item.quantity,
-            product_unit_price: item.price,
-            product_variation_id: item.product_variation_id,
-            product_shipping_charge: "", // Replace with actual shipping charge if applicable
-            product_discount_type: item.discount_type,
-            product_discount_amount: item?.discountPrice,
-            vendor_id: "", // Replace with actual vendor ID if applicable
-            thumbnail: item?.product_thumbnail,
-            product_regular_price: item.regular_price,
-        }));
+        try {
+            setLoading(true);
+            if (!isTermsChecked) {
+                toast.error("You must agree to the terms and conditions.");
+                return;
+            }
+            const cartItems = cartProduct?.map((item) => ({
+                product_id: item.product_id,
+                cart_product_type: parseInt(item.cart_product_type),
+                product_quantity: item.quantity,
+                product_unit_price: item.price,
+                product_variation_id: item.product_variation_id,
+                product_shipping_charge: "", // Replace with actual shipping charge if applicable
+                product_discount_type: item.discount_type,
+                product_discount_amount: item?.discountPrice,
+                vendor_id: "", // Replace with actual vendor ID if applicable
+                thumbnail: item?.product_thumbnail,
+                product_regular_price: item.regular_price,
+            }));
 
-        const payload = {
-            order_product_type: parseInt(cartProduct[0].cart_product_type),
-            outlet_id: outletId,
-            location_id: districtId,
-            shipping_address_id: selectedDefaultAddressId, // Replace with actual shipping address ID if applicable
-            delivery_note: deliveryNote,
-            total_delivery_charge: shippingPrice || 0,
-            total_products_price: totalPrice,
-            payment_type: "cash_on_delivery",
-            shipping_email: userEmail,
-            place_order_with: "add to cart",
-            outlet_pickup_point_id: pickUpIdForOrder,
-            sub_total: subTotal,
-            discount_amount: subTotal - totalPrice,
-            grand_total: totalPrice + parseInt(shippingPrice),
-            cart_items: cartItems,
-        };
-        const order = await placeOrder(payload, session?.accessToken);
-        const cartProductsItem = await fetchCartProductsLength(
-            session?.accessToken,
-            outletId,
-            districtId
-        );
-        const quantityTotal = getTotalQuantity(cartProductsItem?.data);
-
-        // setCartProduct(cartProductsItem?.data);
-
-        if (order.code == 200) {
-            setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
-
-            router.push(`/paynow?orderId=${order?.results?.order_id}`);
-            dispatch(
-                setAddToCart({
-                    hasSession: true,
-                    length: quantityTotal,
-                })
+            const payload = {
+                order_product_type: parseInt(cartProduct[0].cart_product_type),
+                outlet_id: outletId,
+                location_id: districtId,
+                shipping_address_id: selectedDefaultAddressId, // Replace with actual shipping address ID if applicable
+                delivery_note: deliveryNote,
+                total_delivery_charge: shippingPrice || 0,
+                total_products_price: totalPrice,
+                payment_type: "cash_on_delivery",
+                shipping_email: userEmail,
+                place_order_with: "add to cart",
+                outlet_pickup_point_id: pickUpIdForOrder,
+                sub_total: subTotal,
+                discount_amount: subTotal - totalPrice,
+                grand_total: totalPrice + parseInt(shippingPrice),
+                cart_items: cartItems,
+            };
+            const order = await placeOrder(payload, session?.accessToken);
+            const cartProductsItem = await fetchCartProductsLength(
+                session?.accessToken,
+                outletId,
+                districtId
             );
-        } else {
-            setRedirectPath("#");
-            toast.error(order.message, "error");
+            const quantityTotal = getTotalQuantity(cartProductsItem?.data);
+
+            // setCartProduct(cartProductsItem?.data);
+
+            if (order.code == 200) {
+                setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
+
+                router.push(`/paynow?orderId=${order?.results?.order_id}`);
+                dispatch(
+                    setAddToCart({
+                        hasSession: true,
+                        length: quantityTotal,
+                    })
+                );
+            } else {
+                setRedirectPath("#");
+                toast.error(order.message, "error");
+            }
+        } catch (error) {
+            console.error("Error placing order:", error);
+            toast.error("Error placing order", "error");  
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -178,82 +188,56 @@ const AddToCartProductShippingPage = () => {
                 setUserEmail(session.user.email);
             }
         }
-    }, [session]);
+    }, [session?.accessToken]);
 
     return (
         <>
-            {loading ? (
-                <div
-                    style={{
-                        textAlign: "center",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        color: "#fff",
-                        height: "100vh",
-                        width: "100%",
-                    }}
-                >
-                    <RotatingLines
-                        visible={true}
-                        height="80"
-                        width="80"
-                        color="white"
-                        strokeColor="#44bc9d"
-                        strokeWidth="5"
-                        animationDuration="0.75"
-                        ariaLabel="rotating-lines-loading"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                    />
-                </div>
-            ) : (
-                <>
-                    <section className="shipping-section-area nh-new-shipping-wrapper">
-                        <div className="container">
-                            <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
-                                <div className="col-lg-8">
-                                    <CustomerAddress
-                                        setPickUpIdForOrder={
-                                            setPickUpIdForOrder
-                                        }
-                                        setShippingPrice={setShippingPrice}
-                                        setDeliveryNote={setDeliveryNote}
-                                        customerAddress={customerAddress}
-                                        setCustomerAddress={setCustomerAddress}
-                                        selectedDefaultAddressId={
-                                            selectedDefaultAddressId
-                                        }
-                                        setSelectedDefaultAddressId={
-                                            setSelectedDefaultAddressId
-                                        }
-                                        cartProduct={cartProduct}
-                                    />
+            <section className="shipping-section-area nh-new-shipping-wrapper">
+            
+                <div className="container">
+                { loading && <LodingFixed/>}
+                    <div className="row gy-5 gy-lg-0 gx-0 gx-lg-5">
+                        <div className="col-lg-8">
+                            <CustomerAddress
+                                setPickUpIdForOrder={
+                                    setPickUpIdForOrder
+                                }
+                                setShippingPrice={setShippingPrice}
+                                setDeliveryNote={setDeliveryNote}
+                                customerAddress={customerAddress}
+                                setCustomerAddress={setCustomerAddress}
+                                selectedDefaultAddressId={
+                                    selectedDefaultAddressId
+                                }
+                                setSelectedDefaultAddressId={
+                                    setSelectedDefaultAddressId
+                                }
+                                cartProduct={cartProduct}
+                            />
 
-                                    {/* shows add to card product */}
-                                    <ShippingProduct
-                                        cartProduct={cartProduct}
-                                        setTotalPrice={setTotalPrice}
-                                        setSubTotal={setSubTotal}
-                                    />
-                                </div>
-                                <div className="col-lg-4">
-                                    <ShippingOrderSection
-                                        subTotal={subTotal}
-                                        totalPrice={totalPrice}
-                                        shippingPrice={shippingPrice}
-                                        handlePlaceOrder={handlePlaceOrder}
-                                        isTermsChecked={isTermsChecked}
-                                        setIsTermsChecked={setIsTermsChecked}
-                                        customerAddress={customerAddress}
-                                        cartProduct={cartProduct}
-                                    />
-                                </div>
-                            </div>
+                            {/* shows add to card product */}
+                            <ShippingProduct
+                                cartProduct={cartProduct}
+                                setTotalPrice={setTotalPrice}
+                                setSubTotal={setSubTotal}
+                            />
                         </div>
-                    </section>
-                </>
-            )}
+                        <div className="col-lg-4">
+                            <ShippingOrderSection
+                                subTotal={subTotal}
+                                totalPrice={totalPrice}
+                                shippingPrice={shippingPrice}
+                                handlePlaceOrder={handlePlaceOrder}
+                                isTermsChecked={isTermsChecked}
+                                setIsTermsChecked={setIsTermsChecked}
+                                customerAddress={customerAddress}
+                                cartProduct={cartProduct}
+                                loading={loading}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     );
 };

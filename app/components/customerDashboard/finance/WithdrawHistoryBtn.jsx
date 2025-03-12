@@ -5,8 +5,7 @@ import { useState } from "react";
 
 const WithdrawHistoryBtn = ({ item, token }) => {
     const [selectedId, setSelectedId] = useState(null);
-    const modalId = `viewWithdrawHistoryModal-${item.id}`;
-
+    const modalId = `viewWithdrawHistoryModal-${item?.id}`;
     return (
         <>
             <td className="text-center align-middle">
