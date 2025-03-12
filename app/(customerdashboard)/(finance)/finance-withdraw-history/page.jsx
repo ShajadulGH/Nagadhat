@@ -10,7 +10,6 @@ const FinanceWithdraw = () => {
             <div className="p-4">
                 {/* withdraw top banner section */}
                 <WithdrawTopBanner />
-
                 {/* Withdrawal History*/}
                 <WithdrawHistory />
                 

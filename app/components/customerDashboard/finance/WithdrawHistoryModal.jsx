@@ -3,7 +3,7 @@ import { getFinanceWithdrawHistoryById } from "@/app/services/affiliate-finance/
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useEffect, useState, useTransition } from "react";
 
-const WithdrawHistoryModal = ({ selectedId, token }) => {
+const WithdrawHistoryModal = ({ selectedId, token ,modalId }) => {
     const [withdrawData, setWithdrawData] = useState({});
     const [isPending, startTransition] = useTransition();
 
@@ -28,9 +28,9 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
             {/* <!-- Modal --> */}
             <div
                 className="modal fade"
-                id="viewWithdrawHistoryModal"
+                id={modalId}
                 tabIndex="-1"
-                aria-labelledby="viewWithdrawHistoryModalLabel"
+                aria-labelledby={`${modalId}lavel`}
                 aria-hidden="true"
             >
                 <div className="modal-dialog modal-dialog-scrollable custom-withdrawHistory">
@@ -38,7 +38,7 @@ const WithdrawHistoryModal = ({ selectedId, token }) => {
                         <div className="modal-header">
                             <h1
                                 className="modal-title fs-5"
-                                id="viewWithdrawHistoryModalLabel"
+                                id={`${modalId}lavel`}
                             >
                                 {withdrawData
                                     ? withdrawData.status

@@ -24,6 +24,7 @@ const BuyNowShippingProductPage = () => {
     const [isTermsChecked, setIsTermsChecked] = useState(false);
     const [totalPrice, setTotalPrice] = useState(0);
     const [subTotal, setSubTotal] = useState(0);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const [outletId, setOutletId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -105,51 +106,58 @@ const BuyNowShippingProductPage = () => {
     }, []);
 
     const handlePlaceOrder = async () => {
-        if (!isTermsChecked) {
-            toast.error("You must agree to the terms and conditions.");
-            return;
-        }
+        try {
+            if (!isTermsChecked) {
+                toast.error("You must agree to the terms and conditions.");
+                return;
+            }
+            setLoading(true);
+            const cartItems = cartProduct?.map((item) => ({
+                product_id: item.product_id,
+                cart_product_type: parseInt(item.cart_product_type),
+                product_quantity: item.quantity,
+                product_unit_price: item.price,
+                product_variation_id: item.product_variation_id,
+                product_shipping_charge: "", // Replace with actual shipping charge if applicable
+                product_discount_type: item.discount_type,
+                product_discount_amount: item?.discountPrice,
+                vendor_id: "", // Replace with actual vendor ID if applicable
+                thumbnail: item.product_thumbnail,
+                product_regular_price: item.regular_price,
+            }));
 
-        const cartItems = cartProduct?.map((item) => ({
-            product_id: item.product_id,
-            cart_product_type: parseInt(item.cart_product_type),
-            product_quantity: item.quantity,
-            product_unit_price: item.price,
-            product_variation_id: item.product_variation_id,
-            product_shipping_charge: "", // Replace with actual shipping charge if applicable
-            product_discount_type: item.discount_type,
-            product_discount_amount: item?.discountPrice,
-            vendor_id: "", // Replace with actual vendor ID if applicable
-            thumbnail: item.product_thumbnail,
-            product_regular_price: item.regular_price,
-        }));
+            const payload = {
+                order_product_type: parseInt(cartProduct[0].cart_product_type),
+                outlet_id: outletId,
+                location_id: districtId,
+                shipping_address_id: selectedDefaultAddressId,
+                delivery_note: deliveryNote,
+                total_delivery_charge: shippingPrice || 0,
+                total_products_price: totalPrice,
+                payment_type: "cash_on_delivery",
+                shipping_email: userEmail,
+                place_order_with: "buy now",
+                outlet_pickup_point_id: pickUpIdForOrder,
+                sub_total: subTotal,
+                discount_amount: subTotal - totalPrice,
+                grand_total: totalPrice + parseInt(shippingPrice),
+                cart_items: cartItems,
+            };
 
-        const payload = {
-            order_product_type: parseInt(cartProduct[0].cart_product_type),
-            outlet_id: outletId,
-            location_id: districtId,
-            shipping_address_id: selectedDefaultAddressId,
-            delivery_note: deliveryNote,
-            total_delivery_charge: shippingPrice || 0,
-            total_products_price: totalPrice,
-            payment_type: "cash_on_delivery",
-            shipping_email: userEmail,
-            place_order_with: "buy now",
-            outlet_pickup_point_id: pickUpIdForOrder,
-            sub_total: subTotal,
-            discount_amount: subTotal - totalPrice,
-            grand_total: totalPrice + parseInt(shippingPrice),
-            cart_items: cartItems,
-        };
-
-        const order = await placeOrder(payload, session?.accessToken);
-        if (order.code == 200) {
-            setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
-            deleteBuyNowProductData();
-            router.push(`/paynow?orderId=${order?.results?.order_id}`);
-        } else {
-            setRedirectPath("#");
-            toast.error(order.message);
+            const order = await placeOrder(payload, session?.accessToken);
+            if (order.code == 200) {
+                setRedirectPath(`/paynow?orderId=${order?.results?.order_id}`);
+                deleteBuyNowProductData();
+                router.push(`/paynow?orderId=${order?.results?.order_id}`);
+            } else {
+                setRedirectPath("#");
+                toast.error(order.message);
+            }
+        } catch (error) {
+            console.error("Error placing order:", error);
+            toast.error("Error placing order"); 
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -193,6 +201,7 @@ const BuyNowShippingProductPage = () => {
                                 setIsTermsChecked={setIsTermsChecked}
                                 customerAddress={customerAddress}
                                 cartProduct={cartProduct}
+                                loading={loading}
                             />
                         </div>
                     </div>
