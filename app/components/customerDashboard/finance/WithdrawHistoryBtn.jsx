@@ -20,9 +20,13 @@ const WithdrawHistoryBtn = ({ item, token }) => {
                         <FaEye />
                     </button>
                 </div>
-                <WithdrawHistoryModal selectedId={selectedId} token={token}  modalId={modalId}  />
+                {/* Always render the modal with unique ID */}
+                <WithdrawHistoryModal 
+                    modalId={modalId} 
+                    selectedId={selectedId} 
+                    token={token} 
+                />
             </td>
-
         </>
     );
 };

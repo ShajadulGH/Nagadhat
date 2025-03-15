@@ -90,7 +90,7 @@ const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
                             <p className="text-black">Discount</p>
                             {orderInvoice?.discount_amount > 0 && (
                                 <p className="text-black">
-                                    ৳ {orderInvoice?.discount_amount}
+                                    - ৳ {orderInvoice?.discount_amount || 0}
                                 </p>
                             )}
                         </div>

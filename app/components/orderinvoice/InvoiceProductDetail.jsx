@@ -79,6 +79,7 @@ const InvoiceProductDetail = ({ invoiceProduct, orderInvoice }) => {
                                     unit_price,
                                     product_discount,
                                     discount_type,
+                                    regular_price
                                 } = productItem;
                                 return (
                                     <tr key={product_id}>
@@ -112,8 +113,8 @@ const InvoiceProductDetail = ({ invoiceProduct, orderInvoice }) => {
                                                 </>
                                             )}
                                         </td> */}
-                                        <td>{unit_price}</td>
-                                        <td>{quantity * unit_price}</td>
+                                        <td>{regular_price}</td>
+                                        <td>{quantity * regular_price}</td>
                                     </tr>
                                 );
                             })}
