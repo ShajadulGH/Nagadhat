@@ -28,7 +28,7 @@ const Page = () => {
                 if (response?.code === 200) {
                     setSuccess(response?.message);
                     router.push(
-                        `/otp?forget_password=${otpMobileNumber.phone}&otp=${response?.results?.otp}`
+                        `/otp?forget_password=${otpMobileNumber.phone}`
                     );
                 } else {
                     setError(
