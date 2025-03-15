@@ -224,9 +224,7 @@ const OTP = () => {
                                     {forgetPassword === forgetPassword ? (
                                         <button
                                             className="add-to-cart-link border-0"
-                                            onClick={() =>
-                                                router.push("/forgotpassword")
-                                            }
+                                            onClick={() => router.back()}
                                         >
                                             Back
                                         </button>
