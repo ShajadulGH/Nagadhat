@@ -626,7 +626,7 @@ onClick={toggleSidebar}
                                         href="/others-password-txn-otp"
                                     >
                                         <span className="dropdown-item-circle"></span>
-                                        Password & TXN OTP
+                                        Transaction PIN
                                     </Link>
                                 </li>
                                 <li className="dropdown-item customer-dashboard-dropdown-item">
