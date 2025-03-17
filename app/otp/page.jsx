@@ -13,8 +13,7 @@ const OTP = () => {
     const router = useRouter();
     let phone = searchParams.get("phone") ? searchParams.get("phone") : "";
     let forgetPassword = searchParams.get("forget_password") || "";
-
-    const [otp, setOtp] =("");
+    const [otp, setOtp] = useState(searchParams.get("otp") || "");
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [baseUrl, setBaseUrl] = useState("");
