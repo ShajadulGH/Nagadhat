@@ -89,7 +89,7 @@ const MobileBankingInfo = () => {
                         <form className="row" onSubmit={handleSubmit}>
                             <div className="col-md-6 pb-3">
                                 <label htmlFor="bkash_number" className="form-label">
-                                    Bkash:
+                                    Bkash:<span className="text-danger">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -100,11 +100,12 @@ const MobileBankingInfo = () => {
                                     value={mobileBankingInfo.bkash_number}
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
+                                    required
                                 />
                             </div>
                             <div className="col-md-6 pb-3">
                                 <label htmlFor="nagad_number" className="form-label">
-                                    Nagad:
+                                    Nagad: <span className="text-danger">*</span>
                                 </label>
                                 <input
                                     type="text"
@@ -115,9 +116,10 @@ const MobileBankingInfo = () => {
                                     value={mobileBankingInfo.nagad_number}
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
+                                    required
                                 />
                             </div>
-                            <div className="col-md-6 pb-3">
+                            {/* <div className="col-md-6 pb-3">
                                 <label htmlFor="rocket_number" className="form-label">
                                     Rocket:
                                 </label>
@@ -131,8 +133,8 @@ const MobileBankingInfo = () => {
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
                                 />
-                            </div>
-                            <div className="col-md-6 pb-3">
+                            </div> */}
+                            {/* <div className="col-md-6 pb-3">
                                 <label htmlFor="agent_banking" className="form-label">
                                     DBBL Agent Banking:
                                 </label>
@@ -146,7 +148,7 @@ const MobileBankingInfo = () => {
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
                                 />
-                            </div>
+                            </div> */}
                             <div className="pb-2">
                                 <span className="text-danger">
                                     {isEditable ? 

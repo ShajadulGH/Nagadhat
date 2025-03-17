@@ -5,6 +5,7 @@ import { getDistrictForShipping } from "@/app/services/getDistrictForShipping";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
 const BankDetailsInfo = () => {
     const [bankInfo, setBankInfo] = useState({
@@ -19,6 +20,7 @@ const BankDetailsInfo = () => {
     const [update, setUpdate] = useState(true);
     const [isEditable, setIsEditable] = useState(true);
     const { data: session } = useSession();
+    
 
     useEffect(() => {
         const fetchBankInfo = async () => {
@@ -52,8 +54,12 @@ const BankDetailsInfo = () => {
         const fetchDistricts = async () => {
             try {
                 const response = await getDistrictForShipping();
-                // Set all available districts for the dropdown
-                setDistricts(response.results.districts);
+                const districtsData = response.results.districts;
+                const options = districtsData.map((district) => ({
+                    label: district.name,
+                    value: district.id, 
+                }));
+                setDistricts(options);
             } catch (error) {
                 console.error("Error fetching bank details", error);
             }
@@ -151,43 +157,38 @@ const BankDetailsInfo = () => {
                                     required
                                 />
                             </div>
-
                             <div className="col-md-6 pb-3">
-                                <label
-                                    htmlFor="districts_id"
-                                    className="form-label"
-                                >
-                                    District:{" "}
-                                    <span style={{ color: "red" }}>*</span>
+                                <label htmlFor="districts_id" className="form-label">
+                                    District: <span style={{ color: "red" }}>*</span>
                                 </label>
-                                <select
-                                    className="form-select district-list"
+                                <Select
+                                    className={`district-list ${isEditable?"background:#e8f0fe":""}`}
                                     name="districts_id"
                                     id="districts_id"
-                                    value={bankInfo.districts_id}
-                                    onChange={handleInputChange}
-                                    disabled={!isEditable}
+                                    value={districts.find(
+                                        (opt) => opt.value == bankInfo.districts_id
+                                    )}
+                                    onChange={(selectedOption) =>
+                                        setBankInfo((prev) => ({
+                                            ...prev,
+                                            districts_id: selectedOption ? selectedOption.value : "",
+                                        }))
+                                    }
+                                    options={districts}
+                                    isDisabled={!isEditable}
+                                    isSearchable
+                                    placeholder="Select a district..."
                                     required
-                                >
-                                    <option value="">Select District</option>
-                                    {districts.map((district) => (
-                                        <option
-                                            key={district.id}
-                                            value={district.id}
-                                        >
-                                            {district.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                />
                             </div>
+
 
                             <div className="col-md-6 pb-3">
                                 <label
                                     htmlFor="bank_branch_name"
                                     className="form-label"
                                 >
-                                    Branch Name:{" "}
-                                    <span style={{ color: "red" }}>*</span>
+                                    Branch Name:
                                 </label>
                                 <input
                                     type="text"
@@ -198,7 +199,6 @@ const BankDetailsInfo = () => {
                                     value={bankInfo.bank_branch_name}
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
-                                    required
                                 />
                             </div>
 
