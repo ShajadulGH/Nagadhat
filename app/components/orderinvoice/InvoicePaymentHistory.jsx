@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
     return (
         <>
@@ -24,7 +26,7 @@ const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
                             {orderPaymentHistory?.payment_history?.length >
                             0 ? (
                                 orderPaymentHistory?.payment_history.map(
-                                    (item) => {
+                                    (item, index) => {
                                         const {
                                             id,
                                             bank_name,
@@ -33,15 +35,12 @@ const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
                                             payment_method,
                                             transaction_amount,
                                             transaction_id,
+                                            date_time
                                         } = item;
                                         return (
                                             <tr key={id}>
-                                                <td>{date ? date : null}</td>
-                                                <td>
-                                                    {payment_getway
-                                                        ? payment_getway
-                                                        : null}
-                                                </td>
+                                                <td>{index + 1}</td>
+                                                <td>{date_time ? moment(date_time).format('lll'): null}</td>
                                                 <td>
                                                     {payment_method
                                                         ? payment_method
@@ -50,11 +49,6 @@ const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
                                                 <td>
                                                     {bank_name
                                                         ? bank_name
-                                                        : null}
-                                                </td>
-                                                <td>
-                                                    {transaction_id
-                                                        ? transaction_id
                                                         : null}
                                                 </td>
                                                 <td>

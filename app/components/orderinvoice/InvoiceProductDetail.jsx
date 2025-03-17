@@ -1,4 +1,5 @@
 import { NagadhatPublicUrl } from "@/app/utils";
+import moment from "moment";
 
 const InvoiceProductDetail = ({ invoiceProduct, orderInvoice }) => {
     return (
@@ -30,7 +31,7 @@ const InvoiceProductDetail = ({ invoiceProduct, orderInvoice }) => {
                             </div>
                             <div className="d-flex align-items-center gap-2 font-sm mb-1">
                                 <div className="bg-secondary-color rounded-circle invoice-list-doted-h"></div>
-                                <p>Date: {orderInvoice?.date}</p>
+                                <p>Date: {moment(orderInvoice?.date).format('lll')}</p>
                             </div>
                             <div className="d-flex align-items-center gap-2 font-sm mb-1">
                                 <div className="bg-secondary-color rounded-circle invoice-list-doted-h"></div>
