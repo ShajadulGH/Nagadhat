@@ -4,6 +4,7 @@ import { postShippingAddress } from "@/app/services/postShippingAddress";
 import { updateShippingAddress } from "@/app/services/updateShippingAddress";
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
+import Select from "react-select";
 
 const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpdate }) => {
     const [newEmail, setNewEmail] = useState("");
@@ -13,6 +14,7 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
     const [newDistrict, setNewDistrict] = useState("");
     const modalRef = useRef(null);
     const [districtsData, setDistrictsData] = useState([]);
+    const [districtOptions, setDistrictOptions] = useState([]);
 
     const [bootstrap, setBootstrap] = useState(null);
 
@@ -45,7 +47,12 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
         const fetchDistricts = async () => {
             try {
                 const totalDistrict = await getDistrictForShipping();
-                setDistrictsData(totalDistrict?.results?.districts || []);
+                const districts = totalDistrict?.results?.districts || [];
+                const options = districts.map(district => ({
+                    label: district.name,
+                    value: district.id
+                }));
+                setDistrictOptions(options);
             } catch (error) {
                 console.error("Failed to fetch districts:", error);
             }
@@ -110,6 +117,10 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
                 toast.error(error.message)
             }
         }
+    };
+
+    const handleDistrictChange = (selectedOption) => {
+        setNewDistrict(selectedOption ? selectedOption.value : "");
     };
 
     return (
@@ -179,34 +190,21 @@ const ShippingAddressModal = ({ currentAddress, session, liveUpdate, setLiveUpda
                                             />
                                         </div>
                                         <div className="col-md-6 pb-3">
-                                            <label
-                                                htmlFor="district"
-                                                className="form-label"
-                                            >
+                                            <label htmlFor="district" className="form-label">
                                                 District
-                                                <span className="text-danger fw-bold">
-                                                    *
-                                                </span>
+                                                <span className="text-danger fw-bold">*</span>
                                             </label>
-                                            <select
-                                                className="form-select district-list"
+                                            <Select
+                                                className="district-list"
                                                 name="district"
                                                 id="district"
-                                                value={newDistrict}
-                                                onChange={(e) => setNewDistrict(e.target.value)}
+                                                value={districtOptions.find(option => option.value === newDistrict)}
+                                                onChange={handleDistrictChange}
+                                                options={districtOptions}
+                                                isSearchable
+                                                placeholder="Select District"
                                                 required
-                                            >
-                                                <option value="">Select District</option>
-                                                {districtsData?.map((district, index) => (
-                                                    <option
-                                                        key={index}
-                                                        value={district?.id}
-                                                    >
-                                                        {district?.name}
-                                                    </option>
-                                                )
-                                                )}
-                                            </select>
+                                            />
                                         </div>
                                         <div className="col-md-6 pb-3">
                                             <label
