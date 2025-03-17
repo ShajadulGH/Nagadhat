@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
     return (
         <>
@@ -38,7 +40,7 @@ const InvoicePaymentHistory = ({ orderInvoice, orderPaymentHistory }) => {
                                         return (
                                             <tr key={id}>
                                                 <td>{index + 1}</td>
-                                                <td>{date_time ? date_time : null}</td>
+                                                <td>{date_time ? moment(date_time).format('lll'): null}</td>
                                                 <td>
                                                     {payment_method
                                                         ? payment_method
