@@ -97,7 +97,8 @@ const ContainerBooking = ({ isActive }) => {
 
                 <ContainerTopInfo containerData={containerData} />
                 {isPending ? (
-                    <DefaultLoader />
+                    // <DefaultLoader />
+                    <h1 className="text-center">Loading...</h1>
                 ) : containerProduct?.length > 0 ? (
                     <ContainerBookingProduct
                         containerProduct={containerProduct}
