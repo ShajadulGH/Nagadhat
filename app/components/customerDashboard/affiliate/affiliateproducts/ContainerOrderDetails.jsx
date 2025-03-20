@@ -188,10 +188,9 @@ const ContainerOrderDetails = ({
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-                                        <th>Details</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Remove</th>
+                                        <th className="text-center">Quantity</th>
+                                        <th className="text-center">Amount</th>
+                                        <th className="text-center">Remove</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -205,21 +204,16 @@ const ContainerOrderDetails = ({
                                                     alt={product.product_name}
                                                 />
                                             </td>
-                                            <td>
-                                                {truncateTitle(
-                                                    product.product_name,
-                                                    25
-                                                )}
-                                            </td>
-                                            <td className="align-middle">
+                                            
+                                            <td className="align-middle text-center">
                                                 <div
-                                                    className="btn-group px-1 quantity-area container-booking-quantity-area"
+                                                    className="btn-group px-1 quantity-area px-2"
                                                     role="group"
                                                     aria-label="Basic example"
                                                 >
                                                     <button
                                                         type="button"
-                                                        className="quantity-decrease"
+                                                        className="quantity-decrease w-auto"
                                                         onClick={() =>
                                                             handleDecrease(
                                                                 product.id
@@ -237,7 +231,9 @@ const ContainerOrderDetails = ({
                                                         max="500"
                                                         type="text"
                                                         style={{
-                                                            width: "36px",
+                                                            width: "50px",
+                                                            outline:"none",
+                                                            border:"none"
                                                         }}
                                                         value={product.quantity}
                                                         onChange={(e) =>
@@ -258,7 +254,7 @@ const ContainerOrderDetails = ({
                                                         }
                                                     />
                                                     <button
-                                                        className="quantity-increase"
+                                                        className="quantity-increase w-auto"
                                                         type="button"
                                                         onClick={() =>
                                                             handleIncrease(
@@ -277,14 +273,14 @@ const ContainerOrderDetails = ({
                                                     </button>
                                                 </div>
                                             </td>
-                                            <td className="align-middle">
+                                            <td className="align-middle text-center">
                                                 <strong>
                                                     {product.pivot.mrp_price *
                                                         product.quantity}{" "}
                                                     ৳
                                                 </strong>
                                             </td>
-                                            <td className="align-middle">
+                                            <td className="align-middle text-center">
                                                 <p
                                                     onClick={() =>
                                                         handleDeleteSelectedProducts(
@@ -360,7 +356,7 @@ const ContainerOrderDetails = ({
                                 }}
                                 className="add-to-cart-link rounded-bottom border-0 d-block w-100"
                             >
-                                Booking Now
+                                Book Now
                             </button>
                         </div>
                     </div>

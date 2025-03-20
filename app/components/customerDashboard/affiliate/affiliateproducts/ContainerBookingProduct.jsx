@@ -15,6 +15,8 @@ const ContainerBookingProduct = ({
     getTotalQuantity,
     availableQuantity,
 }) => {
+    console.log("containerProduct==>>", containerProduct);
+
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
 
@@ -104,6 +106,22 @@ const ContainerBookingProduct = ({
                                 </div>
                                 <div className="flash-sale-content-info text-hover-effect">
                                     <h4>{product.product_name}</h4>
+                                    <div className="d-flex pb-3 justify-content-between align-items-center">
+                                        <span
+                                            className="fs-6 fw-bold"
+                                            style={{ color: "#1a9d78" }}
+                                        >
+                                            ট {""}
+                                            {product?.pivot?.trade_price}
+                                        </span>
+                                        <del
+                                            className="fs-6 fw-bold"
+                                            style={{ color: "#6c757d" }}
+                                        >
+                                            ট {""}
+                                            {product?.pivot?.mrp_price}
+                                        </del>
+                                    </div>
                                     <div className="add-to-cart-btn">
                                         <Link
                                             href={`/container-product-details/${product?.id}/${containerId}/${tab}`}
