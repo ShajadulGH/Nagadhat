@@ -378,6 +378,9 @@
     display: none;
 }
 @media (max-width: 767px) {
+    .pay-now-payment-option-img-item {
+        height: 60px;
+    }
     .sale-on-ng-min-responsive {
         min-width: 950px;
     }

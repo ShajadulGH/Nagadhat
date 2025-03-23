@@ -2,11 +2,14 @@
 import { postaffiliateFundTransfer } from "@/app/services/affiliate-finance/postaffiliateFundTransfer";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import TransferVerifyOTPModal from "./TransferVerifyOTPModal";
 import { toast } from "react-toastify";
 import { postVerifyTransferOtpRequest } from "@/app/services/affiliate-finance/postVerifyTransferOtp copy";
 import FinanceHistoryModalTable from "./FinanceHistoryModalTable";
 import Link from "next/link";
+import dynamic from 'next/dynamic';
+const TransferVerifyOTPModal = dynamic(() => import('./TransferVerifyOTPModal'), {
+    ssr: false
+});
 
 const TransferForm = () => {
     const [transfer, setTransfer] = useState("");
@@ -18,6 +21,17 @@ const TransferForm = () => {
     const [enteredAmount, setEnteredAmount] = useState("");
 
     const { data: session, status } = useSession();
+
+    const [bootstrap, setBootstrap] = useState(null);
+    useEffect(() => {
+        const loadBootstrap = async () => {
+            const bootstrapModule = await import(
+                "bootstrap/dist/js/bootstrap.bundle.min.js"
+            );
+            setBootstrap(bootstrapModule);
+        };
+        loadBootstrap();
+    }, []);
 
     // transfer changes
     const handleTransferChange = async (e) => {
@@ -74,16 +88,14 @@ const TransferForm = () => {
                 data
             );
             if (response.code === 200) {
-                // Open Bootstrap modal
                 const modalElement = document.getElementById("successModal");
                 const successModal = new bootstrap.Modal(modalElement);
-                successModal.show(); // Show the modal
+                successModal.show(); 
                 setTransferRequestData(response?.results);
             } else {
                 toast.error(response.message);
             }
         } catch (error) {
-            // handle error
             console.error("Error while making transfer request:", error);
         }
     };
