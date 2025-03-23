@@ -8,12 +8,11 @@ import Service from "./components/Service";
 import LoginNotice from "./components/home-notice/LoginNotice";
 // import DownTimeMode from "./components/DownTimeMode";
 
-export default function Home() {
+export default async function Home() {
     
     return (
         <>
             <LoginNotice/>
-
             <HeroSlider />
             <Partner />
             <Sales isHome={true} />
