@@ -50,7 +50,7 @@ const PayCompletedOrderBtn = ({
             setShowAgentModal(true);
         } else if (selectedOption === "With Bank") {
             setShowBankModal(true);
-        } else if (selectedOption === "Bkash") {
+        } else if (selectedOption === "With Bkash") {
             setShowBkashModal(true);
         }
     };
@@ -58,7 +58,7 @@ const PayCompletedOrderBtn = ({
     return (
         <>
             <button
-                className="add-to-cart-link border-0"
+                className="add-to-cart-link border-0 text-capitalize"
                 onClick={handleSubmit}
                 style={{
                     pointerEvents:
@@ -66,11 +66,11 @@ const PayCompletedOrderBtn = ({
                     opacity: isTermsChecked && selectedOption ? 1 : 0.5,
                 }}
             >
-                Pay Order{" "}
+                Payment{" "}
                 {orderSummary?.order_product_type === "1"
                     ? selectedOption
                     : selectedOption === "Cash On Delivery"
-                    ? "Later"
+                    ? "With Later"
                     : selectedOption}
             </button>
         </>
