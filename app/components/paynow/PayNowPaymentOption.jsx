@@ -38,17 +38,18 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
         { id: "With Agent", src: "/images/Agent-Pay.png", alt: "Agent Pay" },
         {
             id: "With Bank",
-            src: "/images/bank-deposit.png",
+            src: "/images/Bkash-2.png",
             alt: "Bank Deposit",
         },
+        { id: "With Bkash", src: "/images/Bank-Deposit-2.png", alt: "Bkash" },
+        { id: "With Office Cash", src: "/images/OFFICE-CASH-2.png", alt: "Office Cash" },
         {
             id: "Cash On Delivery",
             src: "/images/cash-on.png",
             alt: "Cash on Delivery",
         },
-        { id: "Bkash", src: "/images/Bkash.png", alt: "Bkash" },
-
         { id: "sslcommerz", src: "/images/sslcommerz.png", alt: "SSLCommerz" },
+        
     ];
 
     //filteredPaymentOptions order_product_type !== "1"
@@ -88,7 +89,7 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
             case "With Bank":
                 setSelectedOption(optionId);
                 break;
-            case "Bkash":
+            case "With Bkash":
                 setSelectedOption(optionId);
                 break;
             default:

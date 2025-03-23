@@ -1,7 +1,7 @@
 "use client"
 import { postVerifyTransferOtp } from '@/app/services/affiliate-finance/postVerifyTransferOtp';
 import { useSession } from 'next-auth/react';
-import { useEffect, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
@@ -11,14 +11,16 @@ const TransferVerifyOTPModal = ({
     setEnteredAmount,
     setTransferDetails
 }) => {
-    const [otp, setOtp] = useState('');
-    const [isTermsChecked, setIsTermsChecked] = useState(false); // State to track checkbox
+    const [otp, setOtp] = useState("");
+    const [isTermsChecked, setIsTermsChecked] = useState(false); 
     const { data: session, status } = useSession();
-    const modalRef = useRef(null); // Reference for modal
+    const modalRef = useRef(null); 
+    console.log("transferRequestData", transferRequestData);
+    console.log("otp", otp);
+    
 
     const [bootstrap, setBootstrap] = useState(null);
 
-    // Dynamically import bootstrap bundle on the client-side
     useEffect(() => {
         const loadBootstrap = async () => {
             const bootstrapModule = await import(
@@ -29,28 +31,31 @@ const TransferVerifyOTPModal = ({
         loadBootstrap();
     }, []);
 
+    useEffect(() => {
+        setOtp(transferRequestData?.otp || '');
+    }, [transferRequestData]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const data = {
-            fund_transfer_id: transferRequestData?.id || 1, // Use the data passed from transferRequestData
+            fund_transfer_id: transferRequestData?.id || 1, 
             transfer_form: transferRequestData?.transfer_form,
             transfer_to: transferRequestData?.transfer_to,
             transfer_type: transferRequestData?.transfer_type,
             amount: transferRequestData?.amount,
             charge: transferRequestData?.charge,
             payable: transferRequestData?.payable,
-            otp, // Use the otp state
+            otp, 
         };
 
         // API call to verify the OTP
         const response = await postVerifyTransferOtp(session?.accessToken, data)
         if (response.code === 200) {
-            // Close modal programmatically
             const modalElement = modalRef.current;
             if (bootstrap && modalElement) {
                 const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                modalInstance.hide(); // Close modal
+                modalInstance.hide();
             }
             Swal.fire({
                 icon: "success",
@@ -74,7 +79,7 @@ const TransferVerifyOTPModal = ({
                 tabIndex="-1"
                 aria-labelledby="successModalLabel"
                 aria-hidden="true"
-                ref={modalRef} // Attach ref here
+                ref={modalRef} 
             >
                 <div className="modal-dialog">
                     <div className="modal-content">

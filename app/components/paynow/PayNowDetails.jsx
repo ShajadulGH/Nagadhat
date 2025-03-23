@@ -12,7 +12,7 @@ const PayNowDetails = () => {
     const [isPending, startTransition] = useTransition();
     return (
         <>
-            <div className="row pay-now-payment-option-area">
+            <div className="row pay-now-payment-option-area flex-column-reverse flex-lg-row ">
                 <PayNowPaymentOption
                     orderSummary={orderSummary}
                     isPending={isPending}
