@@ -1,13 +1,18 @@
+
 import HeroSlider from "./components/HeroSlider";
 import Partner from "./components/Partner";
 import Category from "./components/Category";
 import Sales from "./components/Sales";
 import JustForYou from "./components/JustForYou";
 import Service from "./components/Service";
-import DownTimeMode from "./components/DownTimeMode";
+import LoginNotice from "./components/home-notice/LoginNotice";
+// import DownTimeMode from "./components/DownTimeMode";
+
 export default async function Home() {
+    
     return (
         <>
+            <LoginNotice/>
             <HeroSlider />
             <Partner />
             <Sales isHome={true} />
