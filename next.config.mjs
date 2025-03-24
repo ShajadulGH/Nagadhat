@@ -24,6 +24,10 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "beta.nagadhat.com.bd",
             },
+            {
+                protocol: "https",
+                hostname: "beta.nagadhat.com",
+            },
         ],
     },
     // async headers() {
