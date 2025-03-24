@@ -38,7 +38,7 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
         { id: "With Agent", src: "/images/Agent-Pay-1.png", alt: "Agent Pay" },
         {
             id: "With Bank",
-            src: "/images/Bank-Deposit-1.png ",
+            src: "/images/Bank-Deposit-1.png",
             alt: "Bank Deposit",
         },
         { id: "With Bkash", src: "/images/Bkash-1.png", alt: "Bkash" },
