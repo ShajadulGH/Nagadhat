@@ -35,14 +35,14 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
     const [isTermsChecked, setIsTermsChecked] = useState(false);
 
     const paymentOptions = [
-        { id: "With Agent", src: "/images/Agent-Pay.png", alt: "Agent Pay" },
+        { id: "With Agent", src: "/images/Agent-Pay-1.png", alt: "Agent Pay" },
         {
             id: "With Bank",
-            src: "/images/Bkash-2.png",
+            src: "/images/Bank-Deposit-1.png ",
             alt: "Bank Deposit",
         },
-        { id: "With Bkash", src: "/images/Bank-Deposit-2.png", alt: "Bkash" },
-        { id: "With Office Cash", src: "/images/OFFICE-CASH-2.png", alt: "Office Cash" },
+        { id: "With Bkash", src: "/images/Bkash-1.png", alt: "Bkash" },
+        { id: "With Office Cash", src: "/images/OFFICE-CASH-1.png", alt: "Office Cash" },
         {
             id: "Cash On Delivery",
             src: "/images/cash-on.png",

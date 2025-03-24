@@ -221,6 +221,7 @@ const PayWithBankModalRight = ({
                                 id="payment_slip"
                                 name="payment_slip"
                                 onChange={handleFileChange}
+                                required
                             />
                         </div>
                     </div>
