@@ -161,7 +161,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
             <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
-                    style={{ background: "#414042" }}
+                    style={{ background: "#44bc9d" }}
                 >
                     Sales Team 1
                 </h2>
@@ -224,7 +224,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
             <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
-                    style={{ background: "#414042" }}
+                    style={{ background: "#44bc9d" }}
                 >
                     Sales Team 2
                 </h2>
@@ -286,7 +286,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
             <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
-                    style={{ background: "#414042" }}
+                    style={{ background: "#44bc9d" }}
                 >
                     Sales Team 3
                 </h2>
