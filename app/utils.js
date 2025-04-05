@@ -1,22 +1,7 @@
-// For Live staging - production
-export const apiBaseUrl = "https://v3.nagadhat.com/api";
-export const NagadhatPublicUrl = "https://v3.nagadhat.com";
 
-// For Live beta - production
-// export const apiBaseUrl = "https://beta.nagadhat.com/api";
-// export const NagadhatPublicUrl = "https://beta.nagadhat.com";
+export const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+export const NagadhatPublicUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-// For Live staging way
-// export const apiBaseUrl = "https://v3.staging.nagadhat.com/api";
-// export const NagadhatPublicUrl = "https://v3.staging.nagadhat.com";
-
-// For Localhost 1 way
-// export const apiBaseUrl = "http://nagadhat-v3.test/api";
-// export const NagadhatPublicUrl = "http://nagadhat-v3.test";
-
-// For Localhost 2 way
-// export const apiBaseUrl = "http://127.0.0.1:8000/api";
-// export const NagadhatPublicUrl = "http://127.0.0.1:8000";
 
 export const filterByStatus = (arr) => {
     if (!Array.isArray(arr) || arr.length < 1) {
