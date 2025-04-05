@@ -86,7 +86,7 @@ const Page = ({ params }) => {
                             href="/affiliate-team"
                             className=" px-3 py-1 d-inline-block "
                         >
-                            My Team ({totalMember})
+                            My Sales Team ({totalMember})
                         </Link>
                         {affiliateUser && (
                             <span
