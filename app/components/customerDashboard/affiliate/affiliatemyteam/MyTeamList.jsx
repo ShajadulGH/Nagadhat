@@ -158,7 +158,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
             </div>
 
             {/* Sales Team 1 */}
-            <div className="">
+            {/* <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
                     style={{ background: "#44bc9d" }}
@@ -218,10 +218,10 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
 
             {/* Sales Team 2 */}
-            <div className="">
+            {/* <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
                     style={{ background: "#44bc9d" }}
@@ -281,9 +281,9 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
             {/* sale Team 3 */}
-            <div className="">
+            {/* <div className="">
                 <h2
                     className="fs-5 border-bottom py-1 text-white ps-2"
                     style={{ background: "#44bc9d" }}
@@ -405,7 +405,7 @@ const MyTeamList = ({ teamListInfo, teamGrandTotal, serialNumber }) => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };
