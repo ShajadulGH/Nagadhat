@@ -13,13 +13,15 @@ const OTP = () => {
     const router = useRouter();
     let pin = searchParams.get("pin") ? searchParams.get("pin") : "";
     let otpType = searchParams.get("otpType") ? searchParams.get("otpType") : "";
-    const [otp, setOtp] = useState("");
+    const initialOtp = searchParams.get("otpStatus") || "";
+    const [otp, setOtp] = useState(initialOtp);
     const { data: session } = useSession();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!otp) {
-            setErrorMessage("Please provide required information");
+            toast.error("Please enter OTP");
+            return;
         }
         try {
             const res = await getVerifyOTP({
