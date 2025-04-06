@@ -84,7 +84,7 @@ const AffiliateTeamWrapp = () => {
                             className="px-3 d-inline-block py-1"
                             style={{ background: "#414042", color: "#fff" }}
                         >
-                            My Team ({totalMember})
+                            My Sales Team ({totalMember})
                         </span>
                     </h1>
                 </div>

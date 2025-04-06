@@ -2,14 +2,10 @@
 import { getAffiliateFinanceWithdrawHistory } from "@/app/services/affiliate-finance/getAffiliateFinanceWithdrawHistory";
 import { useSession } from "next-auth/react";
 import { useEffect, useState, useTransition } from "react";
-import { FaEye } from "react-icons/fa6";
-import NoDataFound from "../../NoDataFound";
-import LodingFixed from "../../LodingFixed";
-import WithdrawHistoryModal from "./WithdrawHistoryModal";
+import WithdrawHistoryBtn from "./WithdrawHistoryBtn";
 const LastFiveWithdrawHistory = () => {
     const [lastFiveData, setLastFiveData] = useState([]);
     const [isPending, startTransition] = useTransition();
-    const [selectedId, setSelectedId] = useState();
     const { data: session, status } = useSession();
 
     // function for Last Five Withdraw Data
@@ -34,10 +30,6 @@ const LastFiveWithdrawHistory = () => {
             fetchLastFiveWithdrawData();
         }
     }, [status, session?.accessToken]);
-
-    const handleViewClick = (id) => {
-        setSelectedId(id);
-    };
 
     return (
         <>
@@ -89,23 +81,10 @@ const LastFiveWithdrawHistory = () => {
                                         >
                                             {item.status}
                                         </td>
-                                        <td className="text-center align-middle">
-                                            <div className="customer-dashboard-order-history-actions justify-content-center">
-                                                <button
-                                                    type="button"
-                                                    className="border-0 "
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#viewWithdrawHistoryModal"
-                                                    onClick={() =>
-                                                        handleViewClick(
-                                                            item?.id
-                                                        )
-                                                    }
-                                                >
-                                                    <FaEye />
-                                                </button>
-                                            </div>
-                                        </td>
+                                        <WithdrawHistoryBtn
+                                        item={item}
+                                        token={session.accessToken}
+                                    />
                                     </tr>
                                 ))}
                             </tbody>
@@ -115,12 +94,6 @@ const LastFiveWithdrawHistory = () => {
                     )}
                 </div>
             )}
-
-            {/* Modal */}
-            <WithdrawHistoryModal
-                selectedId={selectedId}
-                token={session.accessToken}
-            />
         </>
     );
 };
