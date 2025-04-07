@@ -47,7 +47,7 @@ const ResaleAddToCartBtn = ({ product }) => {
             selectedVariants: [],
             location_id: districtId,
             order_type: product?.sell_product_type == 2 ? "Resale" : "Container",
-            cart_product_type:  2,
+            cart_product_type: product.sell_product_type || 2,
             product_variation_id: null
         }
 
