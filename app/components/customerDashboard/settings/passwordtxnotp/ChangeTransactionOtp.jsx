@@ -97,7 +97,7 @@ const ChangeTransactionOtp = () => {
                     modalInstance.hide(); // Close modal
                 }
                 router.push(
-                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}`
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&otpStatus=${response?.results?.otp}`
                 );
             } else {
                 toast.error(response.message);
