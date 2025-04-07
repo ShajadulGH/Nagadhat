@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
+import ResaleAddToCartBtn from "./ResaleAddToCartBtn";
+import { use } from "react";
 
 const ContainerBookingProduct = ({
     containerProduct,
@@ -74,13 +76,7 @@ const ContainerBookingProduct = ({
                             onClick={() => handleSelectProduct(product)}
                         >
                             <div
-                                className={`flash-sale-content-bg nh-hover-box-shadow ${
-                                    selectedProducts.some(
-                                        (p) => p.id === product.id
-                                    )
-                                        ? "selected-container-item"
-                                        : ""
-                                }`}
+                                className={`flash-sale-content-bg nh-hover-box-shadow ${selectedProducts.some( (p) => p.id === product.id ) ? "selected-container-item" : "" }`}
                             >
                                 <div
                                     className="image-hover-effect mx-auto mb-2"
@@ -92,34 +88,20 @@ const ContainerBookingProduct = ({
                                 >
                                     <Image
                                         fill
-                                        src={
-                                            product?.product_thumbnail
-                                                ? `${NagadhatPublicUrl}/${product?.product_thumbnail}`
-                                                : `/images/placeholder--image.jpg`
-                                        }
+                                        src={ product?.product_thumbnail ? `${NagadhatPublicUrl}/${product?.product_thumbnail}` : `/images/placeholder--image.jpg` }
                                         className="img-fluid mx-auto"
                                         alt={product?.product_name}
-                                        style={{
-                                            objectFit: "cover",
-                                        }}
+                                        style={{ objectFit: "cover"}}
                                     />
                                 </div>
                                 <div className="flash-sale-content-info text-hover-effect">
                                     <h4>{product.product_name}</h4>
                                     <div className="d-flex pb-3 justify-content-between align-items-center">
-                                        <span
-                                            className="fs-6 fw-bold"
-                                            style={{ color: "#1a9d78" }}
-                                        >
-                                            ট {""}
-                                            {product?.pivot?.trade_price}
+                                        <span className="fs-6 fw-bold" style={{ color: "#1a9d78" }} >
+                                            ট {""} {product?.pivot?.trade_price}
                                         </span>
-                                        <del
-                                            className="fs-6 fw-bold"
-                                            style={{ color: "#6c757d" }}
-                                        >
-                                            ট {""}
-                                            {product?.pivot?.mrp_price}
+                                        <del className="fs-6 fw-bold" style={{ color: "#6c757d" }} >
+                                            ট {""} {product?.pivot?.mrp_price}
                                         </del>
                                     </div>
                                     <div className="add-to-cart-btn">
@@ -131,6 +113,14 @@ const ContainerBookingProduct = ({
                                         >
                                             View Details
                                         </Link>
+                                    </div>
+                                    <div className="add-to-cart-btn mt-2">
+                                        <ResaleAddToCartBtn
+                                            productType={3}
+                                            product={product}
+                                            containerId={containerId}
+                                            setSelectedProducts={setSelectedProducts}
+                                        />
                                     </div>
                                 </div>
                             </div>

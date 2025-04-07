@@ -46,8 +46,8 @@ const ResaleAddToCartBtn = ({ product }) => {
             quantity: newQuantity || 1,
             selectedVariants: [],
             location_id: districtId,
-            order_type: "Resale",
-            cart_product_type: product.sell_product_type || 2,
+            order_type: product?.sell_product_type == 2 ? "Resale" : "Container",
+            cart_product_type:  2,
             product_variation_id: null
         }
 
@@ -55,7 +55,7 @@ const ResaleAddToCartBtn = ({ product }) => {
         try {
             setLoading(true)
             const productAdded = await addToCartProduct(addToCartInfo, session?.accessToken);
-            if (productAdded.code == 200) {
+            if (productAdded.code == 200) { 
                 const updatedCartProducts = await fetchCartProducts(
                     session?.accessToken,
                     outletId,

@@ -214,14 +214,8 @@ const ContainerOrderDetails = ({
                                                     <button
                                                         type="button"
                                                         className="quantity-decrease w-auto"
-                                                        onClick={() =>
-                                                            handleDecrease(
-                                                                product.id
-                                                            )
-                                                        }
-                                                        style={{
-                                                            fontSize: "16px",
-                                                        }}
+                                                        onClick={() => handleDecrease( product.id )}
+                                                        style={{ fontSize: "16px", }}
                                                     >
                                                         <FaMinus />
                                                     </button>
@@ -236,38 +230,16 @@ const ContainerOrderDetails = ({
                                                             border:"none"
                                                         }}
                                                         value={product.quantity}
-                                                        onChange={(e) =>
-                                                            handleQuantityChange(
-                                                                product.id,
-                                                                e
-                                                            )
-                                                        }
-                                                        disabled={
-                                                            availableValue <
-                                                            finalTotal
-                                                        }
-                                                        readOnly={
-                                                            availableValue <
-                                                            finalTotal
-                                                                ? true
-                                                                : false
-                                                        }
+                                                        onChange={(e) => handleQuantityChange( product.id, e ) }
+                                                        disabled={ availableValue < finalTotal }
+                                                        readOnly={ availableValue < finalTotal ? true : false }
                                                     />
                                                     <button
                                                         className="quantity-increase w-auto"
                                                         type="button"
-                                                        onClick={() =>
-                                                            handleIncrease(
-                                                                product.id
-                                                            )
-                                                        }
-                                                        style={{
-                                                            fontSize: "16px",
-                                                        }}
-                                                        disabled={
-                                                            availableValue <
-                                                            finalTotal
-                                                        }
+                                                        onClick={() => handleIncrease( product.id ) }
+                                                        style={{ fontSize: "16px", }}
+                                                        disabled={ availableValue <  finalTotal }
                                                     >
                                                         <FaPlus />
                                                     </button>
@@ -275,24 +247,15 @@ const ContainerOrderDetails = ({
                                             </td>
                                             <td className="align-middle text-center">
                                                 <strong>
-                                                    {product.pivot.mrp_price *
-                                                        product.quantity}{" "}
-                                                    ৳
+                                                    {product.pivot.mrp_price * product.quantity}{" "} ৳
                                                 </strong>
                                             </td>
                                             <td className="align-middle text-center">
                                                 <p
-                                                    onClick={() =>
-                                                        handleDeleteSelectedProducts(
-                                                            product.id
-                                                        )
-                                                    }
+                                                    onClick={() => handleDeleteSelectedProducts( product.id )}
                                                     className="text-danger"
                                                     title="Delete"
-                                                    style={{
-                                                        cursor: "pointer",
-                                                        textAlign: "center",
-                                                    }}
+                                                    style={{ cursor: "pointer", textAlign: "center", }}
                                                 >
                                                     <FaTrashAlt />
                                                 </p>
@@ -312,22 +275,19 @@ const ContainerOrderDetails = ({
                                 <tr>
                                     <td>Sub Total</td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        {totalPrice.toFixed(2)}
+                                        ৳ {""} {totalPrice.toFixed(2)}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Discount</td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        {discount.toFixed(2)}
+                                        ৳ {""} {discount.toFixed(2)}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Total</td>
                                     <td className="text-end">
-                                        ৳ {""}
-                                        <strong>{finalTotal.toFixed(2)}</strong>
+                                        ৳ {""} <strong>{finalTotal.toFixed(2)}</strong>
                                     </td>
                                 </tr>
                             </tbody>
@@ -344,9 +304,7 @@ const ContainerOrderDetails = ({
                                     opacity:
                                         selectedProducts.length === 0 ||
                                         availableValue < finalTotal ||
-                                        availableQuantity < 1
-                                            ? 0.5
-                                            : 1,
+                                        availableQuantity < 1 ? 0.5 : 1,
                                     cursor:
                                         selectedProducts.length === 0 ||
                                         availableValue < finalTotal ||
