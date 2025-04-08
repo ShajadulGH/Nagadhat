@@ -10,6 +10,7 @@ import NoDataFound from "@/app/components/NoDataFound";
 import ContainerHorizontalScroll from "./ContainerHorizontalScroll";
 import { getActiveContainers } from "@/app/services/affiliate/affiliateproducts/getActiveContainers";
 import { getContainerCartProduct } from "@/app/services/affiliate/affiliateproducts/getContainerCartProduct";
+import LodingFixed from "@/app/components/LodingFixed";
 
 const ContainerBooking = ({ isActive }) => {
     const [isPending, startTransition] = useTransition();
@@ -20,6 +21,8 @@ const ContainerBooking = ({ isActive }) => {
     const [containerActiveId, setContainerActiveId] = useState(null);
     const [quantityFull, setQuantityFull] = useState(1);
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
+    const [cartProductsRerender, setCartProductsRender] = useState(false);
 
     useEffect(() => {
         if (session?.accessToken) {
@@ -45,7 +48,7 @@ const ContainerBooking = ({ isActive }) => {
 
     useEffect(() => {
         if (session?.accessToken) {
-            const fetchRetailProducts = async () => {
+            const fetchAffiliateContainer = async () => {
                 try {
                     startTransition(async () => {
                         const containerResponse = await getAffiliateContainer(
@@ -65,7 +68,7 @@ const ContainerBooking = ({ isActive }) => {
                     console.error("Failed to fetch container data:", error);
                 }
             };
-            fetchRetailProducts();
+            fetchAffiliateContainer();
         }
     }, [session?.accessToken, containerActiveId]);
 
@@ -74,10 +77,8 @@ const ContainerBooking = ({ isActive }) => {
         const fetchContainerCartProducts = async () => {
             try {
                 const response = await getContainerCartProduct(session?.accessToken);
-                console.log("container cart product ==>>", response);
-                if (response?.code === 200) {
-                    setSelectedProducts(response?.results);
-                    console.log("container Cart Product ==>>", response?.results);
+                if (response?.success) {
+                    setSelectedProducts(response?.data);
                 } else {
                     console.log(response?.message);
                 }
@@ -86,7 +87,7 @@ const ContainerBooking = ({ isActive }) => {
             }
         };
         fetchContainerCartProducts();
-    }, [session?.accessToken]);
+    }, [session?.accessToken, cartProductsRerender]);
 
     const availableQuantity = containerData?.quantity - containerData?.booked_quantity;
     const availableValue = containerData?.container_value - containerData?.booked_value;
@@ -105,6 +106,7 @@ const ContainerBooking = ({ isActive }) => {
                 id="container-booking"
                 role="tabpanel"
             >
+                {/* {loading && <div className="loading-overlay"> <LodingFixed /> </div>} */}
                 <ContainerHorizontalScroll
                     activeContainerData={activeContainerData}
                     isPending={isPending}
@@ -127,6 +129,10 @@ const ContainerBooking = ({ isActive }) => {
                         setQuantityFull={setQuantityFull}
                         availableQuantity={availableQuantity}
                         getTotalQuantity={getTotalQuantity}
+                        setLoading={setLoading}
+                        loading={loading}
+                        setCartProductsRender={setCartProductsRender}
+                        cartProductsRerender={cartProductsRerender}
                     />
                 ) : (
                     <NoDataFound />
@@ -141,6 +147,10 @@ const ContainerBooking = ({ isActive }) => {
                     setQuantityFull={setQuantityFull}
                     quantityFull={quantityFull}
                     getTotalQuantity={getTotalQuantity}
+                    setLoading={setLoading}
+                    loading={loading}
+                    setCartProductsRender={setCartProductsRender}
+                    cartProductsRerender={cartProductsRerender}
                 />
             </div>
         </>

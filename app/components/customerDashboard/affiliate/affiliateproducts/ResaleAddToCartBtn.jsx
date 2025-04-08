@@ -37,16 +37,16 @@ const ResaleAddToCartBtn = ({ product }) => {
         const addToCartInfo = {
             product_id: product?.id,
             product_name: product?.product_name,
-            regular_price: product.resell_mrp_price,
+            regular_price: product?.resell_mrp_price ,
             discount_type: "",
             discountPrice: 0,
-            price: product.resell_purchases_price,
+            price: product.resell_purchases_price ,
             outlet_id: outletId,
             product_thumbnail: product.product_thumbnail || "",
             quantity: newQuantity || 1,
             selectedVariants: [],
             location_id: districtId,
-            order_type: product?.sell_product_type == 2 ? "Resale" : "Container",
+            order_type: "Resale",
             cart_product_type: product.sell_product_type || 2,
             product_variation_id: null
         }

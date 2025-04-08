@@ -1,6 +1,8 @@
 "use client";
 import LodingFixed from "@/app/components/LodingFixed";
+import { addToCartQuantityUpdate } from "@/app/services/addToCartQuantityUpdate";
 import { postContainerPlaceOrder } from "@/app/services/affiliate/affiliateproducts/postContainerPlaceOrder";
+import { deleteCartProduct } from "@/app/services/getDeleteCartProduct";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -16,10 +18,13 @@ const ContainerOrderDetails = ({
     availableValue,
     session,
     getTotalQuantity,
+    setLoading,
+    loading,
+    setCartProductsRender,
+    cartProductsRerender,
 }) => {
     const [outletId, setOutletId] = useState(0);
     const [districtId, setDistrictId] = useState(null);
-    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -32,36 +37,85 @@ const ContainerOrderDetails = ({
         setDistrictId(initialDistrictId ? parseInt(initialDistrictId) : 47);
     }, []);
 
-    const handleIncrease = (productId) => {
-        const totalQuantity = getTotalQuantity();
-        if (totalQuantity < availableQuantity) {
-            setSelectedProducts((prevProducts) =>
-                prevProducts.map((product) =>
-                    product.id === productId
-                        ? { ...product, quantity: product.quantity + 1 }
-                        : product
-                )
+    const handleIncrease = async (productId, cartId) => {
+        // const totalQuantity = getTotalQuantity();
+        // if (totalQuantity < availableQuantity) {
+        //     setSelectedProducts((prevProducts) =>
+        //         prevProducts.map((product) =>
+        //             product.id === productId
+        //                 ? { ...product, quantity: product.quantity + 1 }
+        //                 : product
+        //         )
+        //     );
+        // } else {
+        //     toast.error("Booked quantity cannot exceed the total quantity.");
+        // }
+
+        const quantityUpdateInfo = {
+            cart_id: cartId,
+            outlet_id: outletId,
+            quantity: "increment",
+
+        };
+        try {
+            setLoading
+            const incrementApi = await addToCartQuantityUpdate(
+                quantityUpdateInfo,
+                session?.accessToken
             );
-        } else {
-            toast.error("Booked quantity cannot exceed the total quantity.");
+            if (incrementApi.code == 200) {
+                setCartProductsRender(!cartProductsRerender);
+                toast.success("Product quantity updated successfully.");
+            }else {
+                toast.error(incrementApi.message)
+            }
+        } catch (error) {
+            console.error('Error updating cart quantity:', error);
+            toast.error("Error updating cart quantity.");
+        } finally {
+            setLoading(false);
         }
     };
 
-    const handleDecrease = (productId) => {
-        setSelectedProducts((prevProducts) =>
-            prevProducts.map((product) =>
-                product.id === productId && product.quantity > 1
-                    ? { ...product, quantity: product.quantity - 1 }
-                    : product
-            )
-        );
+    const handleDecrease = async (productId, cartId) => {
+        // setSelectedProducts((prevProducts) =>
+        //     prevProducts.map((product) =>
+        //         product.id === productId && product.quantity > 1
+        //             ? { ...product, quantity: product.quantity - 1 }
+        //             : product
+        //     )
+        // );
+
+        const quantityUpdateInfo = {
+            cart_id: cartId,
+            outlet_id: outletId,
+            quantity: "decrement",
+        };
+        try {
+            setLoading(true);
+            const decrementApi = await addToCartQuantityUpdate(
+            quantityUpdateInfo,
+            session?.accessToken
+            );
+            if (decrementApi.code == 200) {
+                setCartProductsRender(!cartProductsRerender);
+                toast.success("Product quantity updated successfully.");
+            }else {
+                toast.error(decrementApi.message)
+            }
+        } catch (error) {
+            console.error('Error updating cart quantity:', error);
+            toast.error("Error updating cart quantity.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleQuantityChange = (productId, event) => {
         const newQuantity = parseInt(event.target.value, 10);
         const totalQuantity = getTotalQuantity();
         const currentProduct = selectedProducts.find(
-            (product) => product.id === productId
+            (product) => product.product_id === productId
         );
         const remainingQuantity =
             availableQuantity - (totalQuantity - currentProduct.quantity);
@@ -73,7 +127,7 @@ const ContainerOrderDetails = ({
         ) {
             setSelectedProducts((prevProducts) =>
                 prevProducts.map((product) =>
-                    product.id === productId
+                    product.product_id === productId
                         ? { ...product, quantity: newQuantity }
                         : product
                 )
@@ -83,25 +137,32 @@ const ContainerOrderDetails = ({
         }
     };
 
-    const handleDeleteSelectedProducts = (productId) => {
-        const updatedProducts = selectedProducts.filter(
-            (product) => product.id !== productId
+    const handleDeleteSelectedProducts = async (productId, cartId) => {
+        const deleteProduct = await deleteCartProduct(
+            cartId,
+            session?.accessToken
         );
-        setSelectedProducts(updatedProducts);
+        console.log(deleteProduct);
+        if (deleteProduct.code == 200) {
+            setCartProductsRender(!cartProductsRerender);
+            toast.success("Product deleted successfully.");
+        } else {
+            toast.error(deleteProduct.message);
+        }
     };
 
     const calculateTotals = () => {
         const totalPrice = selectedProducts.reduce(
-            (acc, product) => acc + product.pivot.mrp_price * product.quantity,
+            (acc, product) => acc + product.regular_price * product.quantity,
             0
         );
 
-        const discount = selectedProducts.reduce(
-            (acc, product) => acc + product.pivot.profit * product.quantity,
+        const finalTotal = selectedProducts.reduce(
+            (acc, product) => acc + product.price * product.quantity,
             0
         );
 
-        const finalTotal = totalPrice - discount;
+        const discount = totalPrice - finalTotal;
 
         return { totalPrice, discount, finalTotal };
     };
@@ -204,7 +265,7 @@ const ContainerOrderDetails = ({
                                                     alt={product.product_name}
                                                 />
                                             </td>
-                                            
+
                                             <td className="align-middle text-center">
                                                 <div
                                                     className="btn-group px-1 quantity-area px-2"
@@ -214,7 +275,7 @@ const ContainerOrderDetails = ({
                                                     <button
                                                         type="button"
                                                         className="quantity-decrease w-auto"
-                                                        onClick={() => handleDecrease( product.id )}
+                                                        onClick={() => handleDecrease(product.product_id, product.cart_id)}
                                                         style={{ fontSize: "16px", }}
                                                     >
                                                         <FaMinus />
@@ -226,20 +287,20 @@ const ContainerOrderDetails = ({
                                                         type="text"
                                                         style={{
                                                             width: "50px",
-                                                            outline:"none",
-                                                            border:"none"
+                                                            outline: "none",
+                                                            border: "none"
                                                         }}
                                                         value={product.quantity}
-                                                        onChange={(e) => handleQuantityChange( product.id, e ) }
-                                                        disabled={ availableValue < finalTotal }
-                                                        readOnly={ availableValue < finalTotal ? true : false }
+                                                        onChange={(e) => handleQuantityChange(product.product_id, e)}
+                                                        disabled={availableValue < finalTotal}
+                                                        readOnly={availableValue < finalTotal ? true : false}
                                                     />
                                                     <button
                                                         className="quantity-increase w-auto"
                                                         type="button"
-                                                        onClick={() => handleIncrease( product.id ) }
+                                                        onClick={() => handleIncrease(product.product_id, product.cart_id)}
                                                         style={{ fontSize: "16px", }}
-                                                        disabled={ availableValue <  finalTotal }
+                                                        disabled={availableValue < finalTotal}
                                                     >
                                                         <FaPlus />
                                                     </button>
@@ -247,12 +308,12 @@ const ContainerOrderDetails = ({
                                             </td>
                                             <td className="align-middle text-center">
                                                 <strong>
-                                                    {product.pivot.mrp_price * product.quantity}{" "} ৳
+                                                    {product.regular_price * product.quantity}{" "} ৳
                                                 </strong>
                                             </td>
                                             <td className="align-middle text-center">
                                                 <p
-                                                    onClick={() => handleDeleteSelectedProducts( product.id )}
+                                                    onClick={() => handleDeleteSelectedProducts(product.product_id, product.cart_id)}
                                                     className="text-danger"
                                                     title="Delete"
                                                     style={{ cursor: "pointer", textAlign: "center", }}
@@ -303,12 +364,12 @@ const ContainerOrderDetails = ({
                                 style={{
                                     opacity:
                                         selectedProducts.length === 0 ||
-                                        availableValue < finalTotal ||
-                                        availableQuantity < 1 ? 0.5 : 1,
+                                            availableValue < finalTotal ||
+                                            availableQuantity < 1 ? 0.5 : 1,
                                     cursor:
                                         selectedProducts.length === 0 ||
-                                        availableValue < finalTotal ||
-                                        availableQuantity < 1
+                                            availableValue < finalTotal ||
+                                            availableQuantity < 1
                                             ? "not-allowed"
                                             : "pointer",
                                 }}

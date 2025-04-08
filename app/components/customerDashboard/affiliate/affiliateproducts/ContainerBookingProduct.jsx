@@ -6,7 +6,9 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import ResaleAddToCartBtn from "./ResaleAddToCartBtn";
-import { use } from "react";
+import { useEffect, useState } from "react";
+import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
+import { useSession } from "next-auth/react";
 
 const ContainerBookingProduct = ({
     containerProduct,
@@ -16,28 +18,59 @@ const ContainerBookingProduct = ({
     progressBarValue,
     getTotalQuantity,
     availableQuantity,
+    setLoading,
+    cartProductsRerender,
+    setCartProductsRender,
 }) => {
     console.log("containerProduct==>>", containerProduct);
 
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
+    const [outletId, setOutletId] = useState(null);
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        const initialOutletId = localStorage.getItem("outletId");
+        setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
+    }, []);
 
     // Toggle product selection
-    const handleSelectProduct = (product) => {
-        const totalQuantity = getTotalQuantity();
-        if (selectedProducts.some((p) => p.id === product.id)) {
-            setSelectedProducts(
-                selectedProducts.filter((p) => p.id !== product.id)
-            );
-        } else {
-            if (totalQuantity + 1 > availableQuantity) {
-                toast.error("Quantity cannot exceed available quantity.");
-                return; // Don't proceed with adding the product
+    const handleSelectProduct = async (product) => {
+        let newQuantity = product.updateQuantity || product.min_quantity || 1;
+
+        const addToCartInfo = {
+            product_id: product?.id,
+            product_name: product?.product_name,
+            regular_price: product?.pivot.mrp_price,
+            discount_type: "",
+            discountPrice: 0,
+            price: product?.pivot.trade_price,
+            outlet_id: outletId,
+            product_thumbnail: product.product_thumbnail || "",
+            quantity: newQuantity || 1,
+            selectedVariants: [],
+            location_id: 47,
+            order_type: "Container",
+            cart_product_type: product.sell_product_type || 3,
+            product_variation_id: null
+        }
+
+        try {
+            setLoading(true)
+            const productAdded = await addToCartProduct(addToCartInfo, session?.accessToken);
+            console.log("productAdded==>>", productAdded);
+            
+            if (productAdded.code == 200) {
+                toast.success("Cart Added ");
+                setCartProductsRender(!cartProductsRerender);
+            } else {
+                toast.error(productAdded.message,);
             }
-            setSelectedProducts([
-                ...selectedProducts,
-                { ...product, quantity: 1 },
-            ]);
+        } catch (error) {
+            console.error("An error occurred while placing the order:", error);
+            toast.error("Something went wrong, please try again later.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -76,7 +109,7 @@ const ContainerBookingProduct = ({
                             onClick={() => handleSelectProduct(product)}
                         >
                             <div
-                                className={`flash-sale-content-bg nh-hover-box-shadow ${selectedProducts.some( (p) => p.id === product.id ) ? "selected-container-item" : "" }`}
+                                className={`flash-sale-content-bg nh-hover-box-shadow ${selectedProducts.some((p) => p.product_id === product.id) ? "selected-container-item" : ""}`}
                             >
                                 <div
                                     className="image-hover-effect mx-auto mb-2"
@@ -88,10 +121,10 @@ const ContainerBookingProduct = ({
                                 >
                                     <Image
                                         fill
-                                        src={ product?.product_thumbnail ? `${NagadhatPublicUrl}/${product?.product_thumbnail}` : `/images/placeholder--image.jpg` }
+                                        src={product?.product_thumbnail ? `${NagadhatPublicUrl}/${product?.product_thumbnail}` : `/images/placeholder--image.jpg`}
                                         className="img-fluid mx-auto"
                                         alt={product?.product_name}
-                                        style={{ objectFit: "cover"}}
+                                        style={{ objectFit: "cover" }}
                                     />
                                 </div>
                                 <div className="flash-sale-content-info text-hover-effect">
@@ -108,20 +141,19 @@ const ContainerBookingProduct = ({
                                         <Link
                                             href={`/container-product-details/${product?.id}/${containerId}/${tab}`}
                                             className="add-to-cart-link "
-                                            target="_blank"
                                             onClick={handleLinkClick} // Stop event propagation
                                         >
                                             View Details
                                         </Link>
                                     </div>
-                                    <div className="add-to-cart-btn mt-2">
+                                    {/* <div className="add-to-cart-btn mt-2">
                                         <ResaleAddToCartBtn
                                             productType={3}
                                             product={product}
                                             containerId={containerId}
                                             setSelectedProducts={setSelectedProducts}
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
