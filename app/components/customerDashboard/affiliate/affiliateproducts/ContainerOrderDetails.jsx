@@ -134,16 +134,23 @@ const ContainerOrderDetails = ({
     };
 
     const handleDeleteSelectedProducts = async (productId, cartId) => {
-        const deleteProduct = await deleteCartProduct(
-            cartId,
-            session?.accessToken
-        );
-        console.log(deleteProduct);
-        if (deleteProduct.code == 200) {
-            setCartProductsRender(!cartProductsRerender);
-            toast.success("Product deleted successfully.");
-        } else {
-            toast.error(deleteProduct.message);
+        try {
+            setLoading(true);
+            const deleteProduct = await deleteCartProduct(
+                cartId,
+                session?.accessToken
+            );
+            if (deleteProduct.code == 200) {
+                setCartProductsRender(!cartProductsRerender);
+                toast.success("Product deleted successfully.");
+            } else {
+                toast.error(deleteProduct.message);
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error);
+            toast.error("Error occurred while deleting the product.");
+        } finally {
+            setLoading(false);
         }
     };
 

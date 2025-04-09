@@ -55,7 +55,6 @@ const ContainerBookingProduct = ({
         try {
             setLoading(true)
             const productAdded = await addToCartProduct(addToCartInfo, session?.accessToken);
-            console.log("productAdded==>>", productAdded);
             
             if (productAdded.code == 200) {
                 toast.success("Cart Added ");
