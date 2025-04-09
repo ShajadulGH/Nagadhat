@@ -75,7 +75,16 @@ const BankDetailsInfo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Update bank details
+        // Validate fields
+        if (bankInfo?.account_number?.length < 8) {
+            toast.error("Account number must be at least 8 digits long.");
+            return;
+        }
+        if (bankInfo?.routing_number?.length < 6) {
+            toast.error("Routing number must be at least 6 digits long.");
+            return;
+        }
+
         try {
             const response = await updateAffiliateFinanceBankInfo(
                 session.accessToken,
@@ -220,6 +229,7 @@ const BankDetailsInfo = () => {
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
                                     required
+                                    minLength={8}
                                 />
                             </div>
 
@@ -241,6 +251,7 @@ const BankDetailsInfo = () => {
                                     onChange={handleInputChange}
                                     disabled={!isEditable}
                                     required
+                                    minLength={6}
                                 />
                             </div>
 
