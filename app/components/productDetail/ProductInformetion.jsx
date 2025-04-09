@@ -471,7 +471,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 //         : bestMatch?.discountPrice,
                 prices: bestMatch?.price,
                 discountPrice: bestMatch?.discount_amount,
-                
+
                 // discountPrice:
                 //     bestMatch?.discount_type === "percentage" ?
                 //         bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
@@ -577,9 +577,8 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     </strong>
                     <del>
                         {parseInt(productPrice?.discountPrice) > 0 &&
-                            `৳ ${
-                                parseInt(productPrice?.discountPrice) +
-                                parseInt(productPrice?.prices)
+                            `৳ ${parseInt(productPrice?.discountPrice) +
+                            parseInt(productPrice?.prices)
                             }`}
                     </del>
                 </div>
@@ -598,8 +597,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                 {productAllVariants?.map((item, index) => (
                                     <div key={index}>
                                         {item?.name === "variation_color" && (
-                                            <>
-                                                <div className="product-details-variant-holder d-flex align-items-center mb-4">
+                                                <div className="product-details-variant-holder d-flex align-items-center mb-4 flex-wrap">
                                                     <p className="variantName">
                                                         Color
                                                     </p>
@@ -609,18 +607,10 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                                 <div
                                                                     key={inx}
                                                                     className="product-details-inner-color product-details-variant-item"
-                                                                    onClick={() =>
-                                                                        handleVariations(
-                                                                            variant.value,
-                                                                            item.name
-                                                                        )
-                                                                    }
+                                                                    onClick={() => handleVariations(variant.value, item.name)}
                                                                     style={{
-                                                                        border: variant.selected
-                                                                            ? "3px solid #44bc9d "
-                                                                            : "",
-                                                                        background:
-                                                                            variant?.value.toLowerCase(),
+                                                                        border: variant.selected ? "3px solid #44bc9d " : "",
+                                                                        background: variant?.value.toLowerCase(),
                                                                     }}
                                                                 ></div>
                                                             ) : (
@@ -628,8 +618,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                                     className="product-details-inner-color product-details-variant-item"
                                                                     style={{
                                                                         border: "2px solid #7B7B7B",
-                                                                        background:
-                                                                            variant?.value.toLowerCase(),
+                                                                        background: variant?.value.toLowerCase(),
                                                                         cursor: "not-allowed",
                                                                         opacity: 0.3,
                                                                     }}
@@ -637,7 +626,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                             )
                                                     )}
                                                 </div>
-                                            </>
                                         )}
                                     </div>
                                 ))}
@@ -648,41 +636,22 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                 {productAllVariants?.map((item, index) => {
                                     return (
                                         <div key={index}>
-                                            {item?.name ===
-                                                "variation_size" && (
-                                                <>
-                                                    <div className="product-details-variant-holder d-flex align-items-center mb-4">
+                                            {item?.name === "variation_size" && (
+                                                    <div className="product-details-variant-holder d-flex align-items-center mb-4 flex-wrap">
                                                         <p>Size:</p>
                                                         {item?.variants?.map(
                                                             (variant, inx) =>
                                                                 variant.selectAble ? (
                                                                     <div
-                                                                        key={
-                                                                            inx
-                                                                        }
-                                                                        className={`product-details-variant-item ${
-                                                                            variant.selected
-                                                                                ? "variantAttributeActive"
-                                                                                : "variantAttributeUnitive"
-                                                                        }`}
-                                                                        onClick={() =>
-                                                                            handleVariations(
-                                                                                variant.value,
-                                                                                item.name
-                                                                            )
-                                                                        }
+                                                                        key={inx}
+                                                                        className={`product-details-variant-item ${variant.selected ? "variantAttributeActive" : "variantAttributeUnitive"}`}
+                                                                        onClick={() => handleVariations(variant.value, item.name)}
                                                                     >
-                                                                        <label>
-                                                                            {
-                                                                                variant?.value
-                                                                            }
-                                                                        </label>
+                                                                        <label> {variant?.value} </label>
                                                                     </div>
                                                                 ) : (
                                                                     <div
-                                                                        key={
-                                                                            inx
-                                                                        }
+                                                                        key={inx}
                                                                         className={`product-details-variant-item`}
                                                                         style={{
                                                                             border: "2px solid #7B7B7B",
@@ -690,16 +659,11 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                                             opacity: 0.3,
                                                                         }}
                                                                     >
-                                                                        <label>
-                                                                            {
-                                                                                variant?.value
-                                                                            }
-                                                                        </label>
+                                                                        <label>{variant?.value}</label>
                                                                     </div>
                                                                 )
                                                         )}
                                                     </div>
-                                                </>
                                             )}
                                         </div>
                                     );
@@ -713,44 +677,22 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     {productAllVariants?.map((item, index) => {
                                         return (
                                             <div key={index}>
-                                                {item?.name ===
-                                                    "variation_weight" && (
-                                                    <>
+                                                {item?.name === "variation_weight" && (
                                                         <div className="product-details-variant-holder d-flex align-items-center mb-4">
                                                             <p>Weight:</p>
                                                             {item?.variants?.map(
-                                                                (
-                                                                    variant,
-                                                                    inx
-                                                                ) =>
+                                                                (variant, inx) =>
                                                                     variant.selectAble ? (
                                                                         <div
-                                                                            key={
-                                                                                inx
-                                                                            }
-                                                                            className={`product-details-variant-item ${
-                                                                                variant.selected
-                                                                                    ? "variantAttributeActive"
-                                                                                    : "variantAttributeUnitive"
-                                                                            }`}
-                                                                            onClick={() =>
-                                                                                handleVariations(
-                                                                                    variant.value,
-                                                                                    item.name
-                                                                                )
-                                                                            }
+                                                                            key={inx}
+                                                                            className={`product-details-variant-item ${variant.selected ? "variantAttributeActive" : "variantAttributeUnitive"}`}
+                                                                            onClick={() => handleVariations(variant.value, item.name)}
                                                                         >
-                                                                            <label>
-                                                                                {
-                                                                                    variant?.value
-                                                                                }
-                                                                            </label>
+                                                                            <label> {variant?.value} </label>
                                                                         </div>
                                                                     ) : (
                                                                         <div
-                                                                            key={
-                                                                                inx
-                                                                            }
+                                                                            key={inx}
                                                                             className={`product-details-variant-item`}
                                                                             style={{
                                                                                 border: "2px solid #7B7B7B",
@@ -758,16 +700,11 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                                                 opacity: 0.3,
                                                                             }}
                                                                         >
-                                                                            <label>
-                                                                                {
-                                                                                    variant?.value
-                                                                                }
-                                                                            </label>
+                                                                            <label> {variant?.value} </label>
                                                                         </div>
                                                                     )
                                                             )}
                                                         </div>
-                                                    </>
                                                 )}
                                             </div>
                                         );
@@ -778,9 +715,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
                         <div>
                             <p style={{ color: "red", marginBottom: "10px" }}>
-                                {productVariationsError
-                                    ? productVariationsError
-                                    : ""}
+                                {productVariationsError ? productVariationsError : ""}
                             </p>
                         </div>
 
@@ -792,9 +727,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                 <div className="product-details-inner-quantity product-details-inner-qty d-flex align-items-center">
                                     <button
                                         type="button"
-                                        onClick={() => {
-                                            dispatch({ type: "DECREMENT" });
-                                        }}
+                                        onClick={() => { dispatch({ type: "DECREMENT" }); }}
                                         disabled={state.count == 1}
                                     >
                                         -
@@ -806,81 +739,69 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => {
-                                            dispatch({ type: "INCREMENT" });
-                                        }}
+                                        onClick={() => { dispatch({ type: "INCREMENT" }) }}
                                         disabled={state.count >= productStoke}
                                     >
                                         +
                                     </button>
                                 </div>
                                 <div>
-                                    {productStoke > 0
-                                        ? productStoke - state.count
-                                        : productStoke}{" "}
-                                    pieces available
+                                    {productStoke > 0 ? productStoke - state.count : productStoke}{" "}  pieces available
                                 </div>
                             </div>
                         </div>
 
                         <div className="product-details-add-cart-area d-flex align-items-center">
-                        {
-                                    productStoke > 0 ?
-                            (<>
-                            <div className="product-details-add-cart">
-                                <AddToCartButton
-                                    title="BUY NOW"
-                                    buyNowBtn="product-details-action-btn"
-                                    productInfo={productInfo}
-                                    selectedVariantKeys={selectedVariantKeys}
-                                    setProductVariationError={
-                                        setProductVariationError
-                                    }
-                                    productPrice={productPrice}
-                                    decorateVariation={decorateVariation}
-                                    selectedVariants={selectedVariants}
-                                    quantity={state.count}
-                                    selectedVariantProductInfo={
-                                        selectedVariantProductInfo
-                                    }
-                                    productStoke={productStoke}
-                                />
-                            </div>
-                            <div className="product-details-add-cart">
-                                <AddToCartButton
-                                    buyNowBtn="product-details-action-btn"
-                                    productInfo={productInfo}
-                                    selectedVariantKeys={selectedVariantKeys}
-                                    setProductVariationError={
-                                        setProductVariationError
-                                    }
-                                    productPrice={productPrice}
-                                    decorateVariation={decorateVariation}
-                                    selectedVariants={selectedVariants}
-                                    quantity={state.count}
-                                    selectedVariantProductInfo={
-                                        selectedVariantProductInfo
-                                    }
-                                    isDetailsPage={true}
-                                    productStoke={productStoke}
-                                />
-                            </div>
-                            </>):(
-                                <div className="product-details-add-cart">
-                                <button
-                                    type="button"
-                                    className="add-to-cart-link border-0"
-                                    disabled
-                                    style={{
-                                        pointerEvents: productStoke > 0 ? "auto" : "none",
-                                        opacity: productStoke > 0 ? 1 : 0.5,
-                                        width: "300px",
-                                    }}
-                                >
-                                    Out of Stock
-                                </button>
-                                </div>
-                            )}
+                            {
+                                productStoke > 0 ? (
+                                    <>
+                                        <div className="product-details-add-cart">
+                                            <AddToCartButton
+                                                title="BUY NOW"
+                                                buyNowBtn="product-details-action-btn"
+                                                productInfo={productInfo}
+                                                selectedVariantKeys={selectedVariantKeys}
+                                                setProductVariationError={setProductVariationError}
+                                                productPrice={productPrice}
+                                                decorateVariation={decorateVariation}
+                                                selectedVariants={selectedVariants}
+                                                quantity={state.count}
+                                                selectedVariantProductInfo={selectedVariantProductInfo}
+                                                productStoke={productStoke}
+                                            />
+                                        </div>
+                                        <div className="product-details-add-cart">
+                                            <AddToCartButton
+                                                buyNowBtn="product-details-action-btn"
+                                                productInfo={productInfo}
+                                                selectedVariantKeys={selectedVariantKeys}
+                                                setProductVariationError={ setProductVariationError}
+                                                productPrice={productPrice}
+                                                decorateVariation={decorateVariation}
+                                                selectedVariants={selectedVariants}
+                                                quantity={state.count}
+                                                selectedVariantProductInfo={ selectedVariantProductInfo}
+                                                isDetailsPage={true}
+                                                productStoke={productStoke}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="product-details-add-cart">
+                                        <button
+                                            type="button"
+                                            className="add-to-cart-link border-0"
+                                            disabled
+                                            style={{
+                                                pointerEvents: productStoke > 0 ? "auto" : "none",
+                                                opacity: productStoke > 0 ? 1 : 0.5,
+                                                width: "300px",
+                                            }}
+                                        >
+                                            Out of Stock
+                                        </button>
+                                    </div>
+                                )}
                         </div>
                     </form>
                 </div>
