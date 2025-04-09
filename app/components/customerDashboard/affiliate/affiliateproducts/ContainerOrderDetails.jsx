@@ -2,6 +2,7 @@
 import LodingFixed from "@/app/components/LodingFixed";
 import { addToCartQuantityUpdate } from "@/app/services/addToCartQuantityUpdate";
 import { postContainerPlaceOrder } from "@/app/services/affiliate/affiliateproducts/postContainerPlaceOrder";
+import { containerCartQuantityUpdate } from "@/app/services/containerCartQuantityUpdate";
 import { deleteCartProduct } from "@/app/services/getDeleteCartProduct";
 import { NagadhatPublicUrl, truncateTitle } from "@/app/utils";
 import Image from "next/image";
@@ -111,7 +112,7 @@ const ContainerOrderDetails = ({
         }
     };
 
-    const handleQuantityChange = (productId, event) => {
+    const handleQuantityChange = async (productId, event, cartId) => {
         const newQuantity = parseInt(event.target.value, 10);
         const totalQuantity = getTotalQuantity();
         const currentProduct = selectedProducts.find(
@@ -125,13 +126,19 @@ const ContainerOrderDetails = ({
             newQuantity >= 1 &&
             newQuantity <= remainingQuantity
         ) {
-            setSelectedProducts((prevProducts) =>
-                prevProducts.map((product) =>
-                    product.product_id === productId
-                        ? { ...product, quantity: newQuantity }
-                        : product
-                )
+            const quantityUpdateInfo = {
+                cart_id: cartId,
+                outlet_id: outletId,
+                quantity: newQuantity,
+            };
+            const quantityUpdate = await containerCartQuantityUpdate(
+                quantityUpdateInfo,
+                session?.accessToken
             );
+            if (quantityUpdate.code == 200) {
+                setCartProductsRender(!cartProductsRerender);
+                toast.success("Product quantity updated successfully.");
+            }
         } else {
             toast.error("Booked quantity cannot exceed the total quantity.");
         }
@@ -242,10 +249,7 @@ const ContainerOrderDetails = ({
                     <div className="container-booking-oder-table">
                         <h3>Order Details</h3>
                         <div className="table-responsive">
-                            <table
-                                className="table"
-                                style={{ minWidth: "550px" }}
-                            >
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th>Product</th>
@@ -291,7 +295,7 @@ const ContainerOrderDetails = ({
                                                             border: "none"
                                                         }}
                                                         value={product.quantity}
-                                                        onChange={(e) => handleQuantityChange(product.product_id, e)}
+                                                        onChange={(e) => handleQuantityChange(product.product_id, e, product.cart_id)}
                                                         disabled={availableValue < finalTotal}
                                                         readOnly={availableValue < finalTotal ? true : false}
                                                     />

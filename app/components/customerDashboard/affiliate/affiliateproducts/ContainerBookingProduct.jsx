@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-import ResaleAddToCartBtn from "./ResaleAddToCartBtn";
 import { useEffect, useState } from "react";
 import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
 import { useSession } from "next-auth/react";
@@ -22,8 +21,6 @@ const ContainerBookingProduct = ({
     cartProductsRerender,
     setCartProductsRender,
 }) => {
-    console.log("containerProduct==>>", containerProduct);
-
     const searchParams = useSearchParams();
     const tab = searchParams.get("tab") || "retails-tab";
     const [outletId, setOutletId] = useState(null);
@@ -101,7 +98,7 @@ const ContainerBookingProduct = ({
                         </div>
                     </div>
                 </div>
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 p-4 row-cols-xxl-4 g-3">
+                <div className="row row-cols-2 row-cols-md-3 p-4 row-cols-xxl-4 g-3">
                     {containerProduct.map((product) => (
                         <div
                             key={product?.id}
@@ -114,17 +111,17 @@ const ContainerBookingProduct = ({
                                 <div
                                     className="image-hover-effect mx-auto mb-2"
                                     style={{
-                                        width: "100%",
-                                        height: "160px",
                                         position: "relative",
+                                        aspectRatio: "1/1"
                                     }}
                                 >
                                     <Image
-                                        fill
+                                        height={200}
+                                        width={200}
                                         src={product?.product_thumbnail ? `${NagadhatPublicUrl}/${product?.product_thumbnail}` : `/images/placeholder--image.jpg`}
                                         className="img-fluid mx-auto"
                                         alt={product?.product_name}
-                                        style={{ objectFit: "cover" }}
+                                        style={{ objectFit: "cover", aspectRatio: "1/1" }}
                                     />
                                 </div>
                                 <div className="flash-sale-content-info text-hover-effect">
