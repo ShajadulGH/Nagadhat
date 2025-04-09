@@ -39,19 +39,6 @@ const ContainerOrderDetails = ({
     }, []);
 
     const handleIncrease = async (productId, cartId) => {
-        // const totalQuantity = getTotalQuantity();
-        // if (totalQuantity < availableQuantity) {
-        //     setSelectedProducts((prevProducts) =>
-        //         prevProducts.map((product) =>
-        //             product.id === productId
-        //                 ? { ...product, quantity: product.quantity + 1 }
-        //                 : product
-        //         )
-        //     );
-        // } else {
-        //     toast.error("Booked quantity cannot exceed the total quantity.");
-        // }
-
         const quantityUpdateInfo = {
             cart_id: cartId,
             outlet_id: outletId,
@@ -59,7 +46,7 @@ const ContainerOrderDetails = ({
 
         };
         try {
-            setLoading
+            setLoading(true);
             const incrementApi = await addToCartQuantityUpdate(
                 quantityUpdateInfo,
                 session?.accessToken
@@ -79,14 +66,6 @@ const ContainerOrderDetails = ({
     };
 
     const handleDecrease = async (productId, cartId) => {
-        // setSelectedProducts((prevProducts) =>
-        //     prevProducts.map((product) =>
-        //         product.id === productId && product.quantity > 1
-        //             ? { ...product, quantity: product.quantity - 1 }
-        //             : product
-        //     )
-        // );
-
         const quantityUpdateInfo = {
             cart_id: cartId,
             outlet_id: outletId,
@@ -131,13 +110,23 @@ const ContainerOrderDetails = ({
                 outlet_id: outletId,
                 quantity: newQuantity,
             };
-            const quantityUpdate = await containerCartQuantityUpdate(
-                quantityUpdateInfo,
-                session?.accessToken
-            );
-            if (quantityUpdate.code == 200) {
-                setCartProductsRender(!cartProductsRerender);
-                toast.success("Product quantity updated successfully.");
+            try {
+                setLoading(true);
+                const quantityUpdate = await containerCartQuantityUpdate(
+                    quantityUpdateInfo,
+                    session?.accessToken
+                );
+                if (quantityUpdate.code == 200) {
+                    setCartProductsRender(!cartProductsRerender);
+                    toast.success("Product quantity updated successfully.");
+                } else {
+                    toast.error(quantityUpdate.message);
+                }
+            } catch (error) {
+                console.error('Error updating product quantity:', error);
+                toast.error("Error updating product quantity.");
+            } finally {
+                setLoading(false);
             }
         } else {
             toast.error("Booked quantity cannot exceed the total quantity.");
