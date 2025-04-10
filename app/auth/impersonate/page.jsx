@@ -22,8 +22,8 @@ export default function ImpersonatePage() {
                     setError("Invalid Credentials");
                     return;
                 }
+                router.refresh();
                 router.push("/dashboard");
-
             } catch (error) {
                 console.error('Authentication failed:', error);
                 setError(error instanceof Error ? error.message : 'Authentication failed');

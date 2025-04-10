@@ -61,6 +61,7 @@ const AffiliatePartnerStatus = ({ userDashboard, isPending }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await fetchApplyAffiliate();
+                window.location.reload();
             }
         });
     };
