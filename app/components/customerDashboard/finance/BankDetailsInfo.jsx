@@ -80,7 +80,7 @@ const BankDetailsInfo = () => {
             toast.error("Account number must be at least 8 digits long.");
             return;
         }
-        if (bankInfo?.routing_number?.length < 6) {
+        if (bankInfo?.routing_number?.length < 3) {
             toast.error("Routing number must be at least 6 digits long.");
             return;
         }
