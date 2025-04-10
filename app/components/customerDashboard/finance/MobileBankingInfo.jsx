@@ -50,6 +50,15 @@ const MobileBankingInfo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (mobileBankingInfo.bkash_number.length < 11) {
+            toast.error("Bkash number must be at least 11 digits long.");
+            return;
+        }
+        if (mobileBankingInfo.nagad_number.length < 11) {
+            toast.error("Nagad number must be at least 11 digits long.");
+            return;
+        }
+
         try {
             const response = await updateAffiliateFinanceMobileBankInfo(session.accessToken, mobileBankingInfo);
             if (response.code === 200) {
