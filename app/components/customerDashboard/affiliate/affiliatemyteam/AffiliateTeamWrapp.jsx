@@ -18,10 +18,11 @@ const AffiliateTeamWrapp = () => {
     const [otherTeam, setOtherTeam] = useState([]);
     const [totalMember, setTotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
+    const [otherTotalMembers, setOtherTotalMembers] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const { data: session, status } = useSession();
-    const [lastPage, setLastPage] = useState(1); // New state for last page
-    const [currentPage, setCurrentPage] = useState(1); // New state for current page
+    const [lastPage, setLastPage] = useState(1); 
+    const [currentPage, setCurrentPage] = useState(1);
     const searchParams = useSearchParams();
 
     useEffect(() => {
@@ -31,7 +32,7 @@ const AffiliateTeamWrapp = () => {
         }
     }, [searchParams, currentPage]);
 
-    const limit = 20; //Per Page Category
+    const limit = 20;
 
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
@@ -48,14 +49,15 @@ const AffiliateTeamWrapp = () => {
                             session?.accessToken,
                             searchParams
                         );
+                        let info = affiliateTeam?.results;
+                        const otherTotalMembers =
+                            affiliateTeam?.results?.all_other_total_members || 0;
                         const affiliateTeamData =
                             affiliateTeam?.results?.myTeam || {};
-                            console.log(affiliateTeamData);
-                            
                         const allMemberCount =
-                            affiliateTeam?.results?.myTeam?.total;
+                            affiliateTeam?.results?.total_members || 0;
                         const grandTotal = affiliateTeam?.results;
-
+                        setOtherTotalMembers(otherTotalMembers);
                         setTeamGrandTotal(grandTotal);
                         setTotalMember(allMemberCount);
                         setTeamData(affiliateTeamData);
@@ -114,6 +116,7 @@ const AffiliateTeamWrapp = () => {
                             secondHighestTeam={secondHighestTeam}
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
+                            otherTotalMembers={otherTotalMembers}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
