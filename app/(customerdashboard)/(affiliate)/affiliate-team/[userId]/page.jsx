@@ -14,7 +14,10 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 const Page = ({ params }) => {
     const { userId } = params;
     const [isPending, startTransition] = useTransition();
-    const [teamData, setTeamData] = useState([]);
+    const [teamData, setTeamData] = useState({});
+    const [firstHighestTeam, setFirstHighestTeam] = useState({});
+    const [secondHighestTeam, setSecondHighestTeam] = useState({});
+    const [otherTeam, setOtherTeam] = useState([]);
     const [totalMember, settotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -38,6 +41,8 @@ const Page = ({ params }) => {
             if (status === "authenticated" && session?.accessToken) {
                 try {
                     let searchParam = {};
+                    console.log("searchQuery=== inner", searchQuery);
+                    
                     if (searchQuery.length >= 2) {
                         searchParam.search = searchQuery;
                     }
@@ -50,12 +55,23 @@ const Page = ({ params }) => {
                             searchParam
                         );
                         const teamMemberData = teamMember?.results?.myTeam;
+                        console.log("teamMemberData", teamMemberData);
+                        
                         const allMemberCount =
-                            teamMember?.results?.total_members;
+                            teamMember?.results?.myTeam?.total;
                         const grandTotal = teamMember?.results;
                         setTeamGrandTotal(grandTotal);
                         settotalMember(allMemberCount);
-                        setTeamData(teamMemberData || []);
+                        setTeamData(teamMemberData || {});
+                        setFirstHighestTeam(
+                            teamMemberData?.data?.first_highest_team || {}
+                        );
+                        setSecondHighestTeam(
+                            teamMemberData?.data?.second_highest_team || {}
+                        );
+                        setOtherTeam(
+                            teamMemberData?.data?.other_teams || []
+                        );
                         setLastPage(teamMemberData?.last_page);
                     });
                 } catch (error) {
@@ -74,7 +90,7 @@ const Page = ({ params }) => {
         setSearchQuery(query);
     };
 
-    const teamListInfo = teamData?.data || [];
+    const teamListInfo = teamData?.data || {};
     const serialNumber = (currentPage - 1) * 20;
 
     return (
@@ -97,21 +113,23 @@ const Page = ({ params }) => {
                                 }}
                             >
                                 {affiliateUser} (
-                                {teamGrandTotal?.child_total_members})
+                                {totalMember})
                             </span>
                         )}
                     </h1>
                 </div>
-                {teamListInfo.length > 0 && (
+                {Object.keys(teamListInfo).length > 0 && (
                     <SearchMyTeam onSearch={handleSearch} />
                 )}
 
                 <div className="customer-dashboard-order-history table-responsive">
                     {isPending ? (
                         <DefaultLoader />
-                    ) : teamListInfo.length > 0 ? (
+                    ) : Object?.keys(teamListInfo).length > 0 ? (
                         <MyTeamList
-                            teamListInfo={teamListInfo}
+                            firstHighestTeam={firstHighestTeam}
+                            otherTeam={otherTeam}
+                            secondHighestTeam={secondHighestTeam}
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
                         />
