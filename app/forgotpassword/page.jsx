@@ -126,8 +126,8 @@ const Page = () => {
                                         </button>
                                     </div>
                                 </form>
-                                <div className="pt-2">
-                                    <Link href="/login">Back</Link>
+                                <div className="pt-3">
+                                    <Link href="/login" className="add-to-cart-link d-inline-block rounded-2">Back</Link>
                                 </div>
                             </div>
                         </div>
