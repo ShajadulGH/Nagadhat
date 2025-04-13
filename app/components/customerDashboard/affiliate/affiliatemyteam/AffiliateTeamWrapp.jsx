@@ -12,7 +12,10 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const AffiliateTeamWrapp = () => {
     const [isPending, startTransition] = useTransition();
-    const [teamData, setTeamData] = useState([]);
+    const [teamData, setTeamData] = useState({});
+    const [firstHighestTeam, setFirstHighestTeam] = useState({});
+    const [secondHighestTeam, setSecondHighestTeam] = useState({});
+    const [otherTeam, setOtherTeam] = useState([]);
     const [totalMember, setTotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -30,7 +33,6 @@ const AffiliateTeamWrapp = () => {
 
     const limit = 20; //Per Page Category
 
-
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
             const fetchTeamData = async () => {
@@ -47,13 +49,25 @@ const AffiliateTeamWrapp = () => {
                             searchParams
                         );
                         const affiliateTeamData =
-                            affiliateTeam?.results?.myTeam;
+                            affiliateTeam?.results?.myTeam || {};
+                            console.log(affiliateTeamData);
+                            
                         const allMemberCount =
-                            affiliateTeam?.results?.total_members;
+                            affiliateTeam?.results?.myTeam?.total;
                         const grandTotal = affiliateTeam?.results;
+
                         setTeamGrandTotal(grandTotal);
                         setTotalMember(allMemberCount);
                         setTeamData(affiliateTeamData);
+                        setFirstHighestTeam(
+                            affiliateTeamData?.data?.first_highest_team || {}
+                        );
+                        setSecondHighestTeam(
+                            affiliateTeamData?.data?.second_highest_team || {}
+                        );
+                        setOtherTeam(
+                            affiliateTeamData?.data?.other_teams || []
+                        );
                         setLastPage(affiliateTeamData?.last_page || 1);
                     });
                 } catch (error) {
@@ -70,10 +84,8 @@ const AffiliateTeamWrapp = () => {
     const handleSearch = (query) => {
         setSearchQuery(query);
     };
-
-    const teamListInfo = teamData?.data || [];
+    const teamListInfo = teamData?.data || {};
     const serialNumber = (currentPage - 1) * 20;
-    
 
     return (
         <>
@@ -88,16 +100,18 @@ const AffiliateTeamWrapp = () => {
                         </span>
                     </h1>
                 </div>
-                {teamListInfo?.length > 0 && (
+                {Object?.keys(teamListInfo).length > 0 && (
                     <SearchMyTeam onSearch={handleSearch} />
                 )}
 
                 <div className="customer-dashboard-order-history table-responsive">
                     {isPending ? (
                         <DefaultLoader />
-                    ) : teamListInfo && teamListInfo.length > 0 ? (
+                    ) : teamListInfo && Object?.keys(teamListInfo).length > 0 ? (
                         <MyTeamList
-                            teamListInfo={teamListInfo}
+                            firstHighestTeam={firstHighestTeam}
+                            otherTeam={otherTeam}
+                            secondHighestTeam={secondHighestTeam}
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
                         />

@@ -36,7 +36,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         updateProductInitialVariations();
-
         defaultVariation();
     }, [productInfo]);
 
@@ -132,12 +131,9 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             });
             // setProductGallery(defaultProduct?.gallery);
             setProductStoke(
-                defaultProduct?.variation_max_quantity === null
-                    ? 0
-                    : defaultProduct?.variation_max_quantity
+                defaultProduct?.variation_outlet_stock_quantity ?? 0
             );
         } else {
-            // console.log("productInfo?.gallery");
             setProductPrice({
                 ...productPrice,
                 prices: productInfo?.price?.original?.results?.discount_status
@@ -200,9 +196,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         setSelectedVariants(getAvailableVariants());
-        // console.log(selectedVariants);
     }, [productAllVariants, productInfo]);
-    // console.log(selectedVariants);
     // return not selected variant name
     const findNotSelectedVariants = () => {
         const selectedVariantKeys = selectedVariants.flatMap(
@@ -286,23 +280,15 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         const decorateProductVariation = productInfo?.variations?.map(
             (item) => ({
                 product_variation_id: item.id,
-                variation_size: item.variation_size
-                    ? item.variation_size.title
-                    : null,
-                variation_color: item.variation_color
-                    ? item.variation_color.title
-                    : null,
-                variation_weight: item.variation_weight
-                    ? item.variation_weight.title
-                    : null,
-                price:
-                    item?.discount_amount > 0
-                        ? item?.mrp_price - item?.discount_amount
-                        : item?.mrp_price,
+                variation_size: item.variation_size ? item.variation_size.title : null,
+                variation_color: item.variation_color ? item.variation_color.title : null,
+                variation_weight: item.variation_weight ? item.variation_weight.title : null,
+                price: item?.discount_amount > 0 ? item?.mrp_price - item?.discount_amount : item?.mrp_price,
                 discountPrice: item?.discount_amount > 0 ? item?.mrp_price : "",
                 discount_type: item?.discount_type,
                 discount_amount: item?.discount_amount,
                 variation_max_quantity: item?.variation_max_quantity,
+                variation_outlet_stock_quantity: item?.variation_outlet_stock_quantity,
             })
         );
         setDecorateVariation(decorateProductVariation);
@@ -459,6 +445,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         const bestMatch = findBestMatch(selectedVariants, decorateVariation);
+        console.log("bestMatch set", bestMatch);
         setSelectedVariantProductInfo(bestMatch);
         if (selectedVariants.length > 0) {
             setProductPrice({
@@ -479,10 +466,10 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
             });
 
             setProductStoke(
-                bestMatch?.variation_max_quantity === null
-                    ? 0
-                    : bestMatch?.variation_max_quantity
+                bestMatch?.variation_outlet_stock_quantity ?? 0
             );
+            console.log("variantion stock 2", bestMatch?.variation_outlet_stock_quantity);
+            console.log("bestMatch", bestMatch);
         } else {
             defaultVariation();
         }
