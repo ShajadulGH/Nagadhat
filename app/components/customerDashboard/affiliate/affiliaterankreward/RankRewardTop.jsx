@@ -3,14 +3,14 @@ import Image from "next/image";
 
 const RankRewardTop = ({ affiliateData }) => {
     let imageUrl;
-    if (affiliateData?.rank_logo) {
-        imageUrl = `${NagadhatPublicUrl}/${affiliateData?.rank_logo}`;
+    if (affiliateData?.next_target_rank?.logo) {
+        imageUrl = `${NagadhatPublicUrl}/${affiliateData?.next_target_rank?.logo}`;
     }
     return (
         <>
             <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between">
                 <h1 className="customer-dashboard-title">
-                    Ranks: {affiliateData?.rank}
+                    Next Promotion Chart: {affiliateData?.next_target_rank?.level}
                 </h1>
                 <div className="">
                     <Image
@@ -18,7 +18,7 @@ const RankRewardTop = ({ affiliateData }) => {
                         src={imageUrl || "/images/men222222.png"}
                         width={60}
                         height={60}
-                        alt={affiliateData?.reffer_a_friend_link}
+                        alt={affiliateData?.next_target_rank?.level}
                     />
                 </div>
             </div>

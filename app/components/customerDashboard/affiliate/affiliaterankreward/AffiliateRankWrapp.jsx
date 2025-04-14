@@ -10,8 +10,7 @@ import NoDataFound from "@/app/components/NoDataFound";
 import LodingFixed from "@/app/components/LodingFixed";
 
 const AffiliateRankWrapp = () => {
-    const [rankList, setRankList] = useState([]);
-    const [affiliateData, setAffiliateData] = useState(null);
+    const [rankList, setRankList] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [statusChange, setStatusChange] = useState(false);
     const { data: session, status } = useSession();
@@ -20,12 +19,8 @@ const AffiliateRankWrapp = () => {
         const fetchData = async () => {
             if (status === "authenticated" && session?.accessToken) {
                 try {
-                    const [rankInfo, affiliateInfo] = await Promise.all([
-                        getRanks(session.accessToken),
-                        getAffiliateHomeDashboard(session.accessToken),
-                    ]);
-                    setRankList(rankInfo?.results || []);
-                    setAffiliateData(affiliateInfo?.results || {});
+                    const rankInfo = await getRanks(session?.accessToken);
+                    setRankList(rankInfo?.results || {});
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
                 } finally {
@@ -39,31 +34,27 @@ const AffiliateRankWrapp = () => {
         fetchData();
     }, [status, session?.accessToken, statusChange]);
 
-    const isDataEmpty =
-        !affiliateData || Object.keys(affiliateData).length === 0;
+    console.log("rankList===>", rankList);
 
     return (
         <>
             {isLoading && <LodingFixed />}
             <div className="customer-dashboard-order-history-area h-100">
-                {isDataEmpty ? (
-                    !isLoading && <NoDataFound message="No data available" />
+                {Object?.keys(rankList).length > 0 ? (
+                    <>
+                        <RankRewardTop affiliateData={rankList}  />
+                        <div className="customer-dashboard-order-history px-2">
+                            {/* <RankRewardList
+                                rankList={rankList}
+                                setStatusChange={setStatusChange}
+                                statusChange={statusChange}
+                            /> */}
+                            <h1>Hello World</h1>
+                        </div>
+                    </>
                 ) : (
-                    <RankRewardTop affiliateData={affiliateData} />
+                    !isLoading && <NoDataFound message="No ranks available" />
                 )}
-                <div className="customer-dashboard-order-history px-2">
-                    {rankList.length > 0 ? (
-                        <RankRewardList
-                            rankList={rankList}
-                            setStatusChange={setStatusChange}
-                            statusChange={statusChange}
-                        />
-                    ) : (
-                        !isLoading && (
-                            <NoDataFound message="No ranks available" />
-                        )
-                    )}
-                </div>
             </div>
         </>
     );
