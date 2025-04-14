@@ -97,7 +97,7 @@ const ChangeTransactionOtp = () => {
                     modalInstance.hide(); // Close modal
                 }
                 router.push(
-                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&otpStatus=${response?.results?.otp}`
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}`
                 );
             } else {
                 toast.error(response.message);
@@ -210,7 +210,7 @@ const ChangeTransactionOtp = () => {
                     </div>
                     <button
                         type="button"
-                        className="add-to-cart-link border-0 mx-auto"
+                        className="add-to-cart-link border-0 mx-auto rounded-2"
                         onClick={handleManagePin}
                     >
                         {otpType === "pin"
@@ -230,7 +230,7 @@ const ChangeTransactionOtp = () => {
                             want to reset it, please click the button below.
                         </p>
                     </div>
-                    <button onClick={()=>setStatus(0)} className="add-to-cart-link border-0 mx-auto">
+                    <button onClick={()=>setStatus(0)} className="add-to-cart-link border-0 mx-auto rounded-2">
                         Reset PIN
                     </button>
                 </div>

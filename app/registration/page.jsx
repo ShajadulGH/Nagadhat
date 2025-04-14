@@ -183,7 +183,7 @@ const Registration = () => {
 
                 localStorage.removeItem("referrerID");
                 localStorage.setItem("userEmail", formData.email);
-                router.push(`/otp?phone=${formData.phone}&otp=${res.data.otp}`);
+                router.push(`/otp?phone=${formData.phone}&otp=${res?.data?.otp}&nextTime=${res?.data?.time}`);
             } catch (error) {
                 toast.error("Something went wrong. Please try after sometime");
             }

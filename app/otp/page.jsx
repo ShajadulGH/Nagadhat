@@ -195,7 +195,7 @@ const OTP = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 py-5">
                     <div className="users-registration-otp">
                         <div className="users-registration-otp-title">
                             <h1>OTP Verify</h1>
@@ -233,7 +233,7 @@ const OTP = () => {
                             </div>
                             <div>
                                 <button
-                                    className="w-100 add-to-cart-link border-0"
+                                    className="w-100 add-to-cart-link border-0 rounded-2"
                                     type="submit"
                                     disabled={isPending}
                                 >
@@ -271,14 +271,14 @@ const OTP = () => {
                                 <div>
                                     {forgetPassword === forgetPassword ? (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={() => router.back()}
                                         >
                                             Back
                                         </button>
                                     ) : (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={handleBackSubmit}
                                         >
                                             Back
@@ -286,11 +286,11 @@ const OTP = () => {
                                     )}
                                 </div>
                                 {disableResend ? (
-                                    <div className="text-white fw-bold fs-6 add-to-cart-link bg-danger"> {formatTime(remainingTime)}</div>
+                                    <div className="text-white fw-bold fs-6 add-to-cart-link bg-danger rounded-2"> {formatTime(remainingTime)}</div>
                                 ) : (
                                 <div className="resend-otp-timar">
                                     <button
-                                        className="add-to-cart-link border-0"
+                                        className="add-to-cart-link border-0 rounded-2"
                                         onClick={handleResendOTPSubmit}
                                         disabled={disableResend}
                                     >
