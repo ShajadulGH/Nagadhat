@@ -73,6 +73,8 @@ if (slug) {
         const productInfo = await getProductDetails(
             `slug=${slug}&outlet_id=${outlet_id}`
         );
+        console.log("Product Info:", productInfo);
+        
         if (productInfo?.message === "Product found in other outlets.") {
             outletInfo = productInfo?.available_outlets;
         }
