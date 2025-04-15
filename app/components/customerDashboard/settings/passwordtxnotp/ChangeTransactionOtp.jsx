@@ -115,7 +115,7 @@ const ChangeTransactionOtp = () => {
         <div
             className={`tab-pane fade show active`}
         >
-            {!status ? (
+            {status == 1 ? (
                 <div>
                     <div className="customer-setting-form-group">
                         <label className="form-label" htmlFor="otp">
