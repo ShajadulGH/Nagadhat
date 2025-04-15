@@ -17,7 +17,7 @@ const ChangeTransactionOtp = () => {
     const [mobileNumber, setMobileNumber] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [status, setStatus] = useState(0);
+    const [status, setStatus] = useState(1);
     const modalRef = useRef(null);
     const router = useRouter();
 
@@ -230,7 +230,7 @@ const ChangeTransactionOtp = () => {
                             want to reset it, please click the button below.
                         </p>
                     </div>
-                    <button onClick={()=>setStatus(0)} className="add-to-cart-link border-0 mx-auto rounded-2">
+                    <button onClick={()=>setStatus(1)} className="add-to-cart-link border-0 mx-auto rounded-2">
                         Reset PIN
                     </button>
                 </div>
