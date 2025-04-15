@@ -76,10 +76,18 @@ const FinanceWithdraw = ({ params }) => {
 
     useEffect(() => {
         if (otpStatus === "1") {
-            toast.error("PIN not set. Redirecting to set your PIN.");
-            route.push("/others-password-txn-otp");
+          Swal.fire({
+            title: "PIN not set!",
+            text: "You need to set your PIN. Redirecting now.",
+            icon: "warning",
+            confirmButtonText: "OK"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              route.push("/others-password-txn-otp");
+            }
+          });
         }
-    }, [otpStatus]);
+      }, [otpStatus]);
 
     return (
         <div className="customer-dashboard-order-history-area">
