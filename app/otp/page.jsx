@@ -17,15 +17,60 @@ const OTP = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [baseUrl, setBaseUrl] = useState("");
+    const [remainingTime, setRemainingTime] = useState(0);
+    const [disableResend, setDisableResend] = useState(false);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
             setBaseUrl(window.location.origin);
         }
     }, []);
+    
+// function for getting the current time
+    useEffect(() => {
+        const nextTimeParam = searchParams.get("nextTime");
+        if (nextTimeParam) {
+            const now = new Date();
+            const todayDate = now.toISOString().split("T")[0];
+            const fullNextTime = new Date(`${todayDate} ${decodeURIComponent(nextTimeParam)}`);
+    
+            const diff = fullNextTime - now; 
+            if (diff > 0) {
+                setDisableResend(true);
+                setRemainingTime(Math.floor(diff / 1000));
+            }
+        }
+    }, []);
+
+    // function for getting the remaining time
+    useEffect(() => {
+        if (remainingTime > 0) {
+            const timer = setInterval(() => {
+                setRemainingTime(prev => {
+                    if (prev <= 1) {
+                        clearInterval(timer);
+                        setDisableResend(false);
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+            return () => clearInterval(timer);
+        }
+    }, [remainingTime]);
+
+    // function for formatting the time
+    const formatTime = (seconds) => {
+        const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+        const s = String(seconds % 60).padStart(2, "0");
+        return `${m}:${s}`;
+    };
+    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("verefi otp calling...===>");
         async function verifyOTP() {
             if (!phone || !otp) {
                 setErrorMessage("Please provide required information");
@@ -41,7 +86,7 @@ const OTP = () => {
                         phone: phone,
                         otp: otp,
                     });
-                    console.log(res);
+                    console.log("verefi otp===>",res);
 
                     if (!res?.success) {
                         setErrorMessage(res.message);
@@ -69,9 +114,11 @@ const OTP = () => {
                         phone: forgetPassword,
                         otp,
                     });
+                    console.log("forgetRes===>", forgetRes);
                     if (forgetRes?.code === 200) {
                         setSuccessMessage(forgetRes?.message);
-                        const userId = forgetRes?.results?.user_id;
+                        const userId = forgetRes?.results[0]?.user_id;
+                        console.log("User ID for password reset===>", userId);
                         router.push(`/set-forgot-password?user_id=${userId}`);
                     } else {
                         setErrorMessage(forgetRes.message);
@@ -148,14 +195,12 @@ const OTP = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 py-5">
                     <div className="users-registration-otp">
                         <div className="users-registration-otp-title">
                             <h1>OTP Verify</h1>
                         </div>
-                        {errorMessage && (
-                            <h3 style={{ color: "#f00" }}>{errorMessage}</h3>
-                        )}
+                        
                         {successMessage && (
                             <h3 style={{ color: "#008000" }}>
                                 {successMessage}
@@ -180,11 +225,15 @@ const OTP = () => {
                                     name="user-otp"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}
+                                    placeholder="Enter Your OTP"
                                 />
+                                {errorMessage && (
+                                    <span className="ps-2 pt-2 d-block" style={{ color: "#f00" }}>{errorMessage}</span>
+                                )}
                             </div>
                             <div>
                                 <button
-                                    className="w-100 add-to-cart-link border-0"
+                                    className="w-100 add-to-cart-link border-0 rounded-2"
                                     type="submit"
                                     disabled={isPending}
                                 >
@@ -216,34 +265,41 @@ const OTP = () => {
                         </form>
                         <div className="pt-4">
                             <p className="pb-2">
-                                * check your phone or email for OTP code.
+                                * Check Your Phone for OTP Code.
                             </p>
                             <div className=" d-flex justify-content-between align-items-center">
                                 <div>
                                     {forgetPassword === forgetPassword ? (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={() => router.back()}
                                         >
                                             Back
                                         </button>
                                     ) : (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={handleBackSubmit}
                                         >
                                             Back
                                         </button>
                                     )}
                                 </div>
+                                {disableResend ? (
+                                    <div className="text-white fw-bold fs-6 add-to-cart-link bg-danger rounded-2"> {formatTime(remainingTime)}</div>
+                                ) : (
                                 <div className="resend-otp-timar">
                                     <button
-                                        className="add-to-cart-link border-0"
+                                        className="add-to-cart-link border-0 rounded-2"
                                         onClick={handleResendOTPSubmit}
+                                        disabled={disableResend}
                                     >
                                         resend otp
                                     </button>
                                 </div>
+                            )}
+
+                                
                             </div>
                         </div>
                     </div>
