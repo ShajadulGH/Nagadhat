@@ -52,7 +52,7 @@ const Page = () => {
 
     return (
         <>
-            <section className="users-registration-otp-section vh-100 d-flex">
+            <section className="users-registration-otp-section h-100 d-flex">
                 <div className="container d-flex align-items-center justify-content-center">
                     <div className="row">
                         <div className="col-12">
@@ -96,7 +96,7 @@ const Page = () => {
 
                                     <div>
                                         <button
-                                            className="w-100 add-to-cart-link border-0"
+                                            className="w-100 add-to-cart-link border-0 rounded-2"
                                             type="submit"
                                             disabled={isPending}
                                         >
@@ -126,8 +126,8 @@ const Page = () => {
                                         </button>
                                     </div>
                                 </form>
-                                <div className="pt-2">
-                                    <Link href="/login">Back</Link>
+                                <div className="pt-3">
+                                    <Link className="add-to-cart-link border-0 rounded-2 d-inline-block" href="/login">Back</Link>
                                 </div>
                             </div>
                         </div>
