@@ -10,7 +10,7 @@ import NoDataFound from "@/app/components/NoDataFound";
 import LodingFixed from "@/app/components/LodingFixed";
 
 const AffiliateRankWrapp = () => {
-    const [rankList, setRankList] = useState({});
+    const [rankList, setRankList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [statusChange, setStatusChange] = useState(false);
     const { data: session, status } = useSession();
@@ -20,7 +20,7 @@ const AffiliateRankWrapp = () => {
             if (status === "authenticated" && session?.accessToken) {
                 try {
                     const rankInfo = await getRanks(session?.accessToken);
-                    setRankList(rankInfo?.results || {});
+                    setRankList(rankInfo?.results || []);
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
                 } finally {
@@ -35,21 +35,22 @@ const AffiliateRankWrapp = () => {
     }, [status, session?.accessToken, statusChange]);
 
     console.log("rankList===>", rankList);
+    const lavelList = rankList?.map((item) => item.level);
 
     return (
         <>
             {isLoading && <LodingFixed />}
             <div className="customer-dashboard-order-history-area h-100">
-                {Object?.keys(rankList).length > 0 ? (
+                {rankList.length > 0 ? (
                     <>
-                        <RankRewardTop affiliateData={rankList}  />
+                        <RankRewardTop affiliateData={rankList} />
                         <div className="customer-dashboard-order-history px-2">
-                            {/* <RankRewardList
+                            <RankRewardList
                                 rankList={rankList}
                                 setStatusChange={setStatusChange}
                                 statusChange={statusChange}
-                            /> */}
-                            <h1>Hello World</h1>
+                                lavelList={lavelList}
+                            />
                         </div>
                     </>
                 ) : (
