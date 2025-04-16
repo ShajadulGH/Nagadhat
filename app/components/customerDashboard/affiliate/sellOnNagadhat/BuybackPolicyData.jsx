@@ -47,10 +47,24 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                             <tbody>
                                 <tr>
                                     <td>Status</td>
-                                    <td className="text-success">
-                                        {saleOnDetails?.status === 0
-                                            ? "Active"
-                                            : "Completed"}
+                                    <td>
+                                        {saleOnDetails?.status === 1 ? (
+                                            <span className="text-primary">
+                                                Active
+                                            </span>
+                                        ) : saleOnDetails?.status === 2 ? (
+                                            <span className="text-success">
+                                                Completed
+                                            </span>
+                                        ) : saleOnDetails?.status === 3 ? (
+                                            <span className="text-info">
+                                                Refunded
+                                            </span>
+                                        ) : (
+                                            <span className="text-danger">
+                                                Inactive
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                                 <tr>
@@ -91,7 +105,15 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                                         Next bonus on:
                                     </td>
                                     <td className="text-success">
-                                        {saleOnDetails?.next_bonus_date}
+                                        {saleOnDetails?.status === 3 ? (
+                                            <span className="text-info">
+                                                Refunded
+                                            </span>
+                                        ) : (
+                                            <span className="text-success">
+                                                {saleOnDetails?.next_bonus_date}
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                             </tbody>
