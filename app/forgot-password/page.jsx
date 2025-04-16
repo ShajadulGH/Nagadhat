@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { postForgetPasswordOtp } from "../services/forgetpassword/postForgetPasswordOtp";
 import { RotatingLines } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const Page = () => {
     const [isPending, startTransition] = useTransition();
@@ -25,8 +26,10 @@ const Page = () => {
                     otpMobileNumber.phone
                 );
                 const nxtime = response?.results?.time;
+                const message = response?.message;
                 if (response?.code === 200) {
                     setSuccess(response?.message);
+                    toast.success(message);
                     router.push(
                         `/otp?forget_password=${otpMobileNumber.phone}&nextTime=${nxtime}`
                     );
