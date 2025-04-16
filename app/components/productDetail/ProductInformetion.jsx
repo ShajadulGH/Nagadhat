@@ -129,10 +129,12 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                         (defaultProduct?.discount_amount / 100)
                         : defaultProduct?.discount_amount,
             });
-            // setProductGallery(defaultProduct?.gallery);
-            setProductStoke(
-                defaultProduct?.variation_outlet_stock_quantity ?? 0
-            );
+            setProductGallery(defaultProduct?.gallery);
+            const productStock = defaultProduct?.variation_max_quantity
+                ? Math.min(defaultProduct?.variation_outlet_stock_quantity, defaultProduct?.variation_max_quantity)
+                : defaultProduct?.variation_outlet_stock_quantity ?? 0;
+            setProductStoke(productStock);
+                
         } else {
             setProductPrice({
                 ...productPrice,
@@ -464,12 +466,15 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 //         bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
                 //         : bestMatch?.discount_amount,
             });
+            setProductGallery(bestMatch?.gallery);
+            const productStock = bestMatch?.variation_max_quantity
+                ? Math.min(bestMatch?.variation_outlet_stock_quantity, bestMatch?.variation_max_quantity)
+                : bestMatch?.variation_outlet_stock_quantity ?? 0;
+            setProductStoke(productStock);
 
-            setProductStoke(
-                bestMatch?.variation_outlet_stock_quantity ?? 0
-            );
-            console.log("variantion stock 2", bestMatch?.variation_outlet_stock_quantity);
-            console.log("bestMatch", bestMatch);
+            // setProductStoke(
+            //     bestMatch?.variation_outlet_stock_quantity ?? 0
+            // );
         } else {
             defaultVariation();
         }
