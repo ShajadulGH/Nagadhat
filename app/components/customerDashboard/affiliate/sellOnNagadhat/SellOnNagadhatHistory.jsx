@@ -76,13 +76,21 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                                     )}
                                 </td>
                                 <td className="align-middle">
-                                    {item?.active_status === 0 ? (
+                                    {item?.status === 1 ? (
                                         <span className="text-primary">
                                             Active
                                         </span>
-                                    ) : (
+                                    ) : item?.status === 2 ? (
                                         <span className="text-success">
                                             Completed
+                                        </span>
+                                    ) : item?.status === 3 ? (
+                                        <span className="text-info">
+                                            Refunded
+                                        </span>
+                                    ) : (
+                                        <span className="text-danger">
+                                            Inactive
                                         </span>
                                     )}
                                 </td>
