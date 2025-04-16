@@ -88,6 +88,7 @@ const ChangeTransactionOtp = () => {
                 return;
             }
             const response = await postManagePinOtp(session.accessToken);
+            const message = response?.message;
             if (response.code === 200) {
                 // toast.success(response.message);
                 const modalElement = modalRef.current;
@@ -97,7 +98,7 @@ const ChangeTransactionOtp = () => {
                     modalInstance.hide(); // Close modal
                 }
                 router.push(
-                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}`
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}&message=${message}`
                 );
             } else {
                 toast.error(response.message);

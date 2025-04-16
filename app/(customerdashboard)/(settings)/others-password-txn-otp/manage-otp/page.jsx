@@ -11,6 +11,7 @@ import { getResendOTP } from "@/app/services/getResendOTP";
 
 const OTP = () => {
     const searchParams = useSearchParams();
+    const message = searchParams.get("message");
     const router = useRouter();
     let pin = searchParams.get("pin") ? searchParams.get("pin") : "";
     let otpType = searchParams.get("otpType")
@@ -22,6 +23,18 @@ const OTP = () => {
     const [disableResend, setDisableResend] = useState(false);
     const [remainingTime, setRemainingTime] = useState(0);
     const phone = searchParams.get("uphn") || "";
+
+    // function for showing the query params message
+    useEffect(() => {
+        if (message) {
+            Swal.fire({
+                icon: "info",
+                title: decodeURIComponent(message),
+                showConfirmButton: true,
+                timer: 3000,
+            });
+        }
+    }, [message]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -25,10 +25,11 @@ const Page = () => {
                     otpMobileNumber.phone
                 );
                 const nxtime = response?.results?.time;
+                const message = response?.message;
                 if (response?.code === 200) {
                     setSuccess(response?.message);
                     router.push(
-                        `/otp?forget_password=${otpMobileNumber.phone}&nextTime=${nxtime}`
+                        `/otp?forget_password=${otpMobileNumber.phone}&nextTime=${nxtime}&message=${message}`
                     );
                 } else {
                     setError(
