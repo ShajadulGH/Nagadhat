@@ -97,8 +97,9 @@ const ChangeTransactionOtp = () => {
                         bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
+                toast.success(message);
                 router.push(
-                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}&message=${message}`
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}`
                 );
             } else {
                 toast.error(response.message);

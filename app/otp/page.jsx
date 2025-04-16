@@ -20,7 +20,6 @@ const OTP = () => {
     const [baseUrl, setBaseUrl] = useState("");
     const [remainingTime, setRemainingTime] = useState(0);
     const [disableResend, setDisableResend] = useState(false);
-    const message = searchParams.get("message");
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -70,18 +69,6 @@ const OTP = () => {
         return `${m}:${s}`;
     };
 
-    // function for showing the query params message
-    useEffect(() => {
-        if (message) {
-            Swal.fire({
-                icon: "info",
-                title: decodeURIComponent(message),
-                showConfirmButton: true,
-                timer: 3000,
-            });
-        }
-    }, [message]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         async function verifyOTP() {
@@ -103,6 +90,7 @@ const OTP = () => {
                         return;
                     } else {
                         setSuccessMessage(res.message);
+                        localStorage.removeItem('forgetPasswordOTP');
                         router.push(`${baseUrl}${res?.data?.frontendUrl}`);
                         // router.push("/login");
                     }
@@ -115,7 +103,6 @@ const OTP = () => {
         if (!forgetPassword) {
             verifyOTP();
         }
-
         // Forget Password Checking
         if (forgetPassword) {
             try {
@@ -127,6 +114,10 @@ const OTP = () => {
                     if (forgetRes?.code === 200) {
                         setSuccessMessage(forgetRes?.message);
                         const userId = forgetRes?.results[0]?.user_id;
+                        if (forgetPassword) {
+                            localStorage.setItem('forgetPasswordOTP', forgetRes?.results[0]?.status);
+                            localStorage.setItem('otpVerified', 'true');
+                        }
                         router.push(`/set-forgot-password?user_id=${userId}`);
                     } else {
                         setErrorMessage(forgetRes.message);
