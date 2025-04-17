@@ -50,6 +50,7 @@ function findMissingProperties(decorateVariation, selectedVariantKey) {
                     if (!missingProperties.includes(key)) {
                         missingProperties.push(key);
                     }
+                    
                 }
             });
         }

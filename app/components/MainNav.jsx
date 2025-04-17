@@ -11,7 +11,8 @@ import ProductSearchResultMobile from "./ProductSearchResultMobile";
 // import { getDistrictByDivisionId } from "../services/getDistrict";
 import { useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
-
+import { AiOutlineShopping } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 function MainNav({
     isObserverMenuVisible,
     isCategoryHoverMenu,
@@ -102,8 +103,9 @@ function MainNav({
     return (
         <div ref={searchResultRef}>
             <div
-                className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"
-                    }`}
+                className={`row main-header-section ${
+                    !isObserverMenuVisible ? "" : "d-none"
+                }`}
             >
                 <div className="col-12">
                     <div className="main-header-area d-flex">
@@ -170,28 +172,46 @@ function MainNav({
                         </div>
                         <div className="header-auth-area d-flex justify-content-end">
                             <ul className="d-flex align-items-center">
-
                                 <li>
                                     <Link
                                         href="/cart-page"
                                         className="text-white text-capitalize position-relative"
                                     >
-                                        <span className="bg-white d-flex align-items-center m-0">
-                                            <Image
+                                        <span className="d-flex align-items-center m-0">
+                                            {/* <Image
                                                 src="/images/cart-icon.svg"
                                                 alt="cart-icon"
                                                 width={17}
                                                 height={15}
+                                            /> */}
+                                            <AiOutlineShopping
+                                                style={{
+                                                    height: "35px",
+                                                    width: "35px",
+                                                }}
                                             />
                                         </span>
-                                        {addToCartProductLength ?(
-                                            <p 
-                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
-                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                        {addToCartProductLength ? (
+                                            <p
+                                                className="rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                                                style={{
+                                                    minHeight: "22px",
+                                                    minWidth: "22px",
+                                                    top: "-5%",
+                                                    left: "70%",
+                                                    aspectRatio: "1 / 1",
+                                                    color: "black",
+                                                    fontWeight: 700,
+                                                    backgroundColor: "#fff",
+                                                }}
                                             >
-                                            <small className="text-center">{addToCartProductLength}</small>
-                                        </p>
-                                        ):""}
+                                                <small className="text-center">
+                                                    {addToCartProductLength}
+                                                </small>
+                                            </p>
+                                        ) : (
+                                            ""
+                                        )}
                                     </Link>
                                 </li>
                                 {authStatus === "authenticated" && (
@@ -212,15 +232,16 @@ function MainNav({
                                     <li>
                                         <Link
                                             href="/login"
-                                            className="text-white text-capitalize d-flex align-items-center"
+                                            className="text-white d-flex align-items-center text-md fw-bold fs-5"
                                         >
-                                            <Image
-                                                src="/images/login-icon.svg"
-                                                alt="login-icon"
-                                                width={13}
-                                                height={19}
+                                            <CgProfile
+                                                style={{
+                                                    height: "25px",
+                                                    width: "25px",
+                                                    marginRight: "5px",
+                                                }}
                                             />
-                                            Login / Register
+                                            Login | Register
                                         </Link>
                                     </li>
                                 )}
@@ -231,8 +252,9 @@ function MainNav({
             </div>
 
             <div
-                className={`row observerable-header-section ${isObserverMenuVisible ? "" : "d-none"
-                    }`}
+                className={`row observerable-header-section ${
+                    isObserverMenuVisible ? "" : "d-none"
+                }`}
             >
                 <div className="col-12">
                     <div className="main-header-area d-flex">
@@ -259,9 +281,7 @@ function MainNav({
                                         setCategoryHoverMenu(true)
                                     }
                                 >
-                                    <div
-                                        className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold"
-                                    >
+                                    <div className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold">
                                         <span>Categories</span>
                                         <Image
                                             className="categories-arrow-img"
@@ -340,14 +360,24 @@ function MainNav({
                                                 height={15}
                                             />
                                         </span>
-                                        {addToCartProductLength ?(
-                                            <p 
-                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
-                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                        {addToCartProductLength ? (
+                                            <p
+                                                className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                                                style={{
+                                                    minHeight: "22px",
+                                                    minWidth: "22px",
+                                                    top: "-25%",
+                                                    left: "70%",
+                                                    aspectRatio: "1 / 1",
+                                                }}
                                             >
-                                            <small className="text-center">{addToCartProductLength}</small>
-                                        </p>
-                                        ):""}
+                                                <small className="text-center">
+                                                    {addToCartProductLength}
+                                                </small>
+                                            </p>
+                                        ) : (
+                                            ""
+                                        )}
                                     </Link>
                                 </li>
                                 {authStatus === "authenticated" && (

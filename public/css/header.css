@@ -67,12 +67,12 @@ header {
 .header-search-area {
     flex: 2;
     position: relative;
+    margin-top: 15px;
 }
 
 .logo {
     padding-top: 10px;
 }
-
 .header-auth-area {
     padding-left: 15px;
     padding-top: 10px;
@@ -84,7 +84,7 @@ header {
 
 .observerable-header-section .logo {
     padding-top: 0;
-    flex: .58;
+    flex: 0.58;
 }
 
 .observerable-header-section .header-auth-area {
@@ -94,8 +94,6 @@ header {
 .header-auth-area ul {
     gap: 20px;
 }
-
-
 
 .header-search-area {
     background: var(--color-white);
@@ -158,12 +156,12 @@ header {
 }
 
 .header-auth-area li a span {
-    width: 34px;
-    height: 34px;
+    /* width: 34px;
+    height: 34px; */
     text-align: center;
     vertical-align: middle;
     border-radius: 50%;
-    padding: 8px;
+    /* padding: 8px; */
 }
 
 .header-auth-area li a {
@@ -266,7 +264,6 @@ header {
 
 .header-search-holder {
     flex: 2;
-    
 }
 
 .observerable-categories-item a {
@@ -343,7 +340,7 @@ header {
     width: 100%;
     opacity: 0;
     visibility: hidden;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
 }
 
 .mobile-popup-search-area.active {
