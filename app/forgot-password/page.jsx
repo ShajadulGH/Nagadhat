@@ -130,11 +130,7 @@ const Page = () => {
                                     </div>
                                 </form>
                                 <div className="pt-3">
-<<<<<<< HEAD:app/forgotpassword/page.jsx
-                                    <Link href="/login" className="add-to-cart-link d-inline-block rounded-2">Back</Link>
-=======
                                     <Link className="add-to-cart-link border-0 rounded-2 d-inline-block" href="/login">Back</Link>
->>>>>>> dev:app/forgot-password/page.jsx
                                 </div>
                             </div>
                         </div>
