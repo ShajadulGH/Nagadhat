@@ -30,9 +30,6 @@ const ContainerBookingProduct = ({
         const initialOutletId = localStorage.getItem("outletId");
         setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
     }, []);
-    console.log("product", containerProduct);
-    console.log("selectedProducts", selectedProducts);
-    
 
     // Toggle product selection
     const handleSelectProduct = async (product) => {
@@ -145,14 +142,6 @@ const ContainerBookingProduct = ({
                                             View Details
                                         </Link>
                                     </div>
-                                    {/* <div className="add-to-cart-btn mt-2">
-                                        <ResaleAddToCartBtn
-                                            productType={3}
-                                            product={product}
-                                            containerId={containerId}
-                                            setSelectedProducts={setSelectedProducts}
-                                        />
-                                    </div> */}
                                 </div>
                             </div>
                         </div>

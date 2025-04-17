@@ -23,6 +23,7 @@ const ContainerOrderDetails = ({
     loading,
     setCartProductsRender,
     cartProductsRerender,
+    containerId
 }) => {
     const [outletId, setOutletId] = useState(0);
     const [districtId, setDistrictId] = useState(null);
@@ -175,20 +176,12 @@ const ContainerOrderDetails = ({
     }
 
     //function for handleBookingNow
-    console.log("selectedProducts", selectedProducts);
-
-    const containerIds = selectedProducts
-        .map((item) => item?.pivot?.container_id)
-        .filter((id) => id !== undefined && id !== null);
-    const uniqueContainerIds = [...new Set(containerIds)];
-    const singleContainerId = uniqueContainerIds[0] || null;
-
     const handleBookingNow = async () => {
         if (selectedProducts.length > 0 && availableValue >= finalTotal) {
             const containerOrder = {
                 outlet_id: outletId,
                 location_id: districtId,
-                container_id: singleContainerId,
+                container_id: containerId,
                 sub_total: totalPrice,
                 discount_amount: discount,
                 total_products_price: finalTotal,
