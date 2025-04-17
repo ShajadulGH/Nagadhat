@@ -186,8 +186,8 @@ function MainNav({
                                             /> */}
                                             <AiOutlineShopping
                                                 style={{
-                                                    height: "35px",
-                                                    width: "35px",
+                                                    height: "34px",
+                                                    width: "34px",
                                                 }}
                                             />
                                         </span>
@@ -232,13 +232,14 @@ function MainNav({
                                     <li>
                                         <Link
                                             href="/login"
-                                            className="text-white d-flex align-items-center text-md fw-bold fs-5"
+                                            className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
                                         >
                                             <CgProfile
                                                 style={{
                                                     height: "25px",
                                                     width: "25px",
                                                     marginRight: "5px",
+                                                    marginLeft: "15px",
                                                 }}
                                             />
                                             Login | Register
