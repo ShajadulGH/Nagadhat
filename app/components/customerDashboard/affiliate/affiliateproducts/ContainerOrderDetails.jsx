@@ -200,7 +200,7 @@ const ContainerOrderDetails = ({
                     product_id: product?.product_id,
                     product_quantity: product?.quantity,
                     product_regular_price: product?.regular_price,
-                    product_variation_id: product_variation_id,
+                    product_variation_id: product?.product_variation_id,
                     product_shipping_charge: 0,
                     product_discount_type: product?.discount_type || "",
                     product_discount_amount: product?.discountPrice || 0,
