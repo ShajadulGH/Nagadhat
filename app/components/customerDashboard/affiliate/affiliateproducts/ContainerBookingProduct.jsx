@@ -30,6 +30,9 @@ const ContainerBookingProduct = ({
         const initialOutletId = localStorage.getItem("outletId");
         setOutletId(initialOutletId ? parseInt(initialOutletId) : 3);
     }, []);
+    console.log("product", containerProduct);
+    console.log("selectedProducts", selectedProducts);
+    
 
     // Toggle product selection
     const handleSelectProduct = async (product) => {
@@ -39,8 +42,8 @@ const ContainerBookingProduct = ({
             product_id: product?.id,
             product_name: product?.product_name,
             regular_price: product?.pivot.mrp_price,
-            discount_type: "",
-            discountPrice: 0,
+            discount_type: "flat",
+            discountPrice: product?.pivot.profit,
             price: product?.pivot.trade_price,
             outlet_id: outletId,
             product_thumbnail: product.product_thumbnail || "",

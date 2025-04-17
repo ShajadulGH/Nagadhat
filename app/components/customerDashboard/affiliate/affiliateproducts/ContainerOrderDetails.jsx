@@ -175,6 +175,7 @@ const ContainerOrderDetails = ({
     }
 
     //function for handleBookingNow
+    console.log("selectedProducts", selectedProducts);
 
     const containerIds = selectedProducts
         .map((item) => item?.pivot?.container_id)
@@ -192,19 +193,19 @@ const ContainerOrderDetails = ({
                 discount_amount: discount,
                 total_products_price: finalTotal,
                 grand_total: finalTotal,
-                payment_type: "cash_on_delivery",
-                outlet_pickup_point_id: 1,
+                payment_type: "",
+                outlet_pickup_point_id: null,
                 order_product_type: "3",
                 container_order_items: selectedProducts.map((product) => ({
-                    product_id: product?.id,
+                    product_id: product?.product_id,
                     product_quantity: product?.quantity,
-                    product_regular_price: product?.pivot?.mrp_price,
-                    product_variation_id: null,
+                    product_regular_price: product?.regular_price,
+                    product_variation_id: product_variation_id,
                     product_shipping_charge: 0,
-                    product_discount_type: "",
-                    product_discount_amount: product?.pivot?.profit || 0,
-                    product_unit_price: product?.pivot?.trade_price,
-                    vendor_id: product.vendor_id || "",
+                    product_discount_type: product?.discount_type || "",
+                    product_discount_amount: product?.discountPrice || 0,
+                    product_unit_price: product?.price,
+                    vendor_id: product.product_variation_id || "",
                     thumbnail: product?.product_thumbnail,
                 })),
             };
