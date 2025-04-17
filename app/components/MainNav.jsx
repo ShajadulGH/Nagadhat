@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { FaUser } from "react-icons/fa";
 import { AiOutlineShopping } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
+import { CgMenuGridR } from "react-icons/cg";
 function MainNav({
     isObserverMenuVisible,
     isCategoryHoverMenu,
@@ -282,14 +283,20 @@ function MainNav({
                                         setCategoryHoverMenu(true)
                                     }
                                 >
-                                    <div className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold">
+                                    <div className="d-flex gap-2 align-items-center text-white text-capitalize fs-5 fw-semibold">
                                         <span>Categories</span>
-                                        <Image
+                                        {/* <Image
                                             className="categories-arrow-img"
                                             src="/images/Categories-arrow.svg"
                                             alt="arrow"
                                             width={10}
                                             height={7}
+                                        /> */}
+                                        <CgMenuGridR
+                                            style={{
+                                                height: "25px",
+                                                width: "25px",
+                                            }}
                                         />
                                     </div>
                                 </div>
@@ -353,23 +360,32 @@ function MainNav({
                                         href="/cart-page"
                                         className="text-white text-capitalize position-relative"
                                     >
-                                        <span className="bg-white d-flex align-items-center m-0">
-                                            <Image
+                                        <span className="d-flex align-items-center m-0">
+                                            {/* <Image
                                                 src="/images/cart-icon.svg"
                                                 alt="cart-icon"
                                                 width={17}
                                                 height={15}
+                                            /> */}
+                                            <AiOutlineShopping
+                                                style={{
+                                                    height: "34px",
+                                                    width: "34px",
+                                                }}
                                             />
                                         </span>
                                         {addToCartProductLength ? (
                                             <p
-                                                className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                                                className="rounded-circle position-absolute d-flex align-items-center justify-content-center"
                                                 style={{
                                                     minHeight: "22px",
                                                     minWidth: "22px",
-                                                    top: "-25%",
+                                                    top: "-5%",
                                                     left: "70%",
                                                     aspectRatio: "1 / 1",
+                                                    color: "black",
+                                                    fontWeight: 700,
+                                                    backgroundColor: "#fff",
                                                 }}
                                             >
                                                 <small className="text-center">
@@ -399,15 +415,17 @@ function MainNav({
                                     <li>
                                         <Link
                                             href="/login"
-                                            className="text-white text-capitalize d-flex align-items-center"
+                                            className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
                                         >
-                                            <Image
-                                                src="/images/login-icon.svg"
-                                                alt="login-icon"
-                                                width={13}
-                                                height={19}
+                                            <CgProfile
+                                                style={{
+                                                    height: "25px",
+                                                    width: "25px",
+                                                    marginRight: "5px",
+                                                    marginLeft: "15px",
+                                                }}
                                             />
-                                            Login / Register
+                                            Login | Register
                                         </Link>
                                     </li>
                                 )}

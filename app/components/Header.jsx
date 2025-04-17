@@ -67,7 +67,7 @@ function Header() {
                 setMobileTopMenuVisible(false);
             }
         };
-        handleScrollPosition()
+        handleScrollPosition();
         if (typeof window !== "undefined") {
             window.addEventListener("scroll", handleScrollPosition);
             window.addEventListener("resize", handleScrollPosition);
@@ -87,15 +87,18 @@ function Header() {
     const addToCartProduct = async (cartItems, accessToken) => {
         try {
             if (cartItems.length > 0 && accessToken) {
-                const response = await fetch(`${apiBaseUrl}/add-to-cart-product`, {
-                    method: "POST",
-                    headers: {
-                        accept: "application/json",
-                        Authorization: `Bearer ${accessToken}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ cart_items: cartItems }),
-                });
+                const response = await fetch(
+                    `${apiBaseUrl}/add-to-cart-product`,
+                    {
+                        method: "POST",
+                        headers: {
+                            accept: "application/json",
+                            Authorization: `Bearer ${accessToken}`,
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ cart_items: cartItems }),
+                    }
+                );
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -111,7 +114,6 @@ function Header() {
             return null;
         }
     };
-
 
     useEffect(() => {
         storeUserAgent();
@@ -169,22 +171,29 @@ function Header() {
 
     return (
         <>
-            <header className={`header-sticky ${isSticky ? "header-sticky" : ""}`}>
+            <header
+                className={`header-sticky ${isSticky ? "header-sticky" : ""}`}
+            >
                 <div className="header-wrapper">
-                    {!mobileTopMenuVisible && isResponsive &&
+                    {!mobileTopMenuVisible && isResponsive && (
                         <div className="bg-white">
-                            <div className={`mobile-nav-top-menu container header-container`}>
-                                <a className="py-2" href="tel:09647444444"><FaPhone className="pe-1"/> 09647 444 444</a>
+                            <div
+                                className={`mobile-nav-top-menu container header-container`}
+                            >
+                                <a className="py-2" href="tel:09647444444">
+                                    <FaPhone className="pe-1" /> 09647 444 444
+                                </a>
                             </div>
                         </div>
-                    }
+                    )}
                     <div className="container header-container">
                         {!isObserverMenuVisible && !isResponsive && <MiniNav />}
                         {!isResponsive ? (
                             <MainNav {...scrollOption} authStatus={status} />
                         ) : (
-
-                            <MobileNav mobileTopMenuVisible={mobileTopMenuVisible} />
+                            <MobileNav
+                                mobileTopMenuVisible={mobileTopMenuVisible}
+                            />
                         )}
                         {!path && <HeroSlider />}
                     </div>
