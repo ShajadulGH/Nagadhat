@@ -6,6 +6,7 @@ import { getBackRegistration } from "../services/getBackRegistration";
 import { useSearchParams, useRouter } from "next/navigation";
 import { postCheckForgetPassword } from "../services/forgetpassword/postCheckForgetPassword";
 import { RotatingLines } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const OTP = () => {
     const [isPending, startTransition] = useTransition();
@@ -25,16 +26,18 @@ const OTP = () => {
             setBaseUrl(window.location.origin);
         }
     }, []);
-    
-// function for getting the current time
+
+    // function for getting the current time
     useEffect(() => {
         const nextTimeParam = searchParams.get("nextTime");
         if (nextTimeParam) {
             const now = new Date();
             const todayDate = now.toISOString().split("T")[0];
-            const fullNextTime = new Date(`${todayDate} ${decodeURIComponent(nextTimeParam)}`);
-    
-            const diff = fullNextTime - now; 
+            const fullNextTime = new Date(
+                `${todayDate} ${decodeURIComponent(nextTimeParam)}`
+            );
+
+            const diff = fullNextTime - now;
             if (diff > 0) {
                 setDisableResend(true);
                 setRemainingTime(Math.floor(diff / 1000));
@@ -46,7 +49,7 @@ const OTP = () => {
     useEffect(() => {
         if (remainingTime > 0) {
             const timer = setInterval(() => {
-                setRemainingTime(prev => {
+                setRemainingTime((prev) => {
                     if (prev <= 1) {
                         clearInterval(timer);
                         setDisableResend(false);
@@ -65,17 +68,13 @@ const OTP = () => {
         const s = String(seconds % 60).padStart(2, "0");
         return `${m}:${s}`;
     };
-    
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("verefi otp calling...===>");
         async function verifyOTP() {
             if (!phone || !otp) {
                 setErrorMessage("Please provide required information");
             }
-
             if (errorMessage) {
                 return;
             }
@@ -86,13 +85,12 @@ const OTP = () => {
                         phone: phone,
                         otp: otp,
                     });
-                    console.log("verefi otp===>",res);
-
                     if (!res?.success) {
                         setErrorMessage(res.message);
                         return;
                     } else {
                         setSuccessMessage(res.message);
+                        localStorage.removeItem('forgetPasswordOTP');
                         router.push(`${baseUrl}${res?.data?.frontendUrl}`);
                         // router.push("/login");
                     }
@@ -105,7 +103,6 @@ const OTP = () => {
         if (!forgetPassword) {
             verifyOTP();
         }
-
         // Forget Password Checking
         if (forgetPassword) {
             try {
@@ -114,11 +111,13 @@ const OTP = () => {
                         phone: forgetPassword,
                         otp,
                     });
-                    console.log("forgetRes===>", forgetRes);
                     if (forgetRes?.code === 200) {
                         setSuccessMessage(forgetRes?.message);
                         const userId = forgetRes?.results[0]?.user_id;
-                        console.log("User ID for password reset===>", userId);
+                        if (forgetPassword) {
+                            localStorage.setItem('forgetPasswordOTP', forgetRes?.results[0]?.status);
+                            localStorage.setItem('otpVerified', 'true');
+                        }
                         router.push(`/set-forgot-password?user_id=${userId}`);
                     } else {
                         setErrorMessage(forgetRes.message);
@@ -195,12 +194,12 @@ const OTP = () => {
     return (
         <div className="container">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 py-5">
                     <div className="users-registration-otp">
                         <div className="users-registration-otp-title">
                             <h1>OTP Verify</h1>
                         </div>
-                        
+
                         {successMessage && (
                             <h3 style={{ color: "#008000" }}>
                                 {successMessage}
@@ -228,12 +227,17 @@ const OTP = () => {
                                     placeholder="Enter Your OTP"
                                 />
                                 {errorMessage && (
-                                    <span className="ps-2 pt-2 d-block" style={{ color: "#f00" }}>{errorMessage}</span>
+                                    <span
+                                        className="ps-2 pt-2 d-block"
+                                        style={{ color: "#f00" }}
+                                    >
+                                        {errorMessage}
+                                    </span>
                                 )}
                             </div>
                             <div>
                                 <button
-                                    className="w-100 add-to-cart-link border-0"
+                                    className="w-100 add-to-cart-link border-0 rounded-2"
                                     type="submit"
                                     disabled={isPending}
                                 >
@@ -271,14 +275,14 @@ const OTP = () => {
                                 <div>
                                     {forgetPassword === forgetPassword ? (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={() => router.back()}
                                         >
                                             Back
                                         </button>
                                     ) : (
                                         <button
-                                            className="add-to-cart-link border-0"
+                                            className="add-to-cart-link border-0 rounded-2"
                                             onClick={handleBackSubmit}
                                         >
                                             Back
@@ -286,20 +290,21 @@ const OTP = () => {
                                     )}
                                 </div>
                                 {disableResend ? (
-                                    <div className="text-white fw-bold fs-6 add-to-cart-link bg-danger"> {formatTime(remainingTime)}</div>
+                                    <div className="text-white fw-bold fs-6 add-to-cart-link bg-danger rounded-2">
+                                        {" "}
+                                        {formatTime(remainingTime)}
+                                    </div>
                                 ) : (
-                                <div className="resend-otp-timar">
-                                    <button
-                                        className="add-to-cart-link border-0"
-                                        onClick={handleResendOTPSubmit}
-                                        disabled={disableResend}
-                                    >
-                                        resend otp
-                                    </button>
-                                </div>
-                            )}
-
-                                
+                                    <div className="resend-otp-timar">
+                                        <button
+                                            className="add-to-cart-link border-0 rounded-2"
+                                            onClick={handleResendOTPSubmit}
+                                            disabled={disableResend}
+                                        >
+                                            resend otp
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

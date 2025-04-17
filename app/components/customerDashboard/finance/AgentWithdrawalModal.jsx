@@ -394,7 +394,7 @@ const AgentWithdrawalModal = ({
 
                             <button
                                 onClick={handleWithdrawRequest}
-                                className={`w-100 add-to-cart-link border-0 ${
+                                className={`w-100 add-to-cart-link border-0 rounded-2 ${
                                     isButtonDisabled || isLoading
                                         ? "disabled-button"
                                         : ""

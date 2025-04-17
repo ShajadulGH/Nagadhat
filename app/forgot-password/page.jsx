@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { postForgetPasswordOtp } from "../services/forgetpassword/postForgetPasswordOtp";
 import { RotatingLines } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const Page = () => {
     const [isPending, startTransition] = useTransition();
@@ -25,8 +26,10 @@ const Page = () => {
                     otpMobileNumber.phone
                 );
                 const nxtime = response?.results?.time;
+                const message = response?.message;
                 if (response?.code === 200) {
                     setSuccess(response?.message);
+                    toast.success(message);
                     router.push(
                         `/otp?forget_password=${otpMobileNumber.phone}&nextTime=${nxtime}`
                     );
@@ -52,7 +55,7 @@ const Page = () => {
 
     return (
         <>
-            <section className="users-registration-otp-section vh-100 d-flex">
+            <section className="users-registration-otp-section h-100 d-flex">
                 <div className="container d-flex align-items-center justify-content-center">
                     <div className="row">
                         <div className="col-12">
@@ -96,7 +99,7 @@ const Page = () => {
 
                                     <div>
                                         <button
-                                            className="w-100 add-to-cart-link border-0"
+                                            className="w-100 add-to-cart-link border-0 rounded-2"
                                             type="submit"
                                             disabled={isPending}
                                         >
@@ -127,7 +130,11 @@ const Page = () => {
                                     </div>
                                 </form>
                                 <div className="pt-3">
+<<<<<<< HEAD:app/forgotpassword/page.jsx
                                     <Link href="/login" className="add-to-cart-link d-inline-block rounded-2">Back</Link>
+=======
+                                    <Link className="add-to-cart-link border-0 rounded-2 d-inline-block" href="/login">Back</Link>
+>>>>>>> dev:app/forgot-password/page.jsx
                                 </div>
                             </div>
                         </div>

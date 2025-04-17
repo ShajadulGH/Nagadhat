@@ -17,7 +17,7 @@ const ChangeTransactionOtp = () => {
     const [mobileNumber, setMobileNumber] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [status, setStatus] = useState(0);
+    const [status, setStatus] = useState(1);
     const modalRef = useRef(null);
     const router = useRouter();
 
@@ -88,6 +88,7 @@ const ChangeTransactionOtp = () => {
                 return;
             }
             const response = await postManagePinOtp(session.accessToken);
+            const message = response?.message;
             if (response.code === 200) {
                 // toast.success(response.message);
                 const modalElement = modalRef.current;
@@ -96,8 +97,9 @@ const ChangeTransactionOtp = () => {
                         bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
+                toast.success(message);
                 router.push(
-                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&otpStatus=${response?.results?.otp}`
+                    `/others-password-txn-otp/manage-otp?otpType=${otpType}&pin=${pin}&nextTime=${response?.results?.time}&uphn=${response?.results?.user_phone}`
                 );
             } else {
                 toast.error(response.message);
@@ -115,7 +117,7 @@ const ChangeTransactionOtp = () => {
         <div
             className={`tab-pane fade show active`}
         >
-            {!status ? (
+            {status == 1 ? (
                 <div>
                     <div className="customer-setting-form-group">
                         <label className="form-label" htmlFor="otp">
@@ -210,7 +212,7 @@ const ChangeTransactionOtp = () => {
                     </div>
                     <button
                         type="button"
-                        className="add-to-cart-link border-0 mx-auto"
+                        className="add-to-cart-link border-0 mx-auto rounded-2"
                         onClick={handleManagePin}
                     >
                         {otpType === "pin"
@@ -230,7 +232,7 @@ const ChangeTransactionOtp = () => {
                             want to reset it, please click the button below.
                         </p>
                     </div>
-                    <button onClick={()=>setStatus(0)} className="add-to-cart-link border-0 mx-auto">
+                    <button onClick={()=>setStatus(1)} className="add-to-cart-link border-0 mx-auto rounded-2">
                         Reset PIN
                     </button>
                 </div>
