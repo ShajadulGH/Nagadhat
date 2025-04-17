@@ -34,13 +34,18 @@ const AffiliateRankWrapp = () => {
         fetchData();
     }, [status, session?.accessToken, statusChange]);
 
-    console.log("rankList===>", rankList);
-    const lavelList = rankList?.map((item) => item.level);
+    // console.log("rankList===>", rankList);
+    const lavelList = rankList?.map((item) => item?.next_target_rank?.level);
+    console.log("lavelList===>", lavelList);
+    
 
     return (
         <>
             {isLoading && <LodingFixed />}
             <div className="customer-dashboard-order-history-area h-100">
+                <div className="text-center pt-4 ps-4">
+                    <h1 className="fs-4 text-capitalize">Next Promotion Chart</h1>
+                </div>
                 {rankList.length > 0 ? (
                     <>
                         <RankRewardTop affiliateData={rankList} />

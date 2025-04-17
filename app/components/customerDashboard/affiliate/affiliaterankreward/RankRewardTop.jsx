@@ -3,23 +3,24 @@ import Image from "next/image";
 
 const RankRewardTop = ({ affiliateData }) => {
     const lastItem = affiliateData[affiliateData.length - 1];
+    console.log("lastItem===>", lastItem);
     let imageUrl;
-    if (lastItem?.next_target_rank?.logo) {
-        imageUrl = `${NagadhatPublicUrl}/${lastItem?.next_target_rank?.logo}`;
+    if (lastItem?.logo) {
+        imageUrl = `${NagadhatPublicUrl}/${lastItem?.logo}`;
     }
     return (
         <>
-            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between">
-                <h1 className="customer-dashboard-title">
-                    Next Promotion Chart: {lastItem?.next_target_rank?.level}
-                </h1>
+            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between pt-0">
+                <h2 className="customer-dashboard-title">
+                    Ranks: {lastItem?.level}
+                </h2>
                 <div className="">
                     <Image
                         className="rounded-circle"
                         src={imageUrl || "/images/men222222.png"}
                         width={60}
                         height={60}
-                        alt={lastItem?.next_target_rank?.level}
+                        alt={lastItem?.level}
                     />
                 </div>
             </div>
