@@ -176,7 +176,8 @@ header {
     border: 1px solid white;
     padding: 3px;
     padding-right: 19px;
-    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     padding-bottom: 6px;
 }
 .login-register-btn:hover {

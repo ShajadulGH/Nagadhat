@@ -219,7 +219,7 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                     <li className="login-register-btn">
                                         <Link
                                             href="/login"
-                                            className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
+                                            className="text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
                                         >
                                             <CgProfile
                                                 style={{
@@ -393,7 +393,7 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                     <li className="login-register-btn">
                                         <Link
                                             href="/login"
-                                            className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
+                                            className="text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
                                         >
                                             <CgProfile
                                                 style={{
