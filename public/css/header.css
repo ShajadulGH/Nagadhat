@@ -92,7 +92,7 @@ header {
 }
 
 .header-auth-area ul {
-    gap: 20px;
+    gap: 30px;
 }
 
 .header-search-area {
@@ -172,6 +172,16 @@ header {
     font-size: 16px;
 }
 
+.login-register-btn {
+    border: 1px solid white;
+    padding: 3px;
+    padding-right: 19px;
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.2);
+    padding-bottom: 6px;
+}
+.login-register-btn:hover {
+    transform: scale(1.05);
+}
 .header-auth-area li a span,
 .header-auth-area li a img {
     margin-right: 7px;
@@ -251,7 +261,6 @@ header {
     border-radius: 0;
     margin-bottom: 15px;
 }
-
 .observerable-header-search-area .header-search-holder {
     background: var(--color-white);
     height: 36px;

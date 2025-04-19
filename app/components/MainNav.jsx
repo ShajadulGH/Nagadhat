@@ -1,31 +1,20 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import SignoutBtn from "./SignoutBtn";
+
 import { getHomeSearchProduct } from "../services/getHomeSearchProduct";
 import ProductSearchResult from "./ProductSearchResult";
 import ProductSearchResultMobile from "./ProductSearchResultMobile";
-// import { getDivision } from "../services/getDivision";
-// import { getDistrictByDivisionId } from "../services/getDistrict";
+
 import { useSelector } from "react-redux";
-import { FaUser } from "react-icons/fa";
 import { AiOutlineShopping } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { CgMenuGridR } from "react-icons/cg";
-function MainNav({
-    isObserverMenuVisible,
-    isCategoryHoverMenu,
-    setCategoryHoverMenu,
-    authStatus,
-}) {
+function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
     const [search, setSearch] = useState("");
     const [location, setLoction] = useState("Dhaka, Dhaka");
     const [searchProduct, setSearchProduct] = useState([]);
-    // const searchParams = useSearchParams();
-    // let divisionId = searchParams.get("divisionId");
-    // let districtId = searchParams.get("districtId");
     const searchResultRef = useRef(null);
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
@@ -179,12 +168,6 @@ function MainNav({
                                         className="text-white text-capitalize position-relative"
                                     >
                                         <span className="d-flex align-items-center m-0">
-                                            {/* <Image
-                                                src="/images/cart-icon.svg"
-                                                alt="cart-icon"
-                                                width={17}
-                                                height={15}
-                                            /> */}
                                             <AiOutlineShopping
                                                 style={{
                                                     height: "34px",
@@ -221,24 +204,27 @@ function MainNav({
                                             href="/dashboard"
                                             className="text-white text-capitalize d-flex align-items-center"
                                         >
-                                            <span className="bg-white d-flex align-items-center">
-                                                <FaUser
-                                                    style={{ color: "#44bc9d" }}
-                                                />
-                                            </span>
+                                            <CgProfile
+                                                style={{
+                                                    height: "27px",
+                                                    width: "27px",
+                                                    marginRight: "5px",
+                                                    marginLeft: "15px",
+                                                }}
+                                            />
                                         </Link>
                                     </li>
                                 )}
                                 {authStatus === "unauthenticated" && (
-                                    <li>
+                                    <li className="login-register-btn">
                                         <Link
                                             href="/login"
                                             className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
                                         >
                                             <CgProfile
                                                 style={{
-                                                    height: "25px",
-                                                    width: "25px",
+                                                    height: "27px",
+                                                    width: "27px",
                                                     marginRight: "5px",
                                                     marginLeft: "15px",
                                                 }}
@@ -285,13 +271,7 @@ function MainNav({
                                 >
                                     <div className="d-flex gap-2 align-items-center text-white text-capitalize fs-5 fw-semibold">
                                         <span>Categories</span>
-                                        {/* <Image
-                                            className="categories-arrow-img"
-                                            src="/images/Categories-arrow.svg"
-                                            alt="arrow"
-                                            width={10}
-                                            height={7}
-                                        /> */}
+
                                         <CgMenuGridR
                                             style={{
                                                 height: "25px",
@@ -361,12 +341,6 @@ function MainNav({
                                         className="text-white text-capitalize position-relative"
                                     >
                                         <span className="d-flex align-items-center m-0">
-                                            {/* <Image
-                                                src="/images/cart-icon.svg"
-                                                alt="cart-icon"
-                                                width={17}
-                                                height={15}
-                                            /> */}
                                             <AiOutlineShopping
                                                 style={{
                                                     height: "34px",
@@ -401,26 +375,30 @@ function MainNav({
                                     <li>
                                         <Link
                                             href="/dashboard"
-                                            className="text-white text-capitalize d-flex align-items-center"
+                                            className="d-flex align-items-center"
                                         >
-                                            <span className="bg-white d-flex align-items-center">
-                                                <FaUser
-                                                    style={{ color: "#44bc9d" }}
-                                                />
-                                            </span>
+                                            <CgProfile
+                                                style={{
+                                                    height: "27px",
+                                                    width: "27px",
+                                                    marginRight: "5px",
+                                                    marginLeft: "15px",
+                                                    color: "white",
+                                                }}
+                                            />
                                         </Link>
                                     </li>
                                 )}
                                 {authStatus === "unauthenticated" && (
-                                    <li>
+                                    <li className="login-register-btn">
                                         <Link
                                             href="/login"
                                             className="text-white d-flex align-items-center text-md fw-bold fs-5 mt-1"
                                         >
                                             <CgProfile
                                                 style={{
-                                                    height: "25px",
-                                                    width: "25px",
+                                                    height: "27px",
+                                                    width: "27px",
                                                     marginRight: "5px",
                                                     marginLeft: "15px",
                                                 }}
