@@ -2,8 +2,8 @@
     padding: 80px 0;
 }
 
-.user-login-area-container{
-    min-width: 200px ;
+.user-login-area-container {
+    min-width: 200px;
     max-width: 460px;
 }
 
@@ -14,25 +14,25 @@
 }
 
 .user-login-area .form-control {
-    outline: none;
     height: 36px;
     line-height: 36px;
     color: var(--color-black);
     font-size: 14px;
+    outline: 1px solid #44bc9d;
 }
 
 .user-login-area .form-control::placeholder {
-    color: #dee2e6;
+    color: rgb(124, 124, 124);
     opacity: 1;
 }
 
 .user-login-area .form-control::-ms-input-placeholder {
-    color: #dee2e6;
+    color: black;
 }
 
 .user-login-area .form-control:focus {
     box-shadow: none;
-    border-color: #dee2e6;
+    border-color: #00ffbf;
 }
 
 .user-login-area .btn.btn-primary {
@@ -44,7 +44,7 @@
     font-weight: 700;
     font-size: 16px;
     outline: none;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     border: none;
 }
 
@@ -68,14 +68,9 @@
     font-weight: 700;
     font-size: 16px;
     width: max-content;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     border: 1px solid var(--color-414042);
 }
-
-/* .user-social-login-item button:hover {
-    background: var(--color-414042);
-    color: var(--color-white);
-} */
 .user-social-login-item button img {
     margin-right: 10px;
 }
@@ -99,4 +94,43 @@
 
 .user-login-form label span {
     color: red;
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-wrapper .icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    left: 10px;
+}
+.input-section {
+    display: flex;
+    flex-direction: column;
+}
+.input-wrapper input {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+.icon-left {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+}
+.icon-right {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
 }

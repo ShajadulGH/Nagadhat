@@ -1,29 +1,26 @@
 "use client";
 import Link from "next/link";
-import SigninBtn from "../components/SigninBtn";
 import React, { useEffect, useState } from "react";
-import { getProviders, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { toast } from "react-toastify";
-// import ReCAPTCHA from "react-google-recaptcha";
-
+import { MdOutlinePhoneIphone } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { RiLockPasswordLine } from "react-icons/ri";
 const Login = () => {
     const router = useRouter();
     const { status, data: session } = useSession();
     const searchParams = useSearchParams();
     const fromPath = searchParams.get("from");
-    // const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
             if (typeof fromPath === "string" && status === "authenticated") {
                 router?.push(fromPath);
-            } 
-            // else if (status === "authenticated") {
-            //     router?.push("/dashboard");
-            // }
+            }
         }
         fetchData();
     }, [session?.user, status]);
@@ -47,20 +44,6 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
-        // const allowedNumbers = ["01739245723", "01680572792"];
-        // if (!allowedNumbers.includes(formData.username)) {
-        //     toast.error("Dear Customer,Due to technical issues with our server, our service is still temporarily unavailable. In Sha Allah, we will resolve the issue soon and resume our service. Thank you for your patience.");
-        //     return;
-        // }
-
-        //function for CaptchaVerified
-
-        // if (!isCaptchaVerified) {
-        //     toast.error("Please complete the reCAPTCHA verification.");
-        //     return;
-        // }
-
         if (!formData.username || !formData.password) {
             setErrorMessage("Please provide required information");
             return;
@@ -78,53 +61,59 @@ const Login = () => {
         }
         router.push("/dashboard");
     };
-
-    // const handleCaptchaChange = (value) => {
-    //     if (value) {
-    //         setIsCaptchaVerified(true);
-    //     }
-    // };
-
     return (
         <div className="container">
             <div className=" user-login-section mx-auto">
                 <div className="user-login-area-container mx-auto">
                     <div className="user-login-area shadow rounded-4 px-3 py-5">
-                        <h1 className="text-center text-capitalize">
-                            Login to your account.
-                        </h1>
+                        <h1 className="text-center text-capitalize">Login</h1>
                         {errorMessage && (
                             <h3 style={{ color: "#f00" }}>{errorMessage}</h3>
                         )}
                         <div className="user-login-form">
                             <form>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section ">
                                     <label
                                         htmlFor="number"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Phone Number <span>*</span>
                                     </label>
-                                    <input
-                                        type="number"
-                                        className="form-control"
-                                        id="number"
-                                        name="username"
-                                        required
-                                        value={formData.username}
-                                        onChange={handleChange}
-                                    />
+                                    <div className="input-wrapper">
+                                        <MdOutlinePhoneIphone
+                                            className="icon"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        <input
+                                            type="number"
+                                            className="form-control no-spinner"
+                                            id="number"
+                                            name="username"
+                                            required
+                                            value={formData.username}
+                                            onChange={handleChange}
+                                            placeholder="Enter your phone number"
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="password"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Password <span>*</span>
                                     </label>
-                                    <div className="position-relative">
+                                    {/* <div className="position-relative">
                                         <input
-                                            type={ showPassword ? "text" : "password" }
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             className="form-control"
                                             id="password"
                                             name="password"
@@ -147,6 +136,56 @@ const Login = () => {
                                                 <FaEye />
                                             )}
                                         </button>
+                                    </div> */}
+                                    <div class="input-wrapper">
+                                        <RiLockPasswordLine
+                                            className="icon-left"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        {showPassword ? (
+                                            <FaRegEye
+                                                onClick={
+                                                    togglePasswordVisibility
+                                                }
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        ) : (
+                                            <FaRegEyeSlash
+                                                onClick={
+                                                    togglePasswordVisibility
+                                                }
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        )}
+
+                                        <input
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
+                                            className="form-control"
+                                            id="password"
+                                            name="password"
+                                            required
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            placeholder="Enter your password"
+                                        />
                                     </div>
                                 </div>
                                 <div className="mb-3 form-check d-flex align-items-center justify-content-between ">
@@ -169,12 +208,7 @@ const Login = () => {
                                         </Link>
                                     </div>
                                 </div>
-                                {/* <div className="pb-3 w-100 custom-login-recaptcha">
-                                    <ReCAPTCHA
-                                        sitekey="6LdQNb0qAAAAAJOm9zR2y47VY9A42nUjycP8Y0xN"
-                                        onChange={handleCaptchaChange}
-                                    />
-                                </div> */}
+
                                 <button
                                     type="submit"
                                     className="btn btn-primary"
@@ -184,13 +218,6 @@ const Login = () => {
                                 </button>
                             </form>
                             <div className="user-social-login mt-3">
-                                {/* <label className="form-label">
-                                    Or Login With
-                                </label> */}
-                                {/* <div className="mb-3 user-social-login-item d-flex align-items-center  justify-content-center "> */}
-                                {/* <SigninBtn provider="facebook" /> */}
-                                {/* <SigninBtn provider="google" /> */}
-                                {/* </div> */}
                                 <p className="text-center">
                                     New to Nagadhat?{" "}
                                     <Link href="/registration">
