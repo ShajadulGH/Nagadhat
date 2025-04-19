@@ -35,8 +35,9 @@ const RankRewardList = ({
                             <th scope="col" className="text-center">
                                 Title
                             </th>
-                            {(lavelList[0] === "Executive" ||
-                                lavelList[1] === "Senior Executive") && (
+                            {(lavelList.includes("Executive") ||
+                                lavelList.includes("Senior Executive") ||
+                                lavelList.includes("Area Manager")) && (
                                 <th scope="col" className="text-center">
                                     Personal Sales
                                 </th>
@@ -71,23 +72,19 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         {items?.next_target_rank?.level}
                                     </td>
-                                    {(lavelList[0] === "Executive" ||
-                                        lavelList[1] ===
-                                            "Senior Executive") && (
+                                    {(lavelList.includes("Executive") ||
+                                        lavelList.includes(
+                                            "Senior Executive"
+                                        ) ||
+                                        lavelList.includes("Area Manager")) && (
                                         <td className="align-middle text-center  ">
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>
-                                                    {items?.next_target_rank
-                                                        ?.user_next_personal_sales}{" "}
-                                                    | {items?.next_target_rank
-                                                        ?.next_target_personal_sales}
+                                                    {items.id > 3 ? 0
+                                                        : (items.next_target_rank?.user_next_personal_sales || 0) +
+                                                    " | " +
+                                                          (items?.next_target_rank?.next_target_personal_sales )}
                                                 </span>
-                                                {/* <span>
-                                                    {items?.user_direct_sales >=
-                                                        items?.direct_sales && (
-                                                        <FaCheckCircle className="praymary-color" />
-                                                    )}
-                                                </span> */}
                                             </div>
                                         </td>
                                     )}
@@ -105,12 +102,6 @@ const RankRewardList = ({
                                                         ?.next_target_line_01_sales
                                                 }
                                             </span>
-                                            {/* <span>
-                                                    {items?.user_line_01_sales >=
-                                                        items?.line_01_sales && (
-                                                        <FaCheckCircle className="praymary-color" />
-                                                    )}
-                                                </span> */}
                                         </div>
                                     </td>
                                     <td className="align-middle text-center">
@@ -126,14 +117,6 @@ const RankRewardList = ({
                                                         ?.next_target_line_02_sales
                                                 }
                                             </span>
-                                            {/* <span>
-                                                    {index != 0 &&
-                                                        index != 1 &&
-                                                        items?.user_line_02_sales >=
-                                                            items?.line_02_sales && (
-                                                            <FaCheckCircle className="praymary-color" />
-                                                        )}
-                                                </span> */}
                                         </div>
                                     </td>
                                     <td className="align-middle text-center">
@@ -149,21 +132,18 @@ const RankRewardList = ({
                                                         ?.next_target_others_line
                                                 }
                                             </span>
-                                            {/* <span>
-                                                    {items?.user_others_line >=
-                                                        items?.others_line && (
-                                                        <FaCheckCircle className="praymary-color" />
-                                                    )}
-                                                </span> */}
                                         </div>
                                     </td>
                                     <td className="align-middle text-center ">
                                         <button
                                             onClick={() => {
                                                 if (
-                                                    items?.next_target_rank?.status === 0 ||
-                                                    items?.next_target_rank?.status === 1 ||
-                                                    items?.next_target_rank?.status === 4
+                                                    items?.next_target_rank
+                                                        ?.status === 0 ||
+                                                    items?.next_target_rank
+                                                        ?.status === 1 ||
+                                                    items?.next_target_rank
+                                                        ?.status === 4
                                                 ) {
                                                     handleClaimReward(items);
                                                 }
@@ -171,38 +151,56 @@ const RankRewardList = ({
                                             className="add-to-cart-link affiliate-rank-btn text-capitalize text-center d-inline-block"
                                             style={{
                                                 background:
-                                                    items?.next_target_rank?.status === 0
+                                                    items?.next_target_rank
+                                                        ?.status === 0
                                                         ? "gray"
-                                                        : items?.next_target_rank?.status === 2
+                                                        : items
+                                                              ?.next_target_rank
+                                                              ?.status === 2
                                                         ? "yellow"
-                                                        : items?.next_target_rank?.status === 3
+                                                        : items
+                                                              ?.next_target_rank
+                                                              ?.status === 3
                                                         ? "#0089B9"
                                                         : "",
                                                 color:
-                                                    items?.next_target_rank?.status === 3
+                                                    items?.next_target_rank
+                                                        ?.status === 3
                                                         ? "#fff"
-                                                        : items?.next_target_rank?.status === 4
+                                                        : items
+                                                              ?.next_target_rank
+                                                              ?.status === 4
                                                         ? "#fff"
-                                                        : items?.next_target_rank?.status === 2
+                                                        : items
+                                                              ?.next_target_rank
+                                                              ?.status === 2
                                                         ? "#000"
                                                         : "",
                                                 cursor:
-                                                    items?.next_target_rank?.status === 0 ||
-                                                    items?.next_target_rank?.status === 1 ||
-                                                    items?.next_target_rank?.status === 4
+                                                    items?.next_target_rank
+                                                        ?.status === 0 ||
+                                                    items?.next_target_rank
+                                                        ?.status === 1 ||
+                                                    items?.next_target_rank
+                                                        ?.status === 4
                                                         ? "pointer"
                                                         : "auto",
                                             }}
                                         >
-                                            {items?.next_target_rank?.status === 0 ? (
+                                            {items?.next_target_rank?.status ===
+                                            0 ? (
                                                 "Rank Not Achieved"
-                                            ) : items?.next_target_rank?.status === 1 ? (
+                                            ) : items?.next_target_rank
+                                                  ?.status === 1 ? (
                                                 "Claim Reward"
-                                            ) : items?.next_target_rank?.status === 2 ? (
+                                            ) : items?.next_target_rank
+                                                  ?.status === 2 ? (
                                                 "Reward Claimed"
-                                            ) : items?.next_target_rank?.status === 3 ? (
+                                            ) : items?.next_target_rank
+                                                  ?.status === 3 ? (
                                                 <strong>Claim Approved</strong>
-                                            ) : items?.next_target_rank?.status === 4 ? (
+                                            ) : items?.next_target_rank
+                                                  ?.status === 4 ? (
                                                 "Claim Reward"
                                             ) : (
                                                 ""
