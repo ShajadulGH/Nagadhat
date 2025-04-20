@@ -1,6 +1,5 @@
 "use client";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     addToCartInLocalStorage,
     addToCartProductList,
@@ -105,19 +104,10 @@ function AddToCartButton({
                         setProductVariationError("Please Select variant");
                     } else if (result?.length == 1) {
                         setProductVariationError(
-                            `${
-                                result[0]
-                                    .split("_")[1]
-                                    .charAt(0)
-                                    .toUpperCase() +
-                                result[0].split("_")[1].slice(1)
-                            } not selected`
+                            `${ result[0].split("_")[1].charAt(0).toUpperCase() + result[0].split("_")[1].slice(1)} not selected`
                         );
                     } else {
-                        if (isDetailsPage) {
-                            setProductVariationError(" ");
-                        }
-
+                        if (isDetailsPage) { setProductVariationError(" ")}
                         const addToCartInfo = {
                             cart_product_type: 1,
                             product_id: productInfo?.id,
@@ -131,45 +121,19 @@ function AddToCartButton({
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
-                            product_variation_id:
-                                selectedVariantProductInfo?.product_variation_id,
-                            discount_type:
-                                selectedVariantProductInfo?.discount_type,
-                            discountPrice:
-                                selectedVariantProductInfo?.discount_amount ==
-                                null
-                                    ? 0
-                                    : selectedVariantProductInfo?.discount_amount,
+                            product_variation_id: selectedVariantProductInfo?.product_variation_id,
+                            discount_type: selectedVariantProductInfo?.discount_type,
+                            discountPrice: selectedVariantProductInfo?.discount_amount ?? 0,
                         };
 
                         try {
                             setLoading(true);
                             if (session) {
-                                const productAdded = await addToCartProduct(
-                                    addToCartInfo,
-                                    session.accessToken
-                                );
-                                const updatedCartProducts =
-                                    await fetchCartProducts(
-                                        session?.accessToken,
-                                        outletId,
-                                        districtId
-                                    );
-                                if (
-                                    productAdded.code == 200 &&
-                                    productAdded.error == false &&
-                                    updatedCartProducts?.success == true
-                                ) {
-                                    const quantityTotal = getTotalQuantity(
-                                        updatedCartProducts?.data
-                                    );
-
-                                    dispatch(
-                                        setAddToCart({
-                                            hasSession: true,
-                                            length: quantityTotal,
-                                        })
-                                    );
+                                const productAdded = await addToCartProduct( addToCartInfo, session.accessToken );
+                                const updatedCartProducts = await fetchCartProducts( session?.accessToken, outletId, districtId );
+                                if (productAdded.code == 200 ) {
+                                    const quantityTotal = getTotalQuantity( updatedCartProducts?.data );
+                                    dispatch( setAddToCart({ hasSession: true, length: quantityTotal,}));
                                     toast.success("Cart Added");
                                 } else {
                                     toast.error(productAdded.message);
@@ -179,15 +143,9 @@ function AddToCartButton({
                                 addToCartInLocalStorage(addToCartInfo);
                                 const addToCartProduct = addToCartProductList();
                                 toast.success("Add To Cart Success");
-                                const quantityTotal =
-                                    getTotalQuantity(addToCartProduct);
+                                const quantityTotal = getTotalQuantity(addToCartProduct);
 
-                                dispatch(
-                                    setAddToCart({
-                                        hasSession: false,
-                                        length: quantityTotal,
-                                    })
-                                );
+                                dispatch( setAddToCart({ hasSession: false, length: quantityTotal}));
                             }
                         } catch (error) {
                             toast.error("An error occurred");
@@ -210,40 +168,19 @@ function AddToCartButton({
                         order_type: "Regular",
                         product_variation_id: null,
                         discount_type: productInfo?.discount_type,
-                        discountPrice:
-                            productInfo?.discount_amount == null
-                                ? 0
-                                : productInfo?.discount_amount,
+                        discountPrice: productInfo?.discount_amount ?? 0,
                     };
 
                     try {
                         setLoading(true);
                         if (session) {
-                            const productAdded = await addToCartProduct(
-                                addToCartInfo,
-                                session.accessToken
-                            );
-                            const updatedCartProducts = await fetchCartProducts(
-                                session?.accessToken,
-                                outletId,
-                                districtId
-                            );
+                            const productAdded = await addToCartProduct( addToCartInfo, session.accessToken );
+                            const updatedCartProducts = await fetchCartProducts( session?.accessToken, outletId, districtId );
 
-                            if (
-                                productAdded.code == 200 &&
-                                productAdded.error == false &&
-                                updatedCartProducts?.success == true
-                            ) {
-                                const quantityTotal = getTotalQuantity(
-                                    updatedCartProducts?.data
-                                );
+                            if (productAdded.code == 200) {
+                                const quantityTotal = getTotalQuantity(updatedCartProducts?.data);
 
-                                dispatch(
-                                    setAddToCart({
-                                        hasSession: true,
-                                        length: quantityTotal,
-                                    })
-                                );
+                                dispatch(setAddToCart({hasSession: true, length: quantityTotal}));
                                 toast.success("Cart Added");
                             } else {
                                 toast.error(productAdded.message);
@@ -253,14 +190,8 @@ function AddToCartButton({
                             addToCartInLocalStorage(addToCartInfo);
                             const addToCartProduct = addToCartProductList();
                             toast.success("Add To Cart Success");
-                            const quantityTotal =
-                                getTotalQuantity(addToCartProduct);
-                            dispatch(
-                                setAddToCart({
-                                    hasSession: false,
-                                    length: quantityTotal,
-                                })
-                            );
+                            const quantityTotal = getTotalQuantity(addToCartProduct);
+                            dispatch( setAddToCart({ hasSession: false, length: quantityTotal, }));
                         }
                     } catch (error) {
                         toast.error("An error occurred");
@@ -288,13 +219,7 @@ function AddToCartButton({
                         setProductVariationError("Please Select variant");
                     } else if (result?.length == 1) {
                         setProductVariationError(
-                            `${
-                                result[0]
-                                    .split("_")[1]
-                                    .charAt(0)
-                                    .toUpperCase() +
-                                result[0].split("_")[1].slice(1)
-                            } not selected`
+                            `${result[0].split("_")[1].charAt(0).toUpperCase() + result[0].split("_")[1].slice(1) } not selected`
                         );
                     } else {
                         setProductVariationError(" ");
@@ -311,15 +236,9 @@ function AddToCartButton({
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
-                            product_variation_id:
-                                selectedVariantProductInfo?.product_variation_id,
-                            discount_type:
-                                selectedVariantProductInfo?.discount_type,
-                            discountPrice:
-                                selectedVariantProductInfo?.discount_amount ==
-                                null
-                                    ? 0
-                                    : selectedVariantProductInfo?.discount_amount,
+                            product_variation_id: selectedVariantProductInfo?.product_variation_id,
+                            discount_type: selectedVariantProductInfo?.discount_type,
+                            discountPrice: selectedVariantProductInfo?.discount_amount ?? 0,
                         };
 
                         setProductData(addToCartInfo);
@@ -340,10 +259,7 @@ function AddToCartButton({
                         order_type: "Regular",
                         product_variation_id: null,
                         discount_type: productInfo?.discount_type,
-                        discountPrice:
-                            productInfo?.discount_amount == null
-                                ? 0
-                                : productInfo?.discount_amount,
+                        discountPrice: productInfo?.discount_amount ?? 0,
                     };
 
                     setProductData(addToCartInfo);
@@ -357,12 +273,7 @@ function AddToCartButton({
         <div className="add-to-cart-btn">
             <button
                 className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
-                onClick={(e) =>
-                    productStoke > 0 &&
-                    (title == "BUY NOW"
-                        ? handleBuyNow(e, title)
-                        : !loading && handleAddToCard(e))
-                }
+                onClick={(e) => productStoke > 0 && (title == "BUY NOW" ? handleBuyNow(e, title) : !loading && handleAddToCard(e))}
                 style={{
                     pointerEvents: productStoke > 0 ? "auto" : "none",
                     opacity: productStoke > 0 ? 1 : 0.5,
@@ -371,13 +282,7 @@ function AddToCartButton({
                 {!title ? (
                     productStoke > 0 ? (
                         loading ? (
-                            <div
-                                style={{
-                                    height: "21px",
-                                    width: "96px",
-                                    textAlign: "center",
-                                }}
-                            >
+                            <div style={{ height: "21px", width: "96px", textAlign: "center", }} >
                                 <RotatingLines
                                     visible={true}
                                     height="18"
