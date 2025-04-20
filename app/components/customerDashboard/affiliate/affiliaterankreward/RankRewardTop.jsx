@@ -3,15 +3,14 @@ import Image from "next/image";
 
 const RankRewardTop = ({ affiliateData }) => {
     const lastItem = affiliateData[affiliateData.length - 1];
-    console.log("lastItem===>", lastItem);
     let imageUrl;
     if (lastItem?.logo) {
         imageUrl = `${NagadhatPublicUrl}/${lastItem?.logo}`;
     }
     return (
         <>
-            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between pt-0">
-                <h2 className="customer-dashboard-title">
+            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between py-2">
+                <h2 className="customer-dashboard-title mb-0 fs-6">
                     Ranks: {lastItem?.level}
                 </h2>
                 <div className="">

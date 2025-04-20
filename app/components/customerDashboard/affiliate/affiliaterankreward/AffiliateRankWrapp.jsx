@@ -39,8 +39,8 @@ const AffiliateRankWrapp = () => {
         <>
             {isLoading && <LodingFixed />}
             <div className="customer-dashboard-order-history-area h-100">
-                <div className="text-center pt-4 ps-4">
-                    <h1 className="fs-4 text-capitalize">
+                <div className="pt-4 pb-2 ps-4" style={{ borderBottom: "1px solid #D8D8D8" }}>
+                    <h1 className="fs-4 text-capitalize mb-0">
                         Next Promotion Chart
                     </h1>
                 </div>
