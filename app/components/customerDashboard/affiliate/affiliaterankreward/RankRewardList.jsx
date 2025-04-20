@@ -22,9 +22,9 @@ const RankRewardList = ({
   
     return (
         <>
-            <div className="table-responsive">
+            <div className="table-responsive d-none d-md-block">
                 <table
-                    className="table table-hover d-none d-md-block"
+                    className="table table-hover"
                     // style={{ minWidth: "950px" }}
                 >
                     <thead>
@@ -183,13 +183,13 @@ const RankRewardList = ({
                         })}
                     </tbody>
                 </table>
-                {/* Mobile Table */}
+            </div>
+            {/* Mobile Table */}
             <RankTableMobile
                 rankList={rankList}
                 lavelList={lavelList}
                 handleClaimReward={handleClaimReward}
             />
-            </div>
             {selectedReward && (
                 <ClaimRewardModal
                     setStatusChange={setStatusChange}
