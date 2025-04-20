@@ -569,9 +569,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                     </strong>
                     <del>
                         {parseInt(productPrice?.discountPrice) > 0 &&
-                            `৳ ${parseInt(productPrice?.discountPrice) +
-                            parseInt(productPrice?.prices)
-                            }`}
+                            `৳ ${parseInt(productPrice?.discountPrice) + parseInt(productPrice?.prices) }`}
                     </del>
                 </div>
                 <div className="product-short-description-area">

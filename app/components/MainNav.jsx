@@ -59,8 +59,6 @@ function MainNav({
                     } else {
                         setSearchProduct([]);
                         setSearchMessage(productData?.message);
-                        console.log("searchProduct", productData?.message);
-
                     }
                 } catch (error) {
                     console.error("Error fetching search products:", error);
@@ -113,10 +111,7 @@ function MainNav({
 
     return (
         <div ref={searchResultRef}>
-            <div
-                className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"
-                    }`}
-            >
+            <div className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"}`}>
                 <div className="col-12">
                     <div className="main-header-area d-flex">
                         <div className="logo">
