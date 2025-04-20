@@ -80,7 +80,6 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
     } else {
         profilePic = "/images/avatar-demo.png"
     }
-console.log("isAffiliateUser",isAffiliateUser);
 
     return (
         <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column h-100 ">
