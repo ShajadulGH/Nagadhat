@@ -72,7 +72,7 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                         handleClaimReward(items);
                                     }
                                 }}
-                                className="btn w-100 text-capitalize"
+                                className="btn w-100 add-to-cart-link"
                                 style={{
                                     background:
                                         rank?.status === 0
@@ -83,7 +83,7 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                             ? "#0089B9"
                                             : "",
                                     color:
-                                        rank?.status === 3 || rank?.status === 4
+                                        rank?.status === 3 || rank?.status === 4 || rank?.status === 1
                                             ? "#fff"
                                             : rank?.status === 2
                                             ? "#000"
