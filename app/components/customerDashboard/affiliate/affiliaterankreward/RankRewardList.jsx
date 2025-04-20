@@ -3,6 +3,7 @@ import Image from "next/image";
 import ClaimRewardModal from "./ClaimRewardModal";
 import { NagadhatPublicUrl } from "@/app/utils";
 import { useState } from "react";
+import RankTableMobile from "./RankTableMobile";
 
 const RankRewardList = ({
     rankList,
@@ -23,8 +24,8 @@ const RankRewardList = ({
         <>
             <div className="table-responsive">
                 <table
-                    className="table table-hover"
-                    style={{ minWidth: "950px" }}
+                    className="table table-hover d-none d-md-block"
+                    // style={{ minWidth: "950px" }}
                 >
                     <thead>
                         <tr>
@@ -147,25 +148,18 @@ const RankRewardList = ({
                                             style={{
                                                 background:
                                                     items?.next_target_rank?.status === 0? "gray"
-                                                        : items?.next_target_rank.status === 2
-                                                        ? "yellow"
-                                                        : items?.next_target_rank?.status === 3
-                                                        ? "#0089B9"
-                                                        : "",
+                                                    : items?.next_target_rank.status === 2 ? "yellow"
+                                                    : items?.next_target_rank?.status === 3 ? "#0089B9"
+                                                    : "",
                                                 color:
-                                                    items?.next_target_rank?.status === 3
-                                                        ? "#fff"
-                                                        : items?.next_target_rank?.status === 4
-                                                        ? "#fff"
-                                                        : items?.next_target_rank?.status === 2
-                                                        ? "#000"
-                                                        : "",
+                                                    items?.next_target_rank?.status === 3 ? "#fff"
+                                                    : items?.next_target_rank?.status === 4 ? "#fff"
+                                                    : items?.next_target_rank?.status === 2 ? "#000"
+                                                    : "",
                                                 cursor:
                                                     items?.next_target_rank?.status === 0 ||
                                                     items?.next_target_rank?.status === 1 ||
-                                                    items?.next_target_rank?.status === 4
-                                                        ? "pointer"
-                                                        : "auto",
+                                                    items?.next_target_rank?.status === 4 ? "pointer" : "auto",
                                             }}
                                         >
                                             {items?.next_target_rank?.status ===
@@ -189,6 +183,12 @@ const RankRewardList = ({
                         })}
                     </tbody>
                 </table>
+                {/* Mobile Table */}
+            <RankTableMobile
+                rankList={rankList}
+                lavelList={lavelList}
+                handleClaimReward={handleClaimReward}
+            />
             </div>
             {selectedReward && (
                 <ClaimRewardModal
