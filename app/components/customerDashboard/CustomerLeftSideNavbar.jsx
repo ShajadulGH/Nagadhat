@@ -80,6 +80,7 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
     } else {
         profilePic = "/images/avatar-demo.png"
     }
+console.log("isAffiliateUser",isAffiliateUser);
 
     return (
         <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column h-100 ">
@@ -94,9 +95,9 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
                             height={60}
                         />
                     </div>
-                    <h2>
+                    <h2 className=" d-flex align-items-center justify-content-center gap-2 ">
                         {session?.user?.name}
-                        {/* <span>®</span> */}
+                        <span className="fs-6 border-2 border px-1 rounded-4 d-inline-block text-center pt-1 pb-0 " style={{ color:"#404241" }}>{isAffiliateUser?.current_short_rank_name}</span>
                     </h2>
                     <p>{session?.phone}</p>
                 </div>

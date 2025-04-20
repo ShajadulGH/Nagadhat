@@ -2,7 +2,6 @@
 import Image from "next/image";
 import ClaimRewardModal from "./ClaimRewardModal";
 import { NagadhatPublicUrl } from "@/app/utils";
-import { FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
 
 const RankRewardList = ({
@@ -19,7 +18,7 @@ const RankRewardList = ({
     const handleCloseModal = () => {
         setSelectedReward(null);
     };
-
+  
     return (
         <>
             <div className="table-responsive">
@@ -80,10 +79,9 @@ const RankRewardList = ({
                                         <td className="align-middle text-center  ">
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>
-                                                    {items.id > 3 ? 0
-                                                        : (items.next_target_rank?.user_next_personal_sales || 0) +
-                                                    " | " +
-                                                          (items?.next_target_rank?.next_target_personal_sales )}
+                                                    {
+                                                        items?.next_target_rank?.is_personal_sales_completed ? (<p className="text-success">Achieved</p>)
+                                                        : `${items.id > 3 ? 0 : (items.next_target_rank?.user_next_personal_sales || 0)} | ${items.next_target_rank?.next_target_personal_sales || 0}`}
                                                 </span>
                                             </div>
                                         </td>
@@ -93,13 +91,13 @@ const RankRewardList = ({
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
                                                 {
-                                                    items?.next_target_rank
-                                                        ?.user_next_line_01_sales
-                                                }{" "}
-                                                |{" "}
-                                                {
-                                                    items?.next_target_rank
-                                                        ?.next_target_line_01_sales
+                                                    items?.next_target_rank?.next_target_line_01_sales?(<p className="text-success">Achieved</p>):(
+                                                        <>
+                                                            {items?.next_target_rank?.user_next_line_01_sales}
+                                                            {" "}|{" "}
+                                                            {items?.next_target_rank?.next_target_line_01_sales }
+                                                        </>
+                                                    )
                                                 }
                                             </span>
                                         </div>
@@ -107,30 +105,30 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
-                                                {
-                                                    items?.next_target_rank
-                                                        ?.user_next_line_02_sales
-                                                }{" "}
-                                                |{" "}
-                                                {
-                                                    items?.next_target_rank
-                                                        ?.next_target_line_02_sales
-                                                }
+                                            {
+                                                items?.next_target_rank?.is_line_02_sales_completed ? (<p className="text-success">Achieved</p>):(
+                                                    <>
+                                                        {items?.next_target_rank?.user_next_line_02_sales}
+                                                        {" "}|{" "}
+                                                        {items?.next_target_rank?.next_target_line_02_sales }
+                                                    </>
+                                                )
+                                            }
                                             </span>
                                         </div>
                                     </td>
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
-                                                {
-                                                    items?.next_target_rank
-                                                        ?.user_next_others_line
-                                                }{" "}
-                                                |{" "}
-                                                {
-                                                    items?.next_target_rank
-                                                        ?.next_target_others_line
-                                                }
+                                            {
+                                                items?.next_target_rank?.is_others_line_completed ? (<p className="text-success">Achieved</p>):(
+                                                    <>
+                                                        {items?.next_target_rank?.user_next_others_line}
+                                                        {" "}|{" "}
+                                                        {items?.next_target_rank?.next_target_others_line}
+                                                    </>
+                                                )
+                                            }
                                             </span>
                                         </div>
                                     </td>
@@ -138,12 +136,9 @@ const RankRewardList = ({
                                         <button
                                             onClick={() => {
                                                 if (
-                                                    items?.next_target_rank
-                                                        ?.status === 0 ||
-                                                    items?.next_target_rank
-                                                        ?.status === 1 ||
-                                                    items?.next_target_rank
-                                                        ?.status === 4
+                                                    items?.next_target_rank?.status === 0 ||
+                                                    items?.next_target_rank.status === 1 ||
+                                                    items?.next_target_rank?.status === 4
                                                 ) {
                                                     handleClaimReward(items);
                                                 }
@@ -151,38 +146,24 @@ const RankRewardList = ({
                                             className="add-to-cart-link affiliate-rank-btn text-capitalize text-center d-inline-block"
                                             style={{
                                                 background:
-                                                    items?.next_target_rank
-                                                        ?.status === 0
-                                                        ? "gray"
-                                                        : items
-                                                              ?.next_target_rank
-                                                              ?.status === 2
+                                                    items?.next_target_rank?.status === 0? "gray"
+                                                        : items?.next_target_rank.status === 2
                                                         ? "yellow"
-                                                        : items
-                                                              ?.next_target_rank
-                                                              ?.status === 3
+                                                        : items?.next_target_rank?.status === 3
                                                         ? "#0089B9"
                                                         : "",
                                                 color:
-                                                    items?.next_target_rank
-                                                        ?.status === 3
+                                                    items?.next_target_rank?.status === 3
                                                         ? "#fff"
-                                                        : items
-                                                              ?.next_target_rank
-                                                              ?.status === 4
+                                                        : items?.next_target_rank?.status === 4
                                                         ? "#fff"
-                                                        : items
-                                                              ?.next_target_rank
-                                                              ?.status === 2
+                                                        : items?.next_target_rank?.status === 2
                                                         ? "#000"
                                                         : "",
                                                 cursor:
-                                                    items?.next_target_rank
-                                                        ?.status === 0 ||
-                                                    items?.next_target_rank
-                                                        ?.status === 1 ||
-                                                    items?.next_target_rank
-                                                        ?.status === 4
+                                                    items?.next_target_rank?.status === 0 ||
+                                                    items?.next_target_rank?.status === 1 ||
+                                                    items?.next_target_rank?.status === 4
                                                         ? "pointer"
                                                         : "auto",
                                             }}
@@ -190,17 +171,13 @@ const RankRewardList = ({
                                             {items?.next_target_rank?.status ===
                                             0 ? (
                                                 "Rank Not Achieved"
-                                            ) : items?.next_target_rank
-                                                  ?.status === 1 ? (
+                                            ) : items?.next_target_rank?.status === 1 ? (
                                                 "Claim Reward"
-                                            ) : items?.next_target_rank
-                                                  ?.status === 2 ? (
+                                            ) : items?.next_target_rank?.status === 2 ? (
                                                 "Reward Claimed"
-                                            ) : items?.next_target_rank
-                                                  ?.status === 3 ? (
+                                            ) : items?.next_target_rank.status === 3 ? (
                                                 <strong>Claim Approved</strong>
-                                            ) : items?.next_target_rank
-                                                  ?.status === 4 ? (
+                                            ) : items?.next_target_rank?.status === 4 ? (
                                                 "Claim Reward"
                                             ) : (
                                                 ""
