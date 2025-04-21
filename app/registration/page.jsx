@@ -258,7 +258,14 @@ const Registration = () => {
             <div className="user-login-section">
                 <div className="user-login-area-container clip-contain mx-auto">
                     <div class="circle-top"></div>
-                    <div className="user-login-area shadow px-3 py-5">
+                    <div className="user-login-area shadow px-3 pt-5 pb-4">
+                        <div className="logo-container">
+                            <img
+                                src="/images/Fabicon-80-x-80.png"
+                                alt="naagdhat logo"
+                                className="login-logo"
+                            />
+                        </div>
                         <h1 className="text-center text-capitalize text-light">
                             Registration Form
                         </h1>
