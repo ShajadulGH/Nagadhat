@@ -180,7 +180,7 @@ function AddToCartButton({
                             if (productAdded.code == 200) {
                                 const quantityTotal = getTotalQuantity(updatedCartProducts?.data);
 
-                                dispatch(setAddToCart({hasSession: true, length: quantityTotal}));
+                                dispatch(setAddToCart({ hasSession: true, length: quantityTotal, }));
                                 toast.success("Cart Added");
                             } else {
                                 toast.error(productAdded.message);
