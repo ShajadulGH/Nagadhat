@@ -180,7 +180,7 @@ const Login = () => {
                                         </label>
                                     </div>
                                     <div className="inner-field">
-                                        <Link href="/forgotpassword">
+                                        <Link href="/forgot-password">
                                             Forgot Password ?
                                         </Link>
                                     </div>

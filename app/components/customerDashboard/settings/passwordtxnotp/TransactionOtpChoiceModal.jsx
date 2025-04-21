@@ -55,15 +55,14 @@ const TransactionOtpChoiceModal = ({
                                     Email - 9876543210@example.com
                                 </label>
                             </div> */}
-                            <p>
+                            {/* <p>
                                 <small>
-                                    * choose from your phone or email for OTP
-                                    code.
+                                    * choose from your phone for OTP code.
                                 </small>
-                            </p>
+                            </p> */}
                         </div>
                         <div className="modal-footer">
-                            <button onClick={handleManageOtpChange} type="button" className="add-to-cart-link border-0 w-100">Send</button>
+                            <button onClick={handleManageOtpChange} type="button" className="add-to-cart-link border-0 w-100 rounded-2">Send</button>
                         </div>
                     </div>
                 </div>

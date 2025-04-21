@@ -15,10 +15,15 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
     const [search, setSearch] = useState("");
     const [location, setLoction] = useState("Dhaka, Dhaka");
     const [searchProduct, setSearchProduct] = useState([]);
+    const [searchMessage, setSearchMessage] = useState("");
+    // const searchParams = useSearchParams();
+    // let divisionId = searchParams.get("divisionId");
+    // let districtId = searchParams.get("districtId");
     const searchResultRef = useRef(null);
     const addToCartProductLength = useSelector(
         (state) => state.cart?.addToCartLength
     );
+    console.log("addToCartProductLength", addToCartProductLength);
 
     const [districtId, setDistrictId] = useState(() => {
         if (typeof window !== "undefined") {
@@ -33,18 +38,29 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
 
     useEffect(() => {
         if (search?.length >= 3) {
+            setSearchMessage("Searching...");
             setSearchProduct([]);
 
             const fetchSearchProduct = async () => {
-                const productData = await getHomeSearchProduct(
-                    districtId,
-                    search
-                );
-                // console.log(productData);
-                const searchResults = productData?.results;
-
-                if (searchResults) {
-                    setSearchProduct(searchResults);
+                try {
+                    const productData = await getHomeSearchProduct(
+                        districtId,
+                        search
+                    );
+                    if (productData?.code == 200) {
+                        const searchResults = productData?.results;
+                        setSearchProduct(searchResults);
+                        setSearchMessage("");
+                    } else {
+                        setSearchProduct([]);
+                        setSearchMessage(productData?.message);
+                    }
+                } catch (error) {
+                    console.error("Error fetching search products:", error);
+                    setSearchProduct([]);
+                    setSearchMessage(
+                        "An error occurred while fetching products."
+                    );
                 }
             };
 
@@ -55,12 +71,11 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
             return () => {
                 clearTimeout(Debouncing);
             };
+        } else {
+            setSearchMessage("Type at least 3 characters to search.");
+            setSearchProduct([]);
         }
     }, [search, districtId]);
-
-    const isSearchProductAvailable = () => {
-        return searchProduct.length !== 0;
-    };
 
     useEffect(() => {
         const location = localStorage.getItem("location");
@@ -153,10 +168,11 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                     </div>
                                 </form>
                             </div>
-                            {search && isSearchProductAvailable() && (
+                            {search && (
                                 <ProductSearchResult
                                     searchProduct={searchProduct}
                                     clearSearch={clearSearch}
+                                    searchMessage={searchMessage}
                                 />
                             )}
                         </div>
@@ -325,7 +341,7 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                             </div>
                                         </form>
                                     </div>
-                                    {search && isSearchProductAvailable() && (
+                                    {search && (
                                         <ProductSearchResultMobile
                                             searchProduct={searchProduct}
                                             clearSearch={clearSearch}
@@ -390,22 +406,23 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                     </li>
                                 )}
                                 {authStatus === "unauthenticated" && (
-                                    <li className="login-register-btn">
-                                        <Link
-                                            href="/login"
-                                            className="text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
-                                        >
-                                            <CgProfile
-                                                style={{
-                                                    height: "27px",
-                                                    width: "27px",
-                                                    marginRight: "5px",
-                                                    marginLeft: "15px",
-                                                }}
-                                            />
-                                            Login | Register
-                                        </Link>
-                                    </li>
+                                   <li
+                                   role="button"
+                                   tabIndex="0"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#loginModal"
+                                   className="login-register-btn text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
+                               >
+                                   <CgProfile
+                                       style={{
+                                           height: "27px",
+                                           width: "27px",
+                                           marginRight: "5px",
+                                           marginLeft: "15px",
+                                       }}
+                                   />
+                                   Login | Register
+                               </li>
                                 )}
                             </ul>
                         </div>

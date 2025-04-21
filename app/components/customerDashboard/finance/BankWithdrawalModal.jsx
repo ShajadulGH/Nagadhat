@@ -191,7 +191,7 @@ const BankWithdrawalModal = ({ bankTransferInfo }) => {
 
                             <button
                                 onClick={handleWithdrawRequest}
-                                className={`w-100 add-to-cart-link border-0 ${isButtonDisabled || isLoading ? 'disabled-button' : ''}`}
+                                className={`w-100 add-to-cart-link border-0 rounded-2 ${isButtonDisabled || isLoading ? 'disabled-button' : ''}`}
                                 disabled={isButtonDisabled || isLoading}
                             >
                                 {isLoading ? 'Processing...' : 'Continue'}

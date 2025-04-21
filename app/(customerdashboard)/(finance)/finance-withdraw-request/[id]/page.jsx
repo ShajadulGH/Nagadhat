@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 
 const FinanceWithdraw = ({ params }) => {
     const [withdrawRequestData, setWithdrawRequestData] = useState(null);
+    const [otpStatus, setOtpStatus] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { data: session } = useSession();
     const { id } = params;
@@ -19,9 +20,13 @@ const FinanceWithdraw = ({ params }) => {
         const fetchWithdrawDetails = async () => {
             try {
                 if (session?.accessToken && id) {
-                    const request = await getActiveResourcesInformation(session.accessToken, id);
+                    const request = await getActiveResourcesInformation(
+                        session.accessToken,
+                        id
+                    );
                     if (request.code === 200) {
                         setWithdrawRequestData(request?.results);
+                        setOtpStatus(request?.results?.otp_status);
                     } else {
                         toast.error(request.message);
                         console.log(request.message);
@@ -41,17 +46,20 @@ const FinanceWithdraw = ({ params }) => {
         const otp = e.target.otp.value;
         const data = {
             otp,
-            otp_status: withdrawRequestData?.otp_status
-        }
+            otp_status: withdrawRequestData?.otp_status,
+        };
         try {
-            const request = await postOTPWithdrawVerification(session.accessToken, data);
+            const request = await postOTPWithdrawVerification(
+                session.accessToken,
+                data
+            );
             if (request.code === 200) {
                 Swal.fire({
                     // position: "top-end",
                     icon: "success",
                     title: "Withdraw request send successfully.",
                     showConfirmButton: true,
-                    timer: 2000
+                    timer: 2000,
                 });
                 route.push(`/finance-withdraw`);
             } else {
@@ -60,9 +68,26 @@ const FinanceWithdraw = ({ params }) => {
             }
         } catch (error) {
             console.log("PIN request error:", error);
-            toast.error(error.message)
-        } finally { setIsLoading(false) }
+            toast.error(error.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
+
+    // useEffect(() => {
+    //     if (otpStatus === "1") {
+    //       Swal.fire({
+    //         title: "PIN not set!",
+    //         text: "You need to set your PIN. Redirecting now.",
+    //         icon: "warning",
+    //         confirmButtonText: "OK"
+    //       }).then((result) => {
+    //         if (result.isConfirmed) {
+    //           route.push("/others-password-txn-otp");
+    //         }
+    //       });
+    //     }
+    //   }, [otpStatus]);
 
     return (
         <div className="customer-dashboard-order-history-area">
@@ -76,35 +101,49 @@ const FinanceWithdraw = ({ params }) => {
                                 <tbody>
                                     <tr>
                                         <th>Withdraw Method :</th>
-                                        <td>{withdrawRequestData?.billing_method}</td>
+                                        <td>
+                                            {withdrawRequestData?.billing_method}
+                                        </td>
                                     </tr>
-                                    {withdrawRequestData?.user?.agent_name &&
+                                    {withdrawRequestData?.user?.agent_name && (
                                         <tr>
                                             <th>Withdraw By :</th>
-                                            <td>{withdrawRequestData?.user?.agent_name}</td>
+                                            <td>
+                                                {withdrawRequestData?.user?.agent_name}
+                                            </td>
                                         </tr>
-                                    }
-                                    {withdrawRequestData?.account_number &&
+                                    )}
+                                    {withdrawRequestData?.account_number && (
                                         <tr>
                                             <th>Account Number :</th>
-                                            <td>{withdrawRequestData?.account_number}</td>
+                                            <td>
+                                                {withdrawRequestData?.account_number}
+                                            </td>
                                         </tr>
-                                    }
+                                    )}
 
-                                    {withdrawRequestData?.billing_method == "Bank" && (<>
-                                        <tr>
-                                            <th>Bank Name :</th>
-                                            <td>{withdrawRequestData?.bank.bank_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Account Holder Name :</th>
-                                            <td>{withdrawRequestData?.bank?.account_holder_name}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Branch Name :</th>
-                                            <td>{withdrawRequestData?.bank?.branch_name}</td>
-                                        </tr>
-                                    </>)}
+                                    {withdrawRequestData?.billing_method =="Bank" && (
+                                        <>
+                                            <tr>
+                                                <th>Bank Name :</th>
+                                                <td>
+                                                    {withdrawRequestData?.bank.bank_name}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Account Holder Name :</th>
+                                                <td>
+                                                    {withdrawRequestData?.bank?.account_holder_name}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Branch Name :</th>
+                                                <td>
+                                                    {withdrawRequestData?.bank?.branch_name}
+                                                </td>
+                                            </tr>
+                                        </>
+                                    )}
                                 </tbody>
                             </table>
                         </div>
@@ -113,15 +152,17 @@ const FinanceWithdraw = ({ params }) => {
                                 <tbody>
                                     <tr>
                                         <th>Amount :</th>
-                                        <td>৳{" "}{withdrawRequestData?.amount}</td>
+                                        <td>৳ {withdrawRequestData?.amount}</td>
                                     </tr>
                                     <tr>
                                         <th>Charge :</th>
-                                        <td>৳{" "}{withdrawRequestData?.charge}</td>
+                                        <td>৳ {withdrawRequestData?.charge}</td>
                                     </tr>
                                     <tr>
                                         <th>Payable :</th>
-                                        <td>৳{" "}{withdrawRequestData?.payable}</td>
+                                        <td>
+                                            ৳ {withdrawRequestData?.payable}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -129,30 +170,32 @@ const FinanceWithdraw = ({ params }) => {
                     </div>
                     <hr className="py-2" />
                     <label htmlFor="otp" className="form-label">
-                        {withdrawRequestData?.otp_status == 1 ?
-                            'Enter your transaction OTP to proceed.' :
-                            'Enter your transaction PIN to proceed.'}
+                        {withdrawRequestData?.otp_status == 1
+                            ? "Enter your transaction OTP to proceed."
+                            : "Enter your transaction PIN to proceed."}
                         <span className="text-danger fs-5">*</span>
                     </label>
-                    <form className="form" onSubmit={handleSubmit}>
-                        <div className="form-group pb-3 d-flex gap-3 align-items-center">
-                            <input
-                                type="number"
-                                required
-                                className="form-control"
-                                name="otp"
-                                defaultValue={withdrawRequestData?.otp}
-                                placeholder={withdrawRequestData?.otp_status == 'mobile' ? 'OTP' : 'PIN'}
-                            />
-                            <button
-                                type="submit"
-                                className="ms-auto add-to-cart-link border-0"
-                                disabled={isLoading}
-                            >
-                                {isLoading ? 'Processing...' : 'Continue'}
-                            </button>
-                        </div>
-                    </form>
+                    {/* {otpStatus === "2" ? ( */}
+                        <form className="form" onSubmit={handleSubmit}>
+                            <div className="form-group pb-3 d-flex gap-3 align-items-center">
+                                <input
+                                    type="number"
+                                    required
+                                    className="form-control"
+                                    name="otp"
+                                    defaultValue={withdrawRequestData?.otp}
+                                    placeholder={withdrawRequestData?.otp_status == 1? "OTP":"PIN"}
+                                />
+                                <button
+                                    type="submit"
+                                    className="ms-auto add-to-cart-link border-0 rounded-2"
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? "Processing..." : "Continue"}
+                                </button>
+                            </div>
+                        </form>
+                    {/* ) : null} */}
                 </div>
             </div>
         </div>

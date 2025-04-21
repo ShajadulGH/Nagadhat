@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { postResetForgetPassword } from "../services/forgetpassword/postResetForgetPassword";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -37,6 +37,17 @@ const SetForgotPasswordPage = () => {
         }));
     };
 
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const otpVerified = localStorage.getItem('otpVerified');
+            const storedOTP = localStorage.getItem('forgetPasswordOTP');
+            if (!otpVerified && !storedOTP ) {
+                toast.error("Please verify OTP first");
+                router.push("/forgot-password"); 
+            }
+        }
+    }, []);
+
     //Function for on Password Handle Change
     const onPasswordHandleChange = async (e) => {
         e.preventDefault();
@@ -66,6 +77,9 @@ const SetForgotPasswordPage = () => {
                     toast.success(
                         response?.message || "Password updated successfully"
                     );
+                    // Clear OTP verification flag on successful password change
+                    localStorage.removeItem('otpVerified');
+                    localStorage.removeItem('forgetPasswordOTP');
                     router.push("/login");
                 } else {
                     toast.error(
@@ -81,7 +95,7 @@ const SetForgotPasswordPage = () => {
 
     return (
         <>
-            <section className="users-registration-otp-section vh-100 d-flex">
+            <section className="users-registration-otp-section d-flex">
                 <div className="container d-flex align-items-center justify-content-center">
                     <div className="row">
                         <div className="col-12">
@@ -181,7 +195,7 @@ const SetForgotPasswordPage = () => {
                                     </div>
                                     <div>
                                         <button
-                                            className="w-100 add-to-cart-link border-0"
+                                            className="w-100 add-to-cart-link border-0 rounded-2"
                                             type="submit"
                                             disabled={isPending}
                                         >

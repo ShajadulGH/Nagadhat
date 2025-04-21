@@ -32,7 +32,6 @@ const LoginModal = () => {
     });
 
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         setErrorMessage("");
@@ -41,7 +40,17 @@ const LoginModal = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
-
+    // Close Modal
+    const closeModal = async () => {
+        const bootstrap = await import(
+            "bootstrap/dist/js/bootstrap.bundle.min.js"
+        );
+        const modalEl = document.getElementById("loginModal");
+        const modal =
+            bootstrap.Modal.getInstance(modalEl) ||
+            new bootstrap.Modal(modalEl);
+        modal.hide();
+    };
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -61,19 +70,18 @@ const LoginModal = () => {
             return;
         }
 
-        import("bootstrap/dist/js/bootstrap.bundle.min.js").then(
-            (bootstrap) => {
-                const modalEl = document.getElementById("loginModal");
-                const modal =
-                    bootstrap.Modal.getInstance(modalEl) ||
-                    new bootstrap.Modal(modalEl);
-                modal.hide();
-            }
-        );
-        setIsLoggedIn(true);
+        await closeModal();
         router.push("/dashboard");
     };
+    // For registration
+    const handleRegisterClick = async (e) => {
+        e.preventDefault();
 
+        await closeModal();
+
+        // Navigate to registration page
+        router.push("/registration");
+    };
     return (
         <div
             className="modal fade"
@@ -238,12 +246,6 @@ const LoginModal = () => {
                                                 <button
                                                     type="submit"
                                                     className="btn btn-primary"
-                                                    {...(isLoggedIn
-                                                        ? {
-                                                              "data-bs-dismiss":
-                                                                  "modal",
-                                                          }
-                                                        : {})}
                                                     onClick={handleLogin}
                                                 >
                                                     Login
@@ -252,7 +254,12 @@ const LoginModal = () => {
                                             <div className="user-social-login mt-3">
                                                 <p className="text-center">
                                                     New to Nagadhat?{" "}
-                                                    <Link href="/registration">
+                                                    <Link
+                                                        href="/registration"
+                                                        onClick={
+                                                            handleRegisterClick
+                                                        }
+                                                    >
                                                         Create an account
                                                     </Link>
                                                 </p>
