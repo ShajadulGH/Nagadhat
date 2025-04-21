@@ -75,12 +75,12 @@ const Registration = () => {
         selectedPlacementId,
     ]);
 
-    useEffect(() => { }, [formData, referrerID]);
+    useEffect(() => {}, [formData, referrerID]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevState) => ({ ...prevState, [name]: value }));
-        setErrorMessage('')
+        setErrorMessage("");
     };
     const handleSponsoreChange = (e) => {
         const { name, value } = e.target;
@@ -147,12 +147,12 @@ const Registration = () => {
 
         if (formData.password !== formData.confirm_password) {
             toast.error("Passwords do not match.");
-            setErrorMessage("Passwords do not match.")
+            setErrorMessage("Passwords do not match.");
             return;
         }
-        if ( existsErrorMessage){
+        if (existsErrorMessage) {
             toast.error("Phone number already exists.");
-            setErrorMessage("Phone number already exists.")
+            setErrorMessage("Phone number already exists.");
             return;
         }
 
@@ -172,18 +172,23 @@ const Registration = () => {
             try {
                 const res = await registerUser(formData);
                 if (res?.success != true) {
-                    if (res.message == "Referrer User Not Found! Please try another Referrer.") {
+                    if (
+                        res.message ==
+                        "Referrer User Not Found! Please try another Referrer."
+                    ) {
                         localStorage.removeItem("referrerID");
                         formData.referrer_id = "";
                     }
                     toast.error(res.message);
-                    setErrorMessage(res.message)
+                    setErrorMessage(res.message);
                     return;
                 }
 
                 localStorage.removeItem("referrerID");
                 localStorage.setItem("userEmail", formData.email);
-                router.push(`/otp?phone=${formData.phone}&otp=${res?.data?.otp}&nextTime=${res?.data?.time}`);
+                router.push(
+                    `/otp?phone=${formData.phone}&otp=${res?.data?.otp}&nextTime=${res?.data?.time}`
+                );
             } catch (error) {
                 toast.error("Something went wrong. Please try after sometime");
             }
@@ -203,7 +208,7 @@ const Registration = () => {
                 return;
             }
 
-            if ((phone_number_length >= 11)) {
+            if (phone_number_length >= 11) {
                 try {
                     const res = await validatePhoneNumber({
                         phone: formData.phone,
@@ -247,7 +252,7 @@ const Registration = () => {
                 <div className="user-login-area-container mx-auto">
                     <div className="user-login-area shadow rounded-4 px-3 py-5">
                         <h1 className="text-center text-capitalize">
-                            registration.
+                            registration
                         </h1>
                         {existsErrorMessage && (
                             <p className="text-danger pb-2 fs-5">
@@ -276,7 +281,7 @@ const Registration = () => {
                                 <div className="mb-3">
                                     <label
                                         htmlFor="name"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Name <span>*</span>
                                     </label>
@@ -294,7 +299,7 @@ const Registration = () => {
                                 <div className="mb-3">
                                     <label
                                         htmlFor="number"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Phone Number <span>*</span>
                                     </label>
@@ -312,7 +317,7 @@ const Registration = () => {
                                 <div className="mb-3">
                                     <label
                                         htmlFor="email"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Email (Optional)
                                     </label>
@@ -322,20 +327,28 @@ const Registration = () => {
                                         className="form-control"
                                         id="email"
                                         placeholder="Enter Email"
-                                        value={existsEmail ? existsEmail : formData.email}
+                                        value={
+                                            existsEmail
+                                                ? existsEmail
+                                                : formData.email
+                                        }
                                         onChange={handleInputChange}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label
                                         htmlFor="password"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Password <span>*</span>
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={showPassword ? "text" : "password"}
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             name="password"
                                             className="form-control"
                                             placeholder="Enter Password"
@@ -347,7 +360,9 @@ const Registration = () => {
                                         <button
                                             type="button"
                                             className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
-                                            onClick={() => { setShowPassword(!showPassword) }}
+                                            onClick={() => {
+                                                setShowPassword(!showPassword);
+                                            }}
                                             style={{
                                                 textDecoration: "none",
                                                 color: "#000",
@@ -361,16 +376,20 @@ const Registration = () => {
                                         </button>
                                     </div>
                                 </div>
-                                < div className="mb-3">
+                                <div className="mb-3">
                                     <label
                                         htmlFor="password"
-                                        className="form-label"
+                                        className="form-label fw-semibold"
                                     >
                                         Confirm Password <span>*</span>
                                     </label>
                                     <div className="position-relative">
                                         <input
-                                            type={showConfirmPassword ? "text" : "password"}
+                                            type={
+                                                showConfirmPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             name="confirm_password"
                                             className="form-control"
                                             placeholder="Enter Password"
@@ -382,7 +401,11 @@ const Registration = () => {
                                         <button
                                             type="button"
                                             className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
-                                            onClick={() => { setShowConfirmPassword(!showConfirmPassword) }}
+                                            onClick={() => {
+                                                setShowConfirmPassword(
+                                                    !showConfirmPassword
+                                                );
+                                            }}
                                             style={{
                                                 textDecoration: "none",
                                                 color: "#000",
@@ -407,7 +430,7 @@ const Registration = () => {
                                             onChange={handleInputChange}
                                         />
                                         <label
-                                            className="form-check-label"
+                                            className="form-check-label fw-semibold"
                                             htmlFor="gender1"
                                         >
                                             Male
@@ -423,7 +446,7 @@ const Registration = () => {
                                             onChange={handleInputChange}
                                         />
                                         <label
-                                            className="form-check-label"
+                                            className="form-check-label fw-semibold"
                                             htmlFor="gender2"
                                         >
                                             Female
@@ -546,7 +569,9 @@ const Registration = () => {
                                     />
                                 </div> */}
                                 {errorMessage && (
-                                    <p className="text-danger pb-2 fs-6">{errorMessage}</p>
+                                    <p className="text-danger pb-2 fs-6">
+                                        {errorMessage}
+                                    </p>
                                 )}
                                 <button
                                     type="submit"
@@ -583,8 +608,8 @@ const Registration = () => {
                         </div>
                     </div>
                 </div>
-            </div >
-        </div >
+            </div>
+        </div>
     );
 };
 

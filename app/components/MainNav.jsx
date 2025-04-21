@@ -237,12 +237,12 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                         tabIndex="0"
                                         data-bs-toggle="modal"
                                         data-bs-target="#loginModal"
-                                        className="login-register-btn text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
+                                        className="login-register-btn text-white d-flex align-items-center text-md mt-1"
                                     >
                                         <CgProfile
                                             style={{
-                                                height: "27px",
-                                                width: "27px",
+                                                height: "24px",
+                                                width: "24px",
                                                 marginRight: "5px",
                                                 marginLeft: "15px",
                                             }}
@@ -406,23 +406,23 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                     </li>
                                 )}
                                 {authStatus === "unauthenticated" && (
-                                   <li
-                                   role="button"
-                                   tabIndex="0"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#loginModal"
-                                   className="login-register-btn text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
-                               >
-                                   <CgProfile
-                                       style={{
-                                           height: "27px",
-                                           width: "27px",
-                                           marginRight: "5px",
-                                           marginLeft: "15px",
-                                       }}
-                                   />
-                                   Login | Register
-                               </li>
+                                    <li
+                                        role="button"
+                                        tabIndex="0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#loginModal"
+                                        className="login-register-btn text-white d-flex align-items-center text-md  mt-1"
+                                    >
+                                        <CgProfile
+                                            style={{
+                                                height: "24px",
+                                                width: "24px",
+                                                marginRight: "5px",
+                                                marginLeft: "15px",
+                                            }}
+                                        />
+                                        Login | Register
+                                    </li>
                                 )}
                             </ul>
                         </div>
