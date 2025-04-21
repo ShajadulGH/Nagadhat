@@ -266,7 +266,7 @@ const OTP = () => {
                                 </button>
                             </div>
                         </form>
-                        <div className="pt-4">
+                        <div className="pt-3">
                             <p className="pb-2">
                             We’ve sent a 6-digit OTP to your registered mobile number Please enter it input to verify your identity.
                             </p>
