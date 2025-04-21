@@ -10,6 +10,13 @@ import { getRequestPath } from "../utils";
 import { getAffiliateNewSignup } from "../services/affiliate/getAffiliateNewSignup";
 import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { MdOutlinePhoneIphone } from "react-icons/md";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { FaRegEye } from "react-icons/fa6";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { MdOutlineMarkEmailRead } from "react-icons/md";
+import { ImProfile } from "react-icons/im";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 // import ReCAPTCHA from "react-google-recaptcha";
 
 const Registration = () => {
@@ -278,71 +285,142 @@ const Registration = () => {
                                 />
                                 {/* affiliate sponsor id */}
 
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="name"
                                         className="form-label fw-semibold"
                                     >
                                         Name <span>*</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        className="form-control"
-                                        id="name"
-                                        placeholder="Enter Your Name"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
+
+                                    <div className="input-wrapper">
+                                        <ImProfile
+                                            className="icon"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            className="form-control"
+                                            id="name"
+                                            placeholder="Enter Your Name"
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="number"
                                         className="form-label fw-semibold"
                                     >
                                         Phone Number <span>*</span>
                                     </label>
-                                    <input
-                                        type="number"
-                                        name="phone"
-                                        className="form-control"
-                                        id="number"
-                                        placeholder="Enter Phone Number"
-                                        value={formData.phone}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
+                                    <div className="input-wrapper">
+                                        <MdOutlinePhoneIphone
+                                            className="icon"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        <input
+                                            type="number"
+                                            name="phone"
+                                            className="form-control no-spinner"
+                                            id="number"
+                                            placeholder="Enter Phone Number"
+                                            value={formData.phone}
+                                            onChange={handleInputChange}
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="email"
                                         className="form-label fw-semibold"
                                     >
                                         Email (Optional)
                                     </label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        className="form-control"
-                                        id="email"
-                                        placeholder="Enter Email"
-                                        value={
-                                            existsEmail
-                                                ? existsEmail
-                                                : formData.email
-                                        }
-                                        onChange={handleInputChange}
-                                    />
+
+                                    <div className="input-wrapper">
+                                        <MdOutlineMarkEmailRead
+                                            className="icon"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            className="form-control"
+                                            id="email"
+                                            placeholder="Enter Email"
+                                            value={
+                                                existsEmail
+                                                    ? existsEmail
+                                                    : formData.email
+                                            }
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="password"
                                         className="form-label fw-semibold"
                                     >
                                         Password <span>*</span>
                                     </label>
-                                    <div className="position-relative">
+                                    {/* Copy Start */}
+                                    <div class="input-wrapper">
+                                        <RiLockPasswordLine
+                                            className="icon-left"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        {showPassword ? (
+                                            <FaRegEye
+                                                onClick={() => {
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    );
+                                                }}
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        ) : (
+                                            <FaRegEyeSlash
+                                                onClick={() => {
+                                                    setShowPassword(
+                                                        !showPassword
+                                                    );
+                                                }}
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        )}
+
                                         <input
                                             type={
                                                 showPassword
@@ -357,33 +435,54 @@ const Registration = () => {
                                             onChange={handleInputChange}
                                             required
                                         />
-                                        <button
-                                            type="button"
-                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
-                                            onClick={() => {
-                                                setShowPassword(!showPassword);
-                                            }}
-                                            style={{
-                                                textDecoration: "none",
-                                                color: "#000",
-                                            }}
-                                        >
-                                            {showPassword ? (
-                                                <FaEyeSlash />
-                                            ) : (
-                                                <FaEye />
-                                            )}
-                                        </button>
                                     </div>
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-3 input-section">
                                     <label
                                         htmlFor="password"
                                         className="form-label fw-semibold"
                                     >
                                         Confirm Password <span>*</span>
                                     </label>
-                                    <div className="position-relative">
+                                    <div class="input-wrapper">
+                                        <RiLockPasswordLine
+                                            className="icon-left"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                color: "#44bc9d",
+                                            }}
+                                        />
+                                        {showConfirmPassword ? (
+                                            <FaRegEye
+                                                onClick={() => {
+                                                    setShowConfirmPassword(
+                                                        !showConfirmPassword
+                                                    );
+                                                }}
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        ) : (
+                                            <FaRegEyeSlash
+                                                onClick={() => {
+                                                    setShowConfirmPassword(
+                                                        !showConfirmPassword
+                                                    );
+                                                }}
+                                                className="icon-right"
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    color: "#44bc9d",
+                                                }}
+                                            />
+                                        )}
+
                                         <input
                                             type={
                                                 showConfirmPassword
@@ -398,25 +497,6 @@ const Registration = () => {
                                             onChange={handleInputChange}
                                             required
                                         />
-                                        <button
-                                            type="button"
-                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
-                                            onClick={() => {
-                                                setShowConfirmPassword(
-                                                    !showConfirmPassword
-                                                );
-                                            }}
-                                            style={{
-                                                textDecoration: "none",
-                                                color: "#000",
-                                            }}
-                                        >
-                                            {showConfirmPassword ? (
-                                                <FaEyeSlash />
-                                            ) : (
-                                                <FaEye />
-                                            )}
-                                        </button>
                                     </div>
                                 </div>
                                 <div className="mb-3 ">
@@ -598,6 +678,13 @@ const Registration = () => {
                                     </button> */}
                                 {/* </div> */}
                                 <p className="form-label">
+                                    <MdOutlineKeyboardBackspace
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            color: "#44bc9d",
+                                        }}
+                                    />
                                     <Link href="/"> Back to home</Link>
                                 </p>
                                 <p className="text-center">
@@ -612,5 +699,4 @@ const Registration = () => {
         </div>
     );
 };
-
 export default Registration;
