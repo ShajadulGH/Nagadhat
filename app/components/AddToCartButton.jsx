@@ -112,8 +112,8 @@ function AddToCartButton({
                             cart_product_type: 1,
                             product_id: productInfo?.id,
                             product_name: productInfo?.product_name,
-                            price: productPrice?.prices,
-                            regular_price: productInfo?.mrp_price,
+                            price: selectedVariantProductInfo?.price,
+                            regular_price: selectedVariantProductInfo?.regular_price,
                             outlet_id: outletId,
                             product_thumbnail: productInfo?.product_thumbnail,
                             quantity: quantity,
@@ -180,7 +180,7 @@ function AddToCartButton({
                             if (productAdded.code == 200) {
                                 const quantityTotal = getTotalQuantity(updatedCartProducts?.data);
 
-                                dispatch(setAddToCart({ hasSession: true, length: quantityTotal, }));
+                                dispatch( setAddToCart({ hasSession: true, length: quantityTotal, }));
                                 toast.success("Cart Added");
                             } else {
                                 toast.error(productAdded.message);

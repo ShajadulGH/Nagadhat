@@ -18,11 +18,14 @@ const ViewAllProductitemss = ({ items }) => {
     const defaultVariant = items?.variations?.find(
         (variant) => variant.variations_default === 1
     );
+    console.log("defaultVariant", defaultVariant);
 
     const selectedVariantProductInfo = {
         product_variation_id: defaultVariant?.id,
         discount_type: defaultVariant?.discount_type,
         discount_amount: defaultVariant?.discount_amount,
+        regular_price: defaultVariant?.mrp_price,
+        price: defaultVariant?.price?.discounted_price,
     };
 
     const productPrice = {
