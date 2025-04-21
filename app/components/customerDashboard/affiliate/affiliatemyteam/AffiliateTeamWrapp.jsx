@@ -89,8 +89,6 @@ const AffiliateTeamWrapp = () => {
     };
     const teamListInfo = teamData?.data || {};
     const serialNumber = (currentPage - 1) * 20;
-    console.log("teamResultData===>",teamResultData);
-    
 
     return (
         <>
