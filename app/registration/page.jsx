@@ -258,7 +258,7 @@ const Registration = () => {
             <div className="user-login-section">
                 <div className="user-login-area-container clip-contain mx-auto">
                     <div class="circle-top"></div>
-                    <div className="user-login-area shadow rounded-4 px-3 py-5">
+                    <div className="user-login-area shadow px-3 py-5">
                         <h1 className="text-center text-capitalize text-light">
                             Registration Form
                         </h1>
