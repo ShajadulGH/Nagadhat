@@ -25,7 +25,7 @@ const AffiliateDashboardRank = ({ affiliateData }) => {
                         />
                     </div>
                 </div>
-                {affiliateData?.otp_status && (
+                {affiliateData?.otp_status === 1 && (
                     <div class="alert alert-warning border border-warning shadow-lg rounded-3 p-3 mt-3 ">
                         <div class="d-flex gap-3">
                             <div
