@@ -1,3 +1,4 @@
+
 import { Lato, Open_Sans, Philosopher } from "next/font/google";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,6 +14,7 @@ import MobileButtonNav from "./components/MobileButtonNav";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import dynamic from "next/dynamic";
+
 const BootstrapProvider = dynamic(() => import("./BootstrapProvider"), {
     ssr: false,
 });
@@ -51,7 +53,8 @@ export default function RootLayout({ children }) {
             <link
                 rel="stylesheet"
                 href="bootstrap/dist/js/bootstrap.bundle.min.js"
-                precedence="default"/>
+                precedence="default"
+            />
             <link
                 rel="stylesheet"
                 href="/css/animatloading.css"

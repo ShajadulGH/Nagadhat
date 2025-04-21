@@ -11,6 +11,7 @@
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: 700;
+    margin-top: 20px;
 }
 
 .user-login-area .form-control {
@@ -133,4 +134,31 @@
     right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
+}
+.login-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-login-area {
+    position: relative;
+}
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.close-icon {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    transform: translate(0, -50%);
+}
+.close-logo {
+    width: 30px;
+    height: 30px;
+    color: #44bc9d;
 }

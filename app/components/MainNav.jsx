@@ -215,24 +215,27 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                         </Link>
                                     </li>
                                 )}
+
                                 {authStatus === "unauthenticated" && (
-                                    <li className="login-register-btn">
-                                        <Link
-                                            href="/login"
-                                            className="text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
-                                        >
-                                            <CgProfile
-                                                style={{
-                                                    height: "27px",
-                                                    width: "27px",
-                                                    marginRight: "5px",
-                                                    marginLeft: "15px",
-                                                }}
-                                            />
-                                            Login | Register
-                                        </Link>
+                                    <li
+                                        role="button"
+                                        tabIndex="0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#loginModal"
+                                        className="login-register-btn text-white d-flex align-items-center text-md fw-semibold fs-5 mt-1"
+                                    >
+                                        <CgProfile
+                                            style={{
+                                                height: "27px",
+                                                width: "27px",
+                                                marginRight: "5px",
+                                                marginLeft: "15px",
+                                            }}
+                                        />
+                                        Login | Register
                                     </li>
                                 )}
+                               
                             </ul>
                         </div>
                     </div>

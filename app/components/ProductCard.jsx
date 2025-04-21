@@ -81,6 +81,7 @@ function ProductCard({ item }) {
                     <div className="flash-sale-content-img image-hover-effect">
                         <Image src={image} alt={title} fill={true} />
                     </div>
+                   
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
                             <h4>{truncateTitle(title, 36)}</h4>
@@ -155,6 +156,7 @@ function ProductCard({ item }) {
                                 productPrice={productPrice}
                                 productStoke={productStoke}
                             />
+                          
                             {/* <Like /> */}
                         </div>
                     </div>

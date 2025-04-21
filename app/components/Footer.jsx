@@ -6,6 +6,7 @@ import Paywith from "./Paywith";
 import QuickLinks from "./QuickLinks";
 import SocialLink from "./SocialLink";
 import Subscribe from "./Subscribe";
+import LoginModal from "../login/LoginModal";
 
 function Footer() {
     const linkListsOptionOne = [
@@ -23,12 +24,16 @@ function Footer() {
     ];
 
     const socialLinkItem = [
-        { image: "/images/facbook.svg", alt: "facbook", path: "https://www.facebook.com/nagadhat" },
+        {
+            image: "/images/facbook.svg",
+            alt: "facbook",
+            path: "https://www.facebook.com/nagadhat",
+        },
         { image: "/images/twitter.svg", alt: "twitter", path: "#" },
         { image: "/images/linkedin.svg", alt: "linkedin", path: "#" },
         { image: "/images/youtube.svg", alt: "youtube", path: "#" },
         { image: "/images/instagram.svg", alt: "instagram", path: "#" },
-    ]
+    ];
 
     return (
         <footer>
@@ -39,15 +44,25 @@ function Footer() {
                             <div className="col-md-6 footer-widget">
                                 <FooterLogo />
                                 <div className="footer-widget-info text-white">
-                                    <SocialLink socialLinkItem={socialLinkItem} />
+                                    <SocialLink
+                                        socialLinkItem={socialLinkItem}
+                                    />
                                     <Subscribe />
                                 </div>
                             </div>
                             <div className="col-md-6 footer-widget text-white">
-                                <QuickLinks title="Contact Info" >
+                                <QuickLinks title="Contact Info">
                                     <div className="footer-widget-address">
-                                        <FooterAddress icon="/images/call-footer.svg" title="Call Us" subtitle="09647 444 444" />
-                                        <FooterAddress icon="/images/location-footer.svg" title="Address" subtitle="Khaja Super Market, 2nd to 7th Floor, Kallyanpur  Bus Stop, Mirpur Road, Dhaka-1207." />
+                                        <FooterAddress
+                                            icon="/images/call-footer.svg"
+                                            title="Call Us"
+                                            subtitle="09647 444 444"
+                                        />
+                                        <FooterAddress
+                                            icon="/images/location-footer.svg"
+                                            title="Address"
+                                            subtitle="Khaja Super Market, 2nd to 7th Floor, Kallyanpur  Bus Stop, Mirpur Road, Dhaka-1207."
+                                        />
                                     </div>
                                 </QuickLinks>
                             </div>
@@ -82,6 +97,7 @@ function Footer() {
                 </div>
                 <CopyRight />
             </div>
+            <LoginModal />
         </footer>
     );
 }

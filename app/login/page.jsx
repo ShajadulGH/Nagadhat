@@ -4,9 +4,7 @@ import React, { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { MdOutlinePhoneIphone } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
 import { FaRegEye } from "react-icons/fa6";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -66,6 +64,14 @@ const Login = () => {
             <div className=" user-login-section mx-auto">
                 <div className="user-login-area-container mx-auto">
                     <div className="user-login-area shadow rounded-4 px-3 py-5">
+                        <div className="logo-container">
+                            <img
+                                src="/images/Fabicon-80-x-80.png"
+                                alt="naagdhat logo"
+                                className="login-logo"
+                            />
+                        </div>
+
                         <h1 className="text-center text-capitalize">Login</h1>
                         {errorMessage && (
                             <h3 style={{ color: "#f00" }}>{errorMessage}</h3>
@@ -107,36 +113,7 @@ const Login = () => {
                                     >
                                         Password <span>*</span>
                                     </label>
-                                    {/* <div className="position-relative">
-                                        <input
-                                            type={
-                                                showPassword
-                                                    ? "text"
-                                                    : "password"
-                                            }
-                                            className="form-control"
-                                            id="password"
-                                            name="password"
-                                            required
-                                            value={formData.password}
-                                            onChange={handleChange}
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-link position-absolute top-50 end-0 translate-middle-y"
-                                            onClick={togglePasswordVisibility}
-                                            style={{
-                                                textDecoration: "none",
-                                                color: "#000",
-                                            }}
-                                        >
-                                            {showPassword ? (
-                                                <FaEyeSlash />
-                                            ) : (
-                                                <FaEye />
-                                            )}
-                                        </button>
-                                    </div> */}
+
                                     <div class="input-wrapper">
                                         <RiLockPasswordLine
                                             className="icon-left"

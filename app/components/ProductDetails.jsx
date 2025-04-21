@@ -83,8 +83,9 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                             <div className="row product-details-info">
                                 <ProductLeftSide
                                     productInfo={productInfo}
-                                // path_name={pathName}
+                                    // path_name={pathName}
                                 />
+                               
                                 <ProductRightSide productInfo={productInfo} />
                             </div>
                             <div className="pt-5">
