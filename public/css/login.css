@@ -2,16 +2,10 @@
     padding: 80px 0;
 }
 
-.user-login-area-container {
-    min-width: 200px;
-    max-width: 460px;
-}
-
 .user-login-area h1 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     font-weight: 700;
-    margin-top: 20px;
 }
 
 .user-login-area .form-control {
@@ -161,4 +155,22 @@
     width: 30px;
     height: 30px;
     color: #44bc9d;
+}
+.user-login-area-container {
+    min-width: 200px;
+    max-width: 460px;
+}
+.circle-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: #44bc9d;
+    clip-path: ellipse(50% 65% at 50% -5%);
+    z-index: 0;
+}
+.clip-contain {
+    position: relative;
+    display: flex;
 }

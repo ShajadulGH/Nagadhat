@@ -256,10 +256,11 @@ const Registration = () => {
     return (
         <div className="container">
             <div className="user-login-section">
-                <div className="user-login-area-container mx-auto">
+                <div className="user-login-area-container clip-contain mx-auto">
+                    <div class="circle-top"></div>
                     <div className="user-login-area shadow rounded-4 px-3 py-5">
-                        <h1 className="text-center text-capitalize">
-                            registration
+                        <h1 className="text-center text-capitalize text-light">
+                            Registration Form
                         </h1>
                         {existsErrorMessage && (
                             <p className="text-danger pb-2 fs-5">
@@ -660,7 +661,7 @@ const Registration = () => {
                                     Continue
                                 </button>
                             </form>
-                            <div className="user-social-login mt-3">
+                            <div className="user-social-login mt-3 d-flex align-items-center justify-content-between">
                                 {/* <label className="form-label">
                                     Or Sign Up With
                                 </label> */}
