@@ -206,10 +206,9 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                         >
                                             <CgProfile
                                                 style={{
-                                                    height: "27px",
-                                                    width: "27px",
-                                                    marginRight: "5px",
-                                                    marginLeft: "15px",
+                                                    height: "30px",
+                                                    width: "30px",
+                                                    marginTop: "3px",
                                                 }}
                                             />
                                         </Link>
@@ -235,7 +234,6 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                         Login | Register
                                     </li>
                                 )}
-                               
                             </ul>
                         </div>
                     </div>
@@ -382,10 +380,9 @@ function MainNav({ isObserverMenuVisible, setCategoryHoverMenu, authStatus }) {
                                         >
                                             <CgProfile
                                                 style={{
-                                                    height: "27px",
-                                                    width: "27px",
-                                                    marginRight: "5px",
-                                                    marginLeft: "15px",
+                                                    height: "30px",
+                                                    width: "30px",
+                                                    marginTop: "3px",
                                                     color: "white",
                                                 }}
                                             />
