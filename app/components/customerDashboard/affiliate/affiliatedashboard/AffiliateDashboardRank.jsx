@@ -32,17 +32,14 @@ const AffiliateDashboardRank = ({ affiliateData }) => {
                                 className="text-dark"
                                 style={{ fontFamily: "'Tiro Bangla', serif" }}
                             >
-                                <h5 class="pin-warning-titles fw-semibold text-warning text-black d-flex align-items-center gap-2">
+                                <h5 class="pin-warning-titles fw-semibold text-warning text-black d-flex align-items-center gap-2 mb-0">
                                     <IoMdWarning
                                         style={{ marginBottom: "2px" }}
                                     />{" "}
                                     <span>সতর্কবার্তা!</span>
                                 </h5>
                                 <p class="mb-0  fs-6">
-                                    আপনি এখনো ট্রানজেকশন পিন সেট করেননি। আপনার অ্যাকাউন্টটি সুরক্ষিত রাখতে
-                                </p>
-                                <p className=" fs-6">
-                                    এখনই{" "}
+                                    আপনি এখনো ট্রানজেকশন পিন সেট করেননি। আপনার অ্যাকাউন্টটি সুরক্ষিত রাখতে এখনই{" "}
                                     <Link
                                         href="/others-password-txn-otp"
                                         class=" add-to-cart-link d-inline-block pt-1 pb-0 fw-semibold shadow-sm mt-2 rounded-2"
@@ -51,6 +48,7 @@ const AffiliateDashboardRank = ({ affiliateData }) => {
                                     </Link>{" "}
                                     এবং আপনার অ্যাকাউন্টের নিরাপত্তা নিশ্চিত করুন।
                                 </p>
+                                
                             </div>
                         </div>
                     </div>
