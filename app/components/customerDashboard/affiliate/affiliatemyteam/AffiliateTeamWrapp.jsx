@@ -13,6 +13,7 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 const AffiliateTeamWrapp = () => {
     const [isPending, startTransition] = useTransition();
     const [teamData, setTeamData] = useState({});
+    const [teamResultData, setTeamResultDat] = useState({});
     const [firstHighestTeam, setFirstHighestTeam] = useState({});
     const [secondHighestTeam, setSecondHighestTeam] = useState({});
     const [otherTeam, setOtherTeam] = useState([]);
@@ -49,7 +50,7 @@ const AffiliateTeamWrapp = () => {
                             session?.accessToken,
                             searchParams
                         );
-                        let info = affiliateTeam?.results;
+                        setTeamResultDat(affiliateTeam?.results);
                         const otherTotalMembers =
                             affiliateTeam?.results?.all_other_total_members || 0;
                         const affiliateTeamData =
@@ -88,6 +89,8 @@ const AffiliateTeamWrapp = () => {
     };
     const teamListInfo = teamData?.data || {};
     const serialNumber = (currentPage - 1) * 20;
+    console.log("teamResultData===>",teamResultData);
+    
 
     return (
         <>
@@ -117,6 +120,7 @@ const AffiliateTeamWrapp = () => {
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
                             otherTotalMembers={otherTotalMembers}
+                            teamResultData={teamResultData}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
