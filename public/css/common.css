@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Galada&family=Raleway:ital,wght@0,100..900;1,100..900&family=Tiro+Bangla:ital@0;1&display=swap');
 :root {
     --lato: "Lato", sans-serif;
     --open-sans: "Open Sans", sans-serif;
@@ -448,5 +449,8 @@ body {
     background: rgba(26, 157, 120, .5);
     
     border-radius: 8px;
+}
+.pin-warning-titles {
+    font-family: "Hind Siliguri", sans-serif;
 }
 
