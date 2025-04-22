@@ -63,15 +63,15 @@
 
 .sub-category-menu li a {
     padding: 11px 20px;
-    color: var(--color-8A8A8A);
+    color: black;
     font-size: 16px;
     display: block;
     text-transform: capitalize;
 }
 
 .sub-category-menu li a:hover {
-    background: #414042;
-    color: var(--color-white);
+    /* background: #414042; */
+    color: #44bc9d;
 }
 
 .hero-slider-holder {
@@ -203,7 +203,10 @@
     transition: all 0.2s linear;
     z-index: 1080;
 }
-
+.inner-sub-category-menu li a:hover {
+    background-color: #44bc9d;
+    color: black;
+}
 .sub-category-menu-li-list:hover .inner-sub-category-menu {
     visibility: visible !important;
     opacity: 1 !important;

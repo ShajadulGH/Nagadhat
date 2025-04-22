@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaChevronRight } from "react-icons/fa";
 
 const CategorySubMenu = ({ subMenuItem }) => {
     const subsubMenuItem = subMenuItem?.child_categories;
@@ -12,12 +13,13 @@ const CategorySubMenu = ({ subMenuItem }) => {
                 {subMenuItem.title ? subMenuItem.title : ""}
                 {subsubMenuItem && subsubMenuItem?.length > 0 && (
                     <small>
-                        <Image
+                        {/* <Image
                             width={28}
                             height={28}
                             src="/images/menu-arrow.svg"
                             alt="arrow icon"
-                        />
+                        /> */}
+                        <FaChevronRight size={16} />
                     </small>
                 )}
             </Link>
