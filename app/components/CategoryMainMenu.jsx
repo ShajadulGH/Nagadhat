@@ -4,7 +4,6 @@ const iconList = [
     "/images/giftbox.png",
     "/images/duffle-bag.png",
     "/images/cleaning-tools.png",
-
     "/images/flour.png",
     "/images/diet.png",
     "/images/baby-boy.png",
