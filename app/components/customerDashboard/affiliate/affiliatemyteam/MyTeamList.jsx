@@ -177,7 +177,8 @@ const MyTeamList = ({
                                 <tr>
                                     <td colSpan={3} className="text-end"></td>
                                     <td colSpan={1} className="text-end">{teamResultData?.is_line_03_sales_completed?(<p className=" text-success">Achieved</p>):`৳ ${teamResultData?.other_team_total_sales ?? 0}`}</td>
-                                    <td className="text-center" colSpan={2}><strong >Total: {otherTotalMembers}</strong></td>
+                                    <td colSpan={1}></td>
+                                    <td className="text-center" colSpan={1}><strong >Total: {otherTotalMembers}</strong></td>
                                 </tr>
                             </tbody>
                         </table>
