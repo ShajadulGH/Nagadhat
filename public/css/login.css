@@ -5,6 +5,7 @@
 .user-login-area h1 {
     font-size: 22px;
     margin-bottom: 50px;
+    margin-top: 15px;
     font-weight: 700;
 }
 
@@ -145,6 +146,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .close-icon {
     position: absolute;
     top: 30px;
@@ -173,4 +175,8 @@
 .clip-contain {
     position: relative;
     display: flex;
+}
+
+.register-logo {
+    border: 2px solid white;
 }

@@ -263,7 +263,7 @@ const Registration = () => {
                             <img
                                 src="/images/Fabicon-80-x-80.png"
                                 alt="naagdhat logo"
-                                className="login-logo"
+                                className="login-logo register-logo"
                             />
                         </div>
                         <h1 className="text-center text-capitalize text-light">
