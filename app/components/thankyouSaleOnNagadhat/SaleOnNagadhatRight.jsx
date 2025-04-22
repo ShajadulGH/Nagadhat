@@ -1,4 +1,3 @@
-import Link from "next/link";
 
 const SaleOnNagadhatRight = ({ responseData }) => {
     return (
@@ -120,15 +119,6 @@ const SaleOnNagadhatRight = ({ responseData }) => {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="pt-3 d-flex justify-content-center">
-                    <Link
-                        href="/"
-                        className=" add-to-cart-link text-capitalize "
-                        style={{ background: "#44bc9d" }}
-                    >
-                        Continue Shopping
-                    </Link>
                 </div>
             </div>
         </div>

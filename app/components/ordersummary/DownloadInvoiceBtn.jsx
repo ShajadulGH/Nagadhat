@@ -14,7 +14,7 @@ const DownloadInvoiceBtn = ({ orderSummary }) => {
             <Link
                 href={`/orderinvoice?orderId=${orderSummary?.order_id}`}
                 onClick={handlePrintInvoice}
-                className="add-to-cart-link border-0"
+                className="add-to-cart-link border-0 rounded-2"
             >
                 Download Invoice
             </Link>
