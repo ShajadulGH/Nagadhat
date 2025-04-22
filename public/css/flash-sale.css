@@ -77,11 +77,12 @@ section.flash-sale-area.removepadding-x {
 
 .add-to-cart-holder {
     padding-top: 15px;
+    margin-left: 3px;
 }
 
 .add-to-cart-link {
-    padding: 0 13px;
-    padding-top: 10px;
+    padding: 15px;
+    padding-top: 5px;
     padding-bottom: 7px;
     background: var(--color-44BC9D);
     color: var(--color-white);
@@ -90,6 +91,7 @@ section.flash-sale-area.removepadding-x {
     transition: all 0.2s linear;
     display: flex;
     justify-content: center;
+    border-radius: 50px;
 }
 
 .add-to-cart-link:hover {
@@ -99,6 +101,9 @@ section.flash-sale-area.removepadding-x {
 .nh-common-title.flex-column {
     align-items: flex-start !important;
     gap: 10px;
+}
+.add-to-cart-icon {
+    padding-right: 5px;
 }
 /* .product-details-section .flash-sale-content-area-grid .slick-track {
     width: 100% !important;

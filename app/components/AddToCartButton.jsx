@@ -14,6 +14,7 @@ import { fetchCartProducts } from "../services/getShowAddToCartProduct";
 import { useRouter } from "next/navigation";
 import { RotatingLines, ThreeDots } from "react-loader-spinner";
 import { toast } from "react-toastify";
+import { LiaCartPlusSolid } from "react-icons/lia";
 //  function to check if all three properties (variation_size, variation_color, variation_weight) are present and not null in the decorateVariation object. If they are, the function will only check the first two properties (variation_size and variation_color) against selectedVariantKey.
 function findMissingProperties(decorateVariation, selectedVariantKey) {
     const requiredKeys = [
@@ -49,7 +50,6 @@ function findMissingProperties(decorateVariation, selectedVariantKey) {
                     if (!missingProperties.includes(key)) {
                         missingProperties.push(key);
                     }
-                    
                 }
             });
         }
@@ -105,10 +105,18 @@ function AddToCartButton({
                         setProductVariationError("Please Select variant");
                     } else if (result?.length == 1) {
                         setProductVariationError(
-                            `${ result[0].split("_")[1].charAt(0).toUpperCase() + result[0].split("_")[1].slice(1)} not selected`
+                            `${
+                                result[0]
+                                    .split("_")[1]
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                result[0].split("_")[1].slice(1)
+                            } not selected`
                         );
                     } else {
-                        if (isDetailsPage) { setProductVariationError(" ")}
+                        if (isDetailsPage) {
+                            setProductVariationError(" ");
+                        }
                         const addToCartInfo = {
                             cart_product_type: 1,
                             product_id: productInfo?.id,
@@ -122,19 +130,38 @@ function AddToCartButton({
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
-                            product_variation_id: selectedVariantProductInfo?.product_variation_id,
-                            discount_type: selectedVariantProductInfo?.discount_type,
-                            discountPrice: selectedVariantProductInfo?.discount_amount ?? 0,
+                            product_variation_id:
+                                selectedVariantProductInfo?.product_variation_id,
+                            discount_type:
+                                selectedVariantProductInfo?.discount_type,
+                            discountPrice:
+                                selectedVariantProductInfo?.discount_amount ??
+                                0,
                         };
 
                         try {
                             setLoading(true);
                             if (session) {
-                                const productAdded = await addToCartProduct( addToCartInfo, session.accessToken );
-                                const updatedCartProducts = await fetchCartProducts( session?.accessToken, outletId, districtId );
-                                if (productAdded.code == 200 ) {
-                                    const quantityTotal = getTotalQuantity( updatedCartProducts?.data );
-                                    dispatch( setAddToCart({ hasSession: true, length: quantityTotal,}));
+                                const productAdded = await addToCartProduct(
+                                    addToCartInfo,
+                                    session.accessToken
+                                );
+                                const updatedCartProducts =
+                                    await fetchCartProducts(
+                                        session?.accessToken,
+                                        outletId,
+                                        districtId
+                                    );
+                                if (productAdded.code == 200) {
+                                    const quantityTotal = getTotalQuantity(
+                                        updatedCartProducts?.data
+                                    );
+                                    dispatch(
+                                        setAddToCart({
+                                            hasSession: true,
+                                            length: quantityTotal,
+                                        })
+                                    );
                                     toast.success("Cart Added");
                                 } else {
                                     toast.error(productAdded.message);
@@ -144,9 +171,15 @@ function AddToCartButton({
                                 addToCartInLocalStorage(addToCartInfo);
                                 const addToCartProduct = addToCartProductList();
                                 toast.success("Add To Cart Success");
-                                const quantityTotal = getTotalQuantity(addToCartProduct);
+                                const quantityTotal =
+                                    getTotalQuantity(addToCartProduct);
 
-                                dispatch( setAddToCart({ hasSession: false, length: quantityTotal}));
+                                dispatch(
+                                    setAddToCart({
+                                        hasSession: false,
+                                        length: quantityTotal,
+                                    })
+                                );
                             }
                         } catch (error) {
                             toast.error("An error occurred");
@@ -175,13 +208,27 @@ function AddToCartButton({
                     try {
                         setLoading(true);
                         if (session) {
-                            const productAdded = await addToCartProduct( addToCartInfo, session.accessToken );
-                            const updatedCartProducts = await fetchCartProducts( session?.accessToken, outletId, districtId );
+                            const productAdded = await addToCartProduct(
+                                addToCartInfo,
+                                session.accessToken
+                            );
+                            const updatedCartProducts = await fetchCartProducts(
+                                session?.accessToken,
+                                outletId,
+                                districtId
+                            );
 
                             if (productAdded.code == 200) {
-                                const quantityTotal = getTotalQuantity(updatedCartProducts?.data);
+                                const quantityTotal = getTotalQuantity(
+                                    updatedCartProducts?.data
+                                );
 
-                                dispatch(setAddToCart({hasSession: true, length: quantityTotal}));
+                                dispatch(
+                                    setAddToCart({
+                                        hasSession: true,
+                                        length: quantityTotal,
+                                    })
+                                );
                                 toast.success("Cart Added");
                             } else {
                                 toast.error(productAdded.message);
@@ -191,8 +238,14 @@ function AddToCartButton({
                             addToCartInLocalStorage(addToCartInfo);
                             const addToCartProduct = addToCartProductList();
                             toast.success("Add To Cart Success");
-                            const quantityTotal = getTotalQuantity(addToCartProduct);
-                            dispatch( setAddToCart({ hasSession: false, length: quantityTotal, }));
+                            const quantityTotal =
+                                getTotalQuantity(addToCartProduct);
+                            dispatch(
+                                setAddToCart({
+                                    hasSession: false,
+                                    length: quantityTotal,
+                                })
+                            );
                         }
                     } catch (error) {
                         toast.error("An error occurred");
@@ -220,7 +273,13 @@ function AddToCartButton({
                         setProductVariationError("Please Select variant");
                     } else if (result?.length == 1) {
                         setProductVariationError(
-                            `${result[0].split("_")[1].charAt(0).toUpperCase() + result[0].split("_")[1].slice(1) } not selected`
+                            `${
+                                result[0]
+                                    .split("_")[1]
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                result[0].split("_")[1].slice(1)
+                            } not selected`
                         );
                     } else {
                         setProductVariationError(" ");
@@ -237,9 +296,13 @@ function AddToCartButton({
                             selectedVariants: selectedVariants,
                             location_id: districtId,
                             order_type: "Regular",
-                            product_variation_id: selectedVariantProductInfo?.product_variation_id,
-                            discount_type: selectedVariantProductInfo?.discount_type,
-                            discountPrice: selectedVariantProductInfo?.discount_amount ?? 0,
+                            product_variation_id:
+                                selectedVariantProductInfo?.product_variation_id,
+                            discount_type:
+                                selectedVariantProductInfo?.discount_type,
+                            discountPrice:
+                                selectedVariantProductInfo?.discount_amount ??
+                                0,
                         };
 
                         setProductData(addToCartInfo);
@@ -274,7 +337,12 @@ function AddToCartButton({
         <div className="add-to-cart-btn">
             <button
                 className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
-                onClick={(e) => productStoke > 0 && (title == "BUY NOW" ? handleBuyNow(e, title) : !loading && handleAddToCard(e))}
+                onClick={(e) =>
+                    productStoke > 0 &&
+                    (title == "BUY NOW"
+                        ? handleBuyNow(e, title)
+                        : !loading && handleAddToCard(e))
+                }
                 style={{
                     pointerEvents: productStoke > 0 ? "auto" : "none",
                     opacity: productStoke > 0 ? 1 : 0.5,
@@ -283,7 +351,13 @@ function AddToCartButton({
                 {!title ? (
                     productStoke > 0 ? (
                         loading ? (
-                            <div style={{ height: "21px", width: "96px", textAlign: "center", }} >
+                            <div
+                                style={{
+                                    height: "21px",
+                                    width: "96px",
+                                    textAlign: "center",
+                                }}
+                            >
                                 <RotatingLines
                                     visible={true}
                                     height="18"
@@ -297,7 +371,10 @@ function AddToCartButton({
                                 />
                             </div>
                         ) : (
-                            "ADD TO CART"
+                            <div className="add-to-cart-icon d-flex align-items-end">
+                                <LiaCartPlusSolid size={26} />
+                                ADD TO CART
+                            </div>
                         )
                     ) : (
                         "Stock Out"
