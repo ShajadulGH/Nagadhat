@@ -85,7 +85,7 @@ const ProductSinglePage = ({ productInfo, outletInfo }) => {
                                     productInfo={productInfo}
                                     // path_name={pathName}
                                 />
-                               
+
                                 <ProductRightSide productInfo={productInfo} />
                             </div>
                             <div className="pt-5">

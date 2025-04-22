@@ -4,10 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import MultipleProductSlider from "./MultipleProductSlider";
 import { NagadhatPublicUrl } from "@/app/utils";
-import img from "@/public/images/placeholder--image.jpg"
-
+import img from "@/public/images/placeholder--image.jpg";
+import "react-inner-image-zoom/lib/styles.min.css";
+import InnerImageZoom from "react-inner-image-zoom";
 function ProductSlider({ sliderItems, productGallery, productInfo }) {
-    const image = productInfo.product_thumbnail ? `${NagadhatPublicUrl}/${productInfo.product_thumbnail}`: img ;
+    const image = productInfo.product_thumbnail
+        ? `${NagadhatPublicUrl}/${productInfo.product_thumbnail}`
+        : img;
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
     const sliderRef1 = useRef(null);
@@ -33,20 +36,38 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                             key={sliderItem.id}
                         >
                             <div className="product-details-info-img">
-                                <Image
+                                <InnerImageZoom
                                     src={`${NagadhatPublicUrl}/${sliderItem.path}`}
+                                    zoomSrc={`${NagadhatPublicUrl}/${sliderItem.path}`}
+                                    zoomType="hover"
+                                    zoomPreload={true}
                                     layout="fill"
                                     alt="product gallery banner image"
                                     className="img-fluid object-fit-cover"
                                 />
+                                {/* <Image
+                                    src={`${NagadhatPublicUrl}/${sliderItem.path}`}
+                                    layout="fill"
+                                    alt="product gallery banner image"
+                                    className="img-fluid object-fit-cover"
+                                /> */}
                             </div>
                         </div>
                     ))
                 ) : (
                     <div className="product-details-info-photo">
                         <div className="product-details-info-img">
-                            <Image
+                            {/* <Image
                                 src={image}
+                                layout="fill"
+                                alt="product gallery banner image"
+                                className="img-fluid object-fit-cover"
+                            /> */}
+                            <InnerImageZoom
+                                src={image}
+                                zoomSrc={image}
+                                zoomType="hover"
+                                zoomPreload={true}
                                 layout="fill"
                                 alt="product gallery banner image"
                                 className="img-fluid object-fit-cover"
@@ -82,9 +103,7 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                             />
                         ))
                     ) : (
-                        <MultipleProductSlider
-                            thum={image}
-                        />
+                        <MultipleProductSlider thum={image} />
                     )}
                 </Slider>
             </div>
