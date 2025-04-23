@@ -1,7 +1,6 @@
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const OrderViewTimeLine = ({ orderStatus }) => {
-    console.log("orderStatus====>", orderStatus);
     
     return (
         <>

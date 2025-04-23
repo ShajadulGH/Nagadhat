@@ -15,7 +15,7 @@ const SaleOnNagadhatWrapper = async ({ accessToken, saleOnNagadhatId }) => {
             <section className="order-confirm-section-area">
                 <div className="custom-container">
                     <div className="row align-items-center order-confirm-section  gy-5">
-                        <SaleOnNagadhatLeft responseData={responseData} />
+                        <SaleOnNagadhatLeft />
                         <SaleOnNagadhatRight responseData={responseData} />
                     </div>
                     <div className="row">
