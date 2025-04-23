@@ -36,6 +36,15 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                             key={sliderItem.id}
                         >
                             <div className="product-details-info-img">
+                                {/* <InnerImageZoom
+                                    src={`${NagadhatPublicUrl}/${sliderItem.path}`}
+                                    zoomSrc={`${NagadhatPublicUrl}/${sliderItem.path}`}
+                                    zoomType="hover"
+                                    zoomPreload={true}
+                                    layout="fill"
+                                    alt="product gallery banner image"
+                                    className="img-fluid object-fit-cover"
+                                /> */}
                                 <Image
                                     src={`${NagadhatPublicUrl}/${sliderItem.path}`}
                                     layout="fill"
@@ -58,6 +67,8 @@ function ProductSlider({ sliderItems, productGallery, productInfo }) {
                                 src={image}
                                 zoomSrc={image}
                                 zoomType="hover"
+                                zoomPreload={true}
+                                layout="fill"
                                 alt="product gallery banner image"
                                 className="img-fluid object-fit-cover"
                             />

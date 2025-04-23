@@ -1,6 +1,6 @@
 "use client";
 import { getUserDashboard } from "@/app/services/userdashboard/getUserDashboard";
-import { NagadhatPublicUrl, removeRequestPath } from "@/app/utils";
+import { NagadhatPublicUrl, removeRequestPath, truncateTitle } from "@/app/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -84,7 +84,7 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
     return (
         <div className="customer-dashboard-side-nav justify-content-between d-flex flex-column h-100 ">
             <div className="bg-white">
-                <div className="p-4 text-center customer-dashboard-profile">
+                <div className="px-3 py-4 text-center customer-dashboard-profile">
                     <div className="mb-3 customer-dashboard-profile-avatar">
                         <Image
                             className="rounded-circle"
@@ -94,11 +94,21 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
                             height={60}
                         />
                     </div>
-                    <h2 className=" d-flex align-items-center justify-content-center gap-2 ">
-                        {session?.user?.name}
-                        <span className="fs-6 border-2 border px-1 rounded-4 d-inline-block text-center pt-1 pb-0 " style={{ color:"#404241" }}>{isAffiliateUser?.current_short_rank_name}</span>
-                    </h2>
-                    <p>{session?.phone}</p>
+                    
+
+                <div className=" ">
+                    <div className="flex-shrink-0 ">
+                        <h2 className="mb-0 text-capitalize" >{session?.user?.name}</h2>
+                        <div className="d-flex align-items-center gap-2">
+                            <hr className="m-0" style={{ borderColor: "#44bc9d", width: "90%" }} />
+                            <h3 className="badge text-light fs-6 pb-1 m-0" style={{ background: "#44bc9d" }}>
+                                {isAffiliateUser?.current_short_rank_name}
+                            </h3> 
+                        </div>
+                        <p className="mb-0">{session?.phone}</p>
+                    </div>
+                </div>
+                    
                 </div>
                 <nav className="customer-dashboard-side-navbar bg-white">
                     <ul className="nav flex-column">

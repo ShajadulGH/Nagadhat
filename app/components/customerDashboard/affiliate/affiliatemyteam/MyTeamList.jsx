@@ -9,6 +9,7 @@ const MyTeamList = ({
     teamGrandTotal,
     serialNumber,
     otherTotalMembers,
+    teamResultData
 }) => {
     const isFirstTeamEmpty = Object.keys(firstHighestTeam).length === 0;
     const isSecondTeamEmpty = Object.keys(secondHighestTeam).length === 0;
@@ -61,7 +62,7 @@ const MyTeamList = ({
                                             {firstHighestTeam?.name}
                                         </Link>
                                     </td>
-                                    <td className="text-end">৳ {firstHighestTeam?.total_sales}</td>
+                                    <td className="text-end"> {teamResultData?.is_line_01_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${firstHighestTeam?.total_sales ?? 0}`}</td>
                                     <td className="text-center">{firstHighestTeam?.affiliate_user?.refer_count || 0}</td>
                                     <td className="text-center">{firstHighestTeam?.affiliate_user?.total_team_members || 0}</td>
                                 </tr>
@@ -116,7 +117,7 @@ const MyTeamList = ({
                                             {secondHighestTeam?.name}
                                         </Link>
                                     </td>
-                                    <td className="text-end">৳ {secondHighestTeam?.total_sales}</td>
+                                    <td className="text-end"> {teamResultData?.is_line_02_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${secondHighestTeam?.total_sales ?? 0}`}</td>
                                     <td className="text-center">{secondHighestTeam?.affiliate_user?.refer_count || 0}</td>
                                     <td className="text-center">{secondHighestTeam?.affiliate_user?.total_team_members || 0}</td>
                                 </tr>
@@ -168,13 +169,15 @@ const MyTeamList = ({
                                                 {member?.name || "No Name"}
                                             </Link>
                                         </td>
-                                        <td className="text-end">৳ {member?.total_sales ?? 0}</td>
+                                        <td className="text-end"> {teamResultData?.is_line_03_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${member?.total_sales ?? 0}`}</td>
                                         <td className="text-center">{member?.affiliate_user?.refer_count ?? 0}</td>
                                         <td className="text-center">{member?.affiliate_user?.total_team_members ?? 0}</td>
                                     </tr>
                                 ))}
                                 <tr>
-                                    <td colSpan={5} className="text-end"></td>
+                                    <td colSpan={3} className="text-end"></td>
+                                    <td colSpan={1} className="text-end">{teamResultData?.is_line_03_sales_completed?(<p className=" text-success">Achieved</p>):`৳ ${teamResultData?.other_team_total_sales ?? 0}`}</td>
+                                    <td colSpan={1}></td>
                                     <td className="text-center" colSpan={1}><strong >Total: {otherTotalMembers}</strong></td>
                                 </tr>
                             </tbody>

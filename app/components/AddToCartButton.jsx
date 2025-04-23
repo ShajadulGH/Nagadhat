@@ -121,8 +121,9 @@ function AddToCartButton({
                             cart_product_type: 1,
                             product_id: productInfo?.id,
                             product_name: productInfo?.product_name,
-                            price: productPrice?.prices,
-                            regular_price: productInfo?.mrp_price,
+                            price: selectedVariantProductInfo?.price,
+                            regular_price:
+                                selectedVariantProductInfo?.regular_price,
                             outlet_id: outletId,
                             product_thumbnail: productInfo?.product_thumbnail,
                             quantity: quantity,
@@ -336,7 +337,7 @@ function AddToCartButton({
     return (
         <div className="add-to-cart-btn">
             <button
-                className={`add-to-cart-link border-0 ${buyNowBtn} ${fullWidth}`}
+                className={`add-to-cart-link border-0 `}
                 onClick={(e) =>
                     productStoke > 0 &&
                     (title == "BUY NOW"
@@ -371,10 +372,9 @@ function AddToCartButton({
                                 />
                             </div>
                         ) : (
-                            <div className="add-to-cart-icon d-flex align-items-end">
-                                <LiaCartPlusSolid size={26} />
-                                ADD TO CART
-                            </div>
+                           
+                               " ADD TO CART"
+                            
                         )
                     ) : (
                         "Stock Out"

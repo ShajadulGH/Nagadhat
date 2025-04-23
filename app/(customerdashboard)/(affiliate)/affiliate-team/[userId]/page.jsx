@@ -28,6 +28,8 @@ const Page = ({ params }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const searchParam = useSearchParams();
     const affiliateUser = searchParam.get("member");
+    const [teamResultData, setTeamResultDat] = useState({});
+
 
     useEffect(() => {
         const page = searchParam.get("page");
@@ -42,9 +44,7 @@ const Page = ({ params }) => {
         const fetchTeamData = async () => {
             if (status === "authenticated" && session?.accessToken) {
                 try {
-                    let searchParam = {};
-                    console.log("searchQuery=== inner", searchQuery);
-                    
+                    let searchParam = {};                    
                     if (searchQuery.length >= 2) {
                         searchParam.search = searchQuery;
                     }
@@ -56,6 +56,7 @@ const Page = ({ params }) => {
                             userId,
                             searchParam
                         );
+                        setTeamResultDat(teamMember?.results);
                         const teamMemberData = teamMember?.results?.myTeam;
                         const child_total_members = teamMember?.results?.child_total_members || 0;
                         setChildTotalMembers(child_total_members);
@@ -138,6 +139,7 @@ const Page = ({ params }) => {
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
                             otherTotalMembers={otherTotalMembers}
+                            teamResultData={teamResultData}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
