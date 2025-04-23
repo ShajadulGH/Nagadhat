@@ -99,7 +99,7 @@ const CustomerLeftSideNavbar = ({ toggleSidebar }) => {
                 <div className=" ">
                     <div className="flex-shrink-0 ">
                         <h2 className="mb-0 text-capitalize" >{session?.user?.name}</h2>
-                        <div className="d-flex align-items-center gap-2">
+                        <div className="d-flex align-items-center gap-2 py-2">
                             <hr className="m-0" style={{ borderColor: "#44bc9d", width: "90%" }} />
                             <h3 className="badge text-light fs-6 pb-1 m-0" style={{ background: "#44bc9d" }}>
                                 {isAffiliateUser?.current_short_rank_name}

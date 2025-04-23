@@ -98,7 +98,7 @@ const RankRewardList = ({
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
                                                 {
-                                                    items?.next_target_rank?.next_target_line_01_sales?(<p className="text-success">Achieved</p>):(
+                                                    items?.next_target_rank?.is_line_01_sales_completed ? (<p className="text-success">Achieved</p>):(
                                                         <>
                                                             {items?.next_target_rank?.user_next_line_01_sales}
                                                             {" "}|{" "}
