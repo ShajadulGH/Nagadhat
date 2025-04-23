@@ -25,11 +25,15 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                 lavelList.includes("Area Manager")) && (
                                 <div className="col-6 mb-2">
                                     <strong>Personal Sales:</strong><br />
-                                    {rank?.is_personal_sales_completed ? (
-                                        <span className="text-success">Achieved</span>
-                                    ) : (
-                                        `${items.id > 3 ? 0 : (rank?.user_next_personal_sales || 0)} | ${rank?.next_target_personal_sales || 0}`
-                                    )}
+                                    {
+                                        items?.next_target_rank?.id > 4 ? (0) : items?.next_target_rank?.is_personal_sales_completed ? 
+                                        (<p className="text-success">Achieved</p>) : (
+                                            <>
+                                                {items?.next_target_rank?.user_next_personal_sales || 0} ||
+                                                {items?.next_target_rank?.next_target_personal_sales || 0}
+                                            </>
+                                        )
+                                    }
                                 </div>
                             )}
 

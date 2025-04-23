@@ -59,7 +59,6 @@ const RankRewardList = ({
                     </thead>
                     <tbody>
                         {rankList?.map((items, index) => {
-                            console.log("items==>", items);
                             return (
                                 <tr key={index}>
                                     <td className="align-middle text-center">
