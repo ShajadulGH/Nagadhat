@@ -4,6 +4,8 @@ import Image from "next/image";
 import AddToCartButton from "../AddToCartButton";
 import { useEffect, useReducer, useState } from "react";
 import { existingIndex, getUserAgent } from "@/app/utils";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md";
+
 const initialState = {
     count: 1,
 };
@@ -698,25 +700,28 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     <p>Quantity:</p>
                                 </div>
                                 <div className="product-details-inner-quantity product-details-inner-qty d-flex align-items-center">
-                                    <button
-                                        type="button"
-                                        onClick={() => { dispatch({ type: "DECREMENT" }); }}
-                                        disabled={state.count == 1}
-                                    >
-                                        -
-                                    </button>
                                     <input
                                         readOnly
                                         type="text"
                                         value={state.count}
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => { dispatch({ type: "INCREMENT" }) }}
-                                        disabled={state.count >= productStoke}
-                                    >
-                                        +
-                                    </button>
+                                    <div>
+                                        <button
+                                            className="product-details-quantity-btn"
+                                            type="button"
+                                            onClick={() => { dispatch({ type: "INCREMENT" }) }}
+                                            disabled={state.count >= productStoke}
+                                        >
+                                            <MdOutlineKeyboardArrowUp />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => { dispatch({ type: "DECREMENT" }); }}
+                                            disabled={state.count == 1}
+                                        >
+                                            <MdOutlineKeyboardArrowDown />
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
                                     {productStoke > 0 ? productStoke - state.count : productStoke}{" "}  pieces available
