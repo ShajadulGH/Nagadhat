@@ -27,9 +27,7 @@ const ChangeTransactionOtp = () => {
     // Dynamically import bootstrap bundle on the client-side
     useEffect(() => {
         const loadBootstrap = async () => {
-            const bootstrapModule = await import(
-                "bootstrap/dist/js/bootstrap.bundle.min.js"
-            );
+            const bootstrapModule = await import("bootstrap/dist/js/bootstrap.bundle.min.js");
             setBootstrap(bootstrapModule);
         };
         loadBootstrap();
@@ -71,8 +69,7 @@ const ChangeTransactionOtp = () => {
         }
         const modalElement = modalRef.current;
         if (modalElement) {
-            const modalInstance =
-                bootstrap.Modal.getOrCreateInstance(modalElement);
+            const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
             modalInstance.show(); // Show modal
         }
     };
@@ -93,8 +90,7 @@ const ChangeTransactionOtp = () => {
                 // toast.success(response.message);
                 const modalElement = modalRef.current;
                 if (bootstrap && modalElement) {
-                    const modalInstance =
-                        bootstrap.Modal.getInstance(modalElement);
+                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
                     modalInstance.hide(); // Close modal
                 }
                 toast.success(message);
@@ -173,9 +169,7 @@ const ChangeTransactionOtp = () => {
                                 />
                                 <span
                                     className="password-view-icon"
-                                    onClick={() =>
-                                        setShowConfirmPassword(!showConfirmPassword)
-                                    }
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword) }
                                     style={{ cursor: "pointer", zIndex: "6" }}
                                 >
                                     {showConfirmPassword ? (
@@ -215,13 +209,7 @@ const ChangeTransactionOtp = () => {
                         className="add-to-cart-link border-0 mx-auto rounded-2"
                         onClick={handleManagePin}
                     >
-                        {otpType === "pin"
-                            ? status
-                                ? "Reset PIN"
-                                : "Set PIN"
-                            : status
-                                ? "Reset OTP"
-                                : "Set OTP"}
+                        {otpType === "pin" ? status ? "Reset PIN" : "Set PIN" : status ? "Reset OTP" : "Set OTP"}
                     </button>
                 </div>
             ) : (
