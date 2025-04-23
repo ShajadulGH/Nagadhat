@@ -81,8 +81,14 @@ const RankRewardList = ({
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>
                                                     {
-                                                        items?.next_target_rank?.is_personal_sales_completed ? (<p className="text-success">Achieved</p>)
-                                                        : `${items.id > 3 ? 0 : (items.next_target_rank?.user_next_personal_sales || 0)} | ${items.next_target_rank?.next_target_personal_sales || 0}`}
+                                                        items?.next_target_rank?.id > 4 ? (0) : items?.next_target_rank?.is_personal_sales_completed ? 
+                                                        (<p className="text-success">Achieved</p>) : (
+                                                            <>
+                                                                {items?.next_target_rank?.user_next_personal_sales || 0} ||
+                                                                {items?.next_target_rank?.next_target_personal_sales || 0}
+                                                            </>
+                                                        )
+                                                    }
                                                 </span>
                                             </div>
                                         </td>
