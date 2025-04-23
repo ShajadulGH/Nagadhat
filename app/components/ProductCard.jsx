@@ -5,6 +5,7 @@ import AddToCartButton from "./AddToCartButton";
 import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
 import img from "@/public/images/placeholder--image.jpg";
+import { FaEye } from "react-icons/fa";
 
 function ProductCard({ item }) {
     const image = item.product_thumbnail
@@ -80,10 +81,26 @@ function ProductCard({ item }) {
         <div className="flash-sale-content-item">
             <Link href={`/products/${slug}?outlet_id=${outlet_id}`}>
                 <div className="flash-sale-content-bg nh-hover-box-shadow d-flex flex-column justify-content-between">
-                    <div className="flash-sale-content-img image-hover-effect">
+                    <div className="flash-sale-content-img image-hover-effect position-relative">
                         <Image src={image} alt={title} fill={true} />
+
+                        {/* Quick View Button */}
+
+                        <FaEye
+                            tabindex="0"
+                            data-toggle="tooltip"
+                            title="Quick View"
+                            className=" quick-view position-absolute"
+                            delay={{ show: 0, hide: 0 }}
+                            size={35}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                // Add your quick view logic here
+                                console.log("Quick View clicked for:", title);
+                            }}
+                        />
                     </div>
-                   
+
                     <div className="flash-sale-content-info text-hover-effect">
                         <div className="">
                             <h4>{truncateTitle(title, 36)}</h4>
@@ -158,8 +175,6 @@ function ProductCard({ item }) {
                                 productPrice={productPrice}
                                 productStoke={productStoke}
                             />
-                          
-                            {/* <Like /> */}
                         </div>
                     </div>
                 </div>
