@@ -20,6 +20,8 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                             time,
                                             date,
                                             order_status_note,
+                                            payment_status,
+                                            payment_status_note
                                         } = statusItem;
                                         return (
                                             <div
@@ -39,14 +41,10 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                                                     : "text-info"
                                                             }`}
                                                         >
-                                                            {status
-                                                                ? status
-                                                                : null}
+                                                            {status ? (status):(payment_status)}
                                                         </h4>
                                                         <p>
-                                                            {order_status_note
-                                                                ? order_status_note
-                                                                : null}
+                                                            {order_status_note ? (order_status_note):(payment_status_note)}
                                                         </p>
                                                         <span className="vertical-timeline-element-date">
                                                             {time ? time : null}
