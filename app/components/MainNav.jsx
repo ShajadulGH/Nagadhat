@@ -21,6 +21,7 @@ function MainNav({
     const [search, setSearch] = useState("");
     const [location, setLoction] = useState("Dhaka, Dhaka");
     const [searchProduct, setSearchProduct] = useState([]);
+    const [searchMessage, setSearchMessage] = useState("");
     // const searchParams = useSearchParams();
     // let divisionId = searchParams.get("divisionId");
     // let districtId = searchParams.get("districtId");
@@ -42,18 +43,27 @@ function MainNav({
 
     useEffect(() => {
         if (search?.length >= 3) {
+            setSearchMessage("Searching...");
             setSearchProduct([]);
 
             const fetchSearchProduct = async () => {
-                const productData = await getHomeSearchProduct(
-                    districtId,
-                    search
-                );
-                // console.log(productData);
-                const searchResults = productData?.results;
-
-                if (searchResults) {
-                    setSearchProduct(searchResults);
+                try {
+                    const productData = await getHomeSearchProduct(
+                        districtId,
+                        search
+                    );
+                    if (productData?.code == 200) {
+                        const searchResults = productData?.results;
+                        setSearchProduct(searchResults);
+                        setSearchMessage("");
+                    } else {
+                        setSearchProduct([]);
+                        setSearchMessage(productData?.message);
+                    }
+                } catch (error) {
+                    console.error("Error fetching search products:", error);
+                    setSearchProduct([]);
+                    setSearchMessage("An error occurred while fetching products.");
                 }
             };
 
@@ -64,12 +74,12 @@ function MainNav({
             return () => {
                 clearTimeout(Debouncing);
             };
+        }else {
+            setSearchMessage("Type at least 3 characters to search.");
+            setSearchProduct([]);
         }
     }, [search, districtId]);
 
-    const isSearchProductAvailable = () => {
-        return searchProduct.length !== 0;
-    };
 
     useEffect(() => {
         const location = localStorage.getItem("location");
@@ -101,10 +111,7 @@ function MainNav({
 
     return (
         <div ref={searchResultRef}>
-            <div
-                className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"
-                    }`}
-            >
+            <div className={`row main-header-section ${!isObserverMenuVisible ? "" : "d-none"}`}>
                 <div className="col-12">
                     <div className="main-header-area d-flex">
                         <div className="logo">
@@ -161,10 +168,11 @@ function MainNav({
                                     </div>
                                 </form>
                             </div>
-                            {search && isSearchProductAvailable() && (
+                            {search && (
                                 <ProductSearchResult
                                     searchProduct={searchProduct}
                                     clearSearch={clearSearch}
+                                    searchMessage={searchMessage}
                                 />
                             )}
                         </div>
@@ -184,14 +192,14 @@ function MainNav({
                                                 height={15}
                                             />
                                         </span>
-                                        {addToCartProductLength ?(
-                                            <p 
-                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
-                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                        {addToCartProductLength ? (
+                                            <p
+                                                className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                                                style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
                                             >
-                                            <small className="text-center">{addToCartProductLength}</small>
-                                        </p>
-                                        ):""}
+                                                <small className="text-center">{addToCartProductLength}</small>
+                                            </p>
+                                        ) : ""}
                                     </Link>
                                 </li>
                                 {authStatus === "authenticated" && (
@@ -230,10 +238,7 @@ function MainNav({
                 </div>
             </div>
 
-            <div
-                className={`row observerable-header-section ${isObserverMenuVisible ? "" : "d-none"
-                    }`}
-            >
+            <div className={`row observerable-header-section ${isObserverMenuVisible ? "" : "d-none"}`}>
                 <div className="col-12">
                     <div className="main-header-area d-flex">
                         <div className="logo">
@@ -252,16 +257,10 @@ function MainNav({
                             <div className="header-search-inner-area d-flex align-items-center">
                                 <div
                                     className="observerable-categories-item position-relative"
-                                    onMouseEnter={() =>
-                                        setCategoryHoverMenu(true)
-                                    }
-                                    onMouseLeave={() =>
-                                        setCategoryHoverMenu(true)
-                                    }
+                                    onMouseEnter={() => setCategoryHoverMenu(true)}
+                                    onMouseLeave={() => setCategoryHoverMenu(true)}
                                 >
-                                    <div
-                                        className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold"
-                                    >
+                                    <div className="d-flex gap-2 align-items-center text-white text-capitalize fs-6 fw-semibold">
                                         <span>Categories</span>
                                         <Image
                                             className="categories-arrow-img"
@@ -298,9 +297,7 @@ function MainNav({
                                                     name="search"
                                                     value={search}
                                                     placeholder="Search in Nagad Hat..."
-                                                    onChange={
-                                                        handleSearchChange
-                                                    }
+                                                    onChange={handleSearchChange}
                                                 />
                                                 <button
                                                     className="search-icon-btn d-flex align-items-center justify-content-center"
@@ -316,7 +313,7 @@ function MainNav({
                                             </div>
                                         </form>
                                     </div>
-                                    {search && isSearchProductAvailable() && (
+                                    {search && (
                                         <ProductSearchResultMobile
                                             searchProduct={searchProduct}
                                             clearSearch={clearSearch}
@@ -340,14 +337,14 @@ function MainNav({
                                                 height={15}
                                             />
                                         </span>
-                                        {addToCartProductLength ?(
-                                            <p 
-                                            className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center" 
-                                            style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
+                                        {addToCartProductLength ? (
+                                            <p
+                                                className="bg-warning rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                                                style={{ minHeight: "22px", minWidth: "22px", top: "-25%", left: "70%", aspectRatio: "1 / 1" }}
                                             >
-                                            <small className="text-center">{addToCartProductLength}</small>
-                                        </p>
-                                        ):""}
+                                                <small className="text-center">{addToCartProductLength}</small>
+                                            </p>
+                                        ) : ""}
                                     </Link>
                                 </li>
                                 {authStatus === "authenticated" && (
@@ -357,9 +354,7 @@ function MainNav({
                                             className="text-white text-capitalize d-flex align-items-center"
                                         >
                                             <span className="bg-white d-flex align-items-center">
-                                                <FaUser
-                                                    style={{ color: "#44bc9d" }}
-                                                />
+                                                <FaUser style={{ color: "#44bc9d" }} />
                                             </span>
                                         </Link>
                                     </li>

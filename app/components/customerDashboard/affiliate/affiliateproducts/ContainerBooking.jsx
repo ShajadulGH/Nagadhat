@@ -9,6 +9,9 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 import NoDataFound from "@/app/components/NoDataFound";
 import ContainerHorizontalScroll from "./ContainerHorizontalScroll";
 import { getActiveContainers } from "@/app/services/affiliate/affiliateproducts/getActiveContainers";
+import { getContainerCartProduct } from "@/app/services/affiliate/affiliateproducts/getContainerCartProduct";
+import LodingFixed from "@/app/components/LodingFixed";
+import { toast } from "react-toastify";
 
 const ContainerBooking = ({ isActive }) => {
     const [isPending, startTransition] = useTransition();
@@ -19,6 +22,8 @@ const ContainerBooking = ({ isActive }) => {
     const [containerActiveId, setContainerActiveId] = useState(null);
     const [quantityFull, setQuantityFull] = useState(1);
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
+    const [cartProductsRerender, setCartProductsRender] = useState(false);
 
     useEffect(() => {
         if (session?.accessToken) {
@@ -44,7 +49,7 @@ const ContainerBooking = ({ isActive }) => {
 
     useEffect(() => {
         if (session?.accessToken) {
-            const fetchRetailProducts = async () => {
+            const fetchAffiliateContainer = async () => {
                 try {
                     startTransition(async () => {
                         const containerResponse = await getAffiliateContainer(
@@ -58,26 +63,43 @@ const ContainerBooking = ({ isActive }) => {
                             );
                         } else {
                             console.log(containerResponse?.message);
+                            toast.error(
+                                "Container not available or expired"
+                            );
                         }
                     });
                 } catch (error) {
                     console.error("Failed to fetch container data:", error);
                 }
             };
-            fetchRetailProducts();
+            fetchAffiliateContainer();
         }
     }, [session?.accessToken, containerActiveId]);
 
-    const availableQuantity =
-        containerData?.quantity - containerData?.booked_quantity;
-    const availableValue =
-        containerData?.container_value - containerData?.booked_value;
+    useEffect(() => {
+        // get continer cart products from server
+        const fetchContainerCartProducts = async () => {
+            try {
+                const response = await getContainerCartProduct(session?.accessToken);
+                if (response?.success) {
+                    setSelectedProducts(response?.data);
+                } else {
+                    console.log(response?.message);
+                }
+            } catch (error) {
+                console.error("Failed to fetch container data:", error);
+            }
+        };
+        fetchContainerCartProducts();
+    }, [session?.accessToken, cartProductsRerender]);
+
+    const availableQuantity = containerData?.quantity - containerData?.booked_quantity;
+    const availableValue = containerData?.container_value - containerData?.booked_value;
     const progressBarValue = containerData?.progress_bar_value;
 
     const getTotalQuantity = () => {
         return selectedProducts.reduce(
-            (acc, product) => acc + product.quantity,
-            0
+            (acc, product) => acc + product.quantity, 0
         );
     };
 
@@ -88,6 +110,7 @@ const ContainerBooking = ({ isActive }) => {
                 id="container-booking"
                 role="tabpanel"
             >
+                {/* {loading && <div className="loading-overlay"> <LodingFixed /> </div>} */}
                 <ContainerHorizontalScroll
                     activeContainerData={activeContainerData}
                     isPending={isPending}
@@ -110,6 +133,10 @@ const ContainerBooking = ({ isActive }) => {
                         setQuantityFull={setQuantityFull}
                         availableQuantity={availableQuantity}
                         getTotalQuantity={getTotalQuantity}
+                        setLoading={setLoading}
+                        loading={loading}
+                        setCartProductsRender={setCartProductsRender}
+                        cartProductsRerender={cartProductsRerender}
                     />
                 ) : (
                     <NoDataFound />
@@ -124,6 +151,11 @@ const ContainerBooking = ({ isActive }) => {
                     setQuantityFull={setQuantityFull}
                     quantityFull={quantityFull}
                     getTotalQuantity={getTotalQuantity}
+                    setLoading={setLoading}
+                    loading={loading}
+                    setCartProductsRender={setCartProductsRender}
+                    cartProductsRerender={cartProductsRerender}
+                    containerId={containerData.id}
                 />
             </div>
         </>

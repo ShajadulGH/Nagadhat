@@ -4,6 +4,8 @@ import Image from "next/image";
 import AddToCartButton from "../AddToCartButton";
 import { useEffect, useReducer, useState } from "react";
 import { existingIndex, getUserAgent } from "@/app/utils";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md";
+
 const initialState = {
     count: 1,
 };
@@ -36,7 +38,6 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         updateProductInitialVariations();
-
         defaultVariation();
     }, [productInfo]);
 
@@ -117,27 +118,22 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 prices:
                     defaultProduct?.discount_amount > 0
                         ? defaultProduct?.discount_type === "percentage"
-                            ? defaultProduct?.mrp_price -
-                            defaultProduct?.mrp_price *
-                            (defaultProduct?.discount_amount / 100)
-                            : defaultProduct?.mrp_price -
-                            defaultProduct?.discount_amount
+                            ? defaultProduct?.mrp_price - defaultProduct?.mrp_price * (defaultProduct?.discount_amount / 100)
+                            : defaultProduct?.mrp_price - defaultProduct?.discount_amount
                         : defaultProduct?.mrp_price,
 
                 discountPrice:
                     defaultProduct?.discount_type === "percentage"
-                        ? defaultProduct?.mrp_price *
-                        (defaultProduct?.discount_amount / 100)
+                        ? defaultProduct?.mrp_price * (defaultProduct?.discount_amount / 100)
                         : defaultProduct?.discount_amount,
             });
-            // setProductGallery(defaultProduct?.gallery);
-            setProductStoke(
-                defaultProduct?.variation_max_quantity === null
-                    ? 0
-                    : defaultProduct?.variation_max_quantity
-            );
+            setProductGallery(defaultProduct?.gallery);
+            const productStock = defaultProduct?.variation_max_quantity
+                ? Math.min(defaultProduct?.variation_outlet_stock_quantity, defaultProduct?.variation_max_quantity)
+                : defaultProduct?.variation_outlet_stock_quantity ?? 0;
+            setProductStoke(productStock);
+                
         } else {
-            // console.log("productInfo?.gallery");
             setProductPrice({
                 ...productPrice,
                 prices: productInfo?.price?.original?.results?.discount_status
@@ -200,9 +196,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         setSelectedVariants(getAvailableVariants());
-        // console.log(selectedVariants);
     }, [productAllVariants, productInfo]);
-    // console.log(selectedVariants);
     // return not selected variant name
     const findNotSelectedVariants = () => {
         const selectedVariantKeys = selectedVariants.flatMap(
@@ -286,23 +280,16 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
         const decorateProductVariation = productInfo?.variations?.map(
             (item) => ({
                 product_variation_id: item.id,
-                variation_size: item.variation_size
-                    ? item.variation_size.title
-                    : null,
-                variation_color: item.variation_color
-                    ? item.variation_color.title
-                    : null,
-                variation_weight: item.variation_weight
-                    ? item.variation_weight.title
-                    : null,
-                price:
-                    item?.discount_amount > 0
-                        ? item?.mrp_price - item?.discount_amount
-                        : item?.mrp_price,
-                discountPrice: item?.discount_amount > 0 ? item?.mrp_price : "",
+                variation_size: item.variation_size ? item.variation_size.title : null,
+                variation_color: item.variation_color ? item.variation_color.title : null,
+                variation_weight: item.variation_weight ? item.variation_weight.title : null,
+                price: item?.discount_amount > 0 ? item?.mrp_price - item?.discount_amount : item?.mrp_price,
+                gallery: item?.gallery,
                 discount_type: item?.discount_type,
                 discount_amount: item?.discount_amount,
                 variation_max_quantity: item?.variation_max_quantity,
+                variation_outlet_stock_quantity: item?.variation_outlet_stock_quantity,
+                regular_price: item?.mrp_price,
             })
         );
         setDecorateVariation(decorateProductVariation);
@@ -318,18 +305,14 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 decorateVariation.map((availableVariant, index) => {
                     if (selectedVariants.length == 1) {
                         if (
-                            availableVariant[selectedKey] ===
-                            selectedVariantObject[selectedKey] &&
-                            !arr.includes(availableVariant)
+                            availableVariant[selectedKey] === selectedVariantObject[selectedKey] && !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
                         }
                     }
                     if (selectedVariants.length > 1) {
                         if (
-                            availableVariant[selectedKey] ===
-                            selectedVariantObject[selectedKey] &&
-                            !arr.includes(availableVariant)
+                            availableVariant[selectedKey] === selectedVariantObject[selectedKey] && !arr.includes(availableVariant)
                         ) {
                             arr.push(decorateVariation[index]);
                         }
@@ -357,8 +340,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 selectedVariantKeys?.map((selectedKey) => {
                     selectedVariants?.map((selectedVariantObject, index) => {
                         if (index == 0) {
-                            const checkVariantValue =
-                                selectedVariantObject[selectedKey];
+                            const checkVariantValue = selectedVariantObject[selectedKey];
                             const checkVariantName = selectedKey;
                             const outPutValue = selectedVariantKeys[1];
                             const size = getColorBySize(
@@ -379,8 +361,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                             }
                         }
                         if (index == 1) {
-                            const checkVariantValue =
-                                selectedVariantObject[selectedKey];
+                            const checkVariantValue = selectedVariantObject[selectedKey];
                             const checkVariantName = selectedKey;
                             const outPutValue = selectedVariantKeys[0];
                             const color = getColorBySize(
@@ -459,30 +440,19 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
     useEffect(() => {
         const bestMatch = findBestMatch(selectedVariants, decorateVariation);
+        console.log("bestMatch set", bestMatch);
         setSelectedVariantProductInfo(bestMatch);
         if (selectedVariants.length > 0) {
             setProductPrice({
                 ...productPrice,
-                // prices:
-                //     bestMatch?.discount_amount > 0 ?
-                //         bestMatch?.discount_type === "percentage" ?
-                //             bestMatch?.discountPrice - bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
-                //             : bestMatch?.discountPrice - bestMatch?.discount_amount
-                //         : bestMatch?.discountPrice,
                 prices: bestMatch?.price,
                 discountPrice: bestMatch?.discount_amount,
-                
-                // discountPrice:
-                //     bestMatch?.discount_type === "percentage" ?
-                //         bestMatch?.discountPrice * (bestMatch?.discount_amount / 100)
-                //         : bestMatch?.discount_amount,
             });
-
-            setProductStoke(
-                bestMatch?.variation_max_quantity === null
-                    ? 0
-                    : bestMatch?.variation_max_quantity
-            );
+            setProductGallery(bestMatch?.gallery);
+            const productStock = bestMatch?.variation_max_quantity
+                ? Math.min(bestMatch?.variation_outlet_stock_quantity, bestMatch?.variation_max_quantity)
+                : bestMatch?.variation_outlet_stock_quantity ?? 0;
+            setProductStoke(productStock);
         } else {
             defaultVariation();
         }
@@ -571,16 +541,12 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                 </div>
                 <div className="product-details-price-area d-flex align-items-center">
                     <strong>
-                        {" "}
                         <span>৳</span>{" "}
                         {productPrice?.prices && productPrice?.prices}
                     </strong>
                     <del>
                         {parseInt(productPrice?.discountPrice) > 0 &&
-                            `৳ ${
-                                parseInt(productPrice?.discountPrice) +
-                                parseInt(productPrice?.prices)
-                            }`}
+                            `৳ ${parseInt(productPrice?.discountPrice) + parseInt(productPrice?.prices) }`}
                     </del>
                 </div>
                 <div className="product-short-description-area">
@@ -598,8 +564,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                 {productAllVariants?.map((item, index) => (
                                     <div key={index}>
                                         {item?.name === "variation_color" && (
-                                            <>
-                                                <div className="product-details-variant-holder d-flex align-items-center mb-4">
+                                                <div className="product-details-variant-holder d-flex align-items-center mb-4 flex-wrap">
                                                     <p className="variantName">
                                                         Color
                                                     </p>
@@ -609,35 +574,29 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                                 <div
                                                                     key={inx}
                                                                     className="product-details-inner-color product-details-variant-item"
-                                                                    onClick={() =>
-                                                                        handleVariations(
-                                                                            variant.value,
-                                                                            item.name
-                                                                        )
-                                                                    }
+                                                                    onClick={() => handleVariations(variant.value, item.name)}
                                                                     style={{
-                                                                        border: variant.selected
-                                                                            ? "3px solid #44bc9d "
-                                                                            : "",
-                                                                        background:
-                                                                            variant?.value.toLowerCase(),
+                                                                        border: variant.selected ? "3px solid #44bc9d " : "",
+                                                                        background: variant?.value,
+                                                                        cursor: "pointer",
                                                                     }}
+                                                                    title={variant?.title}
                                                                 ></div>
                                                             ) : (
                                                                 <div
                                                                     className="product-details-inner-color product-details-variant-item"
                                                                     style={{
                                                                         border: "2px solid #7B7B7B",
-                                                                        background:
-                                                                            variant?.value.toLowerCase(),
+                                                                        background: variant?.value,
                                                                         cursor: "not-allowed",
                                                                         opacity: 0.3,
                                                                     }}
+                                                                    key={inx}
+                                                                    title={variant?.title}
                                                                 ></div>
                                                             )
                                                     )}
                                                 </div>
-                                            </>
                                         )}
                                     </div>
                                 ))}
@@ -648,58 +607,36 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                 {productAllVariants?.map((item, index) => {
                                     return (
                                         <div key={index}>
-                                            {item?.name ===
-                                                "variation_size" && (
-                                                <>
-                                                    <div className="product-details-variant-holder d-flex align-items-center mb-4">
+                                            {item?.name === "variation_size" && (
+                                                    <div className="product-details-variant-holder d-flex align-items-center mb-4 flex-wrap">
                                                         <p>Size:</p>
                                                         {item?.variants?.map(
                                                             (variant, inx) =>
                                                                 variant.selectAble ? (
                                                                     <div
-                                                                        key={
-                                                                            inx
-                                                                        }
-                                                                        className={`product-details-variant-item ${
-                                                                            variant.selected
-                                                                                ? "variantAttributeActive"
-                                                                                : "variantAttributeUnitive"
-                                                                        }`}
-                                                                        onClick={() =>
-                                                                            handleVariations(
-                                                                                variant.value,
-                                                                                item.name
-                                                                            )
-                                                                        }
+                                                                        key={inx}
+                                                                        className={`product-details-variant-item ${variant.selected ? "variantAttributeActive" : "variantAttributeUnitive"}`}
+                                                                        onClick={() => handleVariations(variant.value, item.name)}
+                                                                        title={variant?.title}
                                                                     >
-                                                                        <label>
-                                                                            {
-                                                                                variant?.value
-                                                                            }
-                                                                        </label>
+                                                                        <label title={variant?.title}> {variant?.value} </label>
                                                                     </div>
                                                                 ) : (
                                                                     <div
-                                                                        key={
-                                                                            inx
-                                                                        }
+                                                                        key={inx}
                                                                         className={`product-details-variant-item`}
                                                                         style={{
                                                                             border: "2px solid #7B7B7B",
                                                                             cursor: "not-allowed",
                                                                             opacity: 0.3,
                                                                         }}
+                                                                        title={variant?.title}
                                                                     >
-                                                                        <label>
-                                                                            {
-                                                                                variant?.value
-                                                                            }
-                                                                        </label>
+                                                                        <label style={{cursor: "not-allowed"}} title={variant?.title} >{variant?.value}</label>
                                                                     </div>
                                                                 )
                                                         )}
                                                     </div>
-                                                </>
                                             )}
                                         </div>
                                     );
@@ -713,61 +650,36 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     {productAllVariants?.map((item, index) => {
                                         return (
                                             <div key={index}>
-                                                {item?.name ===
-                                                    "variation_weight" && (
-                                                    <>
+                                                {item?.name === "variation_weight" && (
                                                         <div className="product-details-variant-holder d-flex align-items-center mb-4">
                                                             <p>Weight:</p>
                                                             {item?.variants?.map(
-                                                                (
-                                                                    variant,
-                                                                    inx
-                                                                ) =>
+                                                                (variant, inx) =>
                                                                     variant.selectAble ? (
                                                                         <div
-                                                                            key={
-                                                                                inx
-                                                                            }
-                                                                            className={`product-details-variant-item ${
-                                                                                variant.selected
-                                                                                    ? "variantAttributeActive"
-                                                                                    : "variantAttributeUnitive"
-                                                                            }`}
-                                                                            onClick={() =>
-                                                                                handleVariations(
-                                                                                    variant.value,
-                                                                                    item.name
-                                                                                )
-                                                                            }
+                                                                            key={inx}
+                                                                            className={`product-details-variant-item ${variant.selected ? "variantAttributeActive" : "variantAttributeUnitive"}`}
+                                                                            onClick={() => handleVariations(variant.value, item.name)}
+                                                                            title={variant?.title}
                                                                         >
-                                                                            <label>
-                                                                                {
-                                                                                    variant?.value
-                                                                                }
-                                                                            </label>
+                                                                            <label> {variant?.value} </label>
                                                                         </div>
                                                                     ) : (
                                                                         <div
-                                                                            key={
-                                                                                inx
-                                                                            }
+                                                                            key={inx}
                                                                             className={`product-details-variant-item`}
                                                                             style={{
                                                                                 border: "2px solid #7B7B7B",
                                                                                 cursor: "not-allowed",
                                                                                 opacity: 0.3,
                                                                             }}
+                                                                            title={variant?.title}
                                                                         >
-                                                                            <label>
-                                                                                {
-                                                                                    variant?.value
-                                                                                }
-                                                                            </label>
+                                                                            <label style={{cursor: "not-allowed"}} title={variant?.title}>{variant?.value}</label>
                                                                         </div>
                                                                     )
                                                             )}
                                                         </div>
-                                                    </>
                                                 )}
                                             </div>
                                         );
@@ -778,9 +690,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
 
                         <div>
                             <p style={{ color: "red", marginBottom: "10px" }}>
-                                {productVariationsError
-                                    ? productVariationsError
-                                    : ""}
+                                {productVariationsError ? productVariationsError : ""}
                             </p>
                         </div>
 
@@ -790,97 +700,86 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                     <p>Quantity:</p>
                                 </div>
                                 <div className="product-details-inner-quantity product-details-inner-qty d-flex align-items-center">
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            dispatch({ type: "DECREMENT" });
-                                        }}
-                                        disabled={state.count == 1}
-                                    >
-                                        -
-                                    </button>
                                     <input
                                         readOnly
                                         type="text"
                                         value={state.count}
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            dispatch({ type: "INCREMENT" });
-                                        }}
-                                        disabled={state.count >= productStoke}
-                                    >
-                                        +
-                                    </button>
+                                    <div>
+                                        <button
+                                            className="product-details-quantity-btn"
+                                            type="button"
+                                            onClick={() => { dispatch({ type: "INCREMENT" }) }}
+                                            disabled={state.count >= productStoke}
+                                        >
+                                            <MdOutlineKeyboardArrowUp />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => { dispatch({ type: "DECREMENT" }); }}
+                                            disabled={state.count == 1}
+                                        >
+                                            <MdOutlineKeyboardArrowDown />
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
-                                    {productStoke > 0
-                                        ? productStoke - state.count
-                                        : productStoke}{" "}
-                                    pieces available
+                                    {productStoke > 0 ? productStoke - state.count : productStoke}{" "}  pieces available
                                 </div>
                             </div>
                         </div>
 
                         <div className="product-details-add-cart-area d-flex align-items-center">
-                        {
-                                    productStoke > 0 ?
-                            (<>
-                            <div className="product-details-add-cart">
-                                <AddToCartButton
-                                    title="BUY NOW"
-                                    buyNowBtn="product-details-action-btn"
-                                    productInfo={productInfo}
-                                    selectedVariantKeys={selectedVariantKeys}
-                                    setProductVariationError={
-                                        setProductVariationError
-                                    }
-                                    productPrice={productPrice}
-                                    decorateVariation={decorateVariation}
-                                    selectedVariants={selectedVariants}
-                                    quantity={state.count}
-                                    selectedVariantProductInfo={
-                                        selectedVariantProductInfo
-                                    }
-                                    productStoke={productStoke}
-                                />
-                            </div>
-                            <div className="product-details-add-cart">
-                                <AddToCartButton
-                                    buyNowBtn="product-details-action-btn"
-                                    productInfo={productInfo}
-                                    selectedVariantKeys={selectedVariantKeys}
-                                    setProductVariationError={
-                                        setProductVariationError
-                                    }
-                                    productPrice={productPrice}
-                                    decorateVariation={decorateVariation}
-                                    selectedVariants={selectedVariants}
-                                    quantity={state.count}
-                                    selectedVariantProductInfo={
-                                        selectedVariantProductInfo
-                                    }
-                                    isDetailsPage={true}
-                                    productStoke={productStoke}
-                                />
-                            </div>
-                            </>):(
-                                <div className="product-details-add-cart">
-                                <button
-                                    type="button"
-                                    className="add-to-cart-link border-0"
-                                    disabled
-                                    style={{
-                                        pointerEvents: productStoke > 0 ? "auto" : "none",
-                                        opacity: productStoke > 0 ? 1 : 0.5,
-                                        width: "300px",
-                                    }}
-                                >
-                                    Out of Stock
-                                </button>
-                                </div>
-                            )}
+                            {
+                                productStoke > 0 ? (
+                                    <>
+                                        <div className="product-details-add-cart">
+                                            <AddToCartButton
+                                                title="BUY NOW"
+                                                buyNowBtn="product-details-action-btn"
+                                                productInfo={productInfo}
+                                                selectedVariantKeys={selectedVariantKeys}
+                                                setProductVariationError={setProductVariationError}
+                                                productPrice={productPrice}
+                                                decorateVariation={decorateVariation}
+                                                selectedVariants={selectedVariants}
+                                                quantity={state.count}
+                                                selectedVariantProductInfo={selectedVariantProductInfo}
+                                                productStoke={productStoke}
+                                            />
+                                        </div>
+                                        <div className="product-details-add-cart">
+                                            <AddToCartButton
+                                                buyNowBtn="product-details-action-btn"
+                                                productInfo={productInfo}
+                                                selectedVariantKeys={selectedVariantKeys}
+                                                setProductVariationError={ setProductVariationError}
+                                                productPrice={productPrice}
+                                                decorateVariation={decorateVariation}
+                                                selectedVariants={selectedVariants}
+                                                quantity={state.count}
+                                                selectedVariantProductInfo={ selectedVariantProductInfo}
+                                                isDetailsPage={true}
+                                                productStoke={productStoke}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className="product-details-add-cart">
+                                        <button
+                                            type="button"
+                                            className="add-to-cart-link border-0"
+                                            disabled
+                                            style={{
+                                                pointerEvents: productStoke > 0 ? "auto" : "none",
+                                                opacity: productStoke > 0 ? 1 : 0.5,
+                                                width: "300px",
+                                            }}
+                                        >
+                                            Out of Stock
+                                        </button>
+                                    </div>
+                                )}
                         </div>
                     </form>
                 </div>

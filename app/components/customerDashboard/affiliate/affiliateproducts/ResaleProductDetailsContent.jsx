@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FaCheck, FaRegEye, FaRegStar, FaStar } from "react-icons/fa6";
 import ResaleBuyNowBtn from "./ResaleBuyNowBtn";
 import ResaleAddToCartBtn from "./ResaleAddToCartBtn";
+import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md";
 
 const ResaleProductDetailsContent = ({ productDetails }) => {
     // Ensure the prices are numbers
@@ -107,18 +108,19 @@ const ResaleProductDetailsContent = ({ productDetails }) => {
                                     <p>Quantity:</p>
                                 </div>
                                 <div className="product-details-inner-quantity product-details-inner-qty d-flex align-items-center">
-                                    <button type="button" onClick={handleDecrease} disabled={quantity <= productDetails?.min_quantity}>
-                                        -
-                                    </button>
                                     <input
                                         readOnly
                                         type="text"
                                         value={quantity}
-                                        style={{width:"40px"}}
                                     />
-                                    <button type="button" onClick={handleIncrease}>
-                                        +
-                                    </button>
+                                    <div>
+                                        <button type="button" onClick={handleIncrease} className="product-details-quantity-btn" >
+                                            <MdOutlineKeyboardArrowUp />
+                                        </button>
+                                        <button type="button" onClick={handleDecrease} disabled={quantity <= productDetails?.min_quantity}>
+                                            <MdOutlineKeyboardArrowDown />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
