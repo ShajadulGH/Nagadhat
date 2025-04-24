@@ -22,6 +22,7 @@ const SetForgotPasswordPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const userID = searchParams.get("user_id");
+    const userNumber = searchParams.get("phone")
 
     //Function for handle Password Change
     const handlePasswordChange = (e) => {
@@ -70,6 +71,7 @@ const SetForgotPasswordPage = () => {
                 new_password: forgetPassword.new_password,
                 confirm_password: forgetPassword.confirm_password,
                 user_id: parseInt(userID, 10),
+                phone:userNumber
             };
             startTransition(async () => {
                 const response = await postResetForgetPassword(changePassword);
