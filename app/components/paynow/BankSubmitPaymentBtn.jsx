@@ -6,13 +6,13 @@ const BankSubmitPaymentBtn = ({ isPending }) => {
             <div className="d-flex justify-content-end">
                 <button
                     disabled={isPending}
-                    className="add-to-cart-link border-0 text-capitalize"
+                    className="add-to-cart-link border-0 text-capitalize rounded-2"
                 >
                     {isPending ? (
                         <div
                             style={{
                                 height: "21px",
-                                width: "70px",
+                                width: "90px",
                                 textAlign: "center",
                             }}
                         >
