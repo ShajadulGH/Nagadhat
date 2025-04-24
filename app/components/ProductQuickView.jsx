@@ -73,7 +73,7 @@ const ProductQuickView = ({ item, modalId }) => {
                             />
                         </div>
                         {loading ? (
-                            <div>Loading...</div>
+                            <div style={{ color: "#44bc9d" }}>Loading...</div>
                         ) : (
                             <ProductQuickDetails productInfo={productDetails} />
                         )}
