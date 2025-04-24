@@ -7,6 +7,7 @@ import QuickLinks from "./QuickLinks";
 import SocialLink from "./SocialLink";
 import Subscribe from "./Subscribe";
 import LoginModal from "../login/LoginModal";
+// import ProductQuickView from "./ProductQuickView";
 
 function Footer() {
     const linkListsOptionOne = [
@@ -98,6 +99,7 @@ function Footer() {
                 <CopyRight />
             </div>
             <LoginModal />
+            {/* <ProductQuickView /> */}
         </footer>
     );
 }

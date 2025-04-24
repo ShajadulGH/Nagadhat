@@ -6,8 +6,10 @@ import Like from "./Like";
 import { NagadhatPublicUrl, truncateTitle } from "../utils";
 import img from "@/public/images/placeholder--image.jpg";
 import { FaEye } from "react-icons/fa";
+import ProductQuickView from "./ProductQuickView";
 
 function ProductCard({ item }) {
+    console.log("item", item);
     const image = item.product_thumbnail
         ? `${NagadhatPublicUrl}/${item.product_thumbnail}`
         : img;
@@ -19,7 +21,7 @@ function ProductCard({ item }) {
         outlet_id,
         discount_amount,
     } = item;
-
+    const modalId = `quickViewModal_${slug}`; // Dynamic ID
     const defaultVariant = item?.variations?.find(
         (variant) => variant.variations_default === 1
     );
@@ -87,11 +89,12 @@ function ProductCard({ item }) {
                         {/* Quick View Button */}
 
                         <FaEye
-                            tabindex="0"
+                            data-bs-toggle="modal"
+                            data-bs-target={`#${modalId}`}
                             data-toggle="tooltip"
+                            data-placement="top"
                             title="Quick View"
-                            className=" quick-view position-absolute"
-                            delay={{ show: 0, hide: 0 }}
+                            className="quick-view position-absolute"
                             size={35}
                             onClick={(e) => {
                                 e.preventDefault();
@@ -179,6 +182,7 @@ function ProductCard({ item }) {
                     </div>
                 </div>
             </Link>
+            <ProductQuickView item={item} modalId={modalId} />
         </div>
     );
 }
