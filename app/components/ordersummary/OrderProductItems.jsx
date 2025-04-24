@@ -24,16 +24,8 @@ const OrderProductItems = ({ orderProduct }) => {
                                             <div className="order-product-img">
                                                 <Image
                                                     fill={true}
-                                                    src={
-                                                        imageUrl
-                                                            ? imageUrl
-                                                            : null
-                                                    }
-                                                    alt={
-                                                        product_name
-                                                            ? product_name
-                                                            : `Product Image`
-                                                    }
+                                                    src={ imageUrl ?? "" }
+                                                    alt={product_name ?? `Product Image`}
                                                 />
                                             </div>
                                         </td>
@@ -47,9 +39,7 @@ const OrderProductItems = ({ orderProduct }) => {
                                             </p> */}
                                             {quantity && (
                                                 <p>
-                                                    <strong>
-                                                        Qty: {quantity}
-                                                    </strong>
+                                                    <strong> Qty: {quantity}</strong>
                                                 </p>
                                             )}
                                         </td>

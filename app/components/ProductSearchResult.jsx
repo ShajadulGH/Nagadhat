@@ -3,7 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { NagadhatPublicUrl } from "@/app/utils";
 
-const ProductSearchResult = ({ searchProduct, clearSearch }) => {
+const ProductSearchResult = ({ searchProduct, clearSearch, searchMessage }) => {
+
     return (
         <div className="product-search-modal-area">
             <div
@@ -15,15 +16,17 @@ const ProductSearchResult = ({ searchProduct, clearSearch }) => {
                 </div>
                 <div className="search-modal-info">
                     <ul className="similer-search-product-list">
-                        {searchProduct &&
+                        {searchProduct.length == 0 ? (
+                            <li className="search-not-found">
+                                <p>{searchMessage}</p>
+                            </li>
+                        ) : (
                             searchProduct?.map((product, index) => (
                                 <li
                                     key={`${product?.product_name}-${product?.slug}-${index}`}
                                     onClick={clearSearch}
                                 >
-                                    <Link
-                                        href={`/products/${product?.slug}?outlet_id=${product?.outlet_id}`}
-                                    >
+                                    <Link href={`/products/${product?.slug}?outlet_id=${product?.outlet_id}`}>
                                         <div className="search-modal-info-inner d-flex align-content-center gap-4">
                                             <div className="search-modal-info-img">
                                                 <Image
@@ -41,7 +44,8 @@ const ProductSearchResult = ({ searchProduct, clearSearch }) => {
                                         </div>
                                     </Link>
                                 </li>
-                            ))}
+                            ))
+                        )}
                     </ul>
                 </div>
             </div>

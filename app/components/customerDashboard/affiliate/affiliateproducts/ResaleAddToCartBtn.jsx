@@ -37,10 +37,10 @@ const ResaleAddToCartBtn = ({ product }) => {
         const addToCartInfo = {
             product_id: product?.id,
             product_name: product?.product_name,
-            regular_price: product.resell_mrp_price,
+            regular_price: product?.resell_mrp_price ,
             discount_type: "",
             discountPrice: 0,
-            price: product.resell_purchases_price,
+            price: product.resell_purchases_price ,
             outlet_id: outletId,
             product_thumbnail: product.product_thumbnail || "",
             quantity: newQuantity || 1,
@@ -55,7 +55,7 @@ const ResaleAddToCartBtn = ({ product }) => {
         try {
             setLoading(true)
             const productAdded = await addToCartProduct(addToCartInfo, session?.accessToken);
-            if (productAdded.code == 200) {
+            if (productAdded.code == 200) { 
                 const updatedCartProducts = await fetchCartProducts(
                     session?.accessToken,
                     outletId,

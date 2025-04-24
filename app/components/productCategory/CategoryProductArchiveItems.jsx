@@ -33,6 +33,8 @@ const CategoryProductArchiveItems = ({ productItem }) => {
         product_variation_id: defaultVariant?.id,
         discount_type: defaultVariant?.discount_type,
         discount_amount: defaultVariant?.discount_amount,
+        regular_price: defaultVariant?.price?.regular_price,
+        price: defaultVariant?.price?.discounted_price,
     };
 
     let productPrice = {

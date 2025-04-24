@@ -32,7 +32,7 @@ const AffiliateDashboardRank = ({ affiliateData }) => {
                                 className="text-dark"
                                 style={{ fontFamily: "'Tiro Bangla', serif" }}
                             >
-                                <h5 class="pin-warning-titles fw-semibold text-warning text-black d-flex align-items-center gap-2 mb-0">
+                                <h5 class="pin-warning-titles fw-semibold text-warning text-black d-flex align-items-center gap-2">
                                     <IoMdWarning
                                         style={{ marginBottom: "2px" }}
                                     />{" "}
