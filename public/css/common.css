@@ -423,7 +423,7 @@ body {
     color: white !important;
 }
 .sale-on-ng-min-responsive {
-    min-width: 1000px;
+    min-width: 920px;
 }
 
 .container-after-custom::after {
