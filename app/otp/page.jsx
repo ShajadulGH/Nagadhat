@@ -113,12 +113,13 @@ const OTP = () => {
                     });
                     if (forgetRes?.code === 200) {
                         setSuccessMessage(forgetRes?.message);
-                        const userId = forgetRes?.results[0]?.user_id;
+                        const userId = forgetRes?.results?.user_id;
+                        const number = forgetRes?.results?.username
                         if (forgetPassword) {
                             localStorage.setItem('forgetPasswordOTP', forgetRes?.results[0]?.status);
                             localStorage.setItem('otpVerified', 'true');
                         }
-                        router.push(`/set-forgot-password?user_id=${userId}`);
+                        router.push(`/set-forgot-password?user_id=${userId}&phone=${number}`);
                     } else {
                         setErrorMessage(forgetRes.message);
                     }

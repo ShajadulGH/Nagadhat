@@ -418,11 +418,8 @@ body {
     background-color: #44bc9d !important;
     color: white !important;
 }
-.my-team-table-min-width {
-    min-width: 910px;
-}
 .sale-on-ng-min-responsive {
-    min-width: 1000px;
+    min-width: 920px;
 }
 
 .container-after-custom::after {
