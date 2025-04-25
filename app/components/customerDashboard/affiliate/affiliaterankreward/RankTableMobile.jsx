@@ -39,7 +39,7 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
 
                             <div className="col-6 mb-2">
                                 <strong>1st Sales Team:</strong><br />
-                                {rank?.next_target_line_01_sales ? (
+                                {rank?.is_line_01_sales_completed ? (
                                     <span className="text-success">Achieved</span>
                                 ) : (
                                     `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
