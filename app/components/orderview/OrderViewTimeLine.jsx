@@ -1,6 +1,7 @@
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const OrderViewTimeLine = ({ orderStatus }) => {
+    
     return (
         <>
             <div className="row order-view-product-detail d-flex justify-content-center mt-70 mb-70">
@@ -11,7 +12,7 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                 Order Timeline
                             </h5>
                             <div className="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
-                                {orderStatus.length > 0 ? (
+                                {
                                     orderStatus.map((statusItem) => {
                                         const {
                                             id,
@@ -19,6 +20,8 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                             time,
                                             date,
                                             order_status_note,
+                                            payment_status,
+                                            payment_status_note
                                         } = statusItem;
                                         return (
                                             <div
@@ -38,14 +41,10 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                                                     : "text-info"
                                                             }`}
                                                         >
-                                                            {status
-                                                                ? status
-                                                                : null}
+                                                            {status ? (status):(payment_status)}
                                                         </h4>
                                                         <p>
-                                                            {order_status_note
-                                                                ? order_status_note
-                                                                : null}
+                                                            {order_status_note ? (order_status_note):(payment_status_note)}
                                                         </p>
                                                         <span className="vertical-timeline-element-date">
                                                             {time ? time : null}
@@ -58,9 +57,7 @@ const OrderViewTimeLine = ({ orderStatus }) => {
                                             </div>
                                         );
                                     })
-                                ) : (
-                                    <h1>No Data Found</h1>
-                                )}
+                                }
                             </div>
                         </div>
                     </div>

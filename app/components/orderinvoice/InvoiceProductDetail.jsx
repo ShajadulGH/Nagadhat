@@ -15,7 +15,7 @@ const InvoiceProductDetail = ({ invoiceProduct, orderInvoice }) => {
                         {orderInvoice?.customer_phone}
                     </p>
                     <p className="pb-1 font-sm width-80 fw-bold">
-                        Customer Details:{" "}
+                        Shipping Address:{" "}
                         <span className="border-bottom-dotted">
                             {orderInvoice?.shipping_address}
                         </span>

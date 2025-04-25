@@ -213,7 +213,7 @@ const PayWithBankModalRight = ({
                                 htmlFor="payment_slip"
                                 className="form-label"
                             >
-                                Upload Payment Slip (Optional)
+                                Upload Payment Slip <span className="text-danger">*</span>
                             </label>
                             <input
                                 className="form-control"

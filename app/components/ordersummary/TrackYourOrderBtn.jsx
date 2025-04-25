@@ -5,7 +5,7 @@ const TrackYourOrderBtn = ({ orderSummary }) => {
         <>
             <Link
                 href={`/orderview?orderid=${orderSummary?.order_id}`}
-                className="add-to-cart-link border-0"
+                className="add-to-cart-link border-0 rounded-2"
             >
                 Track Your Order
             </Link>

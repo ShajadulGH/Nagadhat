@@ -79,7 +79,7 @@ const OrderViewWrapp = () => {
                             session.accessToken
                         );
                         const orderStatusResults =
-                            orderStatusData?.results || {};
+                            orderStatusData?.results || [];
                         setOrderStatus(orderStatusResults);
                     });
                 } catch (error) {
@@ -102,7 +102,10 @@ const OrderViewWrapp = () => {
                         <>
                             <OrderViewTopBtn orderSummary={orderSummary} />
                             <OrderViewSummary orderSummary={orderSummary} />
-                            <OrderViewTimeLine orderStatus={orderStatus} />
+                            {
+                                orderStatus.length > 0 && (<OrderViewTimeLine orderStatus={orderStatus} />)
+                            }
+                            
                             <div className="row order-view-payment-history">
                                 <div className="col-lg-9">
                                     <OrderViewDetail
