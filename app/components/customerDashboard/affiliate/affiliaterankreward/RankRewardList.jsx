@@ -35,13 +35,13 @@ const RankRewardList = ({
                             <th scope="col" className="text-center">
                                 Title
                             </th>
-                            {(lavelList.includes("Executive") ||
+                            {/* {(lavelList.includes("Executive") ||
                                 lavelList.includes("Senior Executive") ||
                                 lavelList.includes("Area Manager")) && (
                                 <th scope="col" className="text-center">
                                     Personal Sales
                                 </th>
-                            )}
+                            )} */}
 
                             <th scope="col" className="text-center">
                                 1st Sales Team
@@ -50,7 +50,7 @@ const RankRewardList = ({
                                 2nd Sales Team
                             </th>
                             <th scope="col" className="text-center">
-                                3rd Sales Team
+                                Others Sales Team
                             </th>
                             <th scope="col" className="text-center">
                                 Rewards
@@ -72,7 +72,7 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         {items?.next_target_rank?.level}
                                     </td>
-                                    {(lavelList.includes("Executive") ||
+                                    {/* {(lavelList.includes("Executive") ||
                                         lavelList.includes(
                                             "Senior Executive"
                                         ) ||
@@ -89,15 +89,16 @@ const RankRewardList = ({
                                                             </>
                                                         )
                                                     }
+                                                    
                                                 </span>
                                             </div>
                                         </td>
-                                    )}
+                                    )} */}
 
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
-                                                {
+                                                {/* {
                                                     items?.next_target_rank?.is_line_01_sales_completed ? (<p className="text-success">Achieved</p>):(
                                                         <>
                                                             {items?.next_target_rank?.user_next_line_01_sales}
@@ -105,6 +106,14 @@ const RankRewardList = ({
                                                             {items?.next_target_rank?.next_target_line_01_sales }
                                                         </>
                                                     )
+                                                } */}
+
+                                                {
+                                                    <>
+                                                        {items?.next_target_rank?.user_next_line_01_sales}
+                                                        {" "}|{" "}
+                                                        {items?.next_target_rank?.next_target_line_01_sales }
+                                                    </>
                                                 }
                                             </span>
                                         </div>
@@ -112,7 +121,7 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
-                                            {
+                                            {/* {
                                                 items?.next_target_rank?.is_line_02_sales_completed ? (<p className="text-success">Achieved</p>):(
                                                     <>
                                                         {items?.next_target_rank?.user_next_line_02_sales}
@@ -120,6 +129,14 @@ const RankRewardList = ({
                                                         {items?.next_target_rank?.next_target_line_02_sales }
                                                     </>
                                                 )
+                                            } */}
+
+                                            {
+                                                <>
+                                                    {items?.next_target_rank?.user_next_line_02_sales}
+                                                    {" "}|{" "}
+                                                    {items?.next_target_rank?.next_target_line_02_sales }
+                                                </>
                                             }
                                             </span>
                                         </div>
@@ -127,7 +144,7 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>
-                                            {
+                                            {/* {
                                                 items?.next_target_rank?.is_others_line_completed ? (<p className="text-success">Achieved</p>):(
                                                     <>
                                                         {items?.next_target_rank?.user_next_others_line}
@@ -135,6 +152,14 @@ const RankRewardList = ({
                                                         {items?.next_target_rank?.next_target_others_line}
                                                     </>
                                                 )
+                                            } */}
+
+                                            {
+                                                <>
+                                                    {items?.next_target_rank?.user_next_others_line}
+                                                    {" "}|{" "}
+                                                    {items?.next_target_rank?.next_target_others_line}
+                                                </>
                                             }
                                             </span>
                                         </div>
