@@ -20,7 +20,7 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                         </div>
 
                         <div className="row">
-                            {(lavelList.includes("Executive") ||
+                            {/* {(lavelList.includes("Executive") ||
                                 lavelList.includes("Senior Executive") ||
                                 lavelList.includes("Area Manager")) && (
                                 <div className="col-6 mb-2">
@@ -35,33 +35,46 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                         )
                                     }
                                 </div>
-                            )}
+                            )} */}
 
                             <div className="col-6 mb-2">
                                 <strong>1st Sales Team:</strong><br />
-                                {rank?.is_line_01_sales_completed ? (
+                                {/* {rank?.is_line_01_sales_completed ? (
                                     <span className="text-success">Achieved</span>
                                 ) : (
                                     `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
-                                )}
+                                )} */}
+
+                                {
+                                    `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
+                                }
                             </div>
 
                             <div className="col-6 mb-2">
                                 <strong>2nd Sales Team:</strong><br />
-                                {rank?.is_line_02_sales_completed ? (
+                                {/* {rank?.is_line_02_sales_completed ? (
                                     <span className="text-success">Achieved</span>
                                 ) : (
                                     `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
-                                )}
+                                )} */}
+
+                                {
+                                    `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
+                                }
+
                             </div>
 
                             <div className="col-6 mb-2">
-                                <strong>3rd Sales Team:</strong><br />
-                                {rank?.is_others_line_completed ? (
+                                <strong>Others Sales Team:</strong><br />
+                                {/* {rank?.is_others_line_completed ? (
                                     <span className="text-success">Achieved</span>
                                 ) : (
                                     `${rank?.user_next_others_line} | ${rank?.next_target_others_line}`
-                                )}
+                                )} */}
+
+                                {
+                                    `${rank?.user_next_others_line} | ${rank?.next_target_others_line}`
+                                }
                             </div>
                         </div>
 
