@@ -62,7 +62,9 @@ const MyTeamList = ({
                                             {firstHighestTeam?.name}
                                         </Link>
                                     </td>
-                                    <td className="text-end"> {teamResultData?.is_line_01_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${firstHighestTeam?.total_sales ?? 0}`}</td>
+                                    {/* <td className="text-end"> {teamResultData?.is_line_01_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${firstHighestTeam?.total_sales ?? 0}`}</td> */}
+                                    <td className="text-end"> {`৳ ${firstHighestTeam?.total_sales ?? 0}`}</td>
+
                                     <td className="text-center">{firstHighestTeam?.affiliate_user?.refer_count || 0}</td>
                                     <td className="text-center">{firstHighestTeam?.affiliate_user?.total_team_members || 0}</td>
                                 </tr>
@@ -117,7 +119,8 @@ const MyTeamList = ({
                                             {secondHighestTeam?.name}
                                         </Link>
                                     </td>
-                                    <td className="text-end"> {teamResultData?.is_line_02_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${secondHighestTeam?.total_sales ?? 0}`}</td>
+                                    {/* <td className="text-end"> {teamResultData?.is_line_02_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${secondHighestTeam?.total_sales ?? 0}`}</td> */}
+                                    <td className="text-end"> {`৳ ${secondHighestTeam?.total_sales ?? 0}`}</td>
                                     <td className="text-center">{secondHighestTeam?.affiliate_user?.refer_count || 0}</td>
                                     <td className="text-center">{secondHighestTeam?.affiliate_user?.total_team_members || 0}</td>
                                 </tr>
@@ -169,7 +172,8 @@ const MyTeamList = ({
                                                 {member?.name || "No Name"}
                                             </Link>
                                         </td>
-                                        <td className="text-end"> {teamResultData?.is_line_03_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${member?.total_sales ?? 0}`}</td>
+                                        {/* <td className="text-end"> {teamResultData?.is_line_03_sales_completed ? (<p className=" text-success">Achieved</p>):`৳ ${member?.total_sales ?? 0}`}</td> */}
+                                        <td className="text-end"> {`৳ ${member?.total_sales ?? 0}`}</td>
                                         <td className="text-center">{member?.affiliate_user?.refer_count ?? 0}</td>
                                         <td className="text-center">{member?.affiliate_user?.total_team_members ?? 0}</td>
                                     </tr>
