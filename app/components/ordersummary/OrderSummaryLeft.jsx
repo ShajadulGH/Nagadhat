@@ -34,7 +34,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                                 <p className="pb-2">
                                     The payment process is currently pending
@@ -54,7 +54,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                                 <p className="pb-2">
                                     You have chosen bank payment for your order.
@@ -74,7 +74,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                                 <p className="pb-2">
                                     We have confirmed your payment via bKash.
@@ -93,7 +93,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                                 <p className="pb-2">
                                     You have selected Pay Later as your payment
@@ -114,7 +114,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                                 <p className="pb-2">
                                     You have chosen Cash on Delivery as your
@@ -132,7 +132,7 @@ const OrderSummaryLeft = ({ orderSummary }) => {
                             <>
                                 <h1>Thank You!</h1>
                                 <h4 className="mb-2">
-                                    Your order has been successfully received.
+                                    Your order has been successfully placed.
                                 </h4>
                             </>
                         )}

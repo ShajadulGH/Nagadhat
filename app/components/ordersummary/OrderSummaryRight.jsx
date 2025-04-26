@@ -25,8 +25,26 @@ const OrderSummaryRight = ({ orderProduct, orderSummary }) => {
                                         <tr>
                                             <td>{orderSummary?.date}</td>
                                             <td>{orderSummary?.invoice}</td>
-                                            <td>
-                                                {orderSummary?.payment_status}
+                                            <td className="fs-5">
+                                            {orderSummary?.payment_status && (
+                                                orderSummary?.payment_status === "Paid" ? (
+                                                <span className="badge bg-success-subtle text-success fw-semibold">
+                                                    {orderSummary?.payment_status}
+                                                </span>
+                                                ) : orderSummary?.payment_status === "Unpaid" ? (
+                                                <span className="badge bg-danger-subtle text-danger fw-semibold">
+                                                    {orderSummary?.payment_status}
+                                                </span>
+                                                ) : orderSummary?.payment_status === "Partial Paid" ? (
+                                                <span className="badge bg-warning-subtle text-warning fw-semibold">
+                                                    {orderSummary?.payment_status}
+                                                </span>
+                                                ) : (
+                                                <span className="badge bg-secondary-subtle text-secondary fw-semibold">
+                                                    {orderSummary?.payment_status}
+                                                </span>
+                                                ))}
+                                                
                                             </td>
                                         </tr>
                                     </tbody>

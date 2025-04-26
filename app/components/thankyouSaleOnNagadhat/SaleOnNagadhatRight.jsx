@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { truncateTitle } from "@/app/utils";
+import { log } from "console";
 
 const SaleOnNagadhatRight = ({ responseData }) => {
     return (
@@ -14,121 +15,59 @@ const SaleOnNagadhatRight = ({ responseData }) => {
                     <div className="order-summary-table-holder">
                         <div className="pt-3 border-bottom table-responsive order-summary-table-one">
                             <div className="" style={{ minWidth: "460px" }}>
-                                <div className="d-flex gap-3 justify-content-between px-1 border-bottom thnks-sale-on-nagadhat">
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                Start Date:{" "}
-                                            </h6>
-                                            <p>{responseData?.start_date}</p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                End Date:{" "}
-                                            </h6>
-                                            <p>{responseData?.end_date}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <h6 className="mb-1"> Invoice: </h6>
-                                            <p>{responseData?.order_invoice}</p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                Referance No:{" "}
-                                            </h6>
-                                            <p>
-                                                {responseData?.package_invoice}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <h6 className="mb-1"> Status: </h6>
-                                            <p>
-                                                {responseData?.status === 0
-                                                    ? "Active"
-                                                    : "Completed"}
-                                            </p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                Duration:{" "}
-                                            </h6>
-                                            <p>{responseData?.duration}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="d-flex gap-3 justify-content-between px-1 pt-3 thnks-sale-on-nagadhat">
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                Trade Price:
-                                            </h6>
-                                            <p>৳ {responseData?.order_value}</p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                Mrp Price:{" "}
-                                            </h6>
-                                            <p>৳ {responseData?.mrp_value}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                Approx (monthly sale) Amount:{" "}
-                                            </h6>
-                                            <p>
-                                                ৳{" "}
-                                                {responseData?.monthly_bonus.toFixed(
-                                                    2
-                                                )}
-                                            </p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                No of Instalment:
-                                            </h6>
-                                            <p>{responseData?.duration}</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <div className="pb-2">
-                                            <p className="mb-1">
-                                                {
-                                                    responseData?.product
-                                                        ?.product_name
-                                                }
-                                            </p>
-                                        </div>
-                                        <div className="pb-2">
-                                            <h6 className="mb-1">
-                                                {" "}
-                                                Quantity:{" "}
-                                            </h6>
-                                            <p>{responseData?.quantity}</p>
-                                        </div>
-                                    </div>
+                                <div className="table-responsive">
+                                    <table className="table table-bordered thnks-sale-on-nagadhat">
+                                        <thead>
+                                            <tr>
+                                                <th>Invoice</th>
+                                                <th>Reference No</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{responseData?.order_invoice}</td>
+                                                <td>{responseData?.package_invoice}</td>
+                                                <td>
+                                                    {responseData?.status === 0 ? "Active" : "Sell On Nagadhat"}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Start Date</th>
+                                                <th>End Date</th>
+                                                <th>Duration</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{responseData?.end_date}</td>
+                                                <td>{responseData?.start_date}</td>
+                                                <td>{responseData?.duration} Month</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Product</th>
+                                                <th>Trade Price</th>
+                                                <th>Mrp Price</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{truncateTitle(responseData?.product?.product_name,30)}</td>
+                                                <td>৳ {responseData?.order_value}</td>
+                                                <td>৳ {responseData?.mrp_value}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>No of Instalment</th>
+                                                <th>Approx (monthly sale) Amount</th>
+                                                <th>Quantity</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{responseData?.duration} Time</td>
+                                                <td>৳{" "}{responseData?.monthly_bonus.toFixed(2)}</td>
+                                                <td>{responseData?.quantity}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="pt-3 d-flex justify-content-center">
-                    <Link
-                        href="/"
-                        className=" add-to-cart-link text-capitalize "
-                        style={{ background: "#44bc9d" }}
-                    >
-                        Continue Shopping
-                    </Link>
                 </div>
             </div>
         </div>

@@ -66,7 +66,7 @@ const OrderViewSummary = ({ orderSummary }) => {
                                         <strong>Total order amount:</strong>
                                     </p>
                                     <p>
-                                        <strong>Delivery Note:</strong>
+                                        <strong>Payment Status:</strong>
                                     </p>
                                 </div>
                             </div>
@@ -88,11 +88,32 @@ const OrderViewSummary = ({ orderSummary }) => {
                                             ? orderSummary?.grand_total
                                             : null}
                                     </p>
-                                    <p>
-                                        {orderSummary?.delivery_note
-                                            ? orderSummary?.delivery_note
-                                            : "----"}
+                                    <p className="fs-5">
+                                        {orderSummary?.payment_status ? (
+                                        orderSummary.payment_status === "Paid" ? (
+                                        <span className="badge bg-success-subtle text-success fw-semibold">
+                                            {orderSummary.payment_status}
+                                        </span>
+                                        ) : orderSummary.payment_status === "Unpaid" ? (
+                                        <span className="badge bg-danger-subtle text-danger fw-semibold">
+                                            {orderSummary.payment_status}
+                                        </span>
+                                        ) : orderSummary.payment_status === "Partial Paid" ? (
+                                        <span className="badge bg-warning-subtle text-warning fw-semibold">
+                                            {orderSummary.payment_status}
+                                        </span>
+                                        ) : (
+                                        <span className="badge bg-secondary-subtle text-secondary fw-semibold">
+                                            {orderSummary.payment_status}
+                                        </span>
+                                        )
+                                    ) : (
+                                        "----"
+                                    )}
                                     </p>
+
+
+
                                 </div>
                             </div>
                         </div>

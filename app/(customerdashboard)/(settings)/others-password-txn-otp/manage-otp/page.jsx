@@ -140,7 +140,6 @@ const OTP = () => {
                                     className="form-label"
                                     htmlFor="user-otp"
                                 >
-                                    OTP Code
                                 </label>
                                 <input
                                     type="text"
@@ -161,9 +160,9 @@ const OTP = () => {
                                 </button>
                             </div>
                         </form>
-                        <div className="pt-4">
+                        <div className="pt-3">
                             <p className="pb-2">
-                                * check your phone or email for OTP code.
+                            We’ve sent a 6-digit OTP to your registered mobile number Please enter it input to verify your identity.
                             </p>
                             <div className="d-flex justify-content-between align-items-center">
                                 <Link

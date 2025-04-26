@@ -1,6 +1,6 @@
-import Link from "next/link";
 
-const SaleOnNagadhatLeft = ({ responseData }) => {
+
+const SaleOnNagadhatLeft = () => {
     return (
         <div className="col-lg-5">
             <div className="order-billing-info">
@@ -28,15 +28,6 @@ const SaleOnNagadhatLeft = ({ responseData }) => {
                         Nagadhat Bangladesh Limited <br />
                         Commitment to Fulfilling Expectations
                     </p>
-                </div>
-
-                <div className="billing-btn-area">
-                    <Link
-                        href={`/buyback-policy-agreement/${responseData?.order_id}?buyback-id=${responseData?.id}`}
-                        className="add-to-cart-link border-0 text-capitalize"
-                    >
-                        Download Agreement
-                    </Link>
                 </div>
             </div>
         </div>

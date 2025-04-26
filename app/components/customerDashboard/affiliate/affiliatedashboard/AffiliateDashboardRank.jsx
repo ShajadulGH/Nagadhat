@@ -39,20 +39,16 @@ const AffiliateDashboardRank = ({ affiliateData }) => {
                                     <span>সতর্কবার্তা!</span>
                                 </h5>
                                 <p class="mb-0  fs-6">
-                                    আপনি এখনো ট্রানজেকশন পিন সেট করেননি। এতে
-                                    অন্য কেউ আপনার নগদহাট আইডি থেকে টাকা উত্তোলন
-                                    করতে পারে।
-                                </p>
-                                <p className=" fs-6">
-                                    এখনই{" "}
+                                    আপনি এখনো ট্রানজেকশন পিন সেট করেননি। আপনার অ্যাকাউন্টটি সুরক্ষিত রাখতে এখনই{" "}
                                     <Link
                                         href="/others-password-txn-otp"
-                                        class=" add-to-cart-link d-inline-block fw-semibold shadow-sm mt-2 rounded-2"
+                                        class=" add-to-cart-link d-inline-block pt-1 pb-0 fw-semibold shadow-sm mt-2 rounded-2"
                                     >
                                         🔒 পিন সেট করুন
                                     </Link>{" "}
-                                    এবং আপনার অ্যাকাউন্ট সুরক্ষিত করুন।
+                                    এবং আপনার অ্যাকাউন্টের নিরাপত্তা নিশ্চিত করুন।
                                 </p>
+                                
                             </div>
                         </div>
                     </div>
