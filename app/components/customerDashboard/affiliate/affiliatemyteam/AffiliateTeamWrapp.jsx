@@ -12,18 +12,13 @@ import DefaultLoader from "@/app/components/defaultloader/DefaultLoader";
 
 const AffiliateTeamWrapp = () => {
     const [isPending, startTransition] = useTransition();
-    const [teamData, setTeamData] = useState({});
-    const [teamResultData, setTeamResultDat] = useState({});
-    const [firstHighestTeam, setFirstHighestTeam] = useState({});
-    const [secondHighestTeam, setSecondHighestTeam] = useState({});
-    const [otherTeam, setOtherTeam] = useState([]);
+    const [teamData, setTeamData] = useState([]);
     const [totalMember, setTotalMember] = useState("");
     const [teamGrandTotal, setTeamGrandTotal] = useState("");
-    const [otherTotalMembers, setOtherTotalMembers] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const { data: session, status } = useSession();
-    const [lastPage, setLastPage] = useState(1); 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [lastPage, setLastPage] = useState(1); // New state for last page
+    const [currentPage, setCurrentPage] = useState(1); // New state for current page
     const searchParams = useSearchParams();
 
     useEffect(() => {
@@ -33,7 +28,7 @@ const AffiliateTeamWrapp = () => {
         }
     }, [searchParams, currentPage]);
 
-    const limit = 20;
+    const limit = 20; //Per Page Category
 
     useEffect(() => {
         if (status === "authenticated" && session?.accessToken) {
@@ -50,27 +45,12 @@ const AffiliateTeamWrapp = () => {
                             session?.accessToken,
                             searchParams
                         );
-                        setTeamResultDat(affiliateTeam?.results);
-                        const otherTotalMembers =
-                            affiliateTeam?.results?.all_other_total_members || 0;
-                        const affiliateTeamData =
-                            affiliateTeam?.results?.myTeam || {};
-                        const allMemberCount =
-                            affiliateTeam?.results?.total_members || 0;
+                        const affiliateTeamData = affiliateTeam?.results?.myTeam;
+                        const allMemberCount = affiliateTeam?.results?.total_members;
                         const grandTotal = affiliateTeam?.results;
-                        setOtherTotalMembers(otherTotalMembers);
                         setTeamGrandTotal(grandTotal);
                         setTotalMember(allMemberCount);
                         setTeamData(affiliateTeamData);
-                        setFirstHighestTeam(
-                            affiliateTeamData?.data?.first_highest_team || {}
-                        );
-                        setSecondHighestTeam(
-                            affiliateTeamData?.data?.second_highest_team || {}
-                        );
-                        setOtherTeam(
-                            affiliateTeamData?.data?.other_teams || []
-                        );
                         setLastPage(affiliateTeamData?.last_page || 1);
                     });
                 } catch (error) {
@@ -87,8 +67,10 @@ const AffiliateTeamWrapp = () => {
     const handleSearch = (query) => {
         setSearchQuery(query);
     };
-    const teamListInfo = teamData?.data || {};
+
+    const teamListInfo = teamData?.data || [];
     const serialNumber = (currentPage - 1) * 20;
+    
 
     return (
         <>
@@ -99,26 +81,22 @@ const AffiliateTeamWrapp = () => {
                             className="px-3 d-inline-block py-1"
                             style={{ background: "#414042", color: "#fff" }}
                         >
-                            My Sales Team ({totalMember})
+                            My Team ({totalMember})
                         </span>
                     </h1>
                 </div>
-                {Object?.keys(teamListInfo).length > 0 && (
+                {teamListInfo?.length > 0 && (
                     <SearchMyTeam onSearch={handleSearch} />
                 )}
 
                 <div className="customer-dashboard-order-history table-responsive">
                     {isPending ? (
                         <DefaultLoader />
-                    ) : teamListInfo && Object?.keys(teamListInfo).length > 0 ? (
+                    ) : teamListInfo && teamListInfo.length > 0 ? (
                         <MyTeamList
-                            firstHighestTeam={firstHighestTeam}
-                            otherTeam={otherTeam}
-                            secondHighestTeam={secondHighestTeam}
+                            teamListInfo={teamListInfo}
                             teamGrandTotal={teamGrandTotal}
                             serialNumber={serialNumber}
-                            otherTotalMembers={otherTotalMembers}
-                            teamResultData={teamResultData}
                         />
                     ) : (
                         <NoDataFound title="Team Member Not Found" />
