@@ -733,7 +733,8 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                             {
                                 productStoke > 0 ? (
                                     <>
-                                        <div className="product-details-add-cart">
+                                        <div className="product-details-add-cart" role="button"
+                                                data-bs-dismiss="modal">
                                             <AddToCartButton
                                                 title="BUY NOW"
                                                 buyNowBtn="product-details-action-btn"
@@ -761,6 +762,7 @@ const ProductInformetion = ({ productInfo, setProductGallery }) => {
                                                 selectedVariantProductInfo={ selectedVariantProductInfo}
                                                 isDetailsPage={true}
                                                 productStoke={productStoke}
+                                                
                                             />
                                         </div>
                                     </>

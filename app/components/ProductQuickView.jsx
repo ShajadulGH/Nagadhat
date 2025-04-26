@@ -47,7 +47,6 @@ const ProductQuickView = ({ item, modalId }) => {
         };
     }, [modalId, slug, outlet_id]);
 
-    if (error) return <div>Error: {error}</div>;
 
     return (
         <div
@@ -91,6 +90,7 @@ const ProductQuickView = ({ item, modalId }) => {
                         {!loading && productDetails && (
                             <ProductQuickDetails
                                 productInfo={productDetails}
+                              
                                
                             />
                         )}
