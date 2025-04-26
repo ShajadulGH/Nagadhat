@@ -51,8 +51,8 @@ const ClaimRewardModal = ({
             title: "Are you sure?",
             text: `You want to claim for ${
                 rewardType === "money"
-                    ? rewardDetails?.rewards_money + " Taka "
-                    : rewardDetails?.rewards_prize
+                    ? rewardDetails?.next_target_rank?.rewards_money + " Taka "
+                    : rewardDetails?.next_target_rank?.rewards_prize
             } !`,
             icon: "warning",
             showCancelButton: true,
@@ -62,8 +62,8 @@ const ClaimRewardModal = ({
         }).then(async (result) => {
             if (result.isConfirmed) {
                 if (
-                    rewardDetails?.status !== 1 &&
-                    rewardDetails?.status !== 4
+                    rewardDetails?.next_target_rank?.status !== 1 &&
+                    rewardDetails?.next_target_rank?.status !== 4
                 ) {
                     toast.error("This reward cannot be claimed");
                     return;
@@ -75,10 +75,10 @@ const ClaimRewardModal = ({
                 }
 
                 const claimRewardData = {
-                    rankings_levels_id: rewardDetails?.id,
+                    rankings_levels_id: rewardDetails?.next_target_rank?.id,
                     reward_id: Id,
                     reward_type: rewardType,
-                    reward_value: rewardDetails?.rewards_money,
+                    reward_value: rewardDetails?.next_target_rank?.rewards_money,
                     reward_status: 0,
                     reason: "",
                 };
@@ -146,7 +146,7 @@ const ClaimRewardModal = ({
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                                Claim Your Rewards {rewardDetails?.level}{" "}
+                                Claim Your Rewards {rewardDetails?.next_target_rank?.level}{" "}
                             </h5>
                             <button
                                 type="button"
@@ -157,7 +157,7 @@ const ClaimRewardModal = ({
                         </div>
                         <div className="modal-body ">
                             <div className="row">
-                                {rewardDetails?.rewards_money === 0 && rewardDetails?.status !== 0 ? (
+                                {rewardDetails?.next_target_rank?.rewards_money === 0 && rewardDetails?.next_target_rank?.status !== 0 ? (
                                     <div className="rewards-gif-image-item col-md-12">
                                         <div className="">
                                             <Image
@@ -165,12 +165,12 @@ const ClaimRewardModal = ({
                                                 width={300}
                                                 height={120}
                                                 src={rewardImageUrl}
-                                                alt={`${rewardDetails?.level}`}
+                                                alt={`${rewardDetails?.next_target_rank?.level}`}
                                                 onClick={() => {
                                                     if (
-                                                        (rewardDetails?.status ===
+                                                        (rewardDetails?.next_target_rank?.status ===
                                                             1 ||
-                                                            rewardDetails?.status ===
+                                                            rewardDetails?.next_target_rank?.status ===
                                                                 4) &&
                                                         !isPending
                                                     ) {
@@ -182,9 +182,9 @@ const ClaimRewardModal = ({
                                                 }}
                                                 style={{
                                                     cursor:
-                                                        (rewardDetails?.status ===
+                                                        (rewardDetails?.next_target_rank?.status ===
                                                             1 ||
-                                                            rewardDetails?.status ===
+                                                            rewardDetails?.next_target_rank?.status ===
                                                                 4) &&
                                                         !isPending
                                                             ? "pointer "
@@ -194,14 +194,14 @@ const ClaimRewardModal = ({
                                             />
                                         </div>
                                     </div>
-                                ) : rewardDetails.status === 0 ? (
+                                ) : rewardDetails?.next_target_rank.status === 0 ? (
                                     <h5 className="lh-sm text-danger">
                                         Your current rank has not been achieved
                                         yet. Keep pushing forward—we believe in
                                         your potential! Stay consistent, and
                                         success will follow soon.
                                     </h5>
-                                ) : rewardDetails.status === 2 ? (
+                                ) : rewardDetails?.next_target_rank.status === 2 ? (
                                     <h5 className="lh-sm text-danger">
                                         Your reward claim request has been
                                         received. Please wait for admin
@@ -209,7 +209,7 @@ const ClaimRewardModal = ({
                                         reward is approved. Thank you for your
                                         patience!
                                     </h5>
-                                ) : rewardDetails.status === 3 ? (
+                                ) : rewardDetails?.next_target_rank.status === 3 ? (
                                     <h5 className="lh-sm  text-success">
                                         Congratulations! Your claim has been
                                         successfully approved. You can now
@@ -225,9 +225,9 @@ const ClaimRewardModal = ({
                                                     className="img-fluid m-auto d-block"
                                                     style={{
                                                         cursor:
-                                                            (rewardDetails?.status ===
+                                                            (rewardDetails?.next_target_rank?.status ===
                                                                 1 ||
-                                                                rewardDetails?.status ===
+                                                                rewardDetails?.next_target_rank?.status ===
                                                                     4) &&
                                                             !isPending
                                                                 ? "pointer"
@@ -237,12 +237,12 @@ const ClaimRewardModal = ({
                                                     width={300}
                                                     height={120}
                                                     src={`/images/Taka.png`}
-                                                    alt={`${rewardDetails?.level}`}
+                                                    alt={`${rewardDetails?.next_target_rank?.level}`}
                                                     onClick={() => {
                                                         if (
-                                                            (rewardDetails?.status ===
+                                                            (rewardDetails?.next_target_rank?.status ===
                                                                 1 ||
-                                                                rewardDetails?.status ===
+                                                                rewardDetails?.next_target_rank?.status ===
                                                                     4) &&
                                                             !isPending
                                                         ) {
@@ -290,7 +290,7 @@ const ClaimRewardModal = ({
                         </div>
                         <div className="modal-footer d-flex align-items-center justify-content-between">
                             <h4 style={{ color: "#44bc9d", fontSize: "16px" }}>
-                                {rewardDetails?.rewards_details ||
+                                {rewardDetails?.next_target_rank?.rewards_details ||
                                     "No rewards details available"}
                             </h4>
                             <button
