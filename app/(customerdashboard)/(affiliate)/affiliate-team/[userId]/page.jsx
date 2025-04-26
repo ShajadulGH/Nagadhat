@@ -60,24 +60,16 @@ const Page = ({ params }) => {
                         const teamMemberData = teamMember?.results?.myTeam;
                         const child_total_members = teamMember?.results?.child_total_members || 0;
                         setChildTotalMembers(child_total_members);
-                        const allMemberCount =
-                            teamMember?.results?.total_members || 0;
-                            const otherTotalMembers =
-                            teamMember?.results?.all_other_total_members || 0;
-                            setOtherTotalMembers(otherTotalMembers);
+                        const allMemberCount = teamMember?.results?.total_members || 0;
+                        const otherTotalMembers = teamMember?.results?.all_other_total_members || 0;
+                        setOtherTotalMembers(otherTotalMembers);
                         const grandTotal = teamMember?.results;
                         setTeamGrandTotal(grandTotal);
                         settotalMember(allMemberCount);
                         setTeamData(teamMemberData || {});
-                        setFirstHighestTeam(
-                            teamMemberData?.data?.first_highest_team || {}
-                        );
-                        setSecondHighestTeam(
-                            teamMemberData?.data?.second_highest_team || {}
-                        );
-                        setOtherTeam(
-                            teamMemberData?.data?.other_teams || []
-                        );
+                        setFirstHighestTeam(  teamMemberData?.data?.first_highest_team || {} );
+                        setSecondHighestTeam( teamMemberData?.data?.second_highest_team || {} );
+                        setOtherTeam( teamMemberData?.data?.other_teams || [] );
                         setLastPage(teamMemberData?.last_page);
                     });
                 } catch (error) {
