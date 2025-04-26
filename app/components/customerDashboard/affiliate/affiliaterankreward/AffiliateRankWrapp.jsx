@@ -5,13 +5,12 @@ import RankRewardList from "./RankRewardList";
 import RankRewardTop from "./RankRewardTop";
 import { useSession } from "next-auth/react";
 import { getRanks } from "@/app/services/rankreward/getRanks";
-import { getAffiliateHomeDashboard } from "@/app/services/affiliate/getAffiliateHomeDashboard";
+// import { getAffiliateHomeDashboard } from "@/app/services/affiliate/getAffiliateHomeDashboard";
 import NoDataFound from "@/app/components/NoDataFound";
 import LodingFixed from "@/app/components/LodingFixed";
 
 const AffiliateRankWrapp = () => {
     const [rankList, setRankList] = useState([]);
-    const [affiliateData, setAffiliateData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [statusChange, setStatusChange] = useState(false);
     const { data: session, status } = useSession();
@@ -20,12 +19,8 @@ const AffiliateRankWrapp = () => {
         const fetchData = async () => {
             if (status === "authenticated" && session?.accessToken) {
                 try {
-                    const [rankInfo, affiliateInfo] = await Promise.all([
-                        getRanks(session.accessToken),
-                        getAffiliateHomeDashboard(session.accessToken),
-                    ]);
+                    const rankInfo = await getRanks(session?.accessToken);
                     setRankList(rankInfo?.results || []);
-                    setAffiliateData(affiliateInfo?.results || {});
                 } catch (error) {
                     console.error("Failed to fetch data:", error);
                 } finally {
@@ -38,32 +33,32 @@ const AffiliateRankWrapp = () => {
 
         fetchData();
     }, [status, session?.accessToken, statusChange]);
-
-    const isDataEmpty =
-        !affiliateData || Object.keys(affiliateData).length === 0;
+    const lavelList = rankList?.map((item) => item?.next_target_rank?.level);
 
     return (
         <>
             {isLoading && <LodingFixed />}
             <div className="customer-dashboard-order-history-area h-100">
-                {isDataEmpty ? (
-                    !isLoading && <NoDataFound message="No data available" />
-                ) : (
-                    <RankRewardTop affiliateData={affiliateData} />
-                )}
-                <div className="customer-dashboard-order-history px-2">
-                    {rankList.length > 0 ? (
-                        <RankRewardList
-                            rankList={rankList}
-                            setStatusChange={setStatusChange}
-                            statusChange={statusChange}
-                        />
-                    ) : (
-                        !isLoading && (
-                            <NoDataFound message="No ranks available" />
-                        )
-                    )}
+                <div className="pt-4 pb-2 ps-4" style={{ borderBottom: "1px solid #D8D8D8" }}>
+                    <h1 className="fs-4 text-capitalize mb-0">
+                        Next Promotion Chart
+                    </h1>
                 </div>
+                {rankList.length > 0 ? (
+                    <>
+                        <RankRewardTop affiliateData={rankList} />
+                        <div className="customer-dashboard-order-history px-2">
+                            <RankRewardList
+                                rankList={rankList}
+                                setStatusChange={setStatusChange}
+                                statusChange={statusChange}
+                                lavelList={lavelList}
+                            />
+                        </div>
+                    </>
+                ) : (
+                    !isLoading && <NoDataFound message="No ranks available" />
+                )}
             </div>
         </>
     );
