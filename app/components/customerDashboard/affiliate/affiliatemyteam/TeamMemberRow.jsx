@@ -10,10 +10,7 @@ const TeamMemberRow = ({ member, index, isMobile }) => {
                             <Link
                                 href={`/affiliate-team/${member?.id}?member=${encodeURIComponent(member?.name || "")}`}
                                 className="btn btn-sm w-100"
-                                style={{
-                                    color: "white",
-                                    background: "#44bc9d",
-                                }}
+                                style={{ color: "white", background: "#44bc9d"}}
                             >
                                 {member?.name || "No Name"}
                             </Link>

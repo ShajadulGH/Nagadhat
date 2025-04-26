@@ -2,13 +2,6 @@ import { useState } from "react";
 import TeamMemberRow from "./TeamMemberRow";
 
 const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers }) => {
-    const [isMobile] = useState(() => {
-        if (typeof window !== "undefined") {
-          return window.innerWidth < 768;
-        }
-        return false;
-      });
-
   if (!members || members.length === 0) return null;
 
   return (
@@ -17,8 +10,8 @@ const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers 
         {title}
       </h2>
       
-      {isMobile ? (
-        <div className="mt-2">
+      {/* for Mobile view */}
+        <div className="mt-2 d-md-none">
           {members.map((member, index) => (
             <TeamMemberRow 
               key={member?.id} 
@@ -40,8 +33,8 @@ const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers 
             </div>
           </div>
         </div>
-      ) : (
-        <div className="table-responsive">
+      {/* for Desktop view */}
+        <div className="table-responsive d-none d-md-block">
           <table className="table table-hover my-team-table-min-width">
             <thead>
               <tr>
@@ -73,7 +66,6 @@ const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers 
             </tbody>
           </table>
         </div>
-      )}
     </div>
   );
 };

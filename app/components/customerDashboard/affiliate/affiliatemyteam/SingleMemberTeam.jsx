@@ -2,12 +2,7 @@ import { useState } from "react";
 import TeamMemberRow from "./TeamMemberRow";
 
 const SingleMemberTeam = ({ title, member}) => {
-  const [isMobile] = useState(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
+  
 
   if (!member || Object.keys(member).length === 0) return null;
 
@@ -17,8 +12,8 @@ const SingleMemberTeam = ({ title, member}) => {
         {title}
       </h2>
       
-      {isMobile ? (
-        <div className="mt-2">
+      {/* for Mobile view */}
+        <div className="mt-2 d-md-none">``
           <TeamMemberRow member={member} index={0} isMobile={true} />
           <div className="card mt-2">
             <div className="card-body">
@@ -30,8 +25,8 @@ const SingleMemberTeam = ({ title, member}) => {
             </div>
           </div>
         </div>
-      ) : (
-        <div className="table-responsive">
+      {/* for Desktop view */}
+        <div className="table-responsive d-none d-md-block">
           <table className="table table-hover my-team-table-min-width">
             <thead>
               <tr>
@@ -48,7 +43,6 @@ const SingleMemberTeam = ({ title, member}) => {
             </tbody>
           </table>
         </div>
-      )}
     </div>
   );
 };

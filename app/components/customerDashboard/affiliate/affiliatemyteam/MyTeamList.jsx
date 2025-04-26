@@ -24,19 +24,19 @@ const MyTeamList = ({
   return (
     <>
       <SingleMemberTeam 
-        title="Sales Team 1" 
+        title="1st Sales Team" 
         member={firstHighestTeam} 
         isSalesCompleted={teamResultData?.is_line_01_sales_completed}
       />
       
       <SingleMemberTeam 
-        title="Sales Team 2" 
+        title="2nd Sales Team" 
         member={secondHighestTeam} 
         isSalesCompleted={teamResultData?.is_line_02_sales_completed}
       />
       
       <TeamTable 
-        title="Sales Team 3" 
+        title="Others Sales Team" 
         members={otherTeam} 
         serialNumber={serialNumber}
         totalSales={teamResultData?.other_team_total_sales}
