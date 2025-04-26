@@ -19,7 +19,7 @@ const SingleMemberTeam = ({ title, member}) => {
             <div className="card-body">
               <div className="row">
                 <div className="col-12">
-                  <strong>Total Sales: </strong> ৳ {member?.total_sales ?? 0}
+                  <strong>Total Sales: </strong>৳ {member?.total_sales ?? 0}
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@ const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers 
             <div className="card-body">
               <div className="row">
                 <div className="col-6">
-                  <strong>Total Sales:</strong> ৳ {totalSales ?? 0}
+                  <strong>Total Sales:</strong>৳ {totalSales ?? 0}
                 </div>
                 <div className="col-6">
                   <strong>Total Members:</strong> {totalMembers}
@@ -57,7 +57,7 @@ const TeamTable = ({ title, members, serialNumber = 0, totalSales, totalMembers 
               ))}
               <tr>
                 <td colSpan={3} className="text-end"></td>
-                <td colSpan={1} className="text-end"> ৳ {totalSales ?? 0} </td>
+                <td colSpan={1} className="text-end">৳ {totalSales ?? 0} </td>
                 <td colSpan={1}></td>
                 <td className="text-center" colSpan={1}>
                   <strong>Total: {totalMembers}</strong>

@@ -54,7 +54,7 @@ const TeamMemberRow = ({ member, index, isMobile }) => {
                     {member?.name || "No Name"}
                 </Link>
             </td>
-            <td className="text-end">৳{member?.total_sales ?? 0}</td>
+            <td className="text-end">৳ {member?.total_sales ?? 0}</td>
             <td className="text-center">{member?.affiliate_user?.refer_count ?? 0}</td>
             <td className="text-center">{member?.affiliate_user?.total_team_members ?? 0}</td>
         </tr>
