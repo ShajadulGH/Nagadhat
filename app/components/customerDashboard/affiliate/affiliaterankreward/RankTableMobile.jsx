@@ -1,11 +1,11 @@
 import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 
-const RankTableMobile = ({ rankList = [], handleClaimReward }) => {
+const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) => {
     return (
         <div className="d-block d-md-none">
             {rankList?.map((items, index) => {
-                const rank = items;
+                const rank = items?.next_target_rank;
 
                 return (
                     <div key={index} className="card mb-3 p-3 border rounded shadow-sm">
@@ -20,32 +20,39 @@ const RankTableMobile = ({ rankList = [], handleClaimReward }) => {
                         </div>
 
                         <div className="row">
-                           
+                            {/* {(lavelList.includes("Executive") ||
+                                lavelList.includes("Senior Executive") ||
+                                lavelList.includes("Area Manager")) && (
                                 <div className="col-6 mb-2">
-                                    <strong>Direct Sales:</strong><br />
-                                        {items?.user_direct_sales || 0} {" "}| {" "}
-                                        {items?.direct_sales || 0}
+                                    <strong>Personal Sales:</strong><br />
+                                    {
+                                        `${items.id > 3 ? 0 : (rank?.user_next_personal_sales || 0)} | ${rank?.next_target_personal_sales || 0}`
+                                    }
                                 </div>
-                          
-
+                            )} */}
+                            
                             <div className="col-6 mb-2">
-                                <strong>1st Highest Sales:</strong><br />
+                                <strong>1st Sales Team:</strong><br />
                                 {
-                                    `${rank?.user_line_01_sales} | ${rank?.line_01_sales}`
+                                    `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
                                 }
                             </div>
+                            {
+                                !(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                    <div className="col-6 mb-2">
+                                        <strong>2nd Sales Team:</strong><br />
+                                        {
+                                            `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
+                                        }
+                                    </div>
+                                )
+                            }
+                            
 
                             <div className="col-6 mb-2">
-                                <strong>2nd Highest Sales:</strong><br />
+                                <strong>3rd Sales Team:</strong><br />
                                 {
-                                    `${rank?.user_line_02_sales} | ${rank?.line_02_sales}`
-                                }
-                            </div>
-
-                            <div className="col-6 mb-2">
-                                <strong>Others Highest Sales:</strong><br />
-                                {
-                                    `${rank?.user_others_line} | ${rank?.others_line}`
+                                    `${rank?.user_next_others_line} | ${rank?.next_target_others_line}`
                                 }
                             </div>
                         </div>
