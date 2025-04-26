@@ -2,24 +2,23 @@ import { NagadhatPublicUrl } from "@/app/utils";
 import Image from "next/image";
 
 const RankRewardTop = ({ affiliateData }) => {
-    const lastItem = affiliateData[affiliateData.length - 1];
     let imageUrl;
-    if (lastItem?.logo) {
-        imageUrl = `${NagadhatPublicUrl}/${lastItem?.logo}`;
+    if (affiliateData?.rank_logo) {
+        imageUrl = `${NagadhatPublicUrl}/${affiliateData?.rank_logo}`;
     }
     return (
         <>
-            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between py-2">
-                <h2 className="customer-dashboard-title mb-0 fs-6">
-                    Ranks: {lastItem?.level}
-                </h2>
+            <div className="customer-dashboard-order-history-title d-flex align-items-center justify-content-between">
+                <h1 className="customer-dashboard-title">
+                    Ranks: {affiliateData?.rank}
+                </h1>
                 <div className="">
                     <Image
                         className="rounded-circle"
                         src={imageUrl || "/images/men222222.png"}
                         width={60}
                         height={60}
-                        alt={lastItem?.level}
+                        alt={affiliateData?.reffer_a_friend_link}
                     />
                 </div>
             </div>
