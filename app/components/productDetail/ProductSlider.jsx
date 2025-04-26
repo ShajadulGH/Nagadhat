@@ -7,7 +7,7 @@ import { NagadhatPublicUrl } from "@/app/utils";
 import img from "@/public/images/placeholder--image.jpg";
 import "react-inner-image-zoom/lib/styles.min.css";
 import InnerImageZoom from "react-inner-image-zoom";
-function ProductSlider({ sliderItems, productGallery, productInfo }) {
+function ProductSlider({ productGallery, productInfo }) {
     const image = productInfo.product_thumbnail
         ? `${NagadhatPublicUrl}/${productInfo.product_thumbnail}`
         : img;

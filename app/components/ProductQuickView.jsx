@@ -53,13 +53,12 @@ const ProductQuickView = ({ item, modalId }) => {
         <div
             className="modal fade"
             id={modalId}
-            tabIndex="-1"
             aria-labelledby="quickViewModalLabel"
             aria-hidden="true"
         >
             <div className="modal-dialog modal-dialog-centered modal-lg">
                 <div className="modal-content">
-                    <div className="modal-body">
+                    <div className="modal-body " style={{ height: "600px" }}>
                         <div
                             data-bs-dismiss="modal"
                             className="close-icon position-absolute"
@@ -72,9 +71,24 @@ const ProductQuickView = ({ item, modalId }) => {
                                 }}
                             />
                         </div>
-                        {loading ? (
-                            <div style={{ color: "#44bc9d" }}>Loading...</div>
-                        ) : (
+                        {loading && (
+                            <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ minHeight: "600px" }}
+                            >
+                                <div
+                                    className="spinner-border"
+                                    style={{ color: "#44bc9d" }}
+                                    role="status"
+                                >
+                                    <span className="visually-hidden">
+                                        Loading...
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                        {!loading && productDetails && (
                             <ProductQuickDetails productInfo={productDetails} />
                         )}
                     </div>
