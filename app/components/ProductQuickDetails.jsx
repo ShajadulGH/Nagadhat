@@ -3,7 +3,7 @@ import NoDataFound from "@/app/components/NoDataFound";
 import Breadcrumb from "@/app/components/productDetail/Breadcrumb";
 import ProductInformetion from "./productDetail/ProductInformetion";
 import ProductSlider from "./productDetail/ProductSlider";
-const ProductQuickDetails = ({ productInfo }) => {
+const ProductQuickDetails = ({ productInfo}) => {
     const [productGallery, setProductGallery] = React.useState(
         productInfo?.gallery
     );
@@ -26,6 +26,7 @@ const ProductQuickDetails = ({ productInfo }) => {
                                     <ProductInformetion
                                         productInfo={productInfo}
                                         setProductGallery={setProductGallery}
+                                      
                                     />
                                 </div>
                             </div>

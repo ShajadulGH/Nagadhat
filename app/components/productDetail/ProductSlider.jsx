@@ -33,6 +33,10 @@ function ProductSlider({ productGallery, productInfo }) {
                     productGallery?.map((sliderItem) => (
                         <div
                             className="product-details-info-photo"
+                            style={{
+                                width: "350px",
+                                height: "400px",
+                            }}
                             key={sliderItem.id}
                         >
                             <div className="product-details-info-img">
@@ -55,7 +59,13 @@ function ProductSlider({ productGallery, productInfo }) {
                     ))
                 ) : (
                     <div className="product-details-info-photo">
-                        <div className="product-details-info-img">
+                        <div
+                            className="product-details-info-img"
+                            style={{
+                                width: "350px",
+                                height: "400px",
+                            }}
+                        >
                             {/* <Image
                                 src={image}
                                 layout="fill"
