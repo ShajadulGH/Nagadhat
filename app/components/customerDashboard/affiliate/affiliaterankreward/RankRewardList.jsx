@@ -1,56 +1,51 @@
 "use client";
 import Image from "next/image";
 import ClaimRewardModal from "./ClaimRewardModal";
-import { NagadhatPublicUrl } from "@/app/utils";
 import { useState } from "react";
-import RankTableMobile from "./RankTableMobile";
+import { NagadhatPublicUrl } from "@/app/utils";
+import { FaCheckCircle } from "react-icons/fa";
 
-const RankRewardList = ({
-    rankList,
-    setStatusChange,
-    statusChange,
-    lavelList,
-}) => {
+const RankRewardList = ({ rankList, setStatusChange, statusChange }) => {
     const [selectedReward, setSelectedReward] = useState(null);
 
     const handleClaimReward = (item) => {
         setSelectedReward(item);
     };
+
     const handleCloseModal = () => {
         setSelectedReward(null);
     };
-  
+
     return (
         <>
-            <div className="table-responsive d-none d-md-block">
+            <div className="table-responsive">
                 <table
                     className="table table-hover"
-                    // style={{ minWidth: "950px" }}
+                    style={{ minWidth: "950px" }}
                 >
                     <thead>
                         <tr>
+                            <th scope="col">Ranks</th>
                             <th scope="col" className="text-center">
                                 Icon
                             </th>
                             <th scope="col" className="text-center">
                                 Title
                             </th>
-                            {/* {(lavelList.includes("Executive") ||
-                                lavelList.includes("Senior Executive") ||
-                                lavelList.includes("Area Manager")) && (
-                                <th scope="col" className="text-center">
-                                    Personal Sales
-                                </th>
-                            )} */}
-
                             <th scope="col" className="text-center">
-                                1st Sales Team
+                                Total Sales
                             </th>
                             <th scope="col" className="text-center">
-                                2nd Sales Team
+                                Direct Sales
                             </th>
                             <th scope="col" className="text-center">
-                                Others Sales Team
+                                1st Highest Sales
+                            </th>
+                            <th scope="col" className="text-center">
+                                2nd Highest Sales
+                            </th>
+                            <th scope="col" className="text-center">
+                                Others Sales
                             </th>
                             <th scope="col" className="text-center">
                                 Rewards
@@ -58,169 +53,149 @@ const RankRewardList = ({
                         </tr>
                     </thead>
                     <tbody>
-                        {rankList?.map((items, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td className="align-middle text-center">
-                                        <Image
-                                            src={`${NagadhatPublicUrl}/${items?.next_target_rank?.logo}`}
-                                            width={40}
-                                            height={40}
-                                            alt={items?.next_target_rank?.level}
-                                        />
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        {items?.next_target_rank?.level}
-                                    </td>
-                                    {/* {(lavelList.includes("Executive") ||
-                                        lavelList.includes(
-                                            "Senior Executive"
-                                        ) ||
-                                        lavelList.includes("Area Manager")) && (
-                                        <td className="align-middle text-center  ">
-                                            <div className="d-flex align-items-center justify-content-center">
-                                                <span>
-                                                    {
-                                                        items?.next_target_rank?.id > 4 ? (0) : items?.next_target_rank?.is_personal_sales_completed ? 
-                                                        (<p className="text-success">Achieved</p>) : (
-                                                            <>
-                                                                {items?.next_target_rank?.user_next_personal_sales || 0} ||
-                                                                {items?.next_target_rank?.next_target_personal_sales || 0}
-                                                            </>
-                                                        )
-                                                    }
-                                                    
-                                                </span>
-                                            </div>
-                                        </td>
-                                    )} */}
-
-                                    <td className="align-middle text-center">
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            <span>
-                                                {/* {
-                                                    items?.next_target_rank?.is_line_01_sales_completed ? (<p className="text-success">Achieved</p>):(
-                                                        <>
-                                                            {items?.next_target_rank?.user_next_line_01_sales}
-                                                            {" "}|{" "}
-                                                            {items?.next_target_rank?.next_target_line_01_sales }
-                                                        </>
-                                                    )
-                                                } */}
-
-                                                {
-                                                    <>
-                                                        {items?.next_target_rank?.user_next_line_01_sales}
-                                                        {" "}|{" "}
-                                                        {items?.next_target_rank?.next_target_line_01_sales }
-                                                    </>
-                                                }
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            <span>
-                                            {/* {
-                                                items?.next_target_rank?.is_line_02_sales_completed ? (<p className="text-success">Achieved</p>):(
-                                                    <>
-                                                        {items?.next_target_rank?.user_next_line_02_sales}
-                                                        {" "}|{" "}
-                                                        {items?.next_target_rank?.next_target_line_02_sales }
-                                                    </>
-                                                )
-                                            } */}
-
-                                            {
-                                                <>
-                                                    {items?.next_target_rank?.user_next_line_02_sales}
-                                                    {" "}|{" "}
-                                                    {items?.next_target_rank?.next_target_line_02_sales }
-                                                </>
-                                            }
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="align-middle text-center">
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            <span>
-                                            {/* {
-                                                items?.next_target_rank?.is_others_line_completed ? (<p className="text-success">Achieved</p>):(
-                                                    <>
-                                                        {items?.next_target_rank?.user_next_others_line}
-                                                        {" "}|{" "}
-                                                        {items?.next_target_rank?.next_target_others_line}
-                                                    </>
-                                                )
-                                            } */}
-
-                                            {
-                                                <>
-                                                    {items?.next_target_rank?.user_next_others_line}
-                                                    {" "}|{" "}
-                                                    {items?.next_target_rank?.next_target_others_line}
-                                                </>
-                                            }
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td className="align-middle text-center ">
-                                        <button
-                                            onClick={() => {
-                                                if (
-                                                    items?.next_target_rank?.status === 0 ||
-                                                    items?.next_target_rank.status === 1 ||
-                                                    items?.next_target_rank?.status === 4
-                                                ) {
-                                                    handleClaimReward(items);
-                                                }
-                                            }}
-                                            className="add-to-cart-link affiliate-rank-btn text-capitalize text-center d-inline-block"
-                                            style={{
-                                                background:
-                                                    items?.next_target_rank?.status === 0? "gray"
-                                                    : items?.next_target_rank.status === 2 ? "yellow"
-                                                    : items?.next_target_rank?.status === 3 ? "#0089B9"
-                                                    : "",
-                                                color:
-                                                    items?.next_target_rank?.status === 3 ? "#fff"
-                                                    : items?.next_target_rank?.status === 4 ? "#fff"
-                                                    : items?.next_target_rank?.status === 2 ? "#000"
-                                                    : "",
-                                                cursor:
-                                                    items?.next_target_rank?.status === 0 ||
-                                                    items?.next_target_rank?.status === 1 ||
-                                                    items?.next_target_rank?.status === 4 ? "pointer" : "auto",
-                                            }}
-                                        >
-                                            {items?.next_target_rank?.status ===
-                                            0 ? (
-                                                "Rank Not Achieved"
-                                            ) : items?.next_target_rank?.status === 1 ? (
-                                                "Claim Reward"
-                                            ) : items?.next_target_rank?.status === 2 ? (
-                                                "Reward Claimed"
-                                            ) : items?.next_target_rank.status === 3 ? (
-                                                <strong>Claim Approved</strong>
-                                            ) : items?.next_target_rank?.status === 4 ? (
-                                                "Claim Reward"
-                                            ) : (
-                                                ""
+                        {rankList?.map((items, index) => (
+                            <tr key={index}>
+                                <td className="align-middle">{index + 1}</td>
+                                <td className="align-middle text-center">
+                                    <Image
+                                        src={`${NagadhatPublicUrl}/${items?.logo}`}
+                                        width={40}
+                                        height={40}
+                                        alt={items?.level}
+                                    />
+                                </td>
+                                <td className="align-middle text-center">
+                                    {items?.level}
+                                </td>
+                                <td className="align-middle text-center">
+                                    <div className="d-flex align-items-center">
+                                        <span className="w-auto">
+                                            {items?.user_total_sales || 0} |{" "}
+                                            {items?.total_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_total_sales >=
+                                                items?.total_sales && (
+                                                <FaCheckCircle className="praymary-color" />
                                             )}
-                                        </button>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center  ">
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_direct_sales || 0} |{" "}
+                                            {items?.direct_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_direct_sales >=
+                                                items?.direct_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center">
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_line_01_sales || 0} |{" "}
+                                            {items?.line_01_sales}
+                                        </span>
+                                        <span>
+                                            {items?.user_line_01_sales >=
+                                                items?.line_01_sales && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center">
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_line_02_sales || 0} |{" "}
+                                            {items?.line_02_sales}
+                                        </span>
+                                        <span>
+                                            {index != 0 &&
+                                                index != 1 &&
+                                                items?.user_line_02_sales >=
+                                                    items?.line_02_sales && (
+                                                    <FaCheckCircle className="praymary-color" />
+                                                )}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center">
+                                    <div className="d-flex align-items-center">
+                                        <span>
+                                            {items?.user_others_line || 0} |{" "}
+                                            {items?.others_line}
+                                        </span>
+                                        <span>
+                                            {items?.user_others_line >=
+                                                items?.others_line && (
+                                                <FaCheckCircle className="praymary-color" />
+                                            )}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td className="align-middle text-center">
+                                    <button
+                                        onClick={() => {
+                                            if (
+                                                items?.status === 0 ||
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                            ) {
+                                                handleClaimReward(items);
+                                            }
+                                        }}
+                                        className="add-to-cart-link affiliate-rank-btn text-capitalize"
+                                        style={{
+                                            background:
+                                                items?.status === 0
+                                                    ? "gray"
+                                                    : items?.status === 2
+                                                    ? "yellow"
+                                                    : items?.status === 3
+                                                    ? "#0089B9"
+                                                    : "",
+                                            color:
+                                                items?.status === 3
+                                                    ? "#fff"
+                                                    : items?.status === 4
+                                                    ? "#fff"
+                                                    : items?.status === 2
+                                                    ? "#000"
+                                                    : "",
+                                            cursor:
+                                                items?.status === 0 ||
+                                                items?.status === 1 ||
+                                                items?.status === 4
+                                                    ? "pointer"
+                                                    : "auto",
+                                        }}
+                                    >
+                                        {items?.status === 0 ? (
+                                            "Rank Not Achieved"
+                                        ) : items?.status === 1 ? (
+                                            "Claim Reward"
+                                        ) : items?.status === 2 ? (
+                                            "Reward Claimed"
+                                        ) : items?.status === 3 ? (
+                                            <strong>Claim Approved</strong>
+                                        ) : items?.status === 4 ? (
+                                            "Claim Reward"
+                                        ) : (
+                                            ""
+                                        )}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
-            {/* Mobile Table */}
-            <RankTableMobile
-                rankList={rankList}
-                lavelList={lavelList}
-                handleClaimReward={handleClaimReward}
-            />
             {selectedReward && (
                 <ClaimRewardModal
                     setStatusChange={setStatusChange}
