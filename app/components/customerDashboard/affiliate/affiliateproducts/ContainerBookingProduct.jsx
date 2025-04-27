@@ -36,6 +36,7 @@ const ContainerBookingProduct = ({
         let newQuantity = product.updateQuantity || product.min_quantity || 1;
 
         const addToCartInfo = {
+            container_id: containerId,
             product_id: product?.id,
             product_name: product?.product_name,
             regular_price: product?.pivot.mrp_price,
