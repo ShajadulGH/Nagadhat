@@ -19,7 +19,7 @@ const RankRewardList = ({
     const handleCloseModal = () => {
         setSelectedReward(null);
     };
-  
+
     return (
         <>
             <div className="table-responsive d-none d-md-block">
@@ -46,9 +46,12 @@ const RankRewardList = ({
                             <th scope="col" className="text-center">
                                 1st Sales Team
                             </th>
-                            <th scope="col" className="text-center">
-                                2nd Sales Team
-                            </th>
+                            {!(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                <th scope="col" className="text-center">
+                                    2nd Sales Team
+                                </th>
+                            )}
+
                             <th scope="col" className="text-center">
                                 Others Sales Team
                             </th>
@@ -118,29 +121,24 @@ const RankRewardList = ({
                                             </span>
                                         </div>
                                     </td>
-                                    <td className="align-middle text-center">
-                                        <div className="d-flex align-items-center justify-content-center">
-                                            <span>
-                                            {/* {
-                                                items?.next_target_rank?.is_line_02_sales_completed ? (<p className="text-success">Achieved</p>):(
+                                    {
+                                        !(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                            <td className="align-middle text-center">
+                                            <div className="d-flex align-items-center justify-content-center">
+                                                <span>
+                                                {
                                                     <>
                                                         {items?.next_target_rank?.user_next_line_02_sales}
                                                         {" "}|{" "}
                                                         {items?.next_target_rank?.next_target_line_02_sales }
                                                     </>
-                                                )
-                                            } */}
-
-                                            {
-                                                <>
-                                                    {items?.next_target_rank?.user_next_line_02_sales}
-                                                    {" "}|{" "}
-                                                    {items?.next_target_rank?.next_target_line_02_sales }
-                                                </>
-                                            }
-                                            </span>
-                                        </div>
-                                    </td>
+                                                }
+                                                </span>
+                                            </div>
+                                        </td>
+                                        )
+                                    }
+                                    
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <span>

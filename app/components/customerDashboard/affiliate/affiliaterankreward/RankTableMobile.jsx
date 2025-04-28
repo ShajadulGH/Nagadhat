@@ -26,52 +26,31 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                 <div className="col-6 mb-2">
                                     <strong>Personal Sales:</strong><br />
                                     {
-                                        items?.next_target_rank?.id > 4 ? (0) : items?.next_target_rank?.is_personal_sales_completed ? 
-                                        (<p className="text-success">Achieved</p>) : (
-                                            <>
-                                                {items?.next_target_rank?.user_next_personal_sales || 0} ||
-                                                {items?.next_target_rank?.next_target_personal_sales || 0}
-                                            </>
-                                        )
+                                        `${items.id > 3 ? 0 : (rank?.user_next_personal_sales || 0)} | ${rank?.next_target_personal_sales || 0}`
                                     }
                                 </div>
                             )} */}
-
+                            
                             <div className="col-6 mb-2">
                                 <strong>1st Sales Team:</strong><br />
-                                {/* {rank?.is_line_01_sales_completed ? (
-                                    <span className="text-success">Achieved</span>
-                                ) : (
-                                    `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
-                                )} */}
-
                                 {
                                     `${rank?.user_next_line_01_sales} | ${rank?.next_target_line_01_sales}`
                                 }
                             </div>
+                            {
+                                !(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                    <div className="col-6 mb-2">
+                                        <strong>2nd Sales Team:</strong><br />
+                                        {
+                                            `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
+                                        }
+                                    </div>
+                                )
+                            }
+                            
 
                             <div className="col-6 mb-2">
-                                <strong>2nd Sales Team:</strong><br />
-                                {/* {rank?.is_line_02_sales_completed ? (
-                                    <span className="text-success">Achieved</span>
-                                ) : (
-                                    `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
-                                )} */}
-
-                                {
-                                    `${rank?.user_next_line_02_sales} | ${rank?.next_target_line_02_sales}`
-                                }
-
-                            </div>
-
-                            <div className="col-6 mb-2">
-                                <strong>Others Sales Team:</strong><br />
-                                {/* {rank?.is_others_line_completed ? (
-                                    <span className="text-success">Achieved</span>
-                                ) : (
-                                    `${rank?.user_next_others_line} | ${rank?.next_target_others_line}`
-                                )} */}
-
+                                <strong>3rd Sales Team:</strong><br />
                                 {
                                     `${rank?.user_next_others_line} | ${rank?.next_target_others_line}`
                                 }

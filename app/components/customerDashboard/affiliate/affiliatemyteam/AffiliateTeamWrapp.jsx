@@ -51,26 +51,17 @@ const AffiliateTeamWrapp = () => {
                             searchParams
                         );
                         setTeamResultDat(affiliateTeam?.results);
-                        const otherTotalMembers =
-                            affiliateTeam?.results?.all_other_total_members || 0;
-                        const affiliateTeamData =
-                            affiliateTeam?.results?.myTeam || {};
-                        const allMemberCount =
-                            affiliateTeam?.results?.total_members || 0;
+                        const otherTotalMembers =  affiliateTeam?.results?.all_other_total_members || 0;
+                        const affiliateTeamData = affiliateTeam?.results?.myTeam || {};
+                        const allMemberCount = affiliateTeam?.results?.total_members || 0;
                         const grandTotal = affiliateTeam?.results;
                         setOtherTotalMembers(otherTotalMembers);
                         setTeamGrandTotal(grandTotal);
                         setTotalMember(allMemberCount);
                         setTeamData(affiliateTeamData);
-                        setFirstHighestTeam(
-                            affiliateTeamData?.data?.first_highest_team || {}
-                        );
-                        setSecondHighestTeam(
-                            affiliateTeamData?.data?.second_highest_team || {}
-                        );
-                        setOtherTeam(
-                            affiliateTeamData?.data?.other_teams || []
-                        );
+                        setFirstHighestTeam( affiliateTeamData?.data?.first_highest_team || {} );
+                        setSecondHighestTeam( affiliateTeamData?.data?.second_highest_team || {} );
+                        setOtherTeam( affiliateTeamData?.data?.other_teams || [] );
                         setLastPage(affiliateTeamData?.last_page || 1);
                     });
                 } catch (error) {

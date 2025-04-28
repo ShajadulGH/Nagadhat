@@ -5,7 +5,7 @@ import RankRewardList from "./RankRewardList";
 import RankRewardTop from "./RankRewardTop";
 import { useSession } from "next-auth/react";
 import { getRanks } from "@/app/services/rankreward/getRanks";
-import { getAffiliateHomeDashboard } from "@/app/services/affiliate/getAffiliateHomeDashboard";
+// import { getAffiliateHomeDashboard } from "@/app/services/affiliate/getAffiliateHomeDashboard";
 import NoDataFound from "@/app/components/NoDataFound";
 import LodingFixed from "@/app/components/LodingFixed";
 
