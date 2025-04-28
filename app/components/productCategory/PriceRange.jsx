@@ -41,6 +41,7 @@ const PriceRange = ({
                     max={parseInt(categoryTotalMaxPrice)}
                     value={value}
                     onInput={handleInputChange}
+                    rangeSlideDisabled
                 />
                 <div className="product-category-rang-info d-flex align-items-center justify-content-between">
                     <div className="product-category-rang-value">

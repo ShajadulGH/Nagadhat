@@ -86,7 +86,7 @@
 
 /*Start custom input type rang css */
 .product-category-range-area .range-slider {
-    height: 5px;
+    height: 3px;
 }
 
 .product-category-range-area .range-slider .range-slider__range {
@@ -94,9 +94,11 @@
 }
 
 .product-category-range-area .range-slider .range-slider__thumb {
-    background: #44bc9d;
-    width: 14px;
-    height: 14px;
+    background: #ffffff;
+    outline:2px solid #44bc9d ;
+  
+    width: 15px;
+    height: 15px;
 }
 
 /*End custom input type rang css */
