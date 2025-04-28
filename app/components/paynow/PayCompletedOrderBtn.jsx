@@ -58,7 +58,7 @@ const PayCompletedOrderBtn = ({
     return (
         <>
             <button
-                className="add-to-cart-link border-0 text-capitalize"
+                className="add-to-cart-link border-0 text-capitalize rounded-2"
                 onClick={handleSubmit}
                 style={{
                     pointerEvents:

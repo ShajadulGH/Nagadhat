@@ -3,7 +3,9 @@
 import { getManageNomineeInfo } from "@/app/services/getManageNomineeInfo";
 import { getSyncManageNomineeInfo } from "@/app/services/getSyncManageNomineeInfo";
 import { postManageNomineeInfo } from "@/app/services/postManageNomineeInfo";
+import { NagadhatPublicUrl } from "@/app/utils";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState, useTransition } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { toast } from "react-toastify";
@@ -15,6 +17,7 @@ const ManageNomineeInfo = () => {
         nominee_mobile_number: "",
         nominee_nid: "",
         nominee_relation: "",
+        nominee_picture: "",
     });
     const { data: session, status } = useSession();
 
@@ -25,13 +28,16 @@ const ManageNomineeInfo = () => {
                     session?.accessToken
                 );
                 const nomineeResult = nomineeData?.results || {};
+                console.log("nomineeResult", nomineeResult);
+                
                 setNomineInfo({
                     ...nomineInfo,
-                    nominee_name: nomineeResult.nominee_name || "",
+                    nominee_name: nomineeResult?.nominee_name || "",
                     nominee_mobile_number:
-                        nomineeResult.nominee_mobile_number || "",
-                    nominee_nid: nomineeResult.nominee_nid || "",
-                    nominee_relation: nomineeResult.nominee_relation || "",
+                        nomineeResult?.nominee_mobile_number || "",
+                    nominee_nid: nomineeResult?.nominee_nid || "",
+                    nominee_relation: nomineeResult?.nominee_relation || "",
+                    nominee_picture: nomineeResult?.nominee_picture || "",
                 });
             };
             fetchNomineeData();
@@ -45,15 +51,27 @@ const ManageNomineeInfo = () => {
             [name]: value,
         }));
     };
+    // function to handle file input change
+    const handleFileChange = (event) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setNomineInfo((prevData) => ({
+                ...prevData,
+                nominee_picture: event.target.files[0],
+            }));
+        } else {
+            toast.error("No file selected. Please choose a valid image file.");
+        }
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         // Check for  fields
         if (
-            !nomineInfo.nominee_name ||
-            !nomineInfo.nominee_mobile_number ||
-            !nomineInfo.nominee_nid ||
-            !nomineInfo.nominee_relation
+            !nomineInfo?.nominee_name ||
+            !nomineInfo?.nominee_mobile_number ||
+            !nomineInfo?.nominee_nid ||
+            !nomineInfo?.nominee_relation ||
+            !nomineInfo?.nominee_picture
         ) {
             toast.error("Please fill out all  fields.");
             return;
@@ -100,10 +118,10 @@ const ManageNomineeInfo = () => {
                 const nomineeResult = nomineeData?.results || {};
                 setNomineInfo({
                     ...nomineInfo,
-                    nominee_name: nomineeResult.nominee_name || "",
-                    nominee_mobile_number: nomineeResult.nominee_mobile_number || "",
-                    nominee_nid: nomineeResult.nominee_nid || "",
-                    nominee_relation: nomineeResult.nominee_relation || "",
+                    nominee_name: nomineeResult?.nominee_name || "",
+                    nominee_mobile_number: nomineeResult?.nominee_mobile_number || "",
+                    nominee_nid: nomineeResult?.nominee_nid || "",
+                    nominee_relation: nomineeResult?.nominee_relation || "",
                 });
                 toast.success(nomineeData?.message || "Nominee info synced successfully");
             });
@@ -112,6 +130,7 @@ const ManageNomineeInfo = () => {
             console.error("Error fetching nominee info:", error);
         }
     }
+
     return (
         <div className="accordion-item border-0 mb-4 rounded">
             <h2 className="accordion-header">
@@ -212,8 +231,39 @@ const ManageNomineeInfo = () => {
                                 />
                             </div>
                             <div className="">
+                                {nomineInfo.nominee_picture && (
+                                    <div className="mb-3">
+                                        <Image
+                                            src={nomineInfo?.nominee_picture ? `${NagadhatPublicUrl}/${nomineInfo.nominee_picture}` : '/images/placeholder--image.jpg'}
+                                            width={120}
+                                            height={100}
+                                            alt="nominee picture"
+                                            className=" img-fluid rounded"
+                                        />
+                                    </div>
+                                )}
+    
+                                <div className="mb-3">
+                                    <label
+                                        htmlFor="nominee_picture"
+                                        className="form-label"
+                                    >
+                                       Nominee Image
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="file"
+                                        id="nominee_picture"
+                                        accept="image/*"
+                                        name="nominee_picture"
+                                        // capture
+                                        onChange={handleFileChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="">
                                 <button
-                                    className="add-to-cart-link border-0 mx-auto"
+                                    className="add-to-cart-link border-0 mx-auto rounded-2"
                                     type="submit"
                                     disabled={isPending}
                                     style={{
