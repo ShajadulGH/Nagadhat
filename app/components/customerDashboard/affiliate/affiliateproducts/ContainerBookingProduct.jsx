@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { addToCartProduct } from "@/app/services/postAddToCartAfterLogin";
 import { useSession } from "next-auth/react";
+import { FaCartPlus, FaE, FaEye } from "react-icons/fa6";
 
 const ContainerBookingProduct = ({
     containerProduct,
@@ -103,23 +104,20 @@ const ContainerBookingProduct = ({
                         <div
                             key={product?.id}
                             className="flash-sale-content-item col"
-                            onClick={() => handleSelectProduct(product)}
+                            // onClick={() => handleSelectProduct(product)}
                         >
                             <div
                                 className={`flash-sale-content-bg nh-hover-box-shadow ${selectedProducts.some((p) => p.product_id === product.id) ? "selected-container-item" : ""}`}
                             >
                                 <div
                                     className="image-hover-effect mx-auto mb-2"
-                                    style={{
-                                        position: "relative",
-                                        aspectRatio: "1/1"
-                                    }}
+                                    style={{ position: "relative", aspectRatio: "1/1" }}
                                 >
                                     <Image
                                         height={200}
                                         width={200}
                                         src={product?.product_thumbnail ? `${NagadhatPublicUrl}/${product?.product_thumbnail}` : `/images/placeholder--image.jpg`}
-                                        className="img-fluid mx-auto"
+                                        className="img-fluid mx-auto rounded-top-3 overflow-hidden"
                                         alt={product?.product_name}
                                         style={{ objectFit: "cover", aspectRatio: "1/1" }}
                                     />
@@ -128,20 +126,33 @@ const ContainerBookingProduct = ({
                                     <h4>{product.product_name}</h4>
                                     <div className="d-flex pb-3 justify-content-between align-items-center">
                                         <span className="fs-6 fw-bold" style={{ color: "#1a9d78" }} >
-                                            ট {""} {product?.pivot?.trade_price}
+                                            ট {product?.pivot?.trade_price}
                                         </span>
                                         <del className="fs-6 fw-bold" style={{ color: "#6c757d" }} >
-                                            ট {""} {product?.pivot?.mrp_price}
+                                            ট {product?.pivot?.mrp_price}
                                         </del>
                                     </div>
+                                    <div className="d-flex align-items-center gap-2 w-100 justify-content-between">
                                     <div className="add-to-cart-btn">
                                         <Link
                                             href={`/container-product-details/${product?.id}/${containerId}/${tab}`}
-                                            className="add-to-cart-link "
+                                            className="add-to-cart-link rounded px-4"
                                             onClick={handleLinkClick} // Stop event propagation
                                         >
-                                            View Details
+                                            <FaEye className="me-1" />
                                         </Link>
+                                    </div>
+                                    <div className="add-to-cart-btn">
+                                        <button
+                                            type="button"
+                                            // className={`add-to-cart-link ${selectedProducts.some((p) => p.product_id === product.id) ? "selected-container-item" : ""}`}
+                                            className="add-to-cart-link rounded border-0 px-4"
+                                            onClick={() => handleSelectProduct(product)}
+                                        >
+                                            <FaCartPlus className="me-1" />
+                                            {/* {selectedProducts.some((p) => p.product_id === product.id) ? "Added" : "Add to Cart"} */}
+                                        </button>
+                                    </div>
                                     </div>
                                 </div>
                             </div>

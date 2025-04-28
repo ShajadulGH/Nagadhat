@@ -85,7 +85,7 @@ section.flash-sale-area.removepadding-x {
     padding-bottom: 7px;
     background: var(--color-44BC9D);
     color: var(--color-white);
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     transition: all 0.2s linear;
     display: flex;
