@@ -1,20 +1,41 @@
+import { NagadhatPublicUrl } from "@/app/utils";
+import Image from "next/image";
+
 const SaleOnNagadhatTop = ({ saleOnNagadhatData }) => {
     return (
         <>
-            <div className=" text-center px-0 px-lg-5 py-2 mb-4 ">
-                <h1 className="mb-4 bg-success d-inline-block text-white px-4 py-2 fs-4 font-width-medium rounded-4 ">
-                    রিসেল/পুনঃবিক্রয় চুক্তি
-                </h1>
-                <p className="fs-6">
-                    এই চুক্তিটি অদ্য
-                    <strong>
-                        {" "}
-                        {saleOnNagadhatData?.agreement_date || "N/A"}{" "}
-                    </strong>
-                    ইং তারিখে নিম্নের দুই পক্ষের মধ্যে ঢাকায় সম্পাদিত হচ্ছে।
-                </p>
+            <div className="px-0 px-lg-5 py-2 mb-4 ">
+                <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+                    <div className="text-lg-center text-center">
+                        <h1 className="mb-4 text-center bg-success d-inline-block text-white px-4 py-2 fs-4 font-width-medium rounded-4 ">
+                            রিসেল/পুনঃবিক্রয় চুক্তি
+                        </h1>
+                        <p className="fs-6">
+                            এই চুক্তিটি অদ্য
+                            <strong>
+                                {" "}
+                                {saleOnNagadhatData?.agreement_date || "N/A"}{" "}
+                            </strong>
+                            ইং তারিখে নিম্নের দুই পক্ষের মধ্যে ঢাকায় সম্পাদিত হচ্ছে।
+                        </p>
+                    </div>
+                    <div className="">
+                        <Image
+                            src={
+                                saleOnNagadhatData?.profile_picture
+                                  ? `${NagadhatPublicUrl}/${saleOnNagadhatData?.profile_picture}`
+                                  : "/images/placeholder--image.jpg"
+                              }
+                            alt="user profile"
+                            width={150}
+                            height={120}
+                            className="rounded-4 border border-2 border-success shadow"
+                            style={{ objectFit: "scale-down" }}
+                        />
+                    </div>
+                </div>
             </div>
-            <div className="pb-4">
+            <div className="pb-4 ">
                 <p className="fs-6 lh-lg">
                     <strong className="bg-success px-3 text-white py-2 rounded-2 me-2">
                         প্রথম পক্ষঃ

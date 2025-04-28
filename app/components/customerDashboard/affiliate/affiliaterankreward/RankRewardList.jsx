@@ -35,13 +35,12 @@ const RankRewardList = ({
                             <th scope="col" className="text-center">
                                 Title
                             </th>
-                            {/* {(lavelList.includes("Executive") ||
-                                lavelList.includes("Senior Executive") ||
-                                lavelList.includes("Area Manager")) && (
+                            {(lavelList.includes("Executive") ||
+                                lavelList.includes("Senior Executive") ) && (
                                 <th scope="col" className="text-center">
                                     Personal Sales
                                 </th>
-                            )} */}
+                            )}
 
                             <th scope="col" className="text-center">
                                 1st Sales Team
@@ -75,17 +74,15 @@ const RankRewardList = ({
                                     <td className="align-middle text-center">
                                         {items?.next_target_rank?.level}
                                     </td>
-                                    {/* {(lavelList.includes("Executive") ||
+                                    {(lavelList.includes("Executive") ||
                                         lavelList.includes(
                                             "Senior Executive"
-                                        ) ||
-                                        lavelList.includes("Area Manager")) && (
+                                        ) ) && (
                                         <td className="align-middle text-center  ">
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>
                                                     {
-                                                        items?.next_target_rank?.id > 4 ? (0) : items?.next_target_rank?.is_personal_sales_completed ? 
-                                                        (<p className="text-success">Achieved</p>) : (
+                                                        items?.next_target_rank?.id > 3 ? (0) : (
                                                             <>
                                                                 {items?.next_target_rank?.user_next_personal_sales || 0} ||
                                                                 {items?.next_target_rank?.next_target_personal_sales || 0}
@@ -96,7 +93,7 @@ const RankRewardList = ({
                                                 </span>
                                             </div>
                                         </td>
-                                    )} */}
+                                    )}
 
                                     <td className="align-middle text-center">
                                         <div className="d-flex align-items-center justify-content-center">
@@ -167,7 +164,7 @@ const RankRewardList = ({
                                             onClick={() => {
                                                 if (
                                                     items?.next_target_rank?.status === 0 ||
-                                                    items?.next_target_rank.status === 1 ||
+                                                    items?.next_target_rank?.status === 1 ||
                                                     items?.next_target_rank?.status === 4
                                                 ) {
                                                     handleClaimReward(items);
@@ -177,7 +174,7 @@ const RankRewardList = ({
                                             style={{
                                                 background:
                                                     items?.next_target_rank?.status === 0? "gray"
-                                                    : items?.next_target_rank.status === 2 ? "yellow"
+                                                    : items?.next_target_rank?.status === 2 ? "yellow"
                                                     : items?.next_target_rank?.status === 3 ? "#0089B9"
                                                     : "",
                                                 color:
@@ -198,7 +195,7 @@ const RankRewardList = ({
                                                 "Claim Reward"
                                             ) : items?.next_target_rank?.status === 2 ? (
                                                 "Reward Claimed"
-                                            ) : items?.next_target_rank.status === 3 ? (
+                                            ) : items?.next_target_rank?.status === 3 ? (
                                                 <strong>Claim Approved</strong>
                                             ) : items?.next_target_rank?.status === 4 ? (
                                                 "Claim Reward"

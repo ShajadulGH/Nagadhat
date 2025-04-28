@@ -48,10 +48,10 @@ const SellOnNagadhatHistory = ({ sellOnData = [] }) => {
                                     {item?.package_invoice || "---"}
                                 </td>
                                 <td className="align-middle text-center">
-                                    {item?.duration || "---"}
+                                    {item?.duration ? `${item?.duration} Month` : "---"}
                                 </td>
                                 <td className="align-middle text-center">
-                                    {item?.completed_months || "---"}
+                                    {item?.completed_months ? `${item?.completed_months} Month` : "---"}
                                 </td>
                                 <td className="align-middle">
                                     ৳ {item?.order_value || "---"}

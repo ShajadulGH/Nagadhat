@@ -20,16 +20,15 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                         </div>
 
                         <div className="row">
-                            {/* {(lavelList.includes("Executive") ||
-                                lavelList.includes("Senior Executive") ||
-                                lavelList.includes("Area Manager")) && (
+                            {(lavelList.includes("Executive") ||
+                                lavelList.includes("Senior Executive") ) && (
                                 <div className="col-6 mb-2">
                                     <strong>Personal Sales:</strong><br />
                                     {
                                         `${items.id > 3 ? 0 : (rank?.user_next_personal_sales || 0)} | ${rank?.next_target_personal_sales || 0}`
                                     }
                                 </div>
-                            )} */}
+                            )}
                             
                             <div className="col-6 mb-2">
                                 <strong>1st Sales Team:</strong><br />
