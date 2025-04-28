@@ -1,3 +1,6 @@
+import { NagadhatPublicUrl } from "@/app/utils";
+import Image from "next/image";
+
 const SaleOnNagadhatBottom = ({ saleOnNagadhatData }) => {
     return (
         <>
@@ -49,38 +52,56 @@ const SaleOnNagadhatBottom = ({ saleOnNagadhatData }) => {
                     উল্লেখিত মনোনয়ন যে কোন সময় বাতিল বা পরিবর্তনের অধিকার
                     সংরক্ষন করি।
                 </p>
-                <div className="w-50 py-4 ">
-                    <div className="d-flex pb-1">
-                        <div className="col fs-6">নমিনির নাম</div>
-                        <div className="col fs-6">
-                            <strong>
-                                {saleOnNagadhatData?.nominee_name || "N/A"}
-                            </strong>
+                <div className="py-4 d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3">
+                    <div className="w-100 w-lg-50 d-flex justify-content-center justify-content-lg-start align-items-center">
+                        <div className="w-100">
+                            <div className="d-flex pb-1">
+                                <div className="col fs-6">নমিনির নাম</div>
+                                <div className="col fs-6">
+                                    <strong>
+                                        {saleOnNagadhatData?.nominee_name || "N/A"}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div className="d-flex pb-1">
+                                <div className="col fs-6">জাতিয় পরিচয় পত্র নম্বর</div>
+                                <div className="col fs-6">
+                                    <strong>
+                                        {saleOnNagadhatData?.nominee_nid || "N/A"}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div className="d-flex pb-1">
+                                <div className="col fs-6">মোবাইল নম্বর</div>
+                                <div className="col fs-6">
+                                    <strong>
+                                        {saleOnNagadhatData?.nominee_phone || "N/A"}
+                                    </strong>
+                                </div>
+                            </div>
+                            <div className="d-flex pb-1">
+                                <div className="col fs-6">হিসাবধারীর সাথে সম্পর্ক</div>
+                                <div className="col fs-6">
+                                    <strong>
+                                        {saleOnNagadhatData?.nominee_relation || "N/A"}
+                                    </strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="d-flex pb-1">
-                        <div className="col fs-6">জাতিয় পরিচয় পত্র নম্বর</div>
-                        <div className="col fs-6">
-                            <strong>
-                                {saleOnNagadhatData?.nominee_nid || "N/A"}
-                            </strong>
-                        </div>
-                    </div>
-                    <div className="d-flex pb-1">
-                        <div className="col fs-6">মোবাইল নম্বর</div>
-                        <div className="col fs-6">
-                            <strong>
-                                {saleOnNagadhatData?.nominee_phone || "N/A"}
-                            </strong>
-                        </div>
-                    </div>
-                    <div className="d-flex pb-1">
-                        <div className="col fs-6">হিসাবধারীর সাথে সম্পর্ক</div>
-                        <div className="col fs-6">
-                            <strong>
-                                {saleOnNagadhatData?.nominee_relation || "N/A"}
-                            </strong>
-                        </div>
+                    <div className="w-100 w-lg-50 d-flex justify-content-center justify-content-lg-end align-items-center">
+                        <Image
+                            src={
+                                saleOnNagadhatData?.nominee_picture
+                                  ? `${NagadhatPublicUrl}/${saleOnNagadhatData?.nominee_picture}`
+                                  : "/images/placeholder--image.jpg"
+                              }
+                            alt="user profile"
+                            width={150}
+                            height={120}
+                            className="rounded-4 border border-2 border-success shadow"
+                            style={{ objectFit: "scale-down" }}
+                        />
                     </div>
                 </div>
                 <h5 className="fs-6 fw-semibold ">

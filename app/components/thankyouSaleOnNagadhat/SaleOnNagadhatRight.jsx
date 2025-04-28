@@ -60,7 +60,7 @@ const SaleOnNagadhatRight = ({ responseData }) => {
                                             <tr>
                                                 <td>{responseData?.duration} Time</td>
                                                 <td>৳{" "}{responseData?.monthly_bonus.toFixed(2)}</td>
-                                                <td>{responseData?.quantity}</td>
+                                                <td>{responseData?.product_quantity}</td>
                                             </tr>
                                         </tbody>
                                     </table>
