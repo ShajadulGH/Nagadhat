@@ -26,13 +26,13 @@ const CategoryLeftSide = ({
         <aside className="product-category-left-Side d-none d-xl-block">
             <div className="category-left-Side-info">
                 {subCategoryData?.length > 0 && (
-                    <>
+                    <div className="category-box">
                         <CategorySectionTitle title={`Sub Categories`} />
                         <SubCategoryList subCategoryData={allSubCategories} />
-                    </>
+                    </div>
                 )}
                 {shouldShowPriceRange && (
-                    <>
+                    <div className="category-box">
                         <CategorySectionTitle title={`Price Range`} />
                         <PriceRange
                             categoryByMinPrice={categoryByMinPrice}
@@ -41,18 +41,18 @@ const CategoryLeftSide = ({
                             categoryTotalMaxPrice={categoryTotalMaxPrice}
                             searchParams={searchParams}
                         />
-                    </>
+                    </div>
                 )}
 
                 {categoryByBrand?.length > 0 && (
-                    <>
+                    <div className="category-box">
                         <CategorySectionTitle title={`Brand`} />
                         <CategoryVariant
                             variantData={brandData}
                             type="brand"
                             searchParams={searchParams}
                         />
-                    </>
+                    </div>
                 )}
                 {categoryByColor?.length > 0 && (
                     <>

@@ -23,11 +23,11 @@
 
 /********************** Start product-category-left-Side *******************/
 .category-left-section-title h2 {
-    font-size: 24px;
-    font-weight: 400;
+    font-size: 20px;
+    font-weight: 600;
     margin-bottom: 10px;
+    color: black;
 }
-
 .category-left-section-title {
     border-bottom: 1px solid var(--color-D6D6D6);
     margin-bottom: 20px;
@@ -61,7 +61,7 @@
 }
 
 .product-sub-category-area ul::-webkit-scrollbar-track {
-    background: var(--color-FFEEEE);
+    background: #e2fff8;
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
@@ -70,7 +70,7 @@
     -webkit-border-radius: 10px;
     border-radius: 10px;
     background: transparent;
-    border-top: 60px solid var(--color-646464);
+    border-top: 60px solid #44bc9d;
     cursor: pointer;
 }
 
@@ -95,8 +95,8 @@
 
 .product-category-range-area .range-slider .range-slider__thumb {
     background: #ffffff;
-    outline:2px solid #44bc9d ;
-  
+    outline: 2px solid #44bc9d;
+
     width: 15px;
     height: 15px;
 }
@@ -365,3 +365,41 @@
 }
 
 /****************** End product-category-pagination-row  *****************/
+/* product category boxes */
+.category-box {
+    border: 2px solid rgb(221, 221, 221);
+    background-color: rgb(253, 253, 253);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+.category-left-Side-info {
+    color: black;
+}
+.product-sub-category-area ul li a {
+    color: black;
+}
+/* brand scrollbar */
+.your-scroll-container {
+    height: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.your-scroll-container::-webkit-scrollbar {
+    width: 5px;
+    height: 100%;
+}
+
+.your-scroll-container::-webkit-scrollbar-track {
+    background: #d6fff5;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.your-scroll-container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: transparent;
+    border-top: 60px solid #44bc9d;
+    cursor: pointer;
+}

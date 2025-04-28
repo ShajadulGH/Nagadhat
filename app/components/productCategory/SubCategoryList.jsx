@@ -3,9 +3,10 @@ import SubCategoryListItems from "./SubCategoryListItems";
 const SubCategoryList = ({ subCategoryData }) => {
     return (
         <div
-            className={`product-sub-category-area sub-category-pb40 ${
+            className={`product-sub-category-area sub-category-pb40   ${
                 subCategoryData?.length >= 10 ? "sub-category-fixed-height" : ""
             }`}
+           
         >
             <ul>
                 {Array.isArray(subCategoryData) &&

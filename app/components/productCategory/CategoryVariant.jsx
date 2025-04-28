@@ -18,7 +18,7 @@ const CategoryVariant = ({
     // };
 
     return (
-        <div className="product-brand-category-area sub-category-pb40 overflow-y-auto" style={{maxHeight: "400px", scrollbarWidth: "thin"}}>
+        <div className="product-brand-category-area sub-category-pb40 your-scroll-container" style={{maxHeight: "400px"}}>
             <div className="product-brand-category-list">
                 {variantData
                     // .slice(startIndex, startIndex + itemsPerPage)
