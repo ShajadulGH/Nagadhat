@@ -57,7 +57,7 @@ const ProductQuickView = ({ item, modalId }) => {
         >
             <div className="modal-dialog modal-dialog-centered modal-lg">
                 <div className="modal-content">
-                    <div className="modal-body" style={{ minHeight: "600px" }}>
+                    <div className="modal-body" style={{ minHeight: "600px",margin:"1rem"}}>
                         <div
                             data-bs-dismiss="modal"
                             className="close-icon position-absolute"
