@@ -40,6 +40,7 @@ function ProductSlider({ productGallery, productInfo }) {
                                     src={`${NagadhatPublicUrl}/${sliderItem.path}`}
                                     zoomSrc={`${NagadhatPublicUrl}/${sliderItem.path}`}
                                     zoomType="hover"
+                                    zoomScale={2} 
                                     zoomPreload={true}
                                     alt="product gallery banner image"
                                     className="img-fluid object-fit-cover"
@@ -66,6 +67,7 @@ function ProductSlider({ productGallery, productInfo }) {
                                 src={image}
                                 zoomSrc={image}
                                 zoomType="hover"
+                                zoomScale={2} 
                                 zoomPreload={true}
                                 alt="product gallery banner image"
                                 className="img-fluid object-fit-cover"

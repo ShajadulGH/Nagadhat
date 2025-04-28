@@ -12,7 +12,7 @@
 }
 
 .product-details-info-img img {
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 10px;
 }
 
