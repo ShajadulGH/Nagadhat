@@ -47,7 +47,6 @@ const ProductQuickView = ({ item, modalId }) => {
         };
     }, [modalId, slug, outlet_id]);
 
-
     return (
         <div
             className="modal fade"
@@ -57,7 +56,10 @@ const ProductQuickView = ({ item, modalId }) => {
         >
             <div className="modal-dialog modal-dialog-centered modal-lg">
                 <div className="modal-content">
-                    <div className="modal-body" style={{ minHeight: "600px",margin:"1rem"}}>
+                    <div
+                        className="modal-body"
+                        style={{ minHeight: "600px", margin: "1rem" }}
+                    >
                         <div
                             data-bs-dismiss="modal"
                             className="close-icon position-absolute"
@@ -88,11 +90,7 @@ const ProductQuickView = ({ item, modalId }) => {
                         )}
 
                         {!loading && productDetails && (
-                            <ProductQuickDetails
-                                productInfo={productDetails}
-                              
-                               
-                            />
+                            <ProductQuickDetails productInfo={productDetails} />
                         )}
                     </div>
                 </div>
