@@ -33,10 +33,6 @@ function ProductSlider({ productGallery, productInfo }) {
                     productGallery?.map((sliderItem) => (
                         <div
                             className="product-details-info-photo"
-                            style={{
-                                width: "350px",
-                                height: "400px",
-                            }}
                             key={sliderItem.id}
                         >
                             <div className="product-details-info-img">
@@ -59,13 +55,7 @@ function ProductSlider({ productGallery, productInfo }) {
                     ))
                 ) : (
                     <div className="product-details-info-photo">
-                        <div
-                            className="product-details-info-img"
-                            style={{
-                                width: "350px",
-                                height: "400px",
-                            }}
-                        >
+                        <div className="product-details-info-img">
                             {/* <Image
                                 src={image}
                                 layout="fill"
@@ -77,7 +67,6 @@ function ProductSlider({ productGallery, productInfo }) {
                                 zoomSrc={image}
                                 zoomType="hover"
                                 zoomPreload={true}
-                                layout="fill"
                                 alt="product gallery banner image"
                                 className="img-fluid object-fit-cover"
                             />
