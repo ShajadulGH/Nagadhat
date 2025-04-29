@@ -104,7 +104,7 @@ const RecentViewProduc = () => {
                                     <Slider {...settings}>
                                         {recentViewProductList.map((product) => (
                                             <div key={product.id} className="px-1 px-md-2">
-                                                <ProductCard key={product.id} item={product} />
+                                                <ProductCard key={product.id} item={product} showQuickView={false}/>
                                             </div>
                                         ))}
                                     </Slider>

@@ -8,7 +8,7 @@ import img from "@/public/images/placeholder--image.jpg";
 import { FaEye } from "react-icons/fa";
 import ProductQuickView from "./ProductQuickView";
 
-function ProductCard({ item }) {
+function ProductCard({ item,showQuickView=true }) {
     console.log("item", item);
     const image = item.product_thumbnail
         ? `${NagadhatPublicUrl}/${item.product_thumbnail}`
@@ -87,8 +87,7 @@ function ProductCard({ item }) {
                         <Image src={image} alt={title} fill={true} />
 
                         {/* Quick View Button */}
-
-                        <FaEye
+{showQuickView &&   <FaEye
                             data-bs-toggle="modal"
                             data-bs-target={`#${modalId}`}
                             data-toggle="tooltip"
@@ -98,10 +97,9 @@ function ProductCard({ item }) {
                             size={35}
                             onClick={(e) => {
                                 e.preventDefault();
-                                // Add your quick view logic here
-                                console.log("Quick View clicked for:", title);
                             }}
-                        />
+                        />}
+                      
                     </div>
 
                     <div className="flash-sale-content-info text-hover-effect">
