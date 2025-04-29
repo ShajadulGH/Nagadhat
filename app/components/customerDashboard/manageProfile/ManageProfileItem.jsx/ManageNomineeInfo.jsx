@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 
 const ManageNomineeInfo = () => {
     const [isPending, startTransition] = useTransition();
+    const [reRenderNomineeInfo, setReRenderNomineeInfo] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
     const [nomineInfo, setNomineInfo] = useState({
         nominee_name: "",
         nominee_mobile_number: "",
@@ -22,27 +24,27 @@ const ManageNomineeInfo = () => {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (status === "authenticated") {
+        if (status === "authenticated" && session?.accessToken) {
             const fetchNomineeData = async () => {
-                const nomineeData = await getManageNomineeInfo(
-                    session?.accessToken
-                );
-                const nomineeResult = nomineeData?.results || {};
-                console.log("nomineeResult", nomineeResult);
-                
-                setNomineInfo({
-                    ...nomineInfo,
-                    nominee_name: nomineeResult?.nominee_name || "",
-                    nominee_mobile_number:
-                        nomineeResult?.nominee_mobile_number || "",
-                    nominee_nid: nomineeResult?.nominee_nid || "",
-                    nominee_relation: nomineeResult?.nominee_relation || "",
-                    nominee_picture: nomineeResult?.nominee_picture || "",
-                });
+                try {
+                    const nomineeData = await getManageNomineeInfo(session?.accessToken);
+                    const nomineeResult = nomineeData?.results || {};
+
+                    setNomineInfo(prev => ({
+                        ...prev,
+                        nominee_name: nomineeResult.nominee_name || "",
+                        nominee_mobile_number: nomineeResult.nominee_mobile_number || "",
+                        nominee_nid: nomineeResult.nominee_nid || "",
+                        nominee_relation: nomineeResult.nominee_relation || "",
+                        nominee_picture: nomineeResult.nominee_picture || "",
+                    }));
+                } catch (error) {
+                    console.error("Error fetching nominee info:", error);
+                }
             };
             fetchNomineeData();
         }
-    }, [session.accessToken]);
+    }, [session?.accessToken, reRenderNomineeInfo]);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -53,6 +55,12 @@ const ManageNomineeInfo = () => {
     };
     // function to handle file input change
     const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setSelectedImage(URL.createObjectURL(file));
+        }else {
+            setSelectedImage(null);
+        }
         if (event.target.files && event.target.files.length > 0) {
             setNomineInfo((prevData) => ({
                 ...prevData,
@@ -89,6 +97,7 @@ const ManageNomineeInfo = () => {
                 );
                 if (!response?.error) {
                     toast.success(response?.message);
+                    setReRenderNomineeInfo(prev => !prev);
                 } else {
                     console.error("Update failed:", response);
                     toast.error(
@@ -231,18 +240,24 @@ const ManageNomineeInfo = () => {
                                 />
                             </div>
                             <div className="">
-                                {nomineInfo.nominee_picture && (
+                                {(selectedImage || nomineInfo.nominee_picture) && (
                                     <div className="mb-3">
                                         <Image
-                                            src={nomineInfo?.nominee_picture ? `${NagadhatPublicUrl}/${nomineInfo.nominee_picture}` : '/images/placeholder--image.jpg'}
-                                            width={120}
-                                            height={100}
+                                            src={
+                                                selectedImage
+                                                  ? selectedImage
+                                                  : nomineInfo?.nominee_picture
+                                                  ? `${NagadhatPublicUrl}/${nomineInfo.nominee_picture}`
+                                                  : '/images/placeholder--image.jpg'
+                                              }
+                                            width={80}
+                                            height={80}
                                             alt="nominee picture"
-                                            className=" img-fluid rounded"
+                                            className=" img-fluid rounded-circle "
+                                            style={{ objectFit: "cover", aspectRatio: "1/1" }}
                                         />
                                     </div>
                                 )}
-    
                                 <div className="mb-3">
                                     <label
                                         htmlFor="nominee_picture"
@@ -267,7 +282,7 @@ const ManageNomineeInfo = () => {
                                     type="submit"
                                     disabled={isPending}
                                     style={{
-                                        cursosEvents: isPending
+                                        pointerEvents: isPending
                                             ? "none"
                                             : "pointer",
                                         opacity: isPending ? "0.5" : "1",
