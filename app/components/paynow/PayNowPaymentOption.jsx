@@ -51,26 +51,42 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
         { id: "sslcommerz", src: "/images/sslcommerz.png", alt: "SSLCommerz" },
         
     ];
-
-    //filteredPaymentOptions order_product_type !== "1"
-
-    const filteredPaymentOptions =
-        orderSummary?.order_product_type !== "1"
-            ? paymentOptions
-                  .map((option) =>
-                      option.id === "Cash On Delivery"
-                          ? {
-                                id: "Cash On Delivery",
-                                src: "/images/Pay-Later.png",
-                                alt: "Pay later",
-                            }
-                          : option
-                  )
-                  .filter(
-                      (option) =>
-                          option.id !== "bkash" && option.id !== "sslcommerz"
-                  )
-            : paymentOptions;
+    // const paymentOptions 
+    const filteredPaymentOptions = (() => {
+        if (orderSummary?.order_product_type === "3") {
+            return paymentOptions
+                .map((option) =>
+                    option.id === "Cash On Delivery"
+                        ? {
+                            id: "Cash On Delivery",
+                            src: "/images/Pay-Later.png",
+                            alt: "Pay later",
+                        }
+                        : option
+                )
+                .filter((option) =>
+                    ["With Agent", "With Bank", "Cash On Delivery"].includes(option.id)
+                );
+        }
+    
+        if (orderSummary?.order_product_type !== "1") {
+            return paymentOptions
+                .map((option) =>
+                    option.id === "Cash On Delivery"
+                        ? {
+                            id: "Cash On Delivery",
+                            src: "/images/Pay-Later.png",
+                            alt: "Pay later",
+                        }
+                        : option
+                )
+                .filter(
+                    (option) => option.id !== "sslcommerz"
+                );
+        }
+        return paymentOptions;
+    })();
+    
 
     const handleOptionClick = (optionId) => {
         // if (!isTermsChecked) {
@@ -111,7 +127,7 @@ const PayNowPaymentOption = ({ orderSummary, isPending }) => {
                         <div className="pay-now-payment-option-title">
                             <h1>Select a payment option</h1>
                         </div>
-                        <div className="pay-now-payment-option-img">
+                        <div className="pay-now-payment-option-img pt-5">
                             {filteredPaymentOptions.map((option) => (
                                 <div
                                     key={option.id}

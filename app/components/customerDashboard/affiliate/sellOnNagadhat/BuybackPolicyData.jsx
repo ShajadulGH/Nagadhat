@@ -10,31 +10,31 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                         <table className="table table-striped table-hover table-bordered border-secondary">
                             <tbody>
                                 <tr>
-                                    <td>Invoice</td>
+                                    <th>Invoice</th>
                                     <td>{saleOnDetails?.order_invoice}</td>
                                 </tr>
                                 <tr>
-                                    <td>Referance No.</td>
+                                    <th>Referance No.</th>
                                     <td>{saleOnDetails?.package_invoice}</td>
                                 </tr>
                                 <tr>
-                                    <td>Duration:</td>
-                                    <td>{saleOnDetails?.duration}</td>
+                                    <th>Duration:</th>
+                                    <td>{saleOnDetails?.duration ? `${saleOnDetails?.duration} Month` :0}</td>
                                 </tr>
                                 <tr>
-                                    <td>Completed:</td>
-                                    <td>{saleOnDetails?.completed_months}</td>
+                                    <th>Completed:</th>
+                                    <td>{saleOnDetails?.completed_months ? `${saleOnDetails?.completed_months} Month` : "0 Month"}</td>
                                 </tr>
                                 <tr>
-                                    <td>Remaining:</td>
-                                    <td>{saleOnDetails?.remaining_months}</td>
+                                    <th>Remaining:</th>
+                                    <td>{saleOnDetails?.remaining_months} Month</td>
                                 </tr>
                                 <tr>
-                                    <td>Date of activation:</td>
+                                    <th>Date of activation:</th>
                                     <td>{saleOnDetails?.start_date}</td>
                                 </tr>
                                 <tr>
-                                    <td>Date of completion:</td>
+                                    <th>Date of completion:</th>
                                     <td>{saleOnDetails?.end_date}</td>
                                 </tr>
                             </tbody>
@@ -46,11 +46,11 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                         <table className="table table-striped table-hover table-bordered border-secondary">
                             <tbody>
                                 <tr>
-                                    <td>Status</td>
+                                    <th>Status</th>
                                     <td>
                                         {saleOnDetails?.status === 1 ? (
-                                            <span className="text-primary">
-                                                Active
+                                            <span className="text-success">
+                                                Sell On Nagadhat
                                             </span>
                                         ) : saleOnDetails?.status === 2 ? (
                                             <span className="text-success">
@@ -68,15 +68,15 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Order Value:</td>
+                                    <th>Order Value:</th>
                                     <td>৳ {saleOnDetails?.order_value}</td>
                                 </tr>
                                 <tr>
-                                    <td>MRP Value:</td>
+                                    <th>MRP Value:</th>
                                     <td>৳ {saleOnDetails?.mrp_value}</td>
                                 </tr>
                                 <tr>
-                                    <td>Instalment:</td>
+                                    <th>No of Instalment:</th>
                                     <td>
                                         {saleOnDetails?.is_instalment === 1 ? (
                                             <>
@@ -93,17 +93,17 @@ const BuybackPolicyData = ({ saleOnDetails }) => {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Monthly Return:</td>
+                                    <th>Monthly Return:</th>
                                     <td>৳ {saleOnDetails?.monthly_bonus.toFixed(2)}</td>
                                 </tr>
                                 <tr>
-                                    <td>Total Returned:</td>
+                                    <th>Total Returned:</th>
                                     <td>৳ {saleOnDetails?.total_given}</td>
                                 </tr>
                                 <tr>
-                                    <td className="text-success">
+                                    <th className="text-success">
                                         Next bonus on:
-                                    </td>
+                                    </th>
                                     <td className="text-success">
                                         {saleOnDetails?.status === 3 ? (
                                             <span className="text-info">

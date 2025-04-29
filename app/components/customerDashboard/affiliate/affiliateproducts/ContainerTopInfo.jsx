@@ -3,6 +3,7 @@ import moment from "moment";
 const ContainerTopInfo = ({ containerData }) => {
     const {
         id,
+        container_name,
         container_value,
         quantity,
         opening_time,
@@ -24,9 +25,9 @@ const ContainerTopInfo = ({ containerData }) => {
                     <table>
                         <tbody>
                             <tr>
-                                <td>Container Number</td>
+                                <td>Container Name</td>
                                 <td className="px-5">:</td>
-                                <td className="text-end">{id}</td>
+                                <td className="text-end">{container_name}</td>
                             </tr>
                             <tr>
                                 <td>Container Value</td>
@@ -43,7 +44,7 @@ const ContainerTopInfo = ({ containerData }) => {
                                             className="text-end d-flex gap-2 flex-wrap "
                                         >
                                             <span
-                                                className="px-2 w-100 text-white"
+                                                className="px-2 w-100 text-white rounded text-center"
                                                 style={{
                                                     background: "#44bc9d",
                                                 }}
