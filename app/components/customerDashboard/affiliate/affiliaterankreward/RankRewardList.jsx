@@ -45,7 +45,7 @@ const RankRewardList = ({
                             <th scope="col" className="text-center">
                                 1st Sales Team
                             </th>
-                            {!(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                            {!lavelList.every(level => level === "Executive" || level === "Senior Executive") && (
                                 <th scope="col" className="text-center">
                                     2nd Sales Team
                                 </th>
@@ -84,7 +84,7 @@ const RankRewardList = ({
                                                     {
                                                         items?.next_target_rank?.id > 3 ? (0) : (
                                                             <>
-                                                                {items?.next_target_rank?.user_next_personal_sales || 0} ||
+                                                                {items?.next_target_rank?.user_next_personal_sales || 0} | {""}
                                                                 {items?.next_target_rank?.next_target_personal_sales || 0}
                                                             </>
                                                         )
@@ -119,7 +119,7 @@ const RankRewardList = ({
                                         </div>
                                     </td>
                                     {
-                                        !(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                        !lavelList.every(level => level === "Executive" || level === "Senior Executive") && (
                                             <td className="align-middle text-center">
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>
