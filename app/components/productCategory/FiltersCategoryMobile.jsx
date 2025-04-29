@@ -58,7 +58,7 @@ const FiltersCategoryMobile = ({
                             <FaBangladeshiTakaSign className="praymary-color" title={`Price Range`} /> Price
                         </p>
                         {activeDropdown === "priceRange" && (
-                            <div className="dropdown-content">
+                            <div className="dropdown-content dropdown-price-range">
                                 <PriceRange
                                     categoryByMinPrice={categoryByMinPrice}
                                     categoryByMaxPrice={categoryByMaxPrice}
