@@ -37,7 +37,7 @@ const RankTableMobile = ({ rankList = [], lavelList = [], handleClaimReward }) =
                                 }
                             </div>
                             {
-                                !(lavelList.includes('Executive') || lavelList.includes('Senior Executive')) && (
+                                !lavelList.every(level => level === "Executive" || level === "Senior Executive") && (
                                     <div className="col-6 mb-2">
                                         <strong>2nd Sales Team:</strong><br />
                                         {
