@@ -10,10 +10,10 @@ const LodingFixed = () => {
                 zIndex: "5",
             }}
         >
-                <div class="backdrop">
-            <div class="bar-loader">
-                <div class="bar"></div>
-            </div>
+            <div class="backdrop">
+                <div class="bar-loader">
+                    <div class="bar"></div>
+                </div>
             </div>
         </div>
     );

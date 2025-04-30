@@ -1,40 +1,39 @@
-/* New Loader */
 .backdrop {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(207, 207, 207, 0.5); /* semi-transparent black */
+    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-  }
-    .bar-loader {
-      width: 200px;
-      height: 5px;
-      background-color: #ffffff;
-      overflow: hidden;
-      position: relative;
-      margin: 100px auto;
-    }
+}
+.bar-loader {
+    width: 200px;
+    height: 7px;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: relative;
+    margin: 100px auto;
+}
 
-    .bar {
-      width: 50%;
-      height: 100%;
-      background-color: #44bc9d;
-      border-radius: 5px;
-      position: absolute;
-      left: -50%;
-      animation: slide 1s linear infinite;
-    }
+.bar {
+    width: 50%;
+    height: 100%;
+    background-color: #44bc9d;
+    border-radius: 5px;
+    position: absolute;
+    left: -50%;
+    animation: slide 0.7s linear infinite;
+}
 
-    @keyframes slide {
-      0% {
+@keyframes slide {
+    0% {
         left: -50%;
-      }
-      100% {
-        left: 100%;
-      }
     }
+    100% {
+        left: 100%;
+    }
+}

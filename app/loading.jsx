@@ -6,12 +6,11 @@ const loading = () => {
             <div className="row justify-content-center">
                 <div className="col-md-12">
                     <div className="nh-loading-content vh-100 d-flex justify-content-center align-items-center ">
-                    <div class="backdrop">
-                        <div class="bar-loader">
-                            <div class="bar"></div>
+                        <div class="backdrop">
+                            <div class="bar-loader">
+                                <div class="bar"></div>
+                            </div>
                         </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
