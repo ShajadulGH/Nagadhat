@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { FaArrowDownShortWide, FaBangladeshiTakaSign, FaFilter, FaList, FaTag } from "react-icons/fa6";
+import {
+    FaArrowDownShortWide,
+    FaBangladeshiTakaSign,
+    FaFilter,
+    FaList,
+    FaTag,
+} from "react-icons/fa6";
 import { IoMdColorPalette } from "react-icons/io";
 import SubCategoryList from "./SubCategoryList";
 import PriceRange from "./PriceRange";
@@ -24,13 +30,12 @@ const FiltersCategoryMobile = ({
     };
 
     const handleOutsideClick = (e) => {
-        e.stopPropagation()
+        e.stopPropagation();
         if (!e.target.closest(".dropdown-container")) {
             setActiveDropdown(null);
-            e.stopPropagation()
+            e.stopPropagation();
         }
     };
-
     // Add event listener for clicks outside the dropdowns
     useEffect(() => {
         document.addEventListener("click", handleOutsideClick);
@@ -43,11 +48,17 @@ const FiltersCategoryMobile = ({
                 {allSubCategories?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("subCategory")}>
-                            <FaList className="praymary-color" title="Sub Categories"/> Subcategory
+                            <FaList
+                                className="praymary-color"
+                                title="Sub Categories"
+                            />{" "}
+                            Subcategory
                         </p>
                         {activeDropdown === "subCategory" && (
                             <div className="dropdown-content">
-                                <SubCategoryList subCategoryData={allSubCategories} />
+                                <SubCategoryList
+                                    subCategoryData={allSubCategories}
+                                />
                             </div>
                         )}
                     </div>
@@ -55,15 +66,23 @@ const FiltersCategoryMobile = ({
                 {categoryByMinPrice && categoryByMaxPrice && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("priceRange")}>
-                            <FaBangladeshiTakaSign className="praymary-color" title={`Price Range`} /> Price
+                            <FaBangladeshiTakaSign
+                                className="praymary-color"
+                                title={`Price Range`}
+                            />{" "}
+                            Price
                         </p>
                         {activeDropdown === "priceRange" && (
                             <div className="dropdown-content dropdown-price-range">
                                 <PriceRange
                                     categoryByMinPrice={categoryByMinPrice}
                                     categoryByMaxPrice={categoryByMaxPrice}
-                                    categoryTotalMinPrice={categoryTotalMinPrice}
-                                    categoryTotalMaxPrice={categoryTotalMaxPrice}
+                                    categoryTotalMinPrice={
+                                        categoryTotalMinPrice
+                                    }
+                                    categoryTotalMaxPrice={
+                                        categoryTotalMaxPrice
+                                    }
                                     searchParams={searchParams}
                                 />
                             </div>
@@ -73,7 +92,8 @@ const FiltersCategoryMobile = ({
                 {categoryByBrand?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("brand")}>
-                            <FaTag className="praymary-color" title={`Brand`} /> Brand
+                            <FaTag className="praymary-color" title={`Brand`} />{" "}
+                            Brand
                         </p>
                         {activeDropdown === "brand" && (
                             <div className="dropdown-content end-0">
@@ -89,7 +109,11 @@ const FiltersCategoryMobile = ({
                 {categoryByColor?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("color")}>
-                            <IoMdColorPalette className="praymary-color" title={`Color`} /> Color
+                            <IoMdColorPalette
+                                className="praymary-color"
+                                title={`Color`}
+                            />{" "}
+                            Color
                         </p>
                         {activeDropdown === "color" && (
                             <div className="dropdown-content end-0">
@@ -104,7 +128,11 @@ const FiltersCategoryMobile = ({
                 {categoryBySize?.length > 0 && (
                     <div className="dropdown-container">
                         <p onClick={() => handleToggle("size")}>
-                            <FaArrowDownShortWide className="praymary-color" title={`Size`} /> Size
+                            <FaArrowDownShortWide
+                                className="praymary-color"
+                                title={`Size`}
+                            />{" "}
+                            Size
                         </p>
                         {activeDropdown === "size" && (
                             <div className="dropdown-content end-0">
