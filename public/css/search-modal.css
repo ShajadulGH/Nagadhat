@@ -1,4 +1,3 @@
-
 .product-search-modal-area {
     position: absolute;
     left: 0;
@@ -9,39 +8,24 @@
 .product-search-modal-content {
     background: var(--color-white);
     margin: 0 auto;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    border-radius: 10px;
-}
-.search-modal-title {
-    background: var(--color-D8D8D8);
-    padding: 4px 15px;
-    display: flex;
-    justify-content: flex-end;
-}
-.search-modal-title:first-child {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-.search-modal-title h4 {
-    font-size: 14px;
-    font-weight: 400;
-    margin: 0;
-    text-transform: capitalize;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    border-radius: 5px;
 }
 .search-modal-info ul li {
     padding: 4px 20px;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
 }
 .search-modal-info ul li a {
     display: block;
     line-height: normal;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 10px;
 }
-.search-modal-info ul li:hover {
-    background: var(--color-414042);
+.search-modal-info ul li a:hover{
+    box-shadow: rgb(169,223,207) 0px 5px 15px;
 }
-.search-modal-info ul li:hover a {
-    color: var(--color-white);
-}
+
 .search-modal-info-img {
     width: 60px;
     height: 60px;
@@ -53,15 +37,7 @@
 .similer-search-product-list {
     padding-bottom: 15px;
 }
-.search-modal-info .similer-search-product-list li {
-    padding-left: 10px;
-}
-.similer-search-product-list li:hover {
-    background: transparent !important;
-}
-.similer-search-product-list li:hover a {
-    color: inherit !important;
-}
+
 .similer-search-product-list strong {
     color: var(--color-1A9D78);
     font-weight: 700;
